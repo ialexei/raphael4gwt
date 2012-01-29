@@ -163,7 +163,10 @@ public static String quotePath(String path) {
 		}
 		return m;
 	}
+	public static int randomBetween(int Min, int Max) {
+		return Min + (int)(Math.random() * ((Max - Min) + 1));
 
+	}
 //	public static boolean isWindows() {
 //		return File.separator.equals("\\");
 //	}

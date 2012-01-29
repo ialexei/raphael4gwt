@@ -1,6 +1,7 @@
 package org.sgx.raphael4gwt.raphael;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.dom.client.Element;
 
 public class Paper extends JavaScriptObject {
 	
@@ -41,6 +42,36 @@ public class Paper extends JavaScriptObject {
 	public final native Shape top()/*-{
 		this.top;
 	}-*/;
+	
+	public final native Element getCanvasElement()/*-{
+		return this.canvas;
+	}-*/;
+	/**
+	 * Clears the paper, i.e. removes all the elements. 
+	 */
+	public final native void clear()/*-{
+		this.clear();
+	}-*/;
+
+
+	public final native Rect rect(int x, int y, int w, int h)/*-{
+//		alert(this.canvas);
+		return this.rect(x, y, w, h);
+	}-*/;
+	/**
+	 * Draws a rectangle. 
+	 * @param x x coordinate of the top left corner
+	 * @param y y coordinate of the top left corner
+	 * @param w width
+	 * @param h height
+	 * @param r radius for rounded corners, default is 0
+	 * @return a new Rect shape.
+	 */
+	public final native Rect rect(int x, int y, int w, int h, int r) /*-{
+		return this.rect(x, y, w, h, r);
+	}-*/;
+
+
 	
 	/* *** SETS *** */
 //	/**

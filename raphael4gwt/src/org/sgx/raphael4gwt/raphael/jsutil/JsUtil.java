@@ -5,14 +5,15 @@ import java.util.Map;
 import org.sgx.raphael4gwt.raphael.util.Util;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayString;
 
 public class JsUtil {
-	public static native <T> T get(JavaScriptObject o, String p)/*-{
+	public static native <T> T get(JavaScriptObject o, Object p)/*-{
 	//	$wnd.alert("in prop "+o+" - "+p+" - "+o.getAttribute(p));
 		return o[p];
 	}-*/;
-	public static native Object put(JavaScriptObject o, String pname, Object val)/*-{
+	public static native Object put(JavaScriptObject o, Object pname, Object val)/*-{
 	//	$wnd.alert("in prop "+o+" - "+p+" - "+o.getAttribute(p));
 		o[pname]=val;
 	}-*/;
@@ -46,6 +47,13 @@ public class JsUtil {
 		arr.push(o);
 		return arr;
 	}-*/;
+//	public static JsArray<JavaScriptObject> toArray(JavaScriptObject ...objs) {
+//		JsArray<JavaScriptObject> a = (JsArray<JavaScriptObject>) JsArray.createArray();
+//		for (int i = 0; i < objs.length; i++) {
+//			a.push(objs[i]);
+//		}
+//		return a;
+//	}
 
 	
 	

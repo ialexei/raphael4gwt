@@ -21,6 +21,7 @@ boolean fill;
 double opacity;
 int offsetX, offsetY;
 String color;
+public Glow(){this(10, false, 0.5, 0, 0, "black");}
 public Glow(int width, boolean fill, double opacity, int offsetX, int offsetY,
 		String color) {
 	super();

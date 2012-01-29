@@ -86,6 +86,9 @@ return $wnd.Raphael.getColor();
 public static native RGB getRGB(String v)/*-{
 	return $wnd.Raphael.getRGB(v);
 }-*/;
+public static native String rgb(int r, int g, int b)/*-{
+	return $wnd.Raphael.rgb(r,g,b);
+}-*/;
 public static native String hsv(int h, int s, int v)/*-{
 	return $wnd.Raphael.hsv(h, s, v);
 }-*/;

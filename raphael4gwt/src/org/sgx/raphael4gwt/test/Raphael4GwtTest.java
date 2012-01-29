@@ -14,6 +14,7 @@ import org.sgx.raphael4gwt.raphael.event.DDListener;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 import org.sgx.raphael4gwt.raphael.util.Util;
+import org.sgx.raphael4gwt.test.gallery.MainPanel;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.NativeEvent;
@@ -33,9 +34,23 @@ public class Raphael4GwtTest implements EntryPoint {
 //		test1();
 //		testPutPaperInPanel();
 //		testDD1();
-		testAnim1();
+//		testTest();
+		testMainPanel();
+//		testAnim1();
 	}
 	
+	private void testMainPanel() {
+		RootPanel.get().add(new MainPanel());
+	}
+
+	private void testTest() {
+		VerticalPanel vp = new VerticalPanel();
+		RootPanel.get().add(vp);
+		int pwidth = 500, pheight=500;
+		Paper paper = Raphael.paper(20, 20, pwidth, pheight);
+//		new CircleGlowingAndDraggin(paper, pwidth, pheight).test();
+		new EventRegisterAndUnregister(paper, pwidth, pheight).test();
+	}
 
 	private void testAnim1() {
 		VerticalPanel vp = new VerticalPanel();

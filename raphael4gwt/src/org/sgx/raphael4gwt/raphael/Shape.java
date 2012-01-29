@@ -125,11 +125,47 @@ console.log(el.transform());
 	
 	
 	/* *** EVENTS *** */
-	
+	/**
+	 * Adds event handler for mousedown for the element.
+	 * @param l
+	 * @return
+	 */
 	public final native Shape mouseDown(MouseEventListener l)/*-{ 
-		return this.mousedown(function(e) {
+		var f = $entry(function(e) {
 			l.@org.sgx.raphael4gwt.raphael.event.MouseEventListener::notifyMouseEvent(Lcom/google/gwt/dom/client/NativeEvent;)(e);
 		});
+		@org.sgx.raphael4gwt.raphael.event.EventHelper::putMouseEventListener(Lorg/sgx/raphael4gwt/raphael/event/MouseEventListener;Lcom/google/gwt/core/client/JavaScriptObject;)(l,f);
+		return this.mousedown(f);
+	}-*/;
+	/**
+	 * Removes event handler for mousedown for the element. 
+	 * @param l handler for the event
+	 * @return
+	 */
+	public final native Shape unmouseDown(MouseEventListener l)/*-{		
+		var f = @org.sgx.raphael4gwt.raphael.event.EventHelper::removeMouseEventListener(Lorg/sgx/raphael4gwt/raphael/event/MouseEventListener;)(l);
+		return this.unmousedown(f);
+	}-*/;
+	/**
+	 * Adds event handler for mousemove for the element.
+	 * @param l
+	 * @return
+	 */
+	public final native Shape mouseMove(MouseEventListener l)/*-{ 
+		var f = $entry(function(e) {
+			l.@org.sgx.raphael4gwt.raphael.event.MouseEventListener::notifyMouseEvent(Lcom/google/gwt/dom/client/NativeEvent;)(e);
+		});
+		@org.sgx.raphael4gwt.raphael.event.EventHelper::putMouseEventListener(Lorg/sgx/raphael4gwt/raphael/event/MouseEventListener;Lcom/google/gwt/core/client/JavaScriptObject;)(l,f);
+		return this.mousemove(f);
+	}-*/;
+	/**
+	 * Removes event handler for mousemove for the element. 
+	 * @param l handler for the event
+	 * @return
+	 */
+	public final native Shape unmouseMove(MouseEventListener l)/*-{		
+		var f = @org.sgx.raphael4gwt.raphael.event.EventHelper::removeMouseEventListener(Lorg/sgx/raphael4gwt/raphael/event/MouseEventListener;)(l);
+		return this.unmousemove(f);
 	}-*/;
 	/**
 	 * Adds event handler for click for the element. 
@@ -137,9 +173,20 @@ console.log(el.transform());
 	 * @return
 	 */
 	public final native Shape click(MouseEventListener l)/*-{ 
-		return this.click(function(e) {
+		var f = $entry(function(e) {
 			l.@org.sgx.raphael4gwt.raphael.event.MouseEventListener::notifyMouseEvent(Lcom/google/gwt/dom/client/NativeEvent;)(e);
 		});
+		@org.sgx.raphael4gwt.raphael.event.EventHelper::putMouseEventListener(Lorg/sgx/raphael4gwt/raphael/event/MouseEventListener;Lcom/google/gwt/core/client/JavaScriptObject;)(l,f);
+		return this.click(f);
+	}-*/;
+	/**
+	 * Removes event handler for click for the element. 
+	 * @param l handler for the event
+	 * @return
+	 */
+	public final native Shape unclick(MouseEventListener l)/*-{		
+		var f = @org.sgx.raphael4gwt.raphael.event.EventHelper::removeMouseEventListener(Lorg/sgx/raphael4gwt/raphael/event/MouseEventListener;)(l);
+		return this.unclick(f);
 	}-*/;
 	/**
 	 * Adds event handler for double click for the element. 
@@ -147,46 +194,72 @@ console.log(el.transform());
 	 * @return
 	 */
 	public final native Shape dblclick(MouseEventListener l)/*-{ 
-		return this.dblclick(function(e) {
+		return this.dblclick($entry(function(e) {
 			l.@org.sgx.raphael4gwt.raphael.event.MouseEventListener::notifyMouseEvent(Lcom/google/gwt/dom/client/NativeEvent;)(e);
-		});
+		}));
 	}-*/;
-	
+	/**
+	 * Removes event handler for double click for the element. 
+	 * @param l
+	 * @return
+	 */
+	public final native Shape undblclick(MouseEventListener l)/*-{ 
+		var f = @org.sgx.raphael4gwt.raphael.event.EventHelper::removeMouseEventListener(Lorg/sgx/raphael4gwt/raphael/event/MouseEventListener;)(l);
+		return this.undblclick(f);
+	}-*/;
 	/**
 	 * Adds event handler for double click for the element. 
 	 * @param l
 	 * @return
 	 */
 	public final native Shape drag(DDListener l)/*-{ 
-		var onstart = function(x, y, e) {
+		var onstart = $entry(function(x, y, e) {
 			l.@org.sgx.raphael4gwt.raphael.event.DDListener::onStart(IILcom/google/gwt/dom/client/NativeEvent;)(x, y, e);
-		};
-		var onend = function(e) {
+		});
+		var onend = $entry(function(e) {
 			l.@org.sgx.raphael4gwt.raphael.event.DDListener::onEnd(Lcom/google/gwt/dom/client/NativeEvent;)(e);
-		};
-		var onmove = function(dx, dy, x, y, e) {
+		});
+		var onmove = $entry(function(dx, dy, x, y, e) {
 			l.@org.sgx.raphael4gwt.raphael.event.DDListener::onMove(IIIILcom/google/gwt/dom/client/NativeEvent;)(dx, dy, x, y, e);
-		}
+		});
 		return this.drag(onmove, onstart, onend);
 	}-*/;
+	/**
+	 * Removes all drag event handlers from given element. 
+	 */
+	public final native void undrag()/*-{
+		this.undrag();
+	}-*/;
+
 	public final native Shape hover(HoverListener l)/*-{
-		var hoverIn = function(e) {
+		var hoverIn = $entry(function(e) {
 			l.@org.sgx.raphael4gwt.raphael.event.HoverListener::hoverIn(Lcom/google/gwt/dom/client/NativeEvent;)(e);
-		}; 
-		var hoverOut = function(e) {
+		}); 
+		var hoverOut = $entry(function(e) {
 			l.@org.sgx.raphael4gwt.raphael.event.HoverListener::hoverOut(Lcom/google/gwt/dom/client/NativeEvent;)(e);
-		};  
+		});  
+		@org.sgx.raphael4gwt.raphael.event.EventHelper::putHoverListener(Lorg/sgx/raphael4gwt/raphael/event/HoverListener;Lcom/google/gwt/core/client/JavaScriptObject;Lcom/google/gwt/core/client/JavaScriptObject;)(l, hoverIn, hoverOut);
 		return this.hover(hoverIn, hoverOut);		
 	}-*/;
+	/**
+	 * Removes event handlers for hover for the element. 
+	 * @param l
+	 * @return
+	 */
+	public final native Shape unhover(HoverListener l)/*-{
+		var funcs = @org.sgx.raphael4gwt.raphael.event.EventHelper::removeHoverListener(Lorg/sgx/raphael4gwt/raphael/event/HoverListener;)(l);
+		return this.unhover(funcs[0], funcs[1]);
+	}-*/;
+
 	/**
 	 * Shortcut for assigning event handler for drag.over.<id> event, where id is id of the element (see Element.id). 
 	 * @param l
 	 * @return
 	 */
 	public final native void onDragOver(DragOverListener l)/*-{
-		return this.onDragOver(function(src){
+		return this.onDragOver($entry(function(src){
 			l.@org.sgx.raphael4gwt.raphael.event.DragOverListener::dragOver(Lorg/sgx/raphael4gwt/raphael/Shape;)(src);
-		});
+		}));
 	}-*/;
 	
 	
@@ -212,7 +285,7 @@ console.log(el.transform());
 	 * Removes element form the paper. 
 	 */
 	public final native void remove()/*-{
-		return this.remove();
+		this.remove();
 	}-*/;
 	
 	public final native Element node()/*-{
@@ -242,7 +315,9 @@ console.log(el.transform());
 	public final native void setAttribute(String name, String value)/*-{
 		this.attr(name, value);
 	}-*/;
-	
+	public final native void setAttribute(String name, int value)/*-{
+		this.attr(name, value);
+	}-*/;
 	public final native String getAttribute(String name)/*-{
 		return this.attr(name)+"";
 	}-*/;

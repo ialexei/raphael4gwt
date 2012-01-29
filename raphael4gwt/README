@@ -1,0 +1,36 @@
+what is it?
+
+A gwt lightweight java API for raphaeljs (http://raphaeljs.com/). It uses gwt overly types for implementing zero overhear java API for raphaeljs.
+Based on raphaeljs 2.0. All raphaeljs features supported. Very straightforward java  API to raphael javascript API.
+
+
+how to use it?
+
+1) add the following in your project's gwt.xml file:
+<inherits name="org.sgx.raphael4gwt.Raphael4Gwt" />
+2) add the .jar to your gwt project's classpath
+3) you are ready to use it, from your entry point class:
+Paper paper = Raphael.paper(0, 0, 500, 500);
+Circle circle1 = paper.circle(250,250, 100);
+circle1.setAttribute("fill", "red");
+circle1.mouseDown(new MouseEventListener() {			
+	@Override
+	public void notifyMouseEvent(NativeEvent e) {
+		Window.alert("mouse clicked the circle at: "+e.getClientX()+", "+e.getClientY());
+	}
+});
+
+
+the objective is to provide the most direct java API to raphaeljs javascript API.
+Nevertheless, when javascript overloading methods is overused in javascript, 
+some API methods are renamed from original. For example, Element.attr function
+is Divided into Shap.setAttribute(s) and getAttribute(s). Also artificial classes like MouseEventListener and Attrs
+
+
+
+why another raphael gwt porting?
+
+I'm learning best practice for porting existing javascript toolkits to gwt.
+I didn't like some desitions of existing raphael porting to gwt http://code.google.com/p/raphaelgwt/
+for example, each figure seems to be a gwt widget. There is no way of registering event handlers directly 
+using raphaeljs API.  

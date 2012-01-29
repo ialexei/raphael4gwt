@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @author: sgurin -->
+<project name="raphael4gwt" default="javadocs">
+
+	<property file="build.properties"/>
+	<description>
+        make java doc of all this java project
+		@author: sgurin
+    </description>
+
+
+	<target name="jar" depends="">
+		<mkdir dir="dist"/>
+		<jar destfile="dist/rapahel4gwt-${rapahel4gwt.version}.jar" basedir="war/WEB-INF/classes">
+		</jar>
+	</target>
+	
+	<target name="clean" depends="">
+		<delete dir="dist"/>
+		<delete dir="javadoc"/>
+		<delete dir="gwt-unitCache"/>
+		<delete dir="war/WEB-INF/deploy"/>
+		<delete dir="war/org.sgx.raphael4gwt.Raphael4Gwt"/>
+		<delete dir="war/org.sgx.raphael4gwt.Raphael4GwtTest"/>		
+		<delete dir="www-test"/>
+	</target>
+		
+	<target name="javadocs" depends="" description="generates javadoc and also UML Diagram">
+				
+		<!-- first copy all source files from all source folders to a common source folder -->
+		<mkdir dir="${reports.dir}/src-all"/>
+		<copydir dest="${reports.dir}/src-all/org" src="${reports.dir}/src/org"></copydir>
+
+		<!-- do the javadoc -->
+		<mkdir dir="${reports.dir}/javadoc"/>
+		<javadoc sourcepath="${reports.dir}/src-all" packagenames="org.sgx.raphael4gwt.raphael.*" 
+			destdir="${reports.dir}/javadoc" private="true">
+			<doclet name="org.umlgraph.doclet.UmlGraphDoc" path="lib/UmlGraph.jar">
+				<param name="-attributes" />
+				<param name="-operations" />
+				<param name="-qualify" />
+				<param name="-types" />
+				<param name="-visibility" />
+			</doclet>
+		</javadoc>
+		<apply executable="dot" dest="${reports.dir}" parallel="false">
+			<arg value="-Tpng"/>
+			<arg value="-o"/>
+			<targetfile/>
+			<srcfile/>
+			<fileset dir="${reports.dir}" includes="*.dot"/>
+			<mapper type="glob" from="*.dot" to="*.png"/>
+		</apply>
+		<delete dir="src-all"/>
+		
+	</target>
+
+</project>

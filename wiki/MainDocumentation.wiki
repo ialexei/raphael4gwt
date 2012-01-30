@@ -42,23 +42,29 @@ operations with zero overhead.
 
 
 
-why another raphael gwt porting?
+=why another raphael gwt porting?=
 
-The project raphaelgwt, is a known raphael api for gwt. It is well integrated with GWT widgets for example
-each raphael shap like circles, rectangles, etc are gwt widgets. raphaelgwt uses gwt event system for manage 
-raphael shapes events.  
+The project raphaelgwt, is a known raphael java API for GWT. It is well integrated with GWT widgets, for example
+each raphael shap like circles, rectangles, etc are gwt widgets. raphaelgwt uses gwt event system for manage raphael shapes events and not raphaeljs native event system.
 
-This can be good because it allows that wraps the overlay with a more Java-friendly API that will operate side-by-side 
-with other GWT Widgets. raphaelgwt also has the class RaphaelJS. 
+This can be good because it allows that wraps the overlay with a more Java-friendly API that will operate side-by-side with other GWT Widgets. 
 
-raphael4gwt on the other side is focusing on a good native java api for raphaeljs.Basically the main objective is to provide a 100%
-java API implementation of raphael js api. Basically this means that, int your gwt applications you have to use raphael4gwt the as you 
+raphaelgwt also has the class RaphaelJS for doing raphael stuff natively. In gwt4raphael's author opinion, gwtraphael's RaphaelJS class 
+
+*  do not cover the 100% raphaeljs native stuff, for example there is no java api for raphaeljs native event (because events are managed only at GWT widget level).
+
+* is not a rich java api for raphael objects, It try to cover all shapes api with a single class (Raphaeljs)
+
+so in conclusion raphaelgwt is not a good native raphaeljs java API for gwt.
+
+raphael4gwt on the other focus on a good native java api for raphaeljs. Basically the main objective is to provide a 100%
+java API implementation of raphael javascript api. Basically this means that, int your gwt applications you have to use raphael4gwt the as you 
 would use raphaeljs natively. You create a raphael paper in some existing dom element, draw circles, text paths in that paper and 
-posible register some events handlers. There exists a simple PaperWidget, a gwt widget with a raphael paper inside. But raphaels circles, 
-rects, paths, etc won't be gwt Widgets as oposition to raphaelgwt. 
+posible register some events handlers. 
 
-in raphael4gwt, raphael shapes shapes events are not related at all with gwt widgets events. raphael4gwt uses gwt.client.dom classes for
-referencing html dom objects.
+in raphael4gwt There exists a simple PaperWidget, a gwt widget with a raphael paper inside. But raphaels circles, rects, paths, etc won't be gwt Widgets as oposition to raphaelgwt but native (overlay type) objects for no object wrapping overhead.
+
+in raphael4gwt, raphael shapes shapes events are not related at all with gwt widgets events. The only thing it is used from gwt api is gwt.client.dom classes for referencing html dom objects.
 
 Currently raphaelgwt is based on raphaeljs 1.x, while raphael4gwt is based on raphael 2.x.
 
@@ -72,17 +78,3 @@ Now I'm learning best practices for porting existing javascript toolkits to GWT 
 With this in mind, I developed raphael4gwt, enjoy it. Perhaps one day raphalegwt can adopt it for the 
 lower layers, or vice versa, migrate raphael4gwt code to raphaelgwt for getting the both things, a good 
 raphaeljs 2.0 java API (based on gwt overlay types) and good integration between raphael Shapes and GWT widgets. 
-
-
-
-= Introduction =
-
-Add your content here.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages

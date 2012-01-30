@@ -2,24 +2,26 @@ package org.sgx.raphael4gwt.test;
 
 import org.sgx.raphael4gwt.raphael.Circle;
 import org.sgx.raphael4gwt.raphael.Constants;
-import org.sgx.raphael4gwt.raphael.Glow;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Raphael;
 import org.sgx.raphael4gwt.raphael.Set;
 import org.sgx.raphael4gwt.raphael.Text;
 import org.sgx.raphael4gwt.raphael.base.Animation;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
+import org.sgx.raphael4gwt.raphael.base.Glow;
 import org.sgx.raphael4gwt.raphael.event.Callback;
 import org.sgx.raphael4gwt.raphael.event.DDListener;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 import org.sgx.raphael4gwt.raphael.util.Util;
 import org.sgx.raphael4gwt.test.gallery.MainPanel;
+import org.sgx.raphael4gwt.test.image.TestImageResources;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextArea;
@@ -37,8 +39,17 @@ public class Raphael4GwtTest implements EntryPoint {
 //		testTest();
 		testMainPanel();
 //		testAnim1();
+//		testImageBundle();
 	}
 	
+	private void testImageBundle() {
+System.out.println(TestImageResources.INSTANCE.smallLion().getSafeUri().asString());
+System.out.println(TestImageResources.INSTANCE.edit16().getSafeUri().asString());
+System.out.println(TestImageResources.INSTANCE.preferences().getSafeUri().asString());
+		Image img = new Image(TestImageResources.INSTANCE.smallLion());
+		RootPanel.get().add(img);
+	}
+
 	private void testMainPanel() {
 		RootPanel.get().add(new MainPanel());
 	}

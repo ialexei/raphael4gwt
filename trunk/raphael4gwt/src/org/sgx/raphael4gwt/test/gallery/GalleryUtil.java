@@ -4,14 +4,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.sgx.raphael4gwt.raphael.Paper;
+import org.sgx.raphael4gwt.test.AllPathIcons;
 import org.sgx.raphael4gwt.test.CircleGlowingAndDraggin;
+import org.sgx.raphael4gwt.test.DragAndSnap;
 import org.sgx.raphael4gwt.test.EventRegisterAndUnregister;
+import org.sgx.raphael4gwt.test.ImageSimpleTest;
 import org.sgx.raphael4gwt.test.Test;
 import org.sgx.raphael4gwt.test.util.GUIUtil;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FlowPanel;
 
 public class GalleryUtil {
 	
@@ -44,6 +48,7 @@ public void loadAllTest(Paper paper, int paperWidth, int paperHeight) {
 			@Override
 			public void onClick(ClickEvent event) {
 				currentTest=t;
+				t.getPaper().clear();
 				t.test();
 			}
 		});
@@ -57,6 +62,23 @@ public void loadAllTest(Paper paper, int paperWidth, int paperHeight) {
 
 	public Test getCurrentTest() {
 		return currentTest;
+	}
+
+	public void doAddAllGeneralTests(Paper paper, FlowPanel parentPanel, int w, int h) {
+		Button button = createButtonFor(new CircleGlowingAndDraggin(paper, w, h));
+		parentPanel.add(button);
+		
+		button = createButtonFor(new EventRegisterAndUnregister(paper, w, h));
+		parentPanel.add(button);
+			
+		button = createButtonFor(new DragAndSnap(paper, w, h));
+		parentPanel.add(button);
+		
+		button = createButtonFor(new ImageSimpleTest(paper, w, h));
+		parentPanel.add(button);
+		
+		button = createButtonFor(new AllPathIcons(paper, w, h));
+		parentPanel.add(button);
 	}
 
 }

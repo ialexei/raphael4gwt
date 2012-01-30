@@ -1,9 +1,9 @@
 package org.sgx.raphael4gwt.test;
 
-import org.sgx.raphael4gwt.raphael.Glow;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Rect;
 import org.sgx.raphael4gwt.raphael.Set;
+import org.sgx.raphael4gwt.raphael.base.Glow;
 import org.sgx.raphael4gwt.raphael.event.HoverListener;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 

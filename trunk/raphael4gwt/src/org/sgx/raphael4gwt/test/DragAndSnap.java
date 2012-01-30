@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.sgx.raphael4gwt.raphael.Circle;
 import org.sgx.raphael4gwt.raphael.Paper;
+import org.sgx.raphael4gwt.raphael.Raphael;
 import org.sgx.raphael4gwt.raphael.Set;
 import org.sgx.raphael4gwt.raphael.base.Glow;
 import org.sgx.raphael4gwt.raphael.event.DDListener;
@@ -13,21 +14,23 @@ import org.sgx.raphael4gwt.raphael.util.Util;
 
 import com.google.gwt.dom.client.NativeEvent;
 
-public class CircleGlowingAndDraggin extends Test{
+public class DragAndSnap extends Test{
 
 	private int paperAbsX;
 	private int paperAbsY;
 
-	public CircleGlowingAndDraggin(Paper paper, int paperWidth, int paperHeight) {
+	public DragAndSnap(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
-		this.name="Circles, Glowing and Dragging";
-		this.description="an example that show Circles, Glowing and Mouse Dragging";
+		this.name="Drag and snap to grid";
+		this.description="this example shows dragging of elements snaping to a 50px grid.";
 	}
 
 	@Override
 	public void test() {
-		int circleCount=20;
-		final Map<Circle, Set> glows = new HashMap<Circle, Set>();
+		int circleCount=10;
+		final int gridSize=70;
+		final int tolerance=26;
+		
 		for (int i = 0; i < circleCount; i++) {
 			final Circle c = paper.circle(Util.randomBetween(0, paperWidth), 
 					Util.randomBetween(0, paperHeight), Util.randomBetween(10, 80));
@@ -39,28 +42,18 @@ public class CircleGlowingAndDraggin extends Test{
 			paperAbsX = paper.getCanvasElement().getAbsoluteLeft();
 			paperAbsY = paper.getCanvasElement().getAbsoluteTop();
 			
-			//on circle hovering we want to glow the circle:
-			c.hover(new HoverListener() {				
-				@Override
-				public void hoverOut(NativeEvent e) {
-					glows.get(c).remove();
-				}				
-				@Override
-				public void hoverIn(NativeEvent e) {
-					Set glowSet = c.glow(glow);
-					glows.put(c, glowSet);
-				}
-			});
-			
-			//make the circle draggable:
+			//make the circle draggable:			
 			c.drag(new DDListener() {	
 				@Override
 				public void onStart(int x, int y, NativeEvent e) {					
 				}				
 				@Override
 				public void onMove(int dx, int dy, int x, int y, NativeEvent e) {
-					c.setAttribute("cx", x-paperAbsX);
-					c.setAttribute("cy", y-paperAbsY);
+					int absx=x-paperAbsX, absy=y-paperAbsY;
+					absx = Raphael.snapTo(gridSize, absx, tolerance);
+					absy = Raphael.snapTo(gridSize, absy, tolerance);
+					c.setAttribute("cx", absx);
+					c.setAttribute("cy", absy);
 				}
 				@Override
 				public void onEnd(NativeEvent e) {
@@ -68,6 +61,16 @@ public class CircleGlowingAndDraggin extends Test{
 			});
 			c.setAttribute("fill", randomColor());
 		}
+		
+		//draw a simple grid:
+		for(int i = 0; i<paperWidth; i+=gridSize) {
+			paper.rect(i, 0, 1, paperHeight);
+		}
+		for(int i = 0; i<paperHeight; i+=gridSize) {
+			paper.rect(0, i, paperWidth, 1);
+		}
+		
+		paper.text(200, 100, "these circles are draggable but in a grid of size "+gridSize+"px");
 	}
 
 	@Override

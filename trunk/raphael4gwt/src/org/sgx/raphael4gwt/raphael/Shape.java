@@ -2,6 +2,7 @@ package org.sgx.raphael4gwt.raphael;
 
 import org.sgx.raphael4gwt.raphael.base.Animation;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
+import org.sgx.raphael4gwt.raphael.base.Glow;
 import org.sgx.raphael4gwt.raphael.base.Rectangle;
 import org.sgx.raphael4gwt.raphael.event.DDListener;
 import org.sgx.raphael4gwt.raphael.event.DragOverListener;
@@ -40,7 +41,7 @@ public class Shape extends JavaScriptObject {
 	 * @return
 	 */
 	public final native Shape rotate(double deg, int cx, int cy)/*-{
-		return this.rotate(deg);
+		return this.rotate(deg, cx, cy);
 	}-*/;
 	/**
 	 * centre of the shape is used as a point of rotation. 
@@ -48,7 +49,7 @@ public class Shape extends JavaScriptObject {
 	 * @return
 	 */
 	public final native Shape rotate(double deg)/*-{
-		return this.rotate(deg, cx, cy);
+		return this.rotate(deg);
 	}-*/;
 	/**
 	 * Adds scale by given amount relative to given point to the list of transformations of the element. 
@@ -405,7 +406,7 @@ Note: Glow is not connected to the element. If you change element attributes it 
 //			return s+"}";
 //		};
 		
-		var g = glow.@org.sgx.raphael4gwt.raphael.Glow::getNative()();
+		var g = glow.@org.sgx.raphael4gwt.raphael.base.Glow::getNative()();
 //		$wnd.alert(dump(g));
 		return this.glow(g);
 		//return this.glow(glow);

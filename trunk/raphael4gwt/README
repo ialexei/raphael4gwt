@@ -24,13 +24,41 @@ circle1.mouseDown(new MouseEventListener() {
 the objective is to provide the most direct java API to raphaeljs javascript API.
 Nevertheless, when javascript overloading methods is overused in javascript, 
 some API methods are renamed from original. For example, Element.attr function
-is Divided into Shap.setAttribute(s) and getAttribute(s). Also artificial classes like MouseEventListener and Attrs
+is Divided into Shap.setAttribute(s) and getAttribute(s). 
+Also artificial classes like MouseEventListener and Attrs, but always performing critical 
+operations with zero overhead.
 
 
 
 why another raphael gwt porting?
 
-I'm learning best practice for porting existing javascript toolkits to gwt.
-I didn't like some desitions of existing raphael porting to gwt http://code.google.com/p/raphaelgwt/
-for example, each figure seems to be a gwt widget. There is no way of registering event handlers directly 
-using raphaeljs API.  
+
+
+The project raphaelgwt, is a known raphael api for gwt. It is well integrated with GWT widgets for example
+each raphael shap like circles, rectangles, etc are gwt widgets. raphaelgwt uses gwt event system for manage 
+raphael shapes events.  
+
+This can be good because it allows that wraps the overlay with a more Java-friendly API that will operate side-by-side 
+with other GWT Widgets. raphaelgwt also has the class RaphaelJS. 
+
+raphael4gwt on the other side is focusing on a good native java api for raphaeljs.Basically the main objective is to provide a 100%
+java API implementation of raphael js api. Basically this means that, int your gwt applications you have to use raphael4gwt the as you 
+would use raphaeljs natively. You create a raphael paper in some existing dom element, draw circles, text paths in that paper and 
+posible register some events handlers. There exists a simple PaperWidget, a gwt widget with a raphael paper inside. But raphaels circles, 
+rects, paths, etc won't be gwt Widgets as oposition to raphaelgwt. 
+
+in raphael4gwt, raphael shapes shapes events are not related at all with gwt widgets events. The only gwt api is used is gwt.client.dom classes for
+referencing html dom objects.
+
+Currently raphaelgwt is based on raphaeljs 1.x, while raphael4gwt is based on raphael 2.x.
+
+Also I already have experience developing a raphaeljs java API, but for java2script, a framework similar to GWT. 
+The project http://yui4java.sourceforge.net/ contains some java APIs for java2script of known javascript toolkits like yui 2 and 3, soundmanager, and raphaeljs.
+See for example a demonstration of my raphael java API for java2script (using also yui java API): 
+http://yui4java.sourceforge.net/yui/org.sgx.j2s.raphael.test.demo.Main.html
+
+Now I'm learning best practices for porting existing javascript toolkits to GWT instead java2script. 
+
+With this in mind, I developed raphael4gwt, enjoy it. Perhaps one day raphalegwt can adopt it for the 
+lower layers, or vice versa, migrate raphael4gwt code to raphaelgwt for getting the both things, a good 
+raphaeljs 2.0 java API (based on gwt overlay types) and good integration between raphael Shapes and GWT widgets. 

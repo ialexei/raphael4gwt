@@ -2,23 +2,22 @@ package org.sgx.raphael4gwt.test.gallery;
 
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.PaperWidget;
+import org.sgx.raphael4gwt.raphael.event.Callback;
+import org.sgx.raphael4gwt.raphael.event.PaperListener;
 import org.sgx.raphael4gwt.test.CircleGlowingAndDraggin;
+import org.sgx.raphael4gwt.test.DragAndSnap;
 import org.sgx.raphael4gwt.test.EventRegisterAndUnregister;
+import org.sgx.raphael4gwt.test.ImageSimpleTest;
 import org.sgx.raphael4gwt.test.util.GUIUtil;
 
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.dom.client.Style.Overflow;
-import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.dom.client.Style.BorderStyle;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HorizontalSplitPanel;
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HorizontalSplitPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class MainPanel extends VerticalPanel {
 	private static final int PAPER_WIDTH = 600;
@@ -55,7 +54,7 @@ public class MainPanel extends VerticalPanel {
 		Button showJavaButton = new Button("view java sources", new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
-				GUIUtil.showText(GalleryUtil.getInstance().getCurrentTest().getName()+"'s description: ", 
+				GUIUtil.showText(GalleryUtil.getInstance().getCurrentTest().getName()+"'s java class source code: ", 
 					GalleryUtil.getInstance().getCurrentTest().getJavaClassSource());				
 			}
 		});		
@@ -78,29 +77,37 @@ public class MainPanel extends VerticalPanel {
 		decoratedStackPanel.add(testGeneral, "General", false);
 		testGeneral.setSize("100%", "100%");
 				
-		testEvent = new FlowPanel();
-		decoratedStackPanel.add(testEvent, "Events", false);
-		testEvent.setSize("100%", "100%");		
+//		testEvent = new FlowPanel();
+//		decoratedStackPanel.add(testEvent, "Events", false);
+//		testEvent.setSize("100%", "100%");		
 		
-		paperWidget = new PaperWidget(PAPER_WIDTH, PAPER_HEIGHT, new Runnable() {
+		paperWidget = new PaperWidget(PAPER_WIDTH, PAPER_HEIGHT, new PaperListener() {
 			
 			@Override
-			public void run() {
-				paper = paperWidget.getPaper();
+			public void paperLoaded(Paper paper) {
+//				paper = paperWidget.getPaper();
 //				System.out.println("onload");
 //				paperWidget.getElement().getStyle().setOverflow(Overflow.SCROLL);
-				Button button = GalleryUtil.getInstance().createButtonFor(
-					new CircleGlowingAndDraggin(paperWidget.getPaper(), PAPER_WIDTH, PAPER_HEIGHT));//new circlegnew Button("New button");
-				testGeneral.add(button);
 				
-				button = GalleryUtil.getInstance().createButtonFor(
-						new EventRegisterAndUnregister(paper, PAPER_WIDTH, PAPER_HEIGHT));//new circlegnew Button("New button");
-					testGeneral.add(button);
-					
-				
+				GalleryUtil.getInstance().doAddAllGeneralTests(paperWidget.getPaper(), testGeneral, PAPER_WIDTH, PAPER_HEIGHT);
 			}
 		});
-
+		paperWidget.getElement().getStyle().setBorderStyle(BorderStyle.SOLID);
+		
+//		paperWidget = new PaperWidget(PAPER_WIDTH, PAPER_HEIGHT);
+//		paper = paperWidget.getPaper();
+//		Button button = GalleryUtil.getInstance().createButtonFor(
+//			new CircleGlowingAndDraggin(paperWidget.getPaper(), PAPER_WIDTH, PAPER_HEIGHT));//new circlegnew Button("New button");
+//		testGeneral.add(button);		
+//		button = GalleryUtil.getInstance().createButtonFor(
+//				new EventRegisterAndUnregister(paper, PAPER_WIDTH, PAPER_HEIGHT));//new circlegnew Button("New button");
+//		testGeneral.add(button);
+//			
+//		button = GalleryUtil.getInstance().createButtonFor(
+//				new DragAndSnap(paper, PAPER_WIDTH, PAPER_HEIGHT));//new circlegnew Button("New button");
+//		testGeneral.add(button);
+		
+		
 		horizontalSplitPanel.setRightWidget(paperWidget);
 //		paperWidget.loadRaphael(600,600);
 		paperWidget.setSize("100%", "100%");

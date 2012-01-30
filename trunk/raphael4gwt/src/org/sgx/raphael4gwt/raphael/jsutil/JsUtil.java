@@ -6,6 +6,7 @@ import org.sgx.raphael4gwt.raphael.util.Util;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.core.client.JsArrayNumber;
 import com.google.gwt.core.client.JsArrayString;
 
 public class JsUtil {
@@ -54,6 +55,13 @@ public class JsUtil {
 //		}
 //		return a;
 //	}
+	public static JsArrayNumber toJsArrayNumber(int[] a) {
+		JsArrayNumber jsa = (JsArrayNumber) JsArrayNumber.createArray();
+		for (int i = 0; i < a.length; i++) {
+			jsa.push(a[i]);
+		}
+		return jsa;
+	}
 
 	
 	

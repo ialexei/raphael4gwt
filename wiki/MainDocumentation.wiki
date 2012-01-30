@@ -8,6 +8,7 @@ A gwt lightweight java API for raphaeljs (http://raphaeljs.com/). It uses gwt ov
 Based on raphaeljs 2.0. All raphaeljs features supported. Very straightforward java  API to raphael javascript API.
 
 
+
 =How to use it?=
 
 1) add the following in your project's gwt.xml file:
@@ -18,8 +19,50 @@ Based on raphaeljs 2.0. All raphaeljs features supported. Very straightforward j
 
 2) add the .jar to your gwt project's classpath
 
-3) you are ready to use it, from your entry point class:
+3) you are ready to use it. The following are 3 GWT Entry point classes that show different ways of creating a raphael paper
 
+The first way of creating a raphael paper is using gwt.dom.client Classes for creating a html element and creating the raphael's paper using it:
+
+{{{
+
+package org.sgx.raphael4gwt.test;
+
+import org.sgx.raphael4gwt.raphael.Circle;
+import org.sgx.raphael4gwt.raphael.Paper;
+import org.sgx.raphael4gwt.raphael.Raphael;
+
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.dom.client.DivElement;
+import com.google.gwt.dom.client.Document;
+
+/**
+ * a gwt entry points that shows a very simple use case using 
+ * gwt.client.dom for creating an element in the body and attach 
+ * a raphael paper to it. Has nothing to do with GWT widgets. 
+ * @author sg
+ */
+public class Raphael4GwtTestAloneNoWidget implements EntryPoint {
+	@Override
+	public void onModuleLoad() {
+		DivElement el1 = Document.get().createDivElement();
+		
+		//ensure the element is attach to document before crating raphael paper
+		Document.get().getBody().appendChild(el1);
+		
+		//create the raphael paper using the simplepanel
+		Paper paper = Raphael.paper(el1, 1500, 1500);
+		
+		//draw something
+		Circle circle1 = paper.circle(150, 150, 40);
+		circle1.setAttribute("fill", "red");	
+	}	
+}
+
+
+}}}
+
+
+the second way is similar to the first, but using a GWT SimplePanel widget, and creating the raphael paper inside it.
 {{{
 package org.sgx.raphael4gwt.test;
 
@@ -118,7 +161,7 @@ public class Raphael4GwtTestAlone implements EntryPoint, PaperListener {
 }}}
 
 
-= Project objectives
+=Project objectives=
 
 the objective is to provide the most direct java API to raphaeljs javascript API.
 Nevertheless, when javascript overloading methods is overused in javascript, 

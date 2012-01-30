@@ -1,4 +1,4 @@
-package org.sgx.raphael4gwt.raphael;
+package org.sgx.raphael4gwt.raphael.base;
 
 import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 
@@ -74,12 +74,12 @@ public void setColor(String color) {
 }
 public native final JavaScriptObject getNative()/*-{
 	var o = {};
-	o["width"]=this.@org.sgx.raphael4gwt.raphael.Glow::getWidth()();
-	o["fill"]=this.@org.sgx.raphael4gwt.raphael.Glow::isFill()();
-	o["opacity"]=this.@org.sgx.raphael4gwt.raphael.Glow::getOpacity()();
-	o["offsetx"]=this.@org.sgx.raphael4gwt.raphael.Glow::getOffsetX()();
-	o["offsety"]=this.@org.sgx.raphael4gwt.raphael.Glow::getOffsetY()();
-	o["color"]=this.@org.sgx.raphael4gwt.raphael.Glow::getColor()();
+	o["width"]=this.@org.sgx.raphael4gwt.raphael.base.Glow::getWidth()();
+	o["fill"]=this.@org.sgx.raphael4gwt.raphael.base.Glow::isFill()();
+	o["opacity"]=this.@org.sgx.raphael4gwt.raphael.base.Glow::getOpacity()();
+	o["offsetx"]=this.@org.sgx.raphael4gwt.raphael.base.Glow::getOffsetX()();
+	o["offsety"]=this.@org.sgx.raphael4gwt.raphael.base.Glow::getOffsetY()();
+	o["color"]=this.@org.sgx.raphael4gwt.raphael.base.Glow::getColor()();
 	return o;
 }-*/;
 // {

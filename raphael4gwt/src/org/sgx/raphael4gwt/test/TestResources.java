@@ -13,4 +13,10 @@ public interface TestResources extends ClientBundle {
 	  @Source("EventRegisterAndUnregister.java")
 	  public TextResource EventRegisterAndUnregister();
 	  
+	  @Source("PathSimpleTest1.java")
+	  public TextResource PathSimpleTest1();
+	  
+	  @Source("ImageSimpleTest.java")
+	  public TextResource ImageSimpleTest();
+	  
 }

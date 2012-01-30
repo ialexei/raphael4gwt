@@ -3,24 +3,40 @@ package org.sgx.raphael4gwt.raphael;
 //import com.google.gwt.core.client.JavaScriptObject;
 import org.sgx.raphael4gwt.raphael.base.Animation;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
+import org.sgx.raphael4gwt.raphael.base.Color;
+import org.sgx.raphael4gwt.raphael.base.Rectangle;
 import org.sgx.raphael4gwt.raphael.event.Callback;
+import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayNumber;
 import com.google.gwt.dom.client.Element;
 
 public class Raphael {
 	
 //protected Raphael(){}
-
+/**
+ * container must be attached to the document. Be careful to add container's parent to the doucment before calling this constructor. 
+ * @param container
+ * @param w
+ * @param h
+ * @return
+ */
 public static native Paper paper(Element container, int w, int h)/*-{
 	if(!container)
 		return null;
 	return $wnd.Raphael(container, w, h);
 }-*/;
-
+/**
+ * container must be attached to the document. Be careful to add container's parent to the doucment before calling this constructor.
+ * @param x
+ * @param y
+ * @param width
+ * @param height
+ * @return
+ */
 public static native Paper paper(int x, int y, int width, int height)/*-{
 	return $wnd.Raphael(x, y, width, height);
-//	return {circle: function(){}};
 }-*/;
 
 /**
@@ -107,7 +123,15 @@ public static native Matrix matrix(int a, int b, int c, int d, int e, int f)/*-{
 public static native String createUUID()/*-{
 	return $wnd.Raphael.createUUID();
 }-*/;
-
+//public static int snapTo(int[]snapValues, int value, int tolerance) {
+//	return _snapTo(JsUtil.toJsArrayNumber(snapValues), value, tolerance);
+//}
+//private static native int _snapTo(JsArrayNumber snapValues, int value, int tolerance)/*-{
+//return $wnd.Raphael.snapTo(snapValues, value, tolerance);
+//}-*/;
+public static native int snapTo(int snapDiff, int value, int tolerance)/*-{
+	return $wnd.Raphael.snapTo(snapDiff, value, tolerance);
+}-*/;
 /**
  * Transform angle to degrees 
  * @param deg angle in radians
@@ -117,4 +141,27 @@ public static native int deg(int deg)/*-{
 	return $wnd.Raphael.deg(deg);
 }-*/;
 
+
+///** helper utility for getting paper bounds in the document, based on gwt client dom.*/
+//public static final native Rectangle getPaperBounds(Paper paper)/*-{
+//	var el = paper.@org.sgx.raphael4gwt.raphael.Paper::getCanvasElement();
+//	return {
+//		"x": el.getAbsoluteLeft(), 
+//		"y": el.getAbsoluteTop(),
+//		"width": el.getClientWidth(),  
+//		"height": el.getClientHeight(), 
+//	};
+//}-*/;
+/** helper utility for getting paper bounds in the document, based on gwt client dom.*/
+public static Rectangle getPaperBounds(Paper paper) {
+	Element el = paper.getCanvasElement();
+	return (Rectangle) JsUtil.obj(
+		"x", el.getAbsoluteLeft(), 
+		"y", el.getAbsoluteTop(), 
+		"width", el.getClientWidth(), 
+		"height", el.getClientHeight()
+	);
 }
+
+}
+

@@ -1,4 +1,5 @@
 #summary raphael4gwt getting started guide.
+#labels gwt,raphaeljs,raphael,raphael4gwt,raphaelgwt
 
 
 =What is it?=
@@ -16,7 +17,10 @@ Based on raphaeljs 2.0. All raphaeljs features supported. Very straightforward j
 }}}
 
 2) add the .jar to your gwt project's classpath
+
 3) you are ready to use it, from your entry point class:
+
+{{{
 Paper paper = Raphael.paper(0, 0, 500, 500);
 Circle circle1 = paper.circle(250,250, 100);
 circle1.setAttribute("fill", "red");
@@ -26,6 +30,7 @@ circle1.mouseDown(new MouseEventListener() {
 		Window.alert("mouse clicked the circle at: "+e.getClientX()+", "+e.getClientY());
 	}
 });
+}}}
 
 
 the objective is to provide the most direct java API to raphaeljs javascript API.
@@ -38,11 +43,6 @@ operations with zero overhead.
 
 
 why another raphael gwt porting?
-
-I'm learning best practice for porting existing javascript toolkits to gwt.
-I didn't like some desitions of existing raphael porting to gwt http://code.google.com/p/raphaelgwt/
-for example, each figure seems to be a gwt widget. There is no way of registering event handlers directly 
-using raphaeljs API.  
 
 The project raphaelgwt, is a known raphael api for gwt. It is well integrated with GWT widgets for example
 each raphael shap like circles, rectangles, etc are gwt widgets. raphaelgwt uses gwt event system for manage 
@@ -62,6 +62,16 @@ referencing html dom objects.
 
 Currently raphaelgwt is based on raphaeljs 1.x, while raphael4gwt is based on raphael 2.x.
 
+Also I already have experience developing a raphaeljs java API, but for java2script, a framework similar to GWT. 
+The project http://yui4java.sourceforge.net/ contains some java APIs for java2script of known javascript toolkits like yui 2 and 3, soundmanager, and raphaeljs.
+See for example a demonstration of my raphael java API for java2script (using also yui java API, check suorce code in the demo itself): 
+http://yui4java.sourceforge.net/yui/org.sgx.j2s.raphael.test.demo.Main.html
+
+Now I'm learning best practices for porting existing javascript toolkits to GWT instead java2script. 
+
+With this in mind, I developed raphael4gwt, enjoy it. Perhaps one day raphalegwt can adopt it for the 
+lower layers, or vice versa, migrate raphael4gwt code to raphaelgwt for getting the both things, a good 
+raphaeljs 2.0 java API (based on gwt overlay types) and good integration between raphael Shapes and GWT widgets. 
 
 
 

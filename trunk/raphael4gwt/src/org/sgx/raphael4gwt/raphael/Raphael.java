@@ -4,6 +4,8 @@ package org.sgx.raphael4gwt.raphael;
 import org.sgx.raphael4gwt.raphael.base.Animation;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Color;
+import org.sgx.raphael4gwt.raphael.base.Matrix;
+import org.sgx.raphael4gwt.raphael.base.RGB;
 import org.sgx.raphael4gwt.raphael.base.Rectangle;
 import org.sgx.raphael4gwt.raphael.event.Callback;
 import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
@@ -68,8 +70,8 @@ public static native Animation animation(JavaScriptObject params, int ms, String
  * @return an animation object that can be passed to the Element.animate or Element.animateWith methods.
  */
 public static native Animation animation(Attrs params, int ms, String easing, Callback callback)/*-{
-	var p = params.@org.sgx.raphael4gwt.raphael.base.Attrs::getNativeAttrs()();
-	return $wnd.Raphael.animation(p, ms, easing, function() {
+	//var p = params.@org.sgx.raphael4gwt.raphael.base.Attrs::getNativeAttrs()();
+	return $wnd.Raphael.animation(params, ms, easing, function() {
 		callback.@org.sgx.raphael4gwt.raphael.event.Callback::call()();
 	});
 }-*/;
@@ -162,6 +164,11 @@ public static Rectangle getPaperBounds(Paper paper) {
 		"height", el.getClientHeight()
 	);
 }
+
+//public static final native Attrs attrs()/*-{
+//	return {};
+//}-*/;
+
 
 }
 

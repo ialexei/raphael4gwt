@@ -1,5 +1,8 @@
 package org.sgx.raphael4gwt.raphael;
 
+import org.sgx.raphael4gwt.raphael.base.Font;
+import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
+
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.resources.client.ImageResource;
@@ -154,25 +157,115 @@ var c = paper.path("M10 10L90 90");
 		return this.path(pathString);
 	}-*/;
 	
+	/**
+	 * Finds font object in the registered fonts by given parameters. You could specify only one word from the font name, like “Myriad” for “Myriad Pro”. 
+	 * @param fontFamily font family name or any word from it
+	 * @return
+	 */
+	public native final Font getFont(String fontFamily)/*-{
+		return this.getFont(fontFamily);
+	}-*/;
+	/**
+	 * Finds font object in the registered fonts by given parameters. You could specify only one word from the font name, like “Myriad” for “Myriad Pro”. 
+	 * @param fontFamily font family name or any word from it
+	 * @param weight - for example "800"
+	 * @return
+	 */
+	public native final Font getFont(String fontFamily, String weight)/*-{
+		return this.getFont(fontFamily, weight);
+	}-*/;
 	
-	/* *** SETS *** */
+	/**
+	 * Finds font object in the registered fonts by given parameters. You could specify only one word from the font name, like “Myriad” for “Myriad Pro”. 
+	 * @param fontFamily font family name or any word from it
+	 * @param weight - for example "800"
+	 * @param style - for example "italic"
+	 * @return
+	 */
+	public native final Font getFont(String fontFamily, String weight, String style)/*-{
+		return this.getFont(fontFamily, weight, style);
+	}-*/;
+	/**
+	 * Finds font object in the registered fonts by given parameters. You could specify only one word from the font name, like “Myriad” for “Myriad Pro”. 
+	 * @param fontFamily font family name or any word from it
+	 * @param weight - for example "800"
+	 * @param style - for example "italic"
+	 * @return
+	 */
+	public native final Font getFont(String fontFamily, String weight, String style, String stretch)/*-{
+		return this.getFont(fontFamily, weight, style, stretch);
+	}-*/;
+	
+	public native final Paper forEach(ForEachCallback c)/*-{
+//		var f = $entry(function(){
+//			c.@org.sgx.raphael4gwt.raphael.event.ForEachCallback::call(Lorg/sgx/raphael4gwt/raphael/Shape;I)(this);
+//		});
+//		return this.forEach(f);
+
+		var f = $entry(function(shape, index){
+			c.@org.sgx.raphael4gwt.raphael.event.ForEachCallback::call(Lorg/sgx/raphael4gwt/raphael/Shape;I)(shape, index);
+		});
+		return this.forEach(f, null);
+	}-*/;
+	
 //	/**
-//	 * Creates array-like object to keep and operate several elements at once.
+//	 * Creates set of shapes to represent given font at given position with given size. Result of the method is set object (see Paper.set) which contains each letter as separate path object.
+//	 * Usage: 
+//	 * <pre>
+//var txt = r.print(10, 50, "print", r.getFont("Museo"), 30).attr({fill: "#fff"});
+//// following line will paint first letter in red
+//txt[0].attr({fill: "#f00"});
+//
+//	 * </pre> 
+//	 * @param x x position of the text
+//	 * @param y y position of the text
+//	 * @param text text to print
+//	 * @param font font object, see Paper.getFont
 //	 * @return
 //	 */
-//	public final native Set set()/*-{
-//		return this.set();
+//	public native final Set print(int x, int y, String text, Font font)/*-{
+//		
 //	}-*/;
-//
-//	public final native void setStart()/*-{
-//		this.setStart();
-//	}-*/;
-//	/**
-//	 * This method finishes catching and returns resulting set.
-//	 * @return the new set
-//	 */
-//	public final native Set setFinish()/*-{
-//		return this.setFinish();
-//	}-*/;
+
+	/**
+	 * @return element by its internal ID. 
+	 */
+	public native final Shape getById(int id)/*-{
+		return this.getById(id);
+	}-*/;
+
+	/**
+	 * Use it like:
+	 * <pre>
+	 * paper.getElementByPoint(mouseX, mouseY).attr({stroke: "#f00"});
+	 * </pre>
+	 * @return topmost element under given point. 
+	 * @param x coordinate from the top left corner of the window
+	 * @param y coordinate from the top left corner of the window
+	 */
+	public native final Shape getElementByPoint(int x, int y)/*-{
+		return this.getElementByPoint(x, y);
+	}-*/;
+	
+	
+	/* *** SETS *** */
+	/**
+	 * Creates array-like object to keep and operate several elements at once.
+	 * @return
+	 */
+	public final native Set set()/*-{
+		return this.set();
+	}-*/;
+
+	public final native void setStart()/*-{
+		this.setStart();
+	}-*/;
+	/**
+	 * This method finishes catching and returns resulting set.
+	 * @return the new set
+	 */
+	public final native Set setFinish()/*-{
+		return this.setFinish();
+	}-*/;
 
 }

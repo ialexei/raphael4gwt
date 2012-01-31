@@ -1,4 +1,4 @@
-package org.sgx.raphael4gwt.raphael;
+package org.sgx.raphael4gwt.raphael.base;
 
 import com.google.gwt.core.client.JavaScriptObject;
 

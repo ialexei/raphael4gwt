@@ -71,7 +71,8 @@ System.out.println(TestImageResources.INSTANCE.preferences().getSafeUri().asStri
 		Circle circle1 = paper.circle(250,250, 60);
 		circle1.setAttribute("cx", 30+"");
 		
-		Animation anim1 = Raphael.animation(JsUtil.obj("cx", 400), 5000, Constants.EASING_BOUNCE, new Callback() {			
+		Animation anim1 = Raphael.animation(JsUtil.obj("cx", 400), 5000, 
+				Raphael.EASING_BOUNCE, new Callback() {			
 			@Override
 			public void call() {
 				Window.alert("anim finished");

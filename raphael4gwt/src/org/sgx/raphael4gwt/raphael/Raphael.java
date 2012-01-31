@@ -2,6 +2,7 @@ package org.sgx.raphael4gwt.raphael;
 
 //import com.google.gwt.core.client.JavaScriptObject;
 import org.sgx.raphael4gwt.raphael.base.Animation;
+import org.sgx.raphael4gwt.raphael.base.Arrow;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Color;
 import org.sgx.raphael4gwt.raphael.base.Matrix;
@@ -14,7 +15,39 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayNumber;
 import com.google.gwt.dom.client.Element;
 
+/**
+ * this is the main entry point to raphael4gwt library. 
+ * This class also contain many utilities and constant values of raphael
+ * This class IS NOT a gwt overlay type, it is used statically
+ * 
+ * @author sg
+ *
+ */
 public class Raphael {
+	
+	
+//First some constants and raphael built in utilities
+	
+	
+/* *** EASING *** */
+	
+public static final String 
+	EASING_LINEAR="linear", 
+	EASING_EASEIN="easeIn",
+	EASING_EASEOUT="easeOut",
+	EASING_EASEINOUT="easeInOut",
+	EASING_BACKIN="backIn",
+	EASING_BACKOUT="backOut",
+	EASING_ELASTIC="elastic",
+	EASING_BOUNCE="bounce";
+
+
+
+
+
+/* *** ARROW *** */	
+	
+	
 	
 //protected Raphael(){}
 /**

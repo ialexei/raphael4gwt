@@ -36,7 +36,7 @@ public class AnimTransformAndPathTest1 extends Test {
 		
 		alarm1.attr(now);
 		Animation animation1 = Raphael.animation(
-				future1, 2000, Constants.EASING_BACKIN, new Callback() {			
+				future1, 2000, Raphael.EASING_BACKIN, new Callback() {			
 			@Override
 			public void call() {
 				Window.alert("transformation finished");				

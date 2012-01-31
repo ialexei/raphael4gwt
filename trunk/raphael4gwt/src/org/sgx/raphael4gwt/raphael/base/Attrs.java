@@ -1,5 +1,6 @@
 package org.sgx.raphael4gwt.raphael.base;
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.resources.client.ImageResource;
 
 /**
  * I am a native raphaeljs attrs object. Please instantiate me using Raphael.attrs(), 
@@ -58,6 +59,24 @@ public class Attrs extends JavaScriptObject {
 		this["fill"]=val;
 		return this;
 	}-*/;
+	/**
+	 * @see org.sgx.raphael4gwt.raphael.Paper.image(ImageResource, int, int, int, int)
+	 * @param img an imageresource annotated with @ImageOptions(preventInlining=true)
+	 * @return
+	 */
+	public final native Attrs fill(ImageResource img)/*-{
+		var url = @org.sgx.raphael4gwt.raphael.Paper::getImageResourceUrl(Lcom/google/gwt/resources/client/ImageResource;)(img);	
+		this["fill"]="url("+url+")";
+		//$wnd.alert(url);
+		return this;
+	}-*/;
+
+	public final native Attrs fill(Gradient g)/*-{
+		this["fill"]=g.@org.sgx.raphael4gwt.raphael.base.Gradient::toString()();
+		return this;
+	}-*/;
+
+	
 	
 	public final native String getStroke()/*-{
 		return this["stroke"];
@@ -172,8 +191,143 @@ public class Attrs extends JavaScriptObject {
 		return this;
 	}-*/;
 	
+	/**
+	 * comma or space separated values: x, y, width and height
+	 * @return
+	 */
+	public final native String getClipRect()/*-{
+		return this["clip-rect"];
+	}-*/;
+	/**
+	 * comma or space separated values: x, y, width and height
+	 * @param val
+	 */
+	public final native void setClipRect(String val)/*-{
+		this["clip-rect"]=val;
+	}-*/;
+	/**
+	 * comma or space separated values: x, y, width and height
+	 * @param val
+	 * @return
+	 */
+	public final native Attrs clipRect(String val)/*-{
+		this["clip-rect"]=val;
+		return this;
+	}-*/;
+
+	/**
+	 * CSS type of the cursor
+	 * @return
+	 */
+	public final native String getCursor()/*-{
+		return this["cursor"];
+	}-*/;
+	/**
+	 * CSS type of the cursor
+	 * @param val
+	 */
+	public final native void setCursor(String val)/*-{
+		this["cursor"]=val;
+	}-*/;
+	/**
+	 * CSS type of the cursor
+	 * @param val
+	 * @return
+	 */
+	public final native Attrs cursor(String val)/*-{
+		this["cursor"]=val;
+		return this;
+	}-*/;
+
+	/**
+	 * the x-axis coordinate of the center of the circle, or ellipse
+	 * @return
+	 */
+	public final native int getCx()/*-{
+		return this["cx"];
+	}-*/;
+	/**
+	 * the x-axis coordinate of the center of the circle, or ellipse
+	 * @param val
+	 */
+	public final native void setCx(int val)/*-{
+		this["cx"]=val;
+	}-*/;
+	/**
+	 * the x-axis coordinate of the center of the circle, or ellipse
+	 * @param val
+	 * @return
+	 */
+	public final native Attrs cx(int val)/*-{
+		this["cx"]=val;
+		return this;
+	}-*/;
+	/**
+	 * the y-ayis coordinate of the center of the circle, or ellipse
+	 * @return
+	 */
+	public final native int getCy()/*-{
+		return this["cy"];
+	}-*/;
+	/**
+	 * the y-ayis coordinate of the center of the circle, or ellipse
+	 * @param val
+	 */
+	public final native void setCy(int val)/*-{
+		this["cy"]=val;
+	}-*/;
+	/**
+	 * the y-ayis coordinate of the center of the circle, or ellipse
+	 * @param val
+	 * @return
+	 */
+	public final native Attrs cy(int val)/*-{
+		this["cy"]=val;
+		return this;
+	}-*/;
 	
+	public final native int getWidth()/*-{
+		return this["width"];
+	}-*/;
+	public final native void setWidth(int val)/*-{
+		this["width"]=val;
+	}-*/;
+	public final native Attrs width(int val)/*-{
+		this["width"]=val;
+		return this;
+	}-*/;
+
+	public final native int getHeight()/*-{
+		return this["height"];
+	}-*/;
+	public final native void setHeight(int val)/*-{
+		this["height"]=val;
+	}-*/;
+	public final native Attrs height(int val)/*-{
+		this["height"]=val;
+		return this;
+	}-*/;
 	
+	public final native int getX()/*-{
+		return this["x"];
+	}-*/;
+	public final native void setX(int val)/*-{
+		this["x"]=val;
+	}-*/;
+	public final native Attrs x(int val)/*-{
+		this["x"]=val;
+		return this;
+	}-*/;
+	public final native int getY()/*-{
+		return this["y"];
+	}-*/;
+	public final native void setY(int val)/*-{
+		this["y"]=val;
+	}-*/;
+	public final native Attrs y(int val)/*-{
+		this["y"]=val;
+		return this;
+	}-*/;
 	
 	/* *** TEXT *** */
 	
@@ -198,5 +352,6 @@ public class Attrs extends JavaScriptObject {
 		this["font-size"]=val;
 		return this;
 	}-*/;
+
 	
 }

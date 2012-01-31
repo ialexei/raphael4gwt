@@ -13,8 +13,8 @@ public class Paper extends JavaScriptObject {
 	
 	/**
 	 * 
-	 * @param x - x coordinate of the centre
-	 * @param y - y coordinate of the centre
+	 * @param x - x coordinate of the center
+	 * @param y - y coordinate of the center
 	 * @param r - radius
 	 * @return a new Circle Shape
 	 */
@@ -101,7 +101,7 @@ public class Paper extends JavaScriptObject {
 	}
 	</pre>  
 	
-	 * @param imgRes
+	 * @param imgRes an imageresource annotated with @ImageOptions(preventInlining=true)
 	 * @param x
 	 * @param y
 	 * @param w
@@ -267,5 +267,18 @@ var c = paper.path("M10 10L90 90");
 	public final native Set setFinish()/*-{
 		return this.setFinish();
 	}-*/;
+
+	/**
+	 * Draws an ellipse. 
+	 * @param x x coordinate of the centre
+	 * @param y y coordinate of the centre
+	 * @param rx horizontal radius
+	 * @param ry vertical radius
+	 * @return
+	 */
+	public final native Ellipse ellipse(int x, int y, int rx, int ry)/*-{
+		return this.ellipse(x, y, rx, ry);
+	}-*/;
+
 
 }

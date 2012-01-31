@@ -27,4 +27,12 @@ public interface TestResources extends ClientBundle {
 	  
 	  @Source("SetSimpleTest1.java")
 	  public TextResource SetSimpleTest1();
+	  
+	  @Source("FillTest1.java")
+	  public TextResource FillTest1();
+	  
+	  @Source("GradientTest1.java")
+	  public TextResource GradientTest1();
+	  
+	  
 }

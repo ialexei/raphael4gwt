@@ -19,12 +19,18 @@
 	<input type="text" style="width: 100%" id="logbox" value=""></input>
 
 	 <script type="text/javascript" language="javascript" >
-	 var paper = Raphael(20, 20, 500, 500);
-	 var c1 = paper.circle(20, 20, 100);
-	 c1.attr("fill", "red");
-	 c1.glow({width: 10});
+	
+ var paper = Raphael(20, 20, 500, 500);
+ var c1 = paper.circle(20, 20, 100);
+ var r1 = paper.rect(120, 120, 20, 100);
+ var e1 = paper.ellipse(120, 120, 20, 40);
+ r1.attr({"fill": "r#fff-#000"});
+ c1.attr({"fill": "r#fff-#000"});
+ e1.attr({"fill": "r#fff-#000"});
+	 //c1.attr("fill", "red");
+	 //c1.glow({width: 10});
 	 
-	 alert(Raphael.snapTo(50, 148, 10));
+	 //alert(Raphael.snapTo(50, 148, 10));
 	 /*
 	 var onMoveHandler = function(dx, dy, x,y,e) {
 		document.getElementById("logbox").value="onMoveHandler: "+x+", "+y; 

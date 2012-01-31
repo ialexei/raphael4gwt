@@ -1,7 +1,5 @@
 package org.sgx.raphael4gwt.raphael.base;
 
-import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
-
 import com.google.gwt.core.client.JavaScriptObject;
 /**
  * <pre>

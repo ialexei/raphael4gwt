@@ -3,6 +3,8 @@ package org.sgx.raphael4gwt.test;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Rect;
 import org.sgx.raphael4gwt.raphael.Set;
+import org.sgx.raphael4gwt.raphael.Text;
+import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Glow;
 import org.sgx.raphael4gwt.raphael.event.HoverListener;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
@@ -45,7 +47,7 @@ public class EventRegisterAndUnregister extends Test{
 		
 		roundedCornerRect1DoGlow=true;
 		roundedCornerRect1 = paper.rect(230, 162, 160, 60, 20);
-		roundedCornerRect1.setAttribute("fill", "red");
+		roundedCornerRect1.attr(Attrs.create().fill("red").stroke("brown"));
 		roundedCornerRect1HoverListener = new HoverListener() {			
 			@Override
 			public void hoverOut(NativeEvent e) {
@@ -68,7 +70,8 @@ public class EventRegisterAndUnregister extends Test{
 			}
 		});
 		
-		paper.text(200, 20, "blue rect can be clicked only once\nred rect glow on hovering, \nbut if clicked it won't glow any more.");
+		Text text1 = paper.text(300, 120, "blue rect can be clicked only once\nred rect glow on hovering, \nbut if clicked it won't glow any more.");
+		text1.attr(Attrs.create().fill("black").fontSize("16px"));
 	}
 	
 

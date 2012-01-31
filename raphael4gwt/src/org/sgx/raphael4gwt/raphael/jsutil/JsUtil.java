@@ -37,7 +37,7 @@ public class JsUtil {
 		}
 		return o;
 	}
-	public static  JavaScriptObject obj(Object...m) {
+	public static JavaScriptObject obj(Object...m) {
 		return obj(Util.toMap2(m));
 	}
 	public static native JavaScriptObject arrayEmpty()/*-{

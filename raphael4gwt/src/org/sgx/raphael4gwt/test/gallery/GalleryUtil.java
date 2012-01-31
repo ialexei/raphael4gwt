@@ -5,10 +5,12 @@ import java.util.Set;
 
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.test.AllPathIcons;
+import org.sgx.raphael4gwt.test.AnimTransformAndPathTest1;
 import org.sgx.raphael4gwt.test.CircleGlowingAndDraggin;
 import org.sgx.raphael4gwt.test.DragAndSnap;
 import org.sgx.raphael4gwt.test.EventRegisterAndUnregister;
 import org.sgx.raphael4gwt.test.ImageSimpleTest;
+import org.sgx.raphael4gwt.test.SetSimpleTest1;
 import org.sgx.raphael4gwt.test.Test;
 import org.sgx.raphael4gwt.test.util.GUIUtil;
 
@@ -79,6 +81,13 @@ public void loadAllTest(Paper paper, int paperWidth, int paperHeight) {
 		
 		button = createButtonFor(new AllPathIcons(paper, w, h));
 		parentPanel.add(button);
+		
+		button = createButtonFor(new AnimTransformAndPathTest1(paper, w, h));
+		parentPanel.add(button);
+		
+		button = createButtonFor(new SetSimpleTest1(paper, w, h));
+		parentPanel.add(button);
+		
 	}
 
 }

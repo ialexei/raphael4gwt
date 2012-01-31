@@ -1,8 +1,17 @@
 package org.sgx.raphael4gwt.test;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Path;
+import org.sgx.raphael4gwt.raphael.Raphael;
+import org.sgx.raphael4gwt.raphael.base.Attrs;
+import org.sgx.raphael4gwt.raphael.event.HoverListener;
+import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 import org.sgx.raphael4gwt.test.image.IconPaths;
+
+import com.google.gwt.dom.client.NativeEvent;
 
 //import static org.sgx.raphael4gwt.test.image.IconPaths.*;
 
@@ -28,28 +37,36 @@ public class AllPathIcons extends Test {
 			IconPaths.globeAlt, IconPaths.globe, IconPaths.globeAlt2, IconPaths.warning, IconPaths.arrowleftalt,
 			IconPaths.arrow, IconPaths.arrowalt
 		};
-		
+		List<Path> paths = new LinkedList<Path>();
 		int stepX = paperWidth/20;
 		int stepY = paperWidth/20;
-		int x = 0, y = 0;
+		int x = 30, y = 100;
+
 		for (int i = 0; i < iconPaths.length; i++) {
 			x+=stepX;
 			if(x>paperWidth-40) {
 				x=0;
 				y+=stepY;
 			}
-				
-			Path p = paper.path(iconPaths[i]);
+			final Path p = paper.path(iconPaths[i]);
+			paths.add(p);
 			p.translate(x, y);
+			
+			p.hover(new HoverListener() {				
+				@Override
+				public void hoverOut(NativeEvent e) {}				
+				@Override
+				public void hoverIn(NativeEvent e) {
+					p.setAttribute("transform", "t200,200s10.0,10.0");
+				}
+			});			
 		}
-		
 		
 	}
 
 	@Override
 	public String getJavaClassSource() {
-		// TODO Auto-generated method stub
-		return null;
+		return TestResources.INSTANCE.AllPathIcons().getText();
 	}
 
 }

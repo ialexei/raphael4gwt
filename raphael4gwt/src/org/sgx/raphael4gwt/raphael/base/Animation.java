@@ -3,6 +3,7 @@ package org.sgx.raphael4gwt.raphael.base;
 import com.google.gwt.core.client.JavaScriptObject;
 
 public class Animation extends JavaScriptObject {
+	
 protected Animation(){}
 /**
  * Creates a copy of existing animation object with given delay. 

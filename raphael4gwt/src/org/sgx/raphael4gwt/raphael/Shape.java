@@ -1,5 +1,6 @@
 package org.sgx.raphael4gwt.raphael;
 
+import org.sgx.raphael4gwt.raphael.base.AnimStatus;
 import org.sgx.raphael4gwt.raphael.base.Animation;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Glow;
@@ -10,6 +11,7 @@ import org.sgx.raphael4gwt.raphael.event.HoverListener;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.dom.client.Element;
 /**
  * this correspond to Element object in raphaeljs ref.
@@ -31,6 +33,8 @@ public class Shape extends JavaScriptObject {
 	public final native Rectangle getBBox(boolean isWithoutTransform)/*-{ 
 		return this.getBBox(isWithoutTransform); 
 	}-*/;
+	
+	
 	
 	
 	/* *** TRANSFORMATIONS *** */
@@ -122,6 +126,10 @@ console.log(el.transform());
 	public final native Shape setTransform(String transfStr)/*-{
 		return this.transform(transfStr);
 	}-*/;
+	
+	
+	
+	
 	
 	
 	
@@ -262,6 +270,84 @@ console.log(el.transform());
 			l.@org.sgx.raphael4gwt.raphael.event.DragOverListener::dragOver(Lorg/sgx/raphael4gwt/raphael/Shape;)(src);
 		}));
 	}-*/;
+	/**
+	 * Adds event handler for touchcancel for the element. 
+	 * @param l
+	 * @return
+	 */
+	public final native Shape touchCancel(MouseEventListener l)/*-{ 
+		return this.touchcancel($entry(function(e) {
+			l.@org.sgx.raphael4gwt.raphael.event.MouseEventListener::notifyMouseEvent(Lcom/google/gwt/dom/client/NativeEvent;)(e);
+		}));
+	}-*/;
+	/**
+	 * Removes event handler for touchcancel for the element. 
+	 * @param l
+	 * @return
+	 */
+	public final native Shape unTouchCancel(MouseEventListener l)/*-{ 
+		var f = @org.sgx.raphael4gwt.raphael.event.EventHelper::removeMouseEventListener(Lorg/sgx/raphael4gwt/raphael/event/MouseEventListener;)(l);
+		return this.untouchcancel(f);
+	}-*/;
+	/**
+	 * Adds event handler for touchend for the element. 
+	 * @param l
+	 * @return
+	 */
+	public final native Shape touchEnd(MouseEventListener l)/*-{ 
+		return this.touchend($entry(function(e) {
+			l.@org.sgx.raphael4gwt.raphael.event.MouseEventListener::notifyMouseEvent(Lcom/google/gwt/dom/client/NativeEvent;)(e);
+		}));
+	}-*/;
+	/**
+	 * Removes event handler for touchend for the element. 
+	 * @param l
+	 * @return
+	 */
+	public final native Shape unTouchEnd(MouseEventListener l)/*-{ 
+		var f = @org.sgx.raphael4gwt.raphael.event.EventHelper::removeMouseEventListener(Lorg/sgx/raphael4gwt/raphael/event/MouseEventListener;)(l);
+		return this.untouchend(f);
+	}-*/;
+	/**
+	 * Adds event handler for touchmove for the element. 
+	 * @param l
+	 * @return
+	 */
+	public final native Shape touchMove(MouseEventListener l)/*-{ 
+		return this.touchmove($entry(function(e) {
+			l.@org.sgx.raphael4gwt.raphael.event.MouseEventListener::notifyMouseEvent(Lcom/google/gwt/dom/client/NativeEvent;)(e);
+		}));
+	}-*/;
+	/**
+	 * Removes event handler for touchmove for the element. 
+	 * @param l
+	 * @return
+	 */
+	public final native Shape unTouchMove(MouseEventListener l)/*-{ 
+		var f = @org.sgx.raphael4gwt.raphael.event.EventHelper::removeMouseEventListener(Lorg/sgx/raphael4gwt/raphael/event/MouseEventListener;)(l);
+		return this.untouchmove(f);
+	}-*/;
+	/**
+	 * Adds event handler for touchstart for the element. 
+	 * @param l
+	 * @return
+	 */
+	public final native Shape touchStart(MouseEventListener l)/*-{ 
+		return this.touchstart($entry(function(e) {
+			l.@org.sgx.raphael4gwt.raphael.event.MouseEventListener::notifyMouseEvent(Lcom/google/gwt/dom/client/NativeEvent;)(e);
+		}));
+	}-*/;
+	/**
+	 * Removes event handler for touchstart for the element. 
+	 * @param l
+	 * @return
+	 */
+	public final native Shape unTouchStart(MouseEventListener l)/*-{ 
+		var f = @org.sgx.raphael4gwt.raphael.event.EventHelper::removeMouseEventListener(Lorg/sgx/raphael4gwt/raphael/event/MouseEventListener;)(l);
+		return this.untouchstart(f);
+	}-*/;
+	
+	
 	
 	
 	
@@ -311,6 +397,7 @@ console.log(el.transform());
 	
 	
 	
+	
 	/* *** ATRIBUTES *** */
 	
 	public final native void setAttribute(String name, String value)/*-{
@@ -319,23 +406,28 @@ console.log(el.transform());
 	public final native void setAttribute(String name, int value)/*-{
 		this.attr(name, value);
 	}-*/;
+//	public final native void setAttribute(String name, float value)/*-{
+//		this.attr(name, value);
+//	}-*/;
 	public final native String getAttribute(String name)/*-{
 		return this.attr(name)+"";
 	}-*/;
 	
-	public final native NativeAttrs getNativeAttrs()/*-{
-		return this.attr();
-	}-*/;
-	public final native void setNativeAttrs(NativeAttrs a)/*-{
-		this.attr(a);
-	}-*/;
+//	public final native NativeAttrs getNativeAttrs()/*-{
+//		return this.attr();
+//	}-*/;
+//	public final native void setNativeAttrs(NativeAttrs a)/*-{
+//		this.attr(a);
+//	}-*/;
 	
-	public final native Attrs getAttrs()/*-{
-		return @org.sgx.raphael4gwt.raphael.base.Attrs::createFromNative(Lorg/sgx/raphael4gwt/raphael/NativeAttrs;)(this.attr());
+	public final native Attrs attr()/*-{
+		return this.attr();
+		//return @org.sgx.raphael4gwt.raphael.base.Attrs::createFromNative(Lorg/sgx/raphael4gwt/raphael/base/NativeAttrs;)(this.attr());
 	}-*/;
-	public final native void setAttrs(Attrs attrs)/*-{	
-		var a = attrs.@org.sgx.raphael4gwt.raphael.base.Attrs::getNativeAttrs()();
-		this.attr(a);		
+	public final native Shape attr(Attrs attrs)/*-{	
+		//var a = attrs.@org.sgx.raphael4gwt.raphael.base.Attrs::getNativeAttrs()();
+		this.attr(attrs);		
+		return this;
 	}-*/;
 	
 //	public Attrs getAttrs() {
@@ -369,13 +461,37 @@ console.log(el.transform());
 	public final native Shape animateWith(Shape el, Animation anim, Animation animation)/*-{
 		return this.animate(a);
 	}-*/;
-
+	/**
+	 * pauses all animations
+	 * @return
+	 */
 	public final native Shape pause()/*-{
 		return this.pause();
 	}-*/;
+	/**
+	 * pauses animation
+	 * @param a
+	 * @return
+	 */
 	public final native Shape pause(Animation a)/*-{
 		return this.pause(a);
 	}-*/;
+	/**
+	 * stops all animations on this shape
+	 * @return
+	 */
+	public final native Shape stop()/*-{
+		return this.pause();
+	}-*/;
+	/**
+	 * stops animation
+	 * @param a - animation to stop.
+	 * @return
+	 */
+	public final native Shape stop(Animation a)/*-{
+		return this.pause(a);
+	}-*/;
+
 	/**Resumes animation if it was paused with Element.pause method. */
 	public final native Shape resume()/*-{
 		return this.resume();
@@ -384,7 +500,30 @@ console.log(el.transform());
 	public final native Shape resume(Animation a)/*-{
 		return this.resume(a);
 	}-*/;
-	
+//	public final native Annimation getAnimationStatus
+	/**
+	 * sets the status of animation of the element. 
+	 * @param anim animation object
+	 * @param val 0 – 1.  works like a setter and sets the status of a given animation to the value. This will cause animation to jump to the given position.
+	 * @return
+	 */
+	public final native Shape setAnimStatus(Animation anim, double val)/*-{
+		return this.status(anim, val);
+	}-*/;
+	/**
+	 * get an animation status
+	 * @param anim animation object
+	 * @return the animation status
+	 */
+	public final native double getAnimStatus(Animation anim)/*-{
+		return this.status(anim);
+	}-*/;
+	/**
+	 * get all the animations status of this shape
+	 */
+	public final native JsArray<AnimStatus> getAnimStatus()/*-{
+		return this.status();
+	}-*/;
 	
 	
 	
@@ -425,7 +564,7 @@ Note: Glow is not connected to the element. If you change element attributes it 
 	 * @param key key to store data
 	 * @param value value to store
 	 */
-	public final native void setData(String key, JavaScriptObject value)/*-{
+	public final native void setData(String key, Object value)/*-{
 		this.data(key, value);
 	}-*/;
 	
@@ -434,7 +573,7 @@ Note: Glow is not connected to the element. If you change element attributes it 
 	 * @param key
 	 * @return
 	 */
-	public final native JavaScriptObject getData(String key)/*-{
+	public final native  Object getData(String key)/*-{
 		return this.data(key);
 	}-*/;
 	

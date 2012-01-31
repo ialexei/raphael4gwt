@@ -11,25 +11,36 @@
 
 	<target name="jar" depends="">
 		<mkdir dir="dist"/>
+		<!--
 		<jar destfile="dist/rapahel4gwt-${rapahel4gwt.version}.jar" basedir="war/WEB-INF/classes">
+		</jar>-->
+
+		<jar destfile="dist/rapahel4gwt-${rapahel4gwt.version}.jar">
+			<fileset dir="war/WEB-INF/classes" excludes="**/Test.class" />
+			<fileset dir="src" excludes="**/Test.java" />
 		</jar>
+
+
 	</target>
-	
+
+
+
 	<target name="clean" depends="">
 		<delete dir="dist"/>
 		<delete dir="javadoc"/>
 		<delete dir="gwt-unitCache"/>
 		<delete dir="war/WEB-INF/deploy"/>
 		<delete dir="war/org.sgx.raphael4gwt.Raphael4Gwt"/>
-		<delete dir="war/org.sgx.raphael4gwt.Raphael4GwtTest"/>		
+		<delete dir="war/org.sgx.raphael4gwt.Raphael4GwtTest"/>
 		<delete dir="www-test"/>
 	</target>
-		
+
 	<target name="javadocs" depends="" description="generates javadoc and also UML Diagram">
-				
+
 		<!-- first copy all source files from all source folders to a common source folder -->
 		<mkdir dir="${reports.dir}/src-all"/>
-		<copydir dest="${reports.dir}/src-all/org" src="${reports.dir}/src/org"></copydir>
+		<copydir dest="${reports.dir}/src-all/org" src="${reports.dir}/src/org">
+		</copydir>
 
 		<!-- do the javadoc -->
 		<mkdir dir="${reports.dir}/javadoc"/>
@@ -52,7 +63,7 @@
 			<mapper type="glob" from="*.dot" to="*.png"/>
 		</apply>
 		<delete dir="src-all"/>
-		
+
 	</target>
 
 </project>

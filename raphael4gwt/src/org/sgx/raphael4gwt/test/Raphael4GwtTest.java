@@ -131,9 +131,7 @@ System.out.println(TestImageResources.INSTANCE.preferences().getSafeUri().asStri
 		Set glow1Set = circle1.glow( new Glow(30));
 		glow1Set.scale(2.2, 1.43);
 		final Circle circle2 = paper.circle(20, 300, 30);
-		Attrs attrs1 = new Attrs();
-		attrs1.setFill("blue");
-		circle2.setAttrs(attrs1);
+		circle2.attr( Attrs.create().fill("blue") );
 		circle2.drag(new DDListener() {			
 			@Override
 			public void onStart(int x, int y, NativeEvent e) {
@@ -150,7 +148,7 @@ System.out.println(TestImageResources.INSTANCE.preferences().getSafeUri().asStri
 		});
 		Text text1 = paper.text(120, 30, "in this example\n you should see \n2 circles red and blue\nred has a click handler\nand blue draggable");
 		
-		text1.setAttrs(attrs1);
+		text1.attr(Attrs.create().fill("black").fontSize("16px"));
 	}
 
 	private void testPutPaperInPanel() {

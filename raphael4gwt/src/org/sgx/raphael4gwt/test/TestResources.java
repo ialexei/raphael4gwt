@@ -19,4 +19,12 @@ public interface TestResources extends ClientBundle {
 	  @Source("ImageSimpleTest.java")
 	  public TextResource ImageSimpleTest();
 	  
+	  @Source("AllPathIcons.java")
+	  public TextResource AllPathIcons();
+	  
+	  @Source("AnimTransformAndPathTest1.java")
+	  public TextResource AnimTransformAndPathTest1();
+	  
+	  @Source("SetSimpleTest1.java")
+	  public TextResource SetSimpleTest1();
 }

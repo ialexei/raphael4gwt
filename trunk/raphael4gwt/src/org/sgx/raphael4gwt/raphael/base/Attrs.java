@@ -49,6 +49,8 @@ public class Attrs extends JavaScriptObject {
 	
 	
 	
+	/* *** FILL *** */
+	
 	public final native String getFill()/*-{
 		return this["fill"];
 	}-*/;
@@ -76,6 +78,34 @@ public class Attrs extends JavaScriptObject {
 		return this;
 	}-*/;
 
+	/**
+	 * the y-ayis coordinate of the center of the circle, or ellipse
+	 * @return
+	 */
+	public final native double getFillOpacity()/*-{
+		return this["fill-opacity"];
+	}-*/;
+	/**
+	 * the y-ayis coordinate of the center of the circle, or ellipse
+	 * @param val
+	 */
+	public final native void setFillOpacity(double val)/*-{
+		this["fill-opacity"]=val;
+	}-*/;
+	/**
+	 * the y-ayis coordinate of the center of the circle, or ellipse
+	 * @param val
+	 * @return
+	 */
+	public final native Attrs fillOpacity(double val)/*-{
+		this["fill-opacity"]=val;
+		return this;
+	}-*/;
+	
+	
+	
+	
+	/* *** STROKE *** */
 	
 	
 	public final native String getStroke()/*-{
@@ -88,13 +118,25 @@ public class Attrs extends JavaScriptObject {
 		this["stroke"]=val;
 		return this;
 	}-*/;
-	
+	/**
+	 * stroke width in pixels, default is '1'
+	 * @return
+	 */
 	public final native int getStrokeWidth()/*-{
 		return this["stroke-width"];
 	}-*/;
+	/**
+	 * stroke width in pixels, default is '1'
+	 * @param val
+	 */
 	public final native void setStrokeWidth(int val)/*-{
 		this["stroke-width"]=val;
 	}-*/;
+	/**
+	 * stroke width in pixels, default is '1'
+	 * @param val
+	 * @return
+	 */
 	public final native Attrs strokeWidth(int val)/*-{
 		this["stroke-width"]=val;
 		return this;
@@ -144,7 +186,31 @@ public class Attrs extends JavaScriptObject {
 		this["stroke-linecap"]=val;
 		return this;
 	}-*/;
+	
+	
+	public final native int getStrokeMiterLimit()/*-{
+		return this["stroke-miterlimit"];
+	}-*/;
+	public final native void setStrokeMiterLimit(int val)/*-{
+		this["stroke-miterlimit"]=val;
+	}-*/;
+	public final native Attrs strokeMiterLimit(int val)/*-{
+		this["stroke-miterlimit"]=val;
+		return this;
+	}-*/;
+	public final native double getStrokeOpacity()/*-{
+		return this["stroke-opacity"];
+	}-*/;
+	public final native void setStrokeOpacity(double val)/*-{
+		this["stroke-opacity"]=val;
+	}-*/;
+	public final native Attrs strokeOpacity(double val)/*-{
+		this["stroke-opacity"]=val;
+		return this;
+	}-*/;
 
+	
+	
 	
 	public final native String getTransform()/*-{
 		return this["transform"];
@@ -341,17 +407,185 @@ public class Attrs extends JavaScriptObject {
 		this["font-family"]=val;
 		return this;
 	}-*/;
-	
-	public final native String getFontSize()/*-{
+	public final native String getFontWeight()/*-{
+		return this["font-weight"];
+	}-*/;
+	public final native void setFontWeight(String val)/*-{
+		this["font-weight"]=val;
+	}-*/;
+	public final native Attrs fontWeight(String val)/*-{
+		this["font-weight"]=val;
+		return this;
+	}-*/;
+	public final native int getFontSize()/*-{
 		return this["font-size"];
 	}-*/;
-	public final native void setFontSize(String val)/*-{
+	public final native void setFontSize(int val)/*-{
 		this["font-size"]=val;
 	}-*/;
-	public final native Attrs fontSize(String val)/*-{
+	public final native Attrs fontSize(int val)/*-{
 		this["font-size"]=val;
 		return this;
 	}-*/;
-
+	public final native String getFont()/*-{
+		return this["font"];
+	}-*/;
+	public final native void setFont(String val)/*-{
+		this["font"]=val;
+	}-*/;
+	public final native Attrs font(String val)/*-{
+		this["font"]=val;
+		return this;
+	}-*/;
+	/**
+	 * contents of the text element. Use \n for multiline text
+	 * @return
+	 */
+	public final native String getText()/*-{
+		return this["text"];
+	}-*/;
+	/**
+	 * contents of the text element. Use \n for multiline text
+	 * @param val
+	 */
+	public final native void setText(String val)/*-{
+		this["text"]=val;
+	}-*/;
+	/**
+	 * contents of the text element. Use \n for multiline text
+	 * @param val
+	 * @return
+	 */
+	public final native Attrs text(String val)/*-{
+		this["text"]=val;
+		return this;
+	}-*/;
+	/**
+	 * [“start”, “middle”, “end”], default is “middle”
+	 * @return
+	 */
+	public final native String getTextAnchor()/*-{
+		return this["text-anchor"];
+	}-*/;
+	/**
+	 * [“start”, “middle”, “end”], default is “middle”
+	 * @param val
+	 */
+	public final native void setTextAnchor(String val)/*-{
+		this["text-anchor"]=val;
+	}-*/;
+	/**
+	 * [“start”, “middle”, “end”], default is “middle”
+	 * @param val
+	 * @return
+	 */
+	public final native Attrs textAnchor(String val)/*-{
+		this["text-anchor"]=val;
+		return this;
+	}-*/;
+	/**
+	 * will create tooltip with a given text
+	 * @return
+	 */
+	public final native String getTitle()/*-{
+		return this["title"];
+	}-*/;
+	/**
+	 * will create tooltip with a given text
+	 * @param val
+	 */
+	public final native void setTitle(String val)/*-{
+		this["title"]=val;
+	}-*/;
+	/**
+	 * 
+	 * @param val
+	 * @return
+	 */
+	public final native Attrs title(String val)/*-{
+		this["title"]=val;
+		return this;
+	}-*/;
 	
+	
+	
+	
+	/**
+	 * URL, if specified element behaves as hyperlink
+	 * @return
+	 */
+	public final native String getHRef()/*-{
+		return this["href"];
+	}-*/;
+	/**
+	 * URL, if specified element behaves as hyperlink
+	 * @param val
+	 */
+	public final native void setHRef(String val)/*-{
+		this["href"]=val;
+	}-*/;
+	/**
+	 * URL, if specified element behaves as hyperlink
+	 * @param val
+	 * @return
+	 */
+	public final native Attrs href(String val)/*-{
+		this["href"]=val;
+		return this;
+	}-*/;
+	
+	public final native double getOpacity()/*-{
+		return this["opacity"];
+	}-*/;
+	public final native void setOpacity(double val)/*-{
+		this["opacity"]=val;
+	}-*/;
+	public final native Attrs opacity(double val)/*-{
+		this["opacity"]=val;
+		return this;
+	}-*/;
+	
+	public final native String getPath()/*-{
+		return this["path"];
+	}-*/;
+	public final native void setPath(String val)/*-{
+		this["path"]=val;
+	}-*/;
+	public final native Attrs path(String val)/*-{
+		this["path"]=val;
+		return this;
+	}-*/;
+	
+	public final native int getRadius()/*-{
+		return this["r"];
+	}-*/;
+	public final native void setRadius(int val)/*-{
+		this["r"]=val;
+	}-*/;
+	public final native Attrs r(int val)/*-{
+		this["r"]=val;
+		return this;
+	}-*/;
+	
+	public final native int getRadiusX()/*-{
+		return this["rx"];
+	}-*/;
+	public final native void setRadiusX(int val)/*-{
+		this["rx"]=val;
+	}-*/;
+	public final native Attrs rx(int val)/*-{
+		this["rx"]=val;
+		return this;
+	}-*/;
+	public final native int getRadiusY()/*-{
+		return this["ry"];
+	}-*/;
+	public final native void setRadiusY(int val)/*-{
+		this["ry"]=val;
+	}-*/;
+	public final native Attrs ry(int val)/*-{
+		this["ry"]=val;
+		return this;
+	}-*/;
+
 }

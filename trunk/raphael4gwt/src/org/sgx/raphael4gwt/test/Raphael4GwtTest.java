@@ -149,7 +149,7 @@ System.out.println(TestImageResources.INSTANCE.preferences().getSafeUri().asStri
 		});
 		Text text1 = paper.text(120, 30, "in this example\n you should see \n2 circles red and blue\nred has a click handler\nand blue draggable");
 		
-		text1.attr(Attrs.create().fill("black").fontSize("16px"));
+		text1.attr(Attrs.create().fill("black").fontSize(16));
 	}
 
 	private void testPutPaperInPanel() {

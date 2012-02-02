@@ -10,6 +10,8 @@ import org.sgx.raphael4gwt.test.CircleGlowingAndDraggin;
 import org.sgx.raphael4gwt.test.DragAndSnap;
 import org.sgx.raphael4gwt.test.EventRegisterAndUnregister;
 import org.sgx.raphael4gwt.test.FillTest1;
+import org.sgx.raphael4gwt.test.GradientMouseTest1;
+import org.sgx.raphael4gwt.test.MouseRelativeCoordsTest;
 import org.sgx.raphael4gwt.test.GradientTest1;
 import org.sgx.raphael4gwt.test.ImageSimpleTest;
 import org.sgx.raphael4gwt.test.SetSimpleTest1;
@@ -94,6 +96,13 @@ public void loadAllTest(Paper paper, int paperWidth, int paperHeight) {
 		parentPanel.add(button);
 		
 		button = createButtonFor(new GradientTest1(paper, w, h));
+		parentPanel.add(button);
+		
+		button = createButtonFor(new GradientMouseTest1(paper, w, h));
+		parentPanel.add(button);
+		
+		
+		button = createButtonFor(new MouseRelativeCoordsTest(paper, w, h));
 		parentPanel.add(button);
 	}
 

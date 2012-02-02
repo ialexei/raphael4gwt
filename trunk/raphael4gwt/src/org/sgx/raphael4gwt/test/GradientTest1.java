@@ -15,7 +15,9 @@ public class GradientTest1 extends Test {
 @Override
 public void test() {
 	Shape rect1 = paper.rect(100,100,100,100, 20), 
-		path1 = paper.path(IconPaths.apple);
+		path1 = paper.path(IconPaths.apple), 
+		ellipse1 = paper.ellipse(200,200,100,70),
+		ellipse2 = paper.ellipse(100,300,100,70);
 	
 	//fill the rect with a simple linear gradient
 	Gradient linearGradient1 = Gradient.linear(0.5, "#ff0000", "#ffff00");
@@ -28,6 +30,11 @@ public void test() {
 	Gradient linearGradient2 = Gradient.linear(0, "#fff", new Stop[]{new Stop("#f00", 20)}, "#000");
 	path1.attr(Attrs.create().fill(linearGradient2));
 	
+	Gradient radialGradient1 = Gradient.radial(0.5, 0.3, "#fff", new Stop[]{new Stop("#f00", 20)}, "#000");
+	ellipse1.attr(Attrs.create().fill(radialGradient1));
+	
+	//note that we also can pass the gradient raphael string directly: 
+	ellipse2.attr(Attrs.create().fill("r(0.25, 0.75)#fff-#000"));
 	
 }	
 

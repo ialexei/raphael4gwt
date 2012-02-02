@@ -1,6 +1,8 @@
 package org.sgx.raphael4gwt.raphael;
 
 import org.sgx.raphael4gwt.raphael.base.Font;
+import org.sgx.raphael4gwt.raphael.base.NativeFont;
+import org.sgx.raphael4gwt.raphael.base.Rectangle;
 import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
 
 import com.google.gwt.core.client.JavaScriptObject;
@@ -49,10 +51,7 @@ public class Paper extends JavaScriptObject {
 		this.top;
 	}-*/;
 	
-	public final native Element getCanvasElement()/*-{
-//		alert(this.canvas);
-		return this.canvas;
-	}-*/;
+
 	/**
 	 * Clears the paper, i.e. removes all the elements. 
 	 */
@@ -171,7 +170,7 @@ var c = paper.path("M10 10L90 90");
 	 * @param weight - for example "800"
 	 * @return
 	 */
-	public native final Font getFont(String fontFamily, String weight)/*-{
+	public native final NativeFont getFont(String fontFamily, String weight)/*-{
 		return this.getFont(fontFamily, weight);
 	}-*/;
 	
@@ -281,4 +280,20 @@ var c = paper.path("M10 10L90 90");
 	}-*/;
 
 
+	
+	/**
+	 * safe entry point (managed by gwt.dom.client) for acessing HTML DOM RElated information on this paper
+	 * for example, knowing paper position, attributes, "paper html element" 
+	 * @return
+	 */
+	public final native Element getCanvasElement()/*-{
+		return this.canvas;
+	}-*/;
+	
+//	public Rectangle getPaperBounds() {
+//		Raphael.createRectangle(getCanvasElement().getAbsoluteLeft(), 
+//				getCanvasElement().getAbsoluteTop())
+//		
+//	}
+	
 }

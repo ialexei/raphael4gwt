@@ -2,11 +2,11 @@ package org.sgx.raphael4gwt.raphael.base;
 
 import com.google.gwt.core.client.JavaScriptObject;
 /**
- * represents a native Font object returned by Paper.getFont
+ * represents a native Font object returned by Paper.getFont. 
  * @author sg
  *
  */
-public class Font extends JavaScriptObject {
+public class Font {
 	protected Font(){};
 	public native final String getFamily()/*-{
 		return this.family;

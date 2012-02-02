@@ -71,7 +71,7 @@ public class EventRegisterAndUnregister extends Test{
 		});
 		
 		Text text1 = paper.text(300, 120, "blue rect can be clicked only once\nred rect glow on hovering, \nbut if clicked it won't glow any more.");
-		text1.attr(Attrs.create().fill("black").fontSize("16px"));
+		text1.attr(Attrs.create().fill("black").fontSize(16));
 	}
 	
 

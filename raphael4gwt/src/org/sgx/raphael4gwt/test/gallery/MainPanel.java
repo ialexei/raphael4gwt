@@ -34,7 +34,17 @@ public class MainPanel extends VerticalPanel {
 		FlowPanel toobarPanel = new FlowPanel();
 		add(toobarPanel);
 		
-		Button clearPaperButton = new Button("clear paper", new ClickHandler() {			
+		Button aboutButton = new Button("About", new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				GUIUtil.showMessage("About this app", "This is a simple gallery of raphael4gwt examples.\n" +
+						"See : http://code.google.com/p/raphael4gwt/.\n" +
+						"Author: Sebastián Gurin <sebastigurin@gmail.com>");
+			}
+		});		
+		toobarPanel.add(aboutButton);
+		
+		Button clearPaperButton = new Button("Clear paper", new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
 				paper.clear();
@@ -88,7 +98,7 @@ public class MainPanel extends VerticalPanel {
 //				paper = paperWidget.getPaper();
 //				System.out.println("onload");
 //				paperWidget.getElement().getStyle().setOverflow(Overflow.SCROLL);
-				
+				MainPanel.this.paper=paper;
 				GalleryUtil.getInstance().doAddAllGeneralTests(paperWidget.getPaper(), testGeneral, PAPER_WIDTH, PAPER_HEIGHT);
 			}
 		});

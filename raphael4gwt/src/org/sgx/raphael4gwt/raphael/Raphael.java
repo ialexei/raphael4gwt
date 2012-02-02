@@ -6,6 +6,7 @@ import org.sgx.raphael4gwt.raphael.base.Arrow;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Color;
 import org.sgx.raphael4gwt.raphael.base.Matrix;
+import org.sgx.raphael4gwt.raphael.base.Point;
 import org.sgx.raphael4gwt.raphael.base.RGB;
 import org.sgx.raphael4gwt.raphael.base.Rectangle;
 import org.sgx.raphael4gwt.raphael.event.Callback;
@@ -14,6 +15,7 @@ import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayNumber;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NativeEvent;
 
 /**
  * this is the main entry point to raphael4gwt library. 
@@ -187,16 +189,65 @@ public static native int deg(int deg)/*-{
 //		"height": el.getClientHeight(), 
 //	};
 //}-*/;
-/** helper utility for getting paper bounds in the document, based on gwt client dom.*/
-public static Rectangle getPaperBounds(Paper paper) {
-	Element el = paper.getCanvasElement();
-	return (Rectangle) JsUtil.obj(
-		"x", el.getAbsoluteLeft(), 
-		"y", el.getAbsoluteTop(), 
-		"width", el.getClientWidth(), 
-		"height", el.getClientHeight()
+
+
+///** helper utility for getting paper bounds in the document, based on gwt client dom.*/
+//public static Rectangle getPaperBounds(Paper paper) {
+//	return (Rectangle) JsUtil.obj(
+//		"x", paper.getCanvasElement().getAbsoluteLeft(), 
+//		"y", paper.getCanvasElement().getAbsoluteTop(), 
+//		"width", paper.getCanvasElement().getClientWidth(), 
+//		"height", paper.getCanvasElement().getClientHeight()
+//	);
+//}
+
+
+public static native Point createPoint(int x, int y)/*-{
+	return {"x": x, "y": y};
+}-*/;
+public static native Rectangle createRectangle(int x, int y, int width, int height)/*-{
+	return {"x": x, "y": y, "width": width, "height": height};
+}-*/;
+/**
+ * get a mouse events coorinates relative to a paper.
+ * Based on gwt's paper's p.getCanvasElement().getAbsolute.. 
+ * for knowing the coords of a native event in a paper's shape, relative to the paper, for example for tools.-
+ * @param p
+ * @param e a native event inside that paper.
+ * @return
+ */
+public static Point getCoordsInPaper(Paper p, NativeEvent e) {
+	return createPoint(
+		e.getClientX() - p.getCanvasElement().getAbsoluteLeft(),
+		e.getClientY() - p.getCanvasElement().getAbsoluteTop()
 	);
 }
+/**
+ * get the mouse event coords relative to a shape, using getCoordsInPaper and shape.getBBox()
+ * @param p
+ * @param shape
+ * @param e
+ * @return
+ */
+public static Point getCoordsInShape(Paper p, Shape shape,
+		boolean isWithoutTransform, NativeEvent e) {
+	
+	return createPoint(
+		e.getClientX() - p.getCanvasElement().getAbsoluteLeft() - shape.getBBox(isWithoutTransform).getX(),
+		e.getClientY() - p.getCanvasElement().getAbsoluteTop() - shape.getBBox(isWithoutTransform).getY()
+	);
+}
+public static Point getCoordsInShape(Paper paper, Shape shape,
+		NativeEvent e) {
+	return getCoordsInShape(paper, shape, false, e);
+}
+
+//{
+//	return (Point) JsUtil.obj(
+//		"x", e.getClientX() - paper.getCanvasElement().getAbsoluteLeft(), 
+//		"y", e.getClientY() - paper.getCanvasElement().getAbsoluteTop()
+//	);
+//}
 
 //public static final native Attrs attrs()/*-{
 //	return {};

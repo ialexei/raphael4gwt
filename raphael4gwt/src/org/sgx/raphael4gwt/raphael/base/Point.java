@@ -12,4 +12,7 @@ public class Point extends JavaScriptObject {
 	public native final int getAlpha()/*-{
 		return this.alpha;
 	}-*/;
+	public native final String print()/*-{
+		return this.x+", "+this.y;
+	}-*/;
 }

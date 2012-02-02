@@ -31,6 +31,7 @@ public class Shape extends JavaScriptObject {
 	 * @return
 	 */
 	public final native Rectangle getBBox(boolean isWithoutTransform)/*-{ 
+		//alert(typeof(this.getBBox(isWithoutTransform).width))
 		return this.getBBox(isWithoutTransform); 
 	}-*/;
 	

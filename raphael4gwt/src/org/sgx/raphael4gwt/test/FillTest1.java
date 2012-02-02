@@ -13,8 +13,7 @@ import org.sgx.raphael4gwt.test.image.IconPaths;
 import org.sgx.raphael4gwt.test.image.TestImageResources;
 
 public class FillTest1 extends Test {
-
-
+	
 	private int ycounter;
 
 	public FillTest1(Paper paper, int paperWidth, int paperHeight) {

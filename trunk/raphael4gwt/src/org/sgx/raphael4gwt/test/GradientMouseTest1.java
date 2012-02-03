@@ -12,20 +12,10 @@ import org.sgx.raphael4gwt.raphael.base.Stop;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 
 import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.user.client.Window;
-
-//import static org.sgx.raphael4gwt.test.image.IconPaths.*;
 
 public class GradientMouseTest1 extends Test {
 
-
-	public GradientMouseTest1(Paper paper, int paperWidth, int paperHeight) {
-		super(paper, paperWidth, paperHeight);
-		this.name="gradient mouse";
-		this.description="show gradient changes on mouse events";
-		
-	}
-
+	
 	@Override
 	public void test() {
 		final Text text1 = paper.text(200, 100, "Move the mouse over the ellipse...");
@@ -56,6 +46,14 @@ public class GradientMouseTest1 extends Test {
 		
 	}
 
+	
+	//test information:
+	public GradientMouseTest1(Paper paper, int paperWidth, int paperHeight) {
+		super(paper, paperWidth, paperHeight);
+		this.name="gradient mouse";
+		this.description="show gradient changes on mouse events";
+		
+	}		
 	@Override
 	public String getJavaClassSource() {
 		return TestResources.INSTANCE.GradientMouseTest1().getText();

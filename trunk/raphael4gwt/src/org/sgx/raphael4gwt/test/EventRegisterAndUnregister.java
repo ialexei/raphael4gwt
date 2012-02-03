@@ -21,16 +21,6 @@ public class EventRegisterAndUnregister extends Test{
 	protected boolean roundedCornerRect1DoGlow;
 	private HoverListener roundedCornerRect1HoverListener;
 
-	public EventRegisterAndUnregister(Paper paper, int paperWidth, int paperHeight) {
-		super(paper, paperWidth, paperHeight);
-		this.name="Event unregistering";
-		this.description="Example that shows how events can be unregistered.";
-	}
-	
-	@Override
-	public String getJavaClassSource() {
-		return TestResources.INSTANCE.EventRegisterAndUnregister().getText();
-	}
 	
 	@Override
 	public void test() {
@@ -75,4 +65,16 @@ public class EventRegisterAndUnregister extends Test{
 	}
 	
 
+	//test information:
+	public EventRegisterAndUnregister(Paper paper, int paperWidth, int paperHeight) {
+		super(paper, paperWidth, paperHeight);
+		this.name="Event unregistering";
+		this.description="Example that shows how events can be unregistered.";
+	}
+	
+	@Override
+	public String getJavaClassSource() {
+		return TestResources.INSTANCE.EventRegisterAndUnregister().getText();
+	}
+		
 }

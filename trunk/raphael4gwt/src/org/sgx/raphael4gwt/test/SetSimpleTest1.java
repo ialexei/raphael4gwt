@@ -18,13 +18,6 @@ import com.google.gwt.user.client.Window;
 public class SetSimpleTest1 extends Test {
 
 
-	public SetSimpleTest1(Paper paper, int paperWidth, int paperHeight) {
-		super(paper, paperWidth, paperHeight);
-		this.name="Set test1";
-		this.description="Simple raphael Set shaps usage demo";
-		
-	}
-
 	@Override
 	public void test() {
 		//create a set using paper.setStart/setFinish
@@ -58,6 +51,14 @@ public class SetSimpleTest1 extends Test {
 
 		// Schedule the timer to run once in 5 seconds.
 		t.schedule(1000);
+	}
+
+	//test data:
+	public SetSimpleTest1(Paper paper, int paperWidth, int paperHeight) {
+		super(paper, paperWidth, paperHeight);
+		this.name="Set test1";
+		this.description="Simple raphael Set shaps usage demo";
+		
 	}
 
 	@Override

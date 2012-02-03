@@ -5,15 +5,10 @@ import java.util.List;
 
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Path;
-import org.sgx.raphael4gwt.raphael.Raphael;
-import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.event.HoverListener;
-import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 import org.sgx.raphael4gwt.test.image.IconPaths;
 
 import com.google.gwt.dom.client.NativeEvent;
-
-//import static org.sgx.raphael4gwt.test.image.IconPaths.*;
 
 public class AllPathIcons extends Test {
 

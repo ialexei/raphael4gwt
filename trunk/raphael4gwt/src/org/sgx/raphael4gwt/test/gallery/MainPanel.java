@@ -10,9 +10,11 @@ import org.sgx.raphael4gwt.test.EventRegisterAndUnregister;
 import org.sgx.raphael4gwt.test.ImageSimpleTest;
 import org.sgx.raphael4gwt.test.util.GUIUtil;
 
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.BorderStyle;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -29,7 +31,8 @@ public class MainPanel extends VerticalPanel {
 	protected Paper paper;
 
 	public MainPanel() {
-		setSize("100%", "600px");
+		
+		setSize("100%", GUIUtil.getMaxHeightStr());
 		
 		FlowPanel toobarPanel = new FlowPanel();
 		add(toobarPanel);
@@ -95,11 +98,14 @@ public class MainPanel extends VerticalPanel {
 			
 			@Override
 			public void paperLoaded(Paper paper) {
+				/* the paper is loaded! so now we can instantiate all our tests */
+				
 //				paper = paperWidget.getPaper();
 //				System.out.println("onload");
 //				paperWidget.getElement().getStyle().setOverflow(Overflow.SCROLL);
 				MainPanel.this.paper=paper;
-				GalleryUtil.getInstance().doAddAllGeneralTests(paperWidget.getPaper(), testGeneral, PAPER_WIDTH, PAPER_HEIGHT);
+				GalleryUtil.getInstance().loadAllTest(paperWidget.getPaper(), PAPER_WIDTH, PAPER_HEIGHT);
+				GalleryUtil.getInstance().doAddAllGeneralTests(testGeneral);
 			}
 		});
 		paperWidget.getElement().getStyle().setBorderStyle(BorderStyle.SOLID);

@@ -2,7 +2,6 @@ package org.sgx.raphael4gwt.test;
 
 import org.sgx.raphael4gwt.raphael.Ellipse;
 import org.sgx.raphael4gwt.raphael.Paper;
-import org.sgx.raphael4gwt.raphael.Path;
 import org.sgx.raphael4gwt.raphael.Rect;
 import org.sgx.raphael4gwt.raphael.Set;
 import org.sgx.raphael4gwt.raphael.Shape;
@@ -15,12 +14,7 @@ import org.sgx.raphael4gwt.test.image.TestImageResources;
 public class FillTest1 extends Test {
 	
 	private int ycounter;
-
-	public FillTest1(Paper paper, int paperWidth, int paperHeight) {
-		super(paper, paperWidth, paperHeight);
-		this.name="fill shape tests";
-		this.description="verifting fill works with gradients and images to";		
-	}
+	
 
 	@Override
 	public void test() {
@@ -51,6 +45,13 @@ public class FillTest1 extends Test {
 		
 	}
 
+	//test information:
+	public FillTest1(Paper paper, int paperWidth, int paperHeight) {
+		super(paper, paperWidth, paperHeight);
+		this.name="fill shape tests";
+		this.description="verifting fill works with gradients and images to";		
+	}
+		
 	@Override
 	public String getJavaClassSource() {
 		return TestResources.INSTANCE.FillTest1().getText();

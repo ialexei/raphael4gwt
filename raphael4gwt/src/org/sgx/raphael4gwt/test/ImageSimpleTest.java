@@ -37,13 +37,7 @@ public interface TestImageResources extends ClientBundle {
  *
  */
 public class ImageSimpleTest extends Test {
-
-	public ImageSimpleTest(Paper paper, int paperWidth, int paperHeight) {
-		super(paper, paperWidth, paperHeight);
-		this.name="Image simple test";
-		this.description="Image simple test using GWT Client Bundle and ImageResource. click the image for rotating.";		
-	}
-
+	
 	@Override
 	public void test() {
 		/* get the GWT image resources */
@@ -59,6 +53,13 @@ public class ImageSimpleTest extends Test {
 		});
 	}
 
+	
+	//test information:
+	public ImageSimpleTest(Paper paper, int paperWidth, int paperHeight) {
+		super(paper, paperWidth, paperHeight);
+		this.name="Image simple test";
+		this.description="Image simple test using GWT Client Bundle and ImageResource. click the image for rotating.";		
+	}		
 	@Override
 	public String getJavaClassSource() {
 		return TestResources.INSTANCE.ImageSimpleTest().getText();

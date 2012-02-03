@@ -1,6 +1,5 @@
 package org.sgx.raphael4gwt.test;
 
-import org.sgx.raphael4gwt.raphael.Constants;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Path;
 import org.sgx.raphael4gwt.raphael.Raphael;
@@ -31,7 +30,7 @@ public class AnimTransformAndPathTest1 extends Test {
 		);
 		Attrs future1 = (Attrs) JsUtil.obj(
 			"fill", "green", 
-			"transform", "t400,400,s4.0,4.0" //translate 400,400 scale 4.0,4.0
+			"transform", "t400,400,s4.0,4.0"
 		);
 		
 		alarm1.attr(now);

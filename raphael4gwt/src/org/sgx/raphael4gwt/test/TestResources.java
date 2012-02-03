@@ -13,8 +13,8 @@ public interface TestResources extends ClientBundle {
 	  @Source("EventRegisterAndUnregister.java")
 	  public TextResource EventRegisterAndUnregister();
 	  
-	  @Source("PathSimpleTest1.java")
-	  public TextResource PathSimpleTest1();
+//	  @Source("PathSimpleTest1.java")
+//	  public TextResource PathSimpleTest1();
 	  
 	  @Source("ImageSimpleTest.java")
 	  public TextResource ImageSimpleTest();
@@ -39,5 +39,9 @@ public interface TestResources extends ClientBundle {
 	  
 	  @Source("MouseRelativeCoordsTest.java")
 	  public TextResource MouseRelativeCoordsTest();
+	  
+	  @Source("DragTest1.java")
+	  public TextResource DragTest1();
+	  
 	  
 }

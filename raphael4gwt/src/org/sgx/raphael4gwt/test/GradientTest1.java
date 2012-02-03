@@ -1,14 +1,11 @@
 package org.sgx.raphael4gwt.test;
 
 import org.sgx.raphael4gwt.raphael.Paper;
-import org.sgx.raphael4gwt.raphael.Rect;
 import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Gradient;
 import org.sgx.raphael4gwt.raphael.base.Stop;
 import org.sgx.raphael4gwt.test.image.IconPaths;
-
-import com.google.gwt.user.client.Window;
 
 public class GradientTest1 extends Test {
 	

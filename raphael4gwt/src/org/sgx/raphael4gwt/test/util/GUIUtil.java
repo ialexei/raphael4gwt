@@ -90,7 +90,7 @@ public class GUIUtil {
 				d.hide();
 			}
 		});
-		ta.setSize("600px", "500px");
+		ta.setSize("600px", (getMaxHeight()-200)+"px");
 		showDialogBox(d);		
 	}
 	private static void showDialogBox(DialogBox d) {
@@ -124,6 +124,13 @@ public class GUIUtil {
 				labels.add(l.getItemText(i));
 		}
 		return labels;
+	}
+
+	public static int getMaxHeight() {
+		return (Window.getClientHeight()-20);
+	}
+	public static String getMaxHeightStr() {
+		return getMaxHeight()+"px";
 	}
 
 	

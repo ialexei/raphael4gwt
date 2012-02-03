@@ -1,15 +1,10 @@
 package org.sgx.raphael4gwt.test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.sgx.raphael4gwt.raphael.Circle;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Raphael;
-import org.sgx.raphael4gwt.raphael.Set;
 import org.sgx.raphael4gwt.raphael.base.Glow;
 import org.sgx.raphael4gwt.raphael.event.DDListener;
-import org.sgx.raphael4gwt.raphael.event.HoverListener;
 import org.sgx.raphael4gwt.raphael.util.Util;
 
 import com.google.gwt.dom.client.NativeEvent;

@@ -5,28 +5,16 @@ import java.util.List;
 
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Path;
-import org.sgx.raphael4gwt.raphael.Raphael;
-import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.event.HoverListener;
-import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 import org.sgx.raphael4gwt.test.image.IconPaths;
 
 import com.google.gwt.dom.client.NativeEvent;
 
-//import static org.sgx.raphael4gwt.test.image.IconPaths.*;
-
 public class StrokeTest extends Test {
-
-
-	public StrokeTest(Paper paper, int paperWidth, int paperHeight) {
-		super(paper, paperWidth, paperHeight);
-		this.name="strokes";
-		this.description="Show shape strokes";
-		
-	}
 
 	@Override
 	public void test() {
+		//we will draw all path in class IconPaths (predefined raphaeljs paths)		
 
 		String[] iconPaths = new String[] {
 			IconPaths.question, IconPaths.i, IconPaths.dollar, IconPaths.temp, 
@@ -64,6 +52,15 @@ public class StrokeTest extends Test {
 		
 	}
 
+
+	//test data
+	public StrokeTest(Paper paper, int paperWidth, int paperHeight) {
+		super(paper, paperWidth, paperHeight);
+		this.name="strokes";
+		this.description="Show shape strokes";		
+	}
+
+	
 	@Override
 	public String getJavaClassSource() {
 		return TestResources.INSTANCE.AllPathIcons().getText();

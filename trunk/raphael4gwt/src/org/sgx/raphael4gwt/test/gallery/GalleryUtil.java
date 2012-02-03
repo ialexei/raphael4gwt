@@ -14,6 +14,7 @@ import org.sgx.raphael4gwt.test.DragAndSnap;
 import org.sgx.raphael4gwt.test.DragTest1;
 import org.sgx.raphael4gwt.test.EventRegisterAndUnregister;
 import org.sgx.raphael4gwt.test.FillTest1;
+import org.sgx.raphael4gwt.test.FontTest1;
 import org.sgx.raphael4gwt.test.GradientMouseTest1;
 import org.sgx.raphael4gwt.test.MouseRelativeCoordsTest;
 import org.sgx.raphael4gwt.test.GradientTest1;
@@ -128,6 +129,9 @@ public class GalleryUtil {
 		tests.put(t.getName(), t);
 
 		t = new DragTest1(paper, w, h);
+		tests.put(t.getName(), t);
+
+		t = new FontTest1(paper, w, h);
 		tests.put(t.getName(), t);
 
 	}

@@ -90,8 +90,8 @@ public class Paper extends JavaScriptObject {
 	import com.google.gwt.resources.client.ImageResource;
 	import com.google.gwt.resources.client.ImageResource.ImageOptions;
 	
-	public interface TestImageResources extends ClientBundle {
-	  TestImageResources INSTANCE = GWT.create(TestImageResources.class);
+	public interface TestFontResources extends ClientBundle {
+	  TestFontResources INSTANCE = GWT.create(TestFontResources.class);
 	
 	  @ImageOptions(preventInlining=true)
 	  @Source("smallLion.png")
@@ -207,25 +207,85 @@ var c = paper.path("M10 10L90 90");
 		return this.forEach(f, null);
 	}-*/;
 	
-//	/**
-//	 * Creates set of shapes to represent given font at given position with given size. Result of the method is set object (see Paper.set) which contains each letter as separate path object.
-//	 * Usage: 
-//	 * <pre>
-//var txt = r.print(10, 50, "print", r.getFont("Museo"), 30).attr({fill: "#fff"});
-//// following line will paint first letter in red
-//txt[0].attr({fill: "#f00"});
-//
-//	 * </pre> 
-//	 * @param x x position of the text
-//	 * @param y y position of the text
-//	 * @param text text to print
-//	 * @param font font object, see Paper.getFont
-//	 * @return
-//	 */
-//	public native final Set print(int x, int y, String text, Font font)/*-{
-//		
-//	}-*/;
+	/**
+	 * Creates set of shapes to represent given font at given position with given size. Result of the method is set object (see Paper.set) which contains each letter as separate path object.
+	 * Usage: 
+	 * <pre>
+var txt = r.print(10, 50, "print", r.getFont("Museo"), 30).attr({fill: "#fff"});
+// following line will paint first letter in red
+txt[0].attr({fill: "#f00"});
 
+	 * </pre> 
+	 * @param x x position of the text
+	 * @param y y position of the text
+	 * @param text text to print
+	 * @param font font object, see Paper.getFont
+	 * @return
+	 */
+	public native final Set print(int x, int y, String text, Font font)/*-{
+		return this.print(x,y,text,font);
+	}-*/;
+	/**
+	 * Creates set of shapes to represent given font at given position with given size. Result of the method is set object (see Paper.set) which contains each letter as separate path object.
+	 * Usage: 
+	 * <pre>
+var txt = r.print(10, 50, "print", r.getFont("Museo"), 30).attr({fill: "#fff"});
+// following line will paint first letter in red
+txt[0].attr({fill: "#f00"});
+
+	 * </pre> 
+	 * @param x x position of the text
+	 * @param y y position of the text
+	 * @param text text to print
+	 * @param font font object, see Paper.getFont
+	 * @paam size - the font size in pixels - default 16
+	 * @ret
+	 */
+	public native final Set print(int x, int y, String text, Font font, int size)/*-{
+		return this.print(x,y,text,font, size);
+	}-*/;
+	
+	/**
+	 * Creates set of shapes to represent given font at given position with given size. Result of the method is set object (see Paper.set) which contains each letter as separate path object.
+	 * Usage: 
+	 * <pre>
+var txt = r.print(10, 50, "print", r.getFont("Museo"), 30).attr({fill: "#fff"});
+// following line will paint first letter in red
+txt[0].attr({fill: "#f00"});
+
+	 * </pre> 
+	 * @param x x position of the text
+	 * @param y y position of the text
+	 * @param text text to print
+	 * @param font font object, see Paper.getFont
+	 * @paam size - the font size in pixels - default 16
+	 * @param origin could be "baseline" or "middle", default is "middle"
+	 * @ret	 */
+	
+	public native final Set print(int x, int y, String text, Font font, int size, String origin)/*-{
+		return this.print(x,y,text,font, size, origin);
+	}-*/;
+	/**
+	 * Creates set of shapes to represent given font at given position with given size. Result of the method is set object (see Paper.set) which contains each letter as separate path object.
+	 * Usage: 
+	 * <pre>
+var txt = r.print(10, 50, "print", r.getFont("Museo"), 30).attr({fill: "#fff"});
+// following line will paint first letter in red
+txt[0].attr({fill: "#f00"});
+
+	 * </pre> 
+	 * @param x x position of the text
+	 * @param y y position of the text
+	 * @param text text to print
+	 * @param font font object, see Paper.getFont
+	 * @paam size - the font size in pixels - default 16
+	 * @param origin could be "baseline" or "middle", default is "middle"
+	 * @param letterSpacing - number in range -1..1, default is 0
+	 * @ret	 */
+	
+	public native final Set print(int x, int y, String text, Font font, int size, String origin, double letterSpacing)/*-{
+		return this.print(x,y,text,font, size, origin);
+	}-*/;
 	/**
 	 * @return element by its internal ID. 
 	 */

@@ -6,7 +6,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  * @author sg
  *
  */
-public class Font {
+public class Font extends JavaScriptObject {
 	protected Font(){};
 	public native final String getFamily()/*-{
 		return this.family;

@@ -34,6 +34,9 @@ public interface TestResources extends ClientBundle {
 	  @Source("GradientTest1.java")
 	  public TextResource GradientTest1();
 	  
+	  @Source("FontTest1.java")
+	  public TextResource FontTest1();
+	  
 	  @Source("GradientMouseTest1.java")
 	  public TextResource GradientMouseTest1();
 	  

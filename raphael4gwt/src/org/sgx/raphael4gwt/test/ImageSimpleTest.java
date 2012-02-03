@@ -23,8 +23,8 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.resources.client.ImageResource.ImageOptions;
 
-public interface TestImageResources extends ClientBundle {
-  TestImageResources INSTANCE = GWT.create(TestImageResources.class);
+public interface TestFontResources extends ClientBundle {
+  TestFontResources INSTANCE = GWT.create(TestFontResources.class);
 
   @ImageOptions(preventInlining=true)
   @Source("smallLion.png")

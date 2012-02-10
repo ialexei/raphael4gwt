@@ -4,6 +4,9 @@ import org.sgx.raphael4gwt.raphael.base.Font;
 import org.sgx.raphael4gwt.raphael.base.NativeFont;
 import org.sgx.raphael4gwt.raphael.base.Rectangle;
 import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
+import org.sgx.raphael4gwt.raphael.ft.FTCallback;
+import org.sgx.raphael4gwt.raphael.ft.FTOptions;
+import org.sgx.raphael4gwt.raphael.ft.FreeTransform;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
@@ -356,4 +359,17 @@ txt[0].attr({fill: "#f00"});
 //		
 //	}
 	
+	
+	
+	
+	/// FREE TRANSFOrm: 
+	public final native FreeTransform freeTransform(Shape s)/*-{
+		return this.freeTransform(s);
+	}-*/;
+	public final native FreeTransform freeTransform(Shape s, FTOptions opts, FTCallback c)/*-{		
+		return this.freeTransform(s, opts, function(opts_, events_) {
+			$entry(c.@org.sgx.raphael4gwt.raphael.ft.FTCallback::call(Lorg/sgx/raphael4gwt/raphael/ft/FTSubject;Lcom/google/gwt/core/client/JsArrayString;)(opts_, events_));
+		});
+	}-*/;
+
 }

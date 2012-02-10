@@ -223,15 +223,15 @@ console.log(el.transform());
 	 * @return
 	 */
 	public final native Shape drag(DDListener l)/*-{ 
-		var onstart = $entry(function(x, y, e) {
-			l.@org.sgx.raphael4gwt.raphael.event.DDListener::onStart(IILcom/google/gwt/dom/client/NativeEvent;)(x, y, e);
-		});
-		var onend = $entry(function(e) {
-			l.@org.sgx.raphael4gwt.raphael.event.DDListener::onEnd(Lcom/google/gwt/dom/client/NativeEvent;)(e);
-		});
-		var onmove = $entry(function(dx, dy, x, y, e) {
-			l.@org.sgx.raphael4gwt.raphael.event.DDListener::onMove(IIIILcom/google/gwt/dom/client/NativeEvent;)(dx, dy, x, y, e);
-		});
+		var onstart = function(x, y, e) {
+			$entry(l.@org.sgx.raphael4gwt.raphael.event.DDListener::onStart(IILcom/google/gwt/dom/client/NativeEvent;)(x, y, e));
+		};
+		var onend = function(e) {
+			$entry(l.@org.sgx.raphael4gwt.raphael.event.DDListener::onEnd(Lcom/google/gwt/dom/client/NativeEvent;)(e));
+		};
+		var onmove = function(dx, dy, x, y, e) {
+			$entry(l.@org.sgx.raphael4gwt.raphael.event.DDListener::onMove(IIIILcom/google/gwt/dom/client/NativeEvent;)(dx, dy, x, y, e));
+		};
 		return this.drag(onmove, onstart, onend);
 	}-*/;
 	/**
@@ -428,6 +428,12 @@ console.log(el.transform());
 	public final native Shape attr(Attrs attrs)/*-{	
 		//var a = attrs.@org.sgx.raphael4gwt.raphael.base.Attrs::getNativeAttrs()();
 		this.attr(attrs);		
+		return this;
+	}-*/;
+	
+
+	public final native Shape attr(String name, String val)/*-{
+		this.attr(name, val);
 		return this;
 	}-*/;
 	

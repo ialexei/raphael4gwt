@@ -46,5 +46,10 @@ public interface TestResources extends ClientBundle {
 	  @Source("DragTest1.java")
 	  public TextResource DragTest1();
 	  
+	  @Source("FreeTransformTest1.java")
+	  public TextResource FreeTransformTest1();
+	  
+	  @Source("AllMouseEvents.java")
+	  public TextResource AllMouseEvents();
 	  
 }

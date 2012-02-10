@@ -10,7 +10,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 public class Color extends JavaScriptObject{
 protected Color(){}
 public final native int getRed()/*-{
-this.r;
+return this.r;
 }-*/;
 public final native int getGreen()/*-{
 return this.g;

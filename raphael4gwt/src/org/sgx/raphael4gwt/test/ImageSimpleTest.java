@@ -1,7 +1,7 @@
 package org.sgx.raphael4gwt.test;
 
-import org.sgx.raphael4gwt.raphael.Image;
 import org.sgx.raphael4gwt.raphael.Paper;
+import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 import org.sgx.raphael4gwt.test.image.TestImageResources;
 
@@ -44,13 +44,14 @@ public class ImageSimpleTest extends Test {
 		ImageResource img1Res = TestImageResources.INSTANCE.smallLion();	
 		
 		//draw a raphael image using the gwt resource and add a click listener that rotates it.
-		final Image img1 = paper.image(img1Res, 10, 10, 120, 120);
+		final Shape img1 = paper.image(img1Res, 10, 10, 120, 120).rotate(20);
 		img1.click(new MouseEventListener() {			
 			@Override
 			public void notifyMouseEvent(NativeEvent e) {
 				img1.rotate(25);
 			}
 		});
+		paper.text(200,200, "click the lion");
 	}
 
 	

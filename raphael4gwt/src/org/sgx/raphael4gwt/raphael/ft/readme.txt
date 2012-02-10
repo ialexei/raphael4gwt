@@ -1,0 +1,1 @@
+free transform handler from https://github.com/ElbertF/Raphael.FreeTransform

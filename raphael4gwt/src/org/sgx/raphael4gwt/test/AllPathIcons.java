@@ -12,14 +12,6 @@ import com.google.gwt.dom.client.NativeEvent;
 
 public class AllPathIcons extends Test {
 
-
-	public AllPathIcons(Paper paper, int paperWidth, int paperHeight) {
-		super(paper, paperWidth, paperHeight);
-		this.name="path icons";
-		this.description="Show all raphaelis icons made with SVG paths";
-		
-	}
-
 	@Override
 	public void test() {
 
@@ -63,5 +55,10 @@ public class AllPathIcons extends Test {
 	public String getJavaClassSource() {
 		return TestResources.INSTANCE.AllPathIcons().getText();
 	}
-
+	public AllPathIcons(Paper paper, int paperWidth, int paperHeight) {
+		super(paper, paperWidth, paperHeight);
+		this.name="path icons";
+		this.description="Show all raphaelis icons made with SVG paths";
+		
+	}
 }

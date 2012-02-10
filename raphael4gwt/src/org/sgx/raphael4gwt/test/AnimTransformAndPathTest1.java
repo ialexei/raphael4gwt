@@ -16,7 +16,8 @@ public class AnimTransformAndPathTest1 extends Test {
 	public AnimTransformAndPathTest1(Paper paper, int paperWidth,
 			int paperHeight) {
 		super(paper, paperWidth, paperHeight);
-		this.name="anim transform and path with test.";
+		this.name="anim1";
+		this.description="anim transform and path with test.";
 	}
 
 	@Override

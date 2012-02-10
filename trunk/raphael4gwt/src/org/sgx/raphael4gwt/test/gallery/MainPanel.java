@@ -19,6 +19,8 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalSplitPanel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class MainPanel extends VerticalPanel {
@@ -29,6 +31,7 @@ public class MainPanel extends VerticalPanel {
 	private HorizontalSplitPanel horizontalSplitPanel;
 	private FlowPanel testGeneral;
 	protected Paper paper;
+	private VerticalPanel testPanel;
 
 	public MainPanel() {
 		
@@ -90,42 +93,27 @@ public class MainPanel extends VerticalPanel {
 		decoratedStackPanel.add(testGeneral, "General", false);
 		testGeneral.setSize("100%", "100%");
 				
-//		testEvent = new FlowPanel();
-//		decoratedStackPanel.add(testEvent, "Events", false);
-//		testEvent.setSize("100%", "100%");		
 		
+		VerticalPanel vp2 = new VerticalPanel();
+		testPanel = new VerticalPanel();
+		testPanel.setWidth("100%");
+		GalleryUtil.getInstance().setTestPanel(testPanel);
+		vp2.add(new Label("Test controls: "));
+		vp2.add(testPanel);
+		vp2.add(new Label("Test canvas: "));
 		paperWidget = new PaperWidget(PAPER_WIDTH, PAPER_HEIGHT, new PaperListener() {
 			
 			@Override
 			public void paperLoaded(Paper paper) {
 				/* the paper is loaded! so now we can instantiate all our tests */
-				
-//				paper = paperWidget.getPaper();
-//				System.out.println("onload");
-//				paperWidget.getElement().getStyle().setOverflow(Overflow.SCROLL);
 				MainPanel.this.paper=paper;
 				GalleryUtil.getInstance().loadAllTest(paperWidget.getPaper(), PAPER_WIDTH, PAPER_HEIGHT);
 				GalleryUtil.getInstance().doAddAllGeneralTests(testGeneral);
 			}
 		});
 		paperWidget.getElement().getStyle().setBorderStyle(BorderStyle.SOLID);
-		
-//		paperWidget = new PaperWidget(PAPER_WIDTH, PAPER_HEIGHT);
-//		paper = paperWidget.getPaper();
-//		Button button = GalleryUtil.getInstance().createButtonFor(
-//			new CircleGlowingAndDraggin(paperWidget.getPaper(), PAPER_WIDTH, PAPER_HEIGHT));//new circlegnew Button("New button");
-//		testGeneral.add(button);		
-//		button = GalleryUtil.getInstance().createButtonFor(
-//				new EventRegisterAndUnregister(paper, PAPER_WIDTH, PAPER_HEIGHT));//new circlegnew Button("New button");
-//		testGeneral.add(button);
-//			
-//		button = GalleryUtil.getInstance().createButtonFor(
-//				new DragAndSnap(paper, PAPER_WIDTH, PAPER_HEIGHT));//new circlegnew Button("New button");
-//		testGeneral.add(button);
-		
-		
-		horizontalSplitPanel.setRightWidget(paperWidget);
-//		paperWidget.loadRaphael(600,600);
+		vp2.add(paperWidget);
+		horizontalSplitPanel.setRightWidget(vp2);
 		paperWidget.setSize("100%", "100%");
 		
 	}

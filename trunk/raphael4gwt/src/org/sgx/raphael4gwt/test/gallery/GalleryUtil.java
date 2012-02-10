@@ -1,12 +1,11 @@
 package org.sgx.raphael4gwt.test.gallery;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.sgx.raphael4gwt.raphael.Paper;
+import org.sgx.raphael4gwt.test.AllMouseEvents;
 import org.sgx.raphael4gwt.test.AllPathIcons;
 import org.sgx.raphael4gwt.test.AnimTransformAndPathTest1;
 import org.sgx.raphael4gwt.test.CircleGlowingAndDraggin;
@@ -15,10 +14,11 @@ import org.sgx.raphael4gwt.test.DragTest1;
 import org.sgx.raphael4gwt.test.EventRegisterAndUnregister;
 import org.sgx.raphael4gwt.test.FillTest1;
 import org.sgx.raphael4gwt.test.FontTest1;
+import org.sgx.raphael4gwt.test.FreeTransformTest1;
 import org.sgx.raphael4gwt.test.GradientMouseTest1;
-import org.sgx.raphael4gwt.test.MouseRelativeCoordsTest;
 import org.sgx.raphael4gwt.test.GradientTest1;
 import org.sgx.raphael4gwt.test.ImageSimpleTest;
+import org.sgx.raphael4gwt.test.MouseRelativeCoordsTest;
 import org.sgx.raphael4gwt.test.SetSimpleTest1;
 import org.sgx.raphael4gwt.test.Test;
 import org.sgx.raphael4gwt.test.util.GUIUtil;
@@ -26,9 +26,8 @@ import org.sgx.raphael4gwt.test.util.GUIUtil;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class GalleryUtil {
 
@@ -54,10 +53,21 @@ public class GalleryUtil {
 			public void onClick(ClickEvent event) {
 				currentTest = t;
 				t.getPaper().clear();
+				getTestPanel().clear();
 				t.test();
 			}
 		});
 		return b;
+	}
+
+	VerticalPanel testPanel;
+	
+	public VerticalPanel getTestPanel() {
+		return testPanel;
+	}
+
+	public void setTestPanel(VerticalPanel testPanel) {
+		this.testPanel = testPanel;
 	}
 
 	public void doShowJavaSource(Test t) {
@@ -133,12 +143,20 @@ public class GalleryUtil {
 
 		t = new FontTest1(paper, w, h);
 		tests.put(t.getName(), t);
-
+		
+		
+		t = new FreeTransformTest1(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		t = new AllMouseEvents(paper, w, h);
+		tests.put(t.getName(), t);
 	}
 
 	Map<String, List<Test>> getTestsByTag() {
 		return null;
 
 	}
+
+
 
 }

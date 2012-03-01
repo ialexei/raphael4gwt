@@ -1,0 +1,21 @@
+#labels raphael,fonts,raphael4gwt,customfont,gwt,font
+#Guide for working with text custom fonts
+
+= Introduction =
+
+raphaeljs let us work with any TrueType and other format fonts, so we can show our text using the exact desired system font. It uses [https://github.com/sorccu/cufon cufón] for rendering any type of font.
+
+= Use custom fonts for printing text in Raphaël = 
+
+In raphaeljs the steps for using some TrueType font are:
+
+# locate the .ttf file of the desired font
+# go to [http://cufon.shoqolate.com/generate/ Cufón font generator] and upload the font there. Configure the generator according to your needs and make sure to customize the font to Raphael support (Raphael.registerFont()).
+# If everything was fine, the cufón generator will give us a javascript file. We must include that .js file in our html document
+# use paper.getFont("Lucida XYZ") for retrieve the font object and pass it to paper.print for render some text iwht that font and font-size. paper.print will return a set of shapes, each on of them is a letter of given text.
+
+= Use custom fonts for printing text in raphael4gwt =
+
+For using custom fonts in a raphael4gwt application we take analogous steps. As above, we must get the javascript font file from .ttf file using [http://cufon.shoqolate.com/generate/ Cufón font generator]. Then: 
+
+#

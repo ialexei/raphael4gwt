@@ -9,10 +9,10 @@ Raphaël let us work with any TrueType and other format fonts, so we can show ou
 
 In raphaeljs the steps for using some TrueType font are:
 
-  #Locate the .ttf file of the desired font. 
-  #Go to [http://cufon.shoqolate.com/generate/ Cufón font generator] and upload the font there. Configure the generator according to your needs and make sure to customize the font to Raphael support (Raphael.registerFont()).
-  #If everything was fine, the cufón generator will give us a javascript file. We must include that .js file in our html document
-  #Use paper.getFont("Lucida XYZ") for retrieve the font object and pass it to paper.print for render some text iwht that font and font-size. paper.print will return a set of shapes, each on of them is a letter of given text.
+  # Locate the .ttf file of the desired font. 
+  # Go to [http://cufon.shoqolate.com/generate/ Cufón font generator] and upload the font there. Configure the generator according to your needs and make sure to customize the font to Raphael support (Raphael.registerFont()).
+  # If everything was fine, the cufón generator will give us a javascript file. We must include that .js file in our html document
+  # Use paper.getFont("Lucida XYZ") for retrieve the font object and pass it to paper.print for render some text iwht that font and font-size. paper.print will return a set of shapes, each on of them is a letter of given text.
 
 
 = Use custom fonts for printing text in raphael4gwt =
@@ -21,9 +21,8 @@ For using custom fonts in a raphael4gwt application we take analogous steps. As 
 
 Then we must include that script in our application so one way of doing this is:
 
-  #Create if not exists a directory called "public" at the same level of your project's .gwt.xml file and put the font javascript file there, like `public/Anchor_Steam_NF_400.font.js`
-  #Include that script in your project's .gwt.xml file like this:
-` <script src="Anchor_Steam_NF_400.font.js"></script>`
+  # Create if not exists a directory called "public" at the same level of your project's .gwt.xml file and put the font javascript file there, like `public/Anchor_Steam_NF_400.font.js`.
+  # Include that script in your project's .gwt.xml file like this: ` <script src="Anchor_Steam_NF_400.font.js"></script>`. 
   # Now we are ready for using the font. In our example the font's name is "Anchor Steam NF", so in our java code we can print a text using that font, at 54 píxels of size, like this:
 
 {{{

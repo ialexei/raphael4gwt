@@ -21,9 +21,9 @@ For using custom fonts in a raphael4gwt application we take analogous steps. As 
 
 Then we must include that script in our application so one way of doing this is:
 
-  #Create if not exists a directory called "public" at the same level of your project's .gwt.xml file and put the font javascript file there, like public/Anchor_Steam_NF_400.font.js. 
+  #Create if not exists a directory called "public" at the same level of your project's .gwt.xml file and put the font javascript file there, like `public/Anchor_Steam_NF_400.font.js`
   #Include that script in your project's .gwt.xml file like this:
-{{{ <script src="Anchor_Steam_NF_400.font.js"></script>  }}}
+` <script src="Anchor_Steam_NF_400.font.js"></script>`
   # Now we are ready for using the font. In our example the font's name is "Anchor Steam NF", so in our java code we can print a text using that font, at 54 píxels of size, like this:
 
 {{{
@@ -34,8 +34,27 @@ Set text1 = paper.print(200,200,"Hello New Font", font, 54);
 }}}
 
 
-= Complete raphael4gwt test = 
+= gwt.xml sample file = 
 
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.4.0//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.4.0/distro-source/core/src/gwt-module.dtd">
+<module>
+	<inherits name="com.google.gwt.user.User" />
+
+	<inherits name="com.google.gwt.resources.Resources" />
+	<inherits name="org.sgx.raphael4gwt.Raphael4Gwt" />
+	<inherits name='com.google.gwt.user.theme.clean.Clean' />
+
+	<script src="Anchor_Steam_NF_400.font.js"></script>
+
+
+	<entry-point class="org.sgx.raphael4gwt.test.Raphael4GwtTest" />
+	<source path="test" />
+</module>
+}}}
+
+= java test sample = 
 {{{
 
 package org.sgx.raphael4gwt.test;

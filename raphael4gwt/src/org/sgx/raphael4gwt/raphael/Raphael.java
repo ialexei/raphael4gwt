@@ -202,7 +202,7 @@ public static native int deg(int deg)/*-{
 //}
 
 
-public static native Point createPoint(int x, int y)/*-{
+public static native Point createPoint(double x, double y)/*-{
 	return {"x": x, "y": y};
 }-*/;
 public static native Rectangle createRectangle(int x, int y, int width, int height)/*-{

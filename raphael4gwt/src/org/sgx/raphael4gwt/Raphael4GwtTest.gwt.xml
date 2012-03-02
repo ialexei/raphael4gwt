@@ -8,7 +8,7 @@
 	<inherits name='com.google.gwt.user.theme.clean.Clean' />
 
 	<script src="Anchor_Steam_NF_400.font.js"></script>
-
+	<script src="Phorssa_400.font.js"></script>
 
 	<entry-point class="org.sgx.raphael4gwt.test.Raphael4GwtTest" />
 	<source path="test" />

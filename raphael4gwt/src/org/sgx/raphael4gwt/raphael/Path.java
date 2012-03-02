@@ -12,7 +12,14 @@ protected Path(){}
 public final native Point getPointAtLength(int length)/*-{
 	return this.getPointAtLength(length);
 }-*/;
-
+/**
+ * Return coordinates of the point located at the given length on the given path
+ * @param length
+ * @return
+ */
+public final native Point getPointAtLength(double length)/*-{
+	return this.getPointAtLength(length);
+}-*/;
 /**
  * Return subpath of a given element from given length to given length
  * @param from position of the start of the segment
@@ -25,7 +32,7 @@ public final native String getSubpath(int from, int to)/*-{
 /**
  * @return length of the path in pixels.
  */
-public final native int getTotalLength()/*-{
+public final native double getTotalLength()/*-{
 	return this.getTotalLength();
 }-*/;
 

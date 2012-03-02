@@ -7,7 +7,7 @@ package org.sgx.raphael4gwt.raphael.base;
  */
 public class Stop {
 String color;
-int offset;
+double offset;
 
 public Stop(String color, int offset) {
 	super();
@@ -20,10 +20,10 @@ public String getColor() {
 public void setColor(String color) {
 	this.color = color;
 }
-public int getOffset() {
+public double getOffset() {
 	return offset;
 }
-public void setOffset(int offset) {
+public void setOffset(double offset) {
 	this.offset = offset;
 }
 

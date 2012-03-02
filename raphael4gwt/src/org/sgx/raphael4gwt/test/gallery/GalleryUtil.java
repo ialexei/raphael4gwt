@@ -14,6 +14,7 @@ import org.sgx.raphael4gwt.test.DragTest1;
 import org.sgx.raphael4gwt.test.EventRegisterAndUnregister;
 import org.sgx.raphael4gwt.test.FillTest1;
 import org.sgx.raphael4gwt.test.FontTest1;
+import org.sgx.raphael4gwt.test.FontTextOnPath;
 import org.sgx.raphael4gwt.test.FreeTransformTest1;
 import org.sgx.raphael4gwt.test.GradientMouseTest1;
 import org.sgx.raphael4gwt.test.GradientTest1;
@@ -144,6 +145,8 @@ public class GalleryUtil {
 		t = new FontTest1(paper, w, h);
 		tests.put(t.getName(), t);
 		
+		t = new FontTextOnPath(paper, w, h);
+		tests.put(t.getName(), t);
 		
 		t = new FreeTransformTest1(paper, w, h);
 		tests.put(t.getName(), t);

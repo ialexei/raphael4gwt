@@ -7,6 +7,8 @@ import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Font;
 import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
 
+import com.google.gwt.user.client.Window;
+
 public class FontTest1 extends Test {
 
 	@Override
@@ -30,13 +32,17 @@ public class FontTest1 extends Test {
 		 */
 
 		Font font = paper.getFont("Anchor Steam NF");
-		Set test1 = paper.print(200,200,"Hello New Font", font, 54);
-		test1.attr();
+		Set text1 = paper.print(200,200,"Hello New Font", font, 54);
 		
-		test1.forEach(new ForEachCallback() {			
+		/* yes, the text is a set, the array of letter-shapes can be obtained 
+		 * with text1.items(), here we use forEach for iterating the letters */
+		Window.alert("the text is formed by "+text1.size()+" letters. ");
+		
+		text1.forEach(new ForEachCallback() {			
 			@Override
 			public boolean call(Shape shape, int index) {
 				shape.attr(Attrs.create().stroke(randomColor()));
+				shape.attr(Attrs.create().fill(randomColor()));
 				return false;
 			}
 		});
@@ -46,7 +52,7 @@ public class FontTest1 extends Test {
 
 	public FontTest1(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
-		this.name="font";
+		this.name="font1";
 		this.description="simple test using cufon fonts";		
 	}
 

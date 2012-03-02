@@ -73,6 +73,25 @@ public native final Set push(JsArray<Shape> shapes)/*-{
 	return this.push(shapes);
 }-*/;
 
+/**
+ * @return the number of items
+ */
+public native final int size()/*-{
+	return this.length;
+}-*/;
+/**
+ * @return the array of shapes that constitute this set.
+ */
+public native final JsArray<Shape> items()/*-{
+	return this.items;
+}-*/;
+/**
+ * @return the array of shapes that constitute this set.
+ */
+public native final Shape item(int i)/*-{
+	return this.items[i];
+}-*/;
+
 ///**
 // * add shapes "on top" of this set
 // */

@@ -2,6 +2,7 @@ package org.sgx.raphael4gwt.raphael;
 
 import org.sgx.raphael4gwt.raphael.base.Font;
 import org.sgx.raphael4gwt.raphael.base.NativeFont;
+import org.sgx.raphael4gwt.raphael.base.Point;
 import org.sgx.raphael4gwt.raphael.base.Rectangle;
 import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
 import org.sgx.raphael4gwt.raphael.ft.FTCallback;
@@ -64,9 +65,17 @@ public class Paper extends JavaScriptObject {
 
 
 	public final native Rect rect(int x, int y, int w, int h)/*-{
-//		alert(this.canvas);
 		return this.rect(x, y, w, h);
 	}-*/;
+	
+	public final native Rect rect(Rectangle r)/*-{
+		return this.rect(r.x, r.y, r.width, r.height);
+	}-*/;
+	public final native Rect rect(Rectangle r, int round)/*-{
+		return this.rect(r.x, r.y, r.width, r.height, round);
+	}-*/;
+	
+	
 	/**
 	 * Draws a rectangle. 
 	 * @param x x coordinate of the top left corner
@@ -79,6 +88,14 @@ public class Paper extends JavaScriptObject {
 	public final native Rect rect(int x, int y, int w, int h, int r) /*-{
 		return this.rect(x, y, w, h, r);
 	}-*/;
+	
+	public final native Rect rect(Point pos, int width, int height) /*-{
+		return this.rect(pos.x, pos.y, width, height);
+	}-*/;
+	public final native Rect rect(Point pos, int width, int height, int r) /*-{
+		return this.rect(pos.x, pos.y, width, height, r);
+	}-*/;
+	
 	/**
 	 * creates a raphael image from GWT ImageResource (using client bundle). <br/>
 	 * Important: for creating an raphael image, raphaeljs internally 
@@ -371,5 +388,7 @@ txt[0].attr({fill: "#f00"});
 			$entry(c.@org.sgx.raphael4gwt.raphael.ft.FTCallback::call(Lorg/sgx/raphael4gwt/raphael/ft/FTSubject;Lcom/google/gwt/core/client/JsArrayString;)(opts_, events_));
 		});
 	}-*/;
+
+	
 
 }

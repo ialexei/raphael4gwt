@@ -329,6 +329,15 @@ public class Attrs extends JavaScriptObject {
 		return this;
 	}-*/;
 	/**
+	 * the x-axis coordinate of the center of the circle, or ellipse
+	 * @param val
+	 * @return
+	 */
+	public final native Attrs cx(double val)/*-{
+		this["cx"]=val;
+		return this;
+	}-*/;
+	/**
 	 * the y-ayis coordinate of the center of the circle, or ellipse
 	 * @return
 	 */
@@ -348,6 +357,15 @@ public class Attrs extends JavaScriptObject {
 	 * @return
 	 */
 	public final native Attrs cy(int val)/*-{
+		this["cy"]=val;
+		return this;
+	}-*/;
+	/**
+	 * the y-ayis coordinate of the center of the circle, or ellipse
+	 * @param val
+	 * @return
+	 */
+	public final native Attrs cy(double val)/*-{
 		this["cy"]=val;
 		return this;
 	}-*/;
@@ -384,6 +402,10 @@ public class Attrs extends JavaScriptObject {
 		this["x"]=val;
 		return this;
 	}-*/;
+	public final native Attrs x(double val)/*-{
+		this["x"]=val;
+		return this;
+	}-*/;
 	public final native int getY()/*-{
 		return this["y"];
 	}-*/;
@@ -391,6 +413,10 @@ public class Attrs extends JavaScriptObject {
 		this["y"]=val;
 	}-*/;
 	public final native Attrs y(int val)/*-{
+		this["y"]=val;
+		return this;
+	}-*/;
+	public final native Attrs y(double val)/*-{
 		this["y"]=val;
 		return this;
 	}-*/;

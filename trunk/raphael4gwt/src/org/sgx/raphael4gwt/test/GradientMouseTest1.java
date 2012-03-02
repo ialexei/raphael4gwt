@@ -33,7 +33,7 @@ public class GradientMouseTest1 extends Test {
 			public void notifyMouseEvent(NativeEvent e) {			
 				Rectangle bb = ellipse1.getBBox(false);				
 				Point p2 = Raphael.getCoordsInShape(paper, ellipse1, e);
-				int xoffset = (bb.getWidth() - p2.getX())/2, 
+				double xoffset = (bb.getWidth() - p2.getX())/2, 
 					yoffset = (bb.getHeight() - p2.getY())/2;
 				text1.setAttribute("text", "gradients offsets : "+xoffset+", "+yoffset);
 				radialGradient1.getStops()[0].setOffset(xoffset);

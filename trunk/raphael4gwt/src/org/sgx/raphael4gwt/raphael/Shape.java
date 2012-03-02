@@ -25,16 +25,21 @@ public class Shape extends JavaScriptObject {
 	public final native Shape clone()/*-{ 
 		return this.clone();
 	}-*/;
+	
 	/**
 	 * Return bounding box for a given element 
 	 * @param isWithoutTransform - flag, true if you want to have bounding box before transformations. Default is false.
 	 * @return
 	 */
 	public final native Rectangle getBBox(boolean isWithoutTransform)/*-{ 
-		//alert(typeof(this.getBBox(isWithoutTransform).width))
 		return this.getBBox(isWithoutTransform); 
 	}-*/;
-	
+	/**
+	 * @return bounding box for a given element 
+	 */
+	public final native Rectangle getBBox()/*-{ 
+		return this.getBBox(); 
+	}-*/;
 	
 	
 	
@@ -76,7 +81,7 @@ public class Shape extends JavaScriptObject {
 	public final native Shape scale(double sx, double sy)/*-{
 		return this.scale(sx, sy);
 	}-*/;
-	public final native Shape translate(int dx, int dy)/*-{
+	public final native Shape translate(double dx, double dy)/*-{
 		return this.translate(dx, dy);
 	}-*/;
 	public final native Shape hide()/*-{
@@ -90,7 +95,7 @@ public class Shape extends JavaScriptObject {
 	 * @return  current transformation string. @see setTransform()
 	 */
 	public final native String getTransform()/*-{
-		return this.transform();
+		return this.transform()+"";
 	}-*/;
 	/**
 	 * Adds transformation to the element which is separate to other attributes, i.e. translation doesn’t change x or y of the rectange. The format of transformation string is similar to the path string syntax:<br/>
@@ -405,6 +410,9 @@ console.log(el.transform());
 		this.attr(name, value);
 	}-*/;
 	public final native void setAttribute(String name, int value)/*-{
+		this.attr(name, value);
+	}-*/;
+	public final native void setAttribute(String name, double value)/*-{
 		this.attr(name, value);
 	}-*/;
 //	public final native void setAttribute(String name, float value)/*-{

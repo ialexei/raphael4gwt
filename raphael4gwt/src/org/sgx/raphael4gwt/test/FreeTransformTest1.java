@@ -61,6 +61,7 @@ public class FreeTransformTest1 extends Test {
 			p.scale(2.0,2.0);
 			
 			final FTOptions ftOpts = FTOptions.create();
+			ftOpts.setRotate(true);
 			ftOpts.setAttrs(Attrs.create().fill("red").strokeWidth(4).stroke("blue"));
 			final FTCallback callback = new FTCallback() {				
 				@Override

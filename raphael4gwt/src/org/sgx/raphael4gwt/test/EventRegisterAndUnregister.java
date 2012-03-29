@@ -46,7 +46,7 @@ public class EventRegisterAndUnregister extends Test{
 			}			
 			@Override
 			public void hoverIn(NativeEvent e) {
-				if(roundedCornerRect1DoGlow)
+//				if(roundedCornerRect1DoGlow)
 					roundedCornerRect1Glow = roundedCornerRect1.glow(new Glow(40));
 			}
 		};
@@ -54,9 +54,9 @@ public class EventRegisterAndUnregister extends Test{
 		roundedCornerRect1.click(new MouseEventListener() {			
 			@Override
 			public void notifyMouseEvent(NativeEvent e) {
-				Window.alert("now it won't glow anymore");
-				roundedCornerRect1Glow.remove();
+				Window.alert("now it won't glow anymore");				
 				roundedCornerRect1.unhover(roundedCornerRect1HoverListener);
+				roundedCornerRect1Glow.remove();
 			}
 		});
 		

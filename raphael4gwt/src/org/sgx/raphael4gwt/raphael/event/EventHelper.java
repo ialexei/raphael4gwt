@@ -4,6 +4,7 @@ import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.user.client.Window;
 
 /**
  * internal helper. mantains a map between MouseEventListener java objects and native javascript functions.
@@ -20,7 +21,8 @@ public class EventHelper {
 	}
 	public static JavaScriptObject removeMouseEventListener(MouseEventListener l) {
 		JavaScriptObject o = JsUtil.get(mouseEventsListeners, l);
-		JsUtil.put(o, l, null);
+//		Window.alert(o+"");
+		JsUtil.put(mouseEventsListeners, l, null);
 		return o;
 	}
 	public static JavaScriptObject getMouseEventListener(MouseEventListener l) {
@@ -39,7 +41,7 @@ public class EventHelper {
 	}
 	public static JsArray<JavaScriptObject> removeHoverListener(HoverListener l) {
 		JsArray<JavaScriptObject> o = JsUtil.get(hoverListeners, l);
-		JsUtil.put(o, l, null);
+		JsUtil.put(hoverListeners, l, null);
 		return o;
 	}
 	public static JsArray<JavaScriptObject> getHoverListener(HoverListener l) {

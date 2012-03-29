@@ -135,7 +135,7 @@ public native final boolean isKeepRatio()/*-{
 	return this.keepRatio;
 }-*/;
 /**Scale axes together or individually (default: false)*/
-public native final boolean setKeepRatio(boolean kr)/*-{
+public native final void setKeepRatio(boolean kr)/*-{
 	this.keepRatio = kr;
 }-*/;
 
@@ -144,7 +144,7 @@ public native final boolean isRotate()/*-{
 	return this.rotate;
 }-*/;
 /**Enables/disables rotating (default: true).*/
-public native final boolean setRotate(boolean kr)/*-{
+public native final void setRotate(boolean kr)/*-{
 	this.rotate = kr;
 }-*/;
 /**Limit the range of rotation (default: [ -180, 180 ])*/
@@ -179,7 +179,7 @@ public native final boolean isScale()/*-{
 	return this.scale;
 }-*/;
 /**Enables/disables scaling (default: true).*/
-public native final boolean setScale(boolean kr)/*-{
+public native final void setScale(boolean kr)/*-{
 	this.scale = kr;
 }-*/;
 

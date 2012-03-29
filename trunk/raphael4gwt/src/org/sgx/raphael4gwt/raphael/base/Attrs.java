@@ -29,13 +29,47 @@ at 0.25, 0.75. Focus point coordinates are in 0..1 range. Radial gradients can o
  *
  */
 public class Attrs extends JavaScriptObject {
+		
+	//attrs names constants
+	public static final String 
+		ARROW_END="arrow-end", 
+		CLIP_RECT="clip-rect",
+		CURSOR="cursor",
+		CX="cx",CY="cy",
+		FILL="fill",
+		FILL_OPACITY="fill-opacity",
+		FONT="font", 
+		FONT_FAMILY="font-family", 
+		FONT_SIZE="font-size", 
+		FONT_WEIGHT="font-weight",
+		HEIGHT="height", 
+		HREF="href", 
+		OPACITY="opacity",
+		PATH="path",
+		R="r",
+		RX="rx",
+		RY="ry",
+		STROKE="stroke",
+		STROKE_DASHARRAY="stroke-dasharray",
+		STROKE_LINECAP="stroke-linecap",
+		STROKE_MITERLIMIT="stroke-miterlimit",
+		STROKE_OPACITY="stroke-opacity",
+		STROKE_WIDTH="stroke-width",
+		TEXT="text",
+		TEXT_ANCHOR="text-anchor",
+		TITLE="title",
+		TRANSFORM="transform",
+		WIDTH="width",
+		X="x",
+		Y="y"
+		;
+	
 	
 	public static final native Attrs create()/*-{
 		return {};
 	}-*/;
  
 	protected Attrs(){}	
-	
 	
 	
 	public final native String get(String attr)/*-{
@@ -391,6 +425,10 @@ public class Attrs extends JavaScriptObject {
 		this["height"]=val;
 		return this;
 	}-*/;
+	public final native Attrs height(double val)/*-{
+		this["height"]=val;
+		return this;
+	}-*/;
 	
 	public final native int getX()/*-{
 		return this["x"];
@@ -450,6 +488,10 @@ public class Attrs extends JavaScriptObject {
 		this["font-size"]=val;
 	}-*/;
 	public final native Attrs fontSize(int val)/*-{
+		this["font-size"]=val;
+		return this;
+	}-*/;
+	public final native Attrs fontSize(double val)/*-{
 		this["font-size"]=val;
 		return this;
 	}-*/;

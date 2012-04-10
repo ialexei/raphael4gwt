@@ -1,15 +1,26 @@
 package org.sgx.raphael4gwt.test;
 
 import org.sgx.raphael4gwt.raphael.Paper;
+import org.sgx.raphael4gwt.raphael.Path;
+import org.sgx.raphael4gwt.raphael.Raphael;
 import org.sgx.raphael4gwt.raphael.Set;
 import org.sgx.raphael4gwt.raphael.Shape;
+import org.sgx.raphael4gwt.raphael.base.Animation;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Font;
+import org.sgx.raphael4gwt.raphael.event.Callback;
 import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
+import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
+import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.user.client.Window;
 
 public class FontTest1 extends Test {
+
+	private Path text1;
+	private Path text2;
+	private Animation animation1;
 
 	@Override
 	public void test() {
@@ -32,28 +43,34 @@ public class FontTest1 extends Test {
 		 */
 
 		Font font = paper.getFont("Anchor Steam NF");
-		Set text1 = paper.print(200,200,"Hello New Font", font, 54);
+		text1 = paper.print(150,200,"clickme please !!!", font, 84);
+		text1.hide();
 		
-		/* yes, the text is a set, the array of letter-shapes can be obtained 
-		 * with text1.items(), here we use forEach for iterating the letters */
-		Window.alert("the text is formed by "+text1.size()+" letters. ");
+		text2 = paper.print(150,200,"thanks for my life", font, 84);
+		text2.hide();
 		
-		text1.forEach(new ForEachCallback() {			
+		Attrs future1 = (Attrs) JsUtil.obj(
+			"path", text2.getAttribute("path")
+		);
+		
+		animation1 = Raphael.animation(future1, 5000, Raphael.EASING_EASEOUT);
+		
+		text1.show();
+		text1.click(new MouseEventListener() {
+			
 			@Override
-			public boolean call(Shape shape, int index) {
-				shape.attr(Attrs.create().stroke(randomColor()));
-				shape.attr(Attrs.create().fill(randomColor()));
-				return false;
+			public void notifyMouseEvent(NativeEvent e) {
+				text1.animate(animation1);
 			}
-		});
+		});		
 	}
 
+	
 	//test stuff
-
 	public FontTest1(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
-		this.name="font1";
-		this.description="simple test using cufon fonts";		
+		this.name="fonts&anim1";
+		this.description="simple test using cufon fonts and animating a text to other";		
 	}
 
 	@Override

@@ -36,10 +36,7 @@ public interface TestResources extends ClientBundle {
 	  
 	  @Source("FontTest1.java")
 	  public TextResource FontTest1();
-	  
-	  @Source("FontTextOnPath.java")
-	  public TextResource FontTest2();
-	  
+	  	  
 	  @Source("GradientMouseTest1.java")
 	  public TextResource GradientMouseTest1();
 	  
@@ -55,4 +52,12 @@ public interface TestResources extends ClientBundle {
 	  @Source("AllMouseEvents.java")
 	  public TextResource AllMouseEvents();
 	  
+	  @Source("PathEditorTest1.java")
+	  public TextResource PathEditorTest1();
+	  
+	  @Source("PrintLettersOnPath.java")
+	  public TextResource PrintLettersOnPath();
+	  
+	  @Source("BlurAndEmbossTest1.java")
+	  public TextResource BlurAndEmbossTest1();
 }

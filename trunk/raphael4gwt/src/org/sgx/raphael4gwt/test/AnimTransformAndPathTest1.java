@@ -13,13 +13,7 @@ import com.google.gwt.user.client.Window;
 
 public class AnimTransformAndPathTest1 extends Test {
 
-	public AnimTransformAndPathTest1(Paper paper, int paperWidth,
-			int paperHeight) {
-		super(paper, paperWidth, paperHeight);
-		this.name="anim1";
-		this.description="anim transform and path with test.";
-	}
-
+	
 	@Override
 	public void test() {
 		Path alarm1 = paper.path(IconPaths.alarm);		
@@ -44,6 +38,14 @@ public class AnimTransformAndPathTest1 extends Test {
 		});
 		alarm1.animate(animation1);
 		
+	}
+	
+	//test stuff
+	public AnimTransformAndPathTest1(Paper paper, int paperWidth,
+			int paperHeight) {
+		super(paper, paperWidth, paperHeight);
+		this.name="anim1";
+		this.description="anim transform and path with test.";
 	}
 
 	@Override

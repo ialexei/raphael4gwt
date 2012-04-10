@@ -242,7 +242,7 @@ txt[0].attr({fill: "#f00"});
 	 * @param font font object, see Paper.getFont
 	 * @return
 	 */
-	public native final Set print(int x, int y, String text, Font font)/*-{
+	public native final Path print(int x, int y, String text, Font font)/*-{
 		return this.print(x,y,text,font);
 	}-*/;
 	/**
@@ -261,7 +261,7 @@ txt[0].attr({fill: "#f00"});
 	 * @paam size - the font size in pixels - default 16
 	 * @ret
 	 */
-	public native final Set print(int x, int y, String text, Font font, int size)/*-{
+	public native final Path print(int x, int y, String text, Font font, int size)/*-{
 		return this.print(x,y,text,font, size);
 	}-*/;
 	
@@ -282,7 +282,7 @@ txt[0].attr({fill: "#f00"});
 	 * @param origin could be "baseline" or "middle", default is "middle"
 	 * @ret	 */
 	
-	public native final Set print(int x, int y, String text, Font font, int size, String origin)/*-{
+	public native final Path print(int x, int y, String text, Font font, int size, String origin)/*-{
 		return this.print(x,y,text,font, size, origin);
 	}-*/;
 	/**
@@ -303,8 +303,8 @@ txt[0].attr({fill: "#f00"});
 	 * @param letterSpacing - number in range -1..1, default is 0
 	 * @ret	 */
 	
-	public native final Set print(int x, int y, String text, Font font, int size, String origin, double letterSpacing)/*-{
-		return this.print(x,y,text,font, size, origin);
+	public native final Path print(int x, int y, String text, Font font, int size, String origin, double letterSpacing)/*-{
+		return this.print(x,y,text,font, size, origin, letterSpacing);
 	}-*/;
 	/**
 	 * @return element by its internal ID. 
@@ -361,6 +361,8 @@ txt[0].attr({fill: "#f00"});
 
 
 	
+	
+	
 	/**
 	 * safe entry point (managed by gwt.dom.client) for acessing HTML DOM RElated information on this paper
 	 * for example, knowing paper position, attributes, "paper html element" 
@@ -379,6 +381,9 @@ txt[0].attr({fill: "#f00"});
 	
 	
 	
+	
+	/* * * * EXTENSIONS * * * * */
+	
 	/// FREE TRANSFOrm: 
 	public final native FreeTransform freeTransform(Shape s)/*-{
 		return this.freeTransform(s);
@@ -390,5 +395,58 @@ txt[0].attr({fill: "#f00"});
 	}-*/;
 
 	
-
+	/// printletters
+	
+	/**
+	 * newer versions of raphaeljs will return a path (and not a set) on print()
+	 * so aligning letters in a path is no possible anymore. 
+	 * in raphael-ext.js there is a plugin printLetters for doing just this.
+	 * @return
+	 */
+	public final native Set printLetters(int x, int y, String str, 
+			Font font, int size, int letter_spacing, int line_height, Path onpath)/*-{
+		return this.printLetters(x, y, str, font, size, 
+			letter_spacing, line_height, onpath);
+	}-*/;
+	/**
+	 * newer versions of raphaeljs will return a path (and not a set) on print()
+	 * so aligning letters in a path is no possible anymore. 
+	 * in raphael-ext.js there is a plugin printLetters for doing just this.
+	 * @return
+	 */
+	public final native Set printLetters(int x, int y, String str, 
+			Font font, int size, int letter_spacing, int line_height, String onpath)/*-{
+		return this.printLetters(x, y, str, font, size, 
+			letter_spacing, line_height, onpath);
+	}-*/;
+	/**
+	 * newer versions of raphaeljs will return a path (and not a set) on print()
+	 * so aligning letters in a path is no possible anymore. 
+	 * in raphael-ext.js there is a plugin printLetters for doing just this.
+	 * @return
+	 */
+	public final native Set printLetters(int x, int y, String str, 
+			Font font, int size)/*-{
+		return this.printLetters(x, y, str, font, size);
+	}-*/;
+	/**
+	 * newer versions of raphaeljs will return a path (and not a set) on print()
+	 * so aligning letters in a path is no possible anymore. 
+	 * in raphael-ext.js there is a plugin printLetters for doing just this.
+	 * @return
+	 */
+	public final native Set printLetters(int x, int y, String str, 
+			Font font, int size, Path onpath)/*-{
+		return this.printLetters(x, y, str, font, size, null, null, onpath);
+	}-*/;
+	/**
+	 * newer versions of raphaeljs will return a path (and not a set) on print()
+	 * so aligning letters in a path is no possible anymore. 
+	 * in raphael-ext.js there is a plugin printLetters for doing just this.
+	 * @return
+	 */
+	public final native Set printLetters(int x, int y, String str, 
+			Font font, int size, String onpath)/*-{
+		return this.printLetters(x, y, str, font, size, null, null, onpath);
+	}-*/;
 }

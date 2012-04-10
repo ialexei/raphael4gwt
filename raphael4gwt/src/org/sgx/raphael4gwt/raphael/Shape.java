@@ -613,4 +613,28 @@ Note: Glow is not connected to the element. If you change element attributes it 
 	public final native Shape removeData(String key)/*-{
 		return this.removeData(key);
 	}-*/;
+	
+	
+	
+	
+	
+	/// EXTENSIONS - see raphael-ext.js
+	/**
+	 * blur plugin. supportes both svg and vml based browsers.
+	 * @param blurSize - the larger the blurer
+	 * @return
+	 */
+	public final native Shape blur(int blurSize)/*-{
+		this.blur(blurSize);
+		return this;
+	}-*/;
+	/**
+	 * emboss plugin - support both svl and svg based browsers.
+	 * @param bias
+	 * @return
+	 */
+	public final native Shape emboss(float bias)/*-{
+		this.emboss(bias);
+		return this;
+	}-*/;
 }

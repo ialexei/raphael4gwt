@@ -111,6 +111,18 @@ public static native Animation animation(Attrs params, int ms, String easing, Ca
 	});
 }-*/;
 /**
+ *  Creates an animation object that can be passed to the Element.animate or Element.animateWith methods. See also Animation.delay and Animation.repeat methods. 
+ * @param params final attributes for the element, see also Element.attr
+ * @param ms number of milliseconds for animation to run
+ * @param easing easing type. Accept one of Raphael.easing_formulas or CSS format: cubic‐bezier(XX, XX, XX, XX)
+ * @return an animation object that can be passed to the Element.animate or Element.animateWith methods.
+ */
+public static native Animation animation(Attrs params, int ms, String easing)/*-{
+//var p = params.@org.sgx.raphael4gwt.raphael.base.Attrs::getNativeAttrs()();
+return $wnd.Raphael.animation(params, ms, easing);
+}-*/;
+
+/**
  * Parses the color string and returns object with all values for the given color. 
  * @param s
  * @return

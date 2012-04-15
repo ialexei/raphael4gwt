@@ -11,6 +11,7 @@ import org.sgx.raphael4gwt.test.image.TestImageResources;
 
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
@@ -23,6 +24,9 @@ public class BlurAndEmbossTest1 extends Test {
 	
 	private TextBox blurText;
 	private Shape blurPath;
+	private Shape embossPath;
+	private TextBox embossText;
+	private Shape emboss2Path;
 	@Override
 	public void test() {
 		
@@ -32,7 +36,14 @@ public class BlurAndEmbossTest1 extends Test {
 		blurPanel.add(new Label("blur size: "));
 		blurPanel.add(blurText);
 		
+		FlowPanel embossPanel = new FlowPanel();
+		embossText = new TextBox();
+		embossText.setText("0.7");
+		embossPanel.add(new Label("emboss bias (ex 0.7): "));
+		embossPanel.add(embossText);
+		
 		GalleryUtil.getInstance().getTestPanel().add(blurPanel);
+		GalleryUtil.getInstance().getTestPanel().add(embossPanel);
 		
 		paper.text(100,30,
 			"adjust blur and emboss\n" +
@@ -46,15 +57,44 @@ public class BlurAndEmbossTest1 extends Test {
 		
 		blurPath = paper.path(IconPaths.question).attr( Attrs.create().
 			fill(TestImageResources.INSTANCE.smallLion()).
-			transform("s3.0t100,50")
+			transform("s3.0t70,50")
 		);
 		blurPath.click(new MouseEventListener() {			
 			@Override
 			public void notifyMouseEvent(NativeEvent e) {
-//				blurPath.blur(0);
+				blurPath.blur(0);
 				blurPath.blur(Integer.parseInt(blurText.getText()));
 			}
 		});
+		
+		embossPath = paper.path(IconPaths.question).attr( Attrs.create().
+			fill(TestImageResources.INSTANCE.smallLion()).
+			transform("s3.0t140,50")
+		);
+		embossPath.click(new MouseEventListener() {			
+			@Override
+			public void notifyMouseEvent(NativeEvent e) {
+				embossPath.emboss(0);
+				embossPath.emboss(Float.parseFloat(embossText.getText()));
+			}
+		});
+		
+		emboss2Path = paper.path(IconPaths.question).attr( Attrs.create().
+			fill(TestImageResources.INSTANCE.smallLion()).
+			transform("s3.0t10,100")
+		);
+		emboss2Path.click(new MouseEventListener() {			
+			@Override
+			public void notifyMouseEvent(NativeEvent e) {
+//				Window.alert("hello");
+//				emboss2Path.convolve("he", 3, new double[]{
+//						0.5, 0, 0, 
+//						0, 1, 0, 
+//						0, 0, -0.5}, 1.0, 0.5);
+				emboss2Path.emboss2(2.5, "south", 1.0, 1);
+//				embossPath.emboss(Float.parseFloat(embossText.getText()));
+			}
+		});	
 	}
 
 	

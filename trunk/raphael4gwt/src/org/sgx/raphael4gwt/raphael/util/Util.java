@@ -49,6 +49,16 @@ public class Util {
 	public static String quote(String str) {
 		return "\""+str+"\"";
 	}
+	
+	public static final native String dump(Object o)/*-{
+		var s = "{";
+		for(var i in o) {
+			s+=i+"("+typeof(o[i])+"): "+o[i]+", ";
+		}
+		return s+"}";
+	}-*/;
+
+	
 	/**
 	 * path in command lines quotation
 	 */

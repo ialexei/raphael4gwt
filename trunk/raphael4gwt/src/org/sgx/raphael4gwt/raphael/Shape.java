@@ -40,7 +40,12 @@ public class Shape extends JavaScriptObject {
 	public final native Rectangle getBBox()/*-{ 
 		return this.getBBox(); 
 	}-*/;
-	
+	/**
+	 * return the shape type - compare with Raphael.SHAPE* constants
+	 */
+	public final native String getType()/*-{ 
+		return this.type;
+	}-*/;
 	
 	
 	/* *** TRANSFORMATIONS *** */
@@ -174,6 +179,18 @@ console.log(el.transform());
 		return this.mousemove(f);
 	}-*/;
 	/**
+	 * Adds event handler for mousemove for the element that will notified no more that one time in "throwttle" milliseconds
+	 * @param l
+	 * @return
+	 */
+	public final native Shape mouseMove(MouseEventListener l, int throttle)/*-{ 
+		var f = $entry(function(e) {
+			l.@org.sgx.raphael4gwt.raphael.event.MouseEventListener::notifyMouseEvent(Lcom/google/gwt/dom/client/NativeEvent;)(e);
+		});
+		@org.sgx.raphael4gwt.raphael.event.EventHelper::putMouseEventListener(Lorg/sgx/raphael4gwt/raphael/event/MouseEventListener;Lcom/google/gwt/core/client/JavaScriptObject;)(l,f);
+		return this.mousemove($wnd.r4g.function_throttle(throttle, f));
+	}-*/;
+	/**
 	 * Removes event handler for mousemove for the element. 
 	 * @param l handler for the event
 	 * @return
@@ -182,6 +199,8 @@ console.log(el.transform());
 		var f = @org.sgx.raphael4gwt.raphael.event.EventHelper::removeMouseEventListener(Lorg/sgx/raphael4gwt/raphael/event/MouseEventListener;)(l);
 		return this.unmousemove(f);
 	}-*/;
+	
+	
 	/**
 	 * Adds event handler for click for the element. 
 	 * @param l
@@ -240,12 +259,35 @@ console.log(el.transform());
 		return this.drag(onmove, onstart, onend);
 	}-*/;
 	/**
+	 * Adds event handler for double click for the element that will be notified no more than one time in "throwtle" milliseconds
+	 * @param l
+	 * @return
+	 */
+	public final native Shape drag(DDListener l, int throttle)/*-{ 
+		var onstart = function(x, y, e) {
+			$entry(l.@org.sgx.raphael4gwt.raphael.event.DDListener::onStart(IILcom/google/gwt/dom/client/NativeEvent;)(x, y, e));
+		};
+		var onend = function(e) {
+			$entry(l.@org.sgx.raphael4gwt.raphael.event.DDListener::onEnd(Lcom/google/gwt/dom/client/NativeEvent;)(e));
+		};
+		var onmove = function(dx, dy, x, y, e) {
+			$entry(l.@org.sgx.raphael4gwt.raphael.event.DDListener::onMove(IIIILcom/google/gwt/dom/client/NativeEvent;)(dx, dy, x, y, e));
+		};
+		return this.drag($wnd.r4g.function_throttle(throttle, onmove), 
+			onstart, onend);
+	}-*/;
+	/**
 	 * Removes all drag event handlers from given element. 
 	 */
 	public final native void undrag()/*-{
 		this.undrag();
 	}-*/;
 
+	/**
+	 * adds a hover in and hover out mouse listener
+	 * @param l
+	 * @return
+	 */
 	public final native Shape hover(HoverListener l)/*-{
 		var hoverIn = $entry(function(e) {
 			l.@org.sgx.raphael4gwt.raphael.event.HoverListener::hoverIn(Lcom/google/gwt/dom/client/NativeEvent;)(e);
@@ -256,6 +298,28 @@ console.log(el.transform());
 		@org.sgx.raphael4gwt.raphael.event.EventHelper::putHoverListener(Lorg/sgx/raphael4gwt/raphael/event/HoverListener;Lcom/google/gwt/core/client/JavaScriptObject;Lcom/google/gwt/core/client/JavaScriptObject;)(l, hoverIn, hoverOut);
 		return this.hover(hoverIn, hoverOut);		
 	}-*/;
+//	
+//	/**
+//	 * adds a hover in and hover out mouse listener that will be notified after 
+//	 * "throttle" milliseconds
+//	 * @param l
+//	 * @param throttle
+//	 * @return
+//	 */
+//	public final native Shape hover(HoverListener l, int throttle)/*-{
+//		var hoverIn = $entry(function(e) {
+//			l.@org.sgx.raphael4gwt.raphael.event.HoverListener::hoverIn(Lcom/google/gwt/dom/client/NativeEvent;)(e);
+//		}); 
+//		var hoverOut = $entry(function(e) {
+//			l.@org.sgx.raphael4gwt.raphael.event.HoverListener::hoverOut(Lcom/google/gwt/dom/client/NativeEvent;)(e);
+//		});  
+//		@org.sgx.raphael4gwt.raphael.event.EventHelper::putHoverListener(Lorg/sgx/raphael4gwt/raphael/event/HoverListener;Lcom/google/gwt/core/client/JavaScriptObject;Lcom/google/gwt/core/client/JavaScriptObject;)(l, hoverIn, hoverOut);
+//		
+//		return this.hover($wnd.r4g.function_throttle(throttle, hoverIn),
+//			$wnd.r4g.function_throttle(throttle, hoverOut));		
+//	}-*/;
+//	
+	
 	/**
 	 * Removes event handlers for hover for the element. 
 	 * @param l
@@ -621,20 +685,91 @@ Note: Glow is not connected to the element. If you change element attributes it 
 	/// EXTENSIONS - see raphael-ext.js
 	/**
 	 * blur plugin. supportes both svg and vml based browsers.
-	 * @param blurSize - the larger the blurer
+	 * use blur(0) for deleting blur
+	 * @param blurSize - a number > 1, the larger the blurer
 	 * @return
 	 */
-	public final native Shape blur(int blurSize)/*-{
+	public final native Shape blur(double blurSize)/*-{
 		this.blur(blurSize);
 		return this;
 	}-*/;
 	/**
 	 * emboss plugin - support both svl and svg based browsers.
-	 * @param bias
+	 * Use emboss(0) for deleting the embossing.
+	 * @param bias a number between 0 and 1
 	 * @return
 	 */
-	public final native Shape emboss(float bias)/*-{
+	public final native Shape emboss(double bias)/*-{
 		this.emboss(bias);
+		return this;
+	}-*/;
+	
+	/**
+	 * pixel convolution tranformation (only svg). only squeare kernels allowed.
+	 * you can add many convolutions. Their name must be a valid html id. For example:
+	 * image.convolve("emboss1", 3, 3, [0.4,0,0,0,1,0,0,0,0.5])
+	 * image.convolve("conv2", 2,2,[1,2,2,3])
+	 * image.convolveClear("emboss1")
+	 */
+//	public final native Shape convolve(String convolutionName, 
+//			int kernelXSize, double[] kernel, 
+//			double divisor, double bias, boolean preserveAlpha)/*-{
+//		this.convolve(convolutionName, kernelXSize, kernel, 
+//        		divisor, bias,  preserveAlpha);
+//		return this;
+//	}-*/;
+	public final native Shape convolve(String convolutionName, 
+			int kernelXSize, double[] kernel, 
+			double divisor, double bias)/*-{
+		this.convolve(convolutionName, kernelXSize, kernel, 
+        		divisor, bias);
+		return this;
+	}-*/;
+//	public final native Shape convolve(String convolutionName, 
+//			int kernelXSize, double[] kernel)/*-{
+//		this.convolve(convolutionName, kernelXSize, kernel);
+//		return this;
+//	}-*/;
+	/**
+	 * delete a registered convolution by name.
+	 * @param convolutionName
+	 * @return
+	 */
+	public final native Shape convolveClear(String convolutionName)/*-{
+		this.convolveClear(convolutionName);
+		return this;
+	}-*/;
+	/**
+	 * delete all registered convolutions
+	 * @return
+	 */
+	public final native Shape convolveClearAll()/*-{
+		this.convolveClearAll();
+		return this;
+	}-*/;
+	
+	public final native Shape emboss2(double factor, String orientation, 
+			double divisor, double bias)/*-{
+		this.emboss2(factor, orientation, divisor, bias);
+		return this;
+	}-*/;
+	public final native Shape emboss2(double factor, String orientation)/*-{
+		this.emboss2(factor, orientation);
+		return this;
+	}-*/;
+	/**
+	 * edge detection using sobel convolution 
+	 * @param factor
+	 * @param orientation
+	 * @return
+	 */
+	public final native Shape convolveSobel(double size, double multiplier, 
+			double divisor, double bias)/*-{
+		this.sobel(size, multiplier, divisor, bias);
+		return this;
+	}-*/;
+	public final native Shape convolveSobel(double size, double multiplier)/*-{
+		this.sobel(size, multiplier);
 		return this;
 	}-*/;
 }

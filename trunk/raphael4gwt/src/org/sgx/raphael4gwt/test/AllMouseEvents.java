@@ -9,6 +9,7 @@ import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 
 import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -94,6 +95,8 @@ public class AllMouseEvents extends Test {
 		ta.setSize("100%", "60px");
 		ta.getElement().setId("seba123");
 		testPanel.add(ta);
+		
+		Window.alert(paper.getWidth()+" - "+paper.getHeight());
 	}
 
 	protected void log(String msg, NativeEvent e) {

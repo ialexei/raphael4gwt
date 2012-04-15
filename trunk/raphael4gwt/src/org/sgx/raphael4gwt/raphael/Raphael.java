@@ -30,6 +30,16 @@ public class Raphael {
 	
 //First some constants and raphael built in utilities
 	
+/* *** shape types *** */
+public static final String 
+	SHAPE_RECT="rect", 
+	SHAPE_IMAGE="image",
+	SHAPE_PATH="path",
+	SHAPE_TEXT="text",
+	SHAPE_CIRCLE="circle",
+	SHAPE_ELLIPSE="eliipse";
+
+	
 	
 /* *** EASING *** */
 	
@@ -63,6 +73,11 @@ public static native Paper paper(Element container, int w, int h)/*-{
 	if(!container)
 		return null;
 	return $wnd.Raphael(container, w, h);
+}-*/;
+public static native Paper paper(Element container, String w, String h)/*-{
+if(!container)
+	return null;
+return $wnd.Raphael(container, w, h);
 }-*/;
 /**
  * container must be attached to the document. Be careful to add container's parent to the doucment before calling this constructor.
@@ -202,6 +217,14 @@ public static native int deg(int deg)/*-{
 //	};
 //}-*/;
 
+//public static int getPaperWidth(Paper p) {
+//	return p.getCanvasElement().getClientWidth();//.g.getAbsoluteRight()-p.getCanvasElement().getAbsoluteLeft();
+//}
+//
+//public static int getPaperHeight(Paper p) {
+//	return p.getCanvasElement().getClientHeight();//.getAbsoluteBottom()-p.getCanvasElement().getAbsoluteTop();
+//}
+
 
 ///** helper utility for getting paper bounds in the document, based on gwt client dom.*/
 //public static Rectangle getPaperBounds(Paper paper) {
@@ -217,6 +240,7 @@ public static native int deg(int deg)/*-{
 public static native Point createPoint(double x, double y)/*-{
 	return {"x": x, "y": y};
 }-*/;
+
 public static native Rectangle createRectangle(int x, int y, int width, int height)/*-{
 	return {"x": x, "y": y, "width": width, "height": height};
 }-*/;

@@ -12,6 +12,7 @@ import org.sgx.raphael4gwt.test.BlurAndEmbossTest1;
 import org.sgx.raphael4gwt.test.CircleGlowingAndDraggin;
 import org.sgx.raphael4gwt.test.DragAndSnap;
 import org.sgx.raphael4gwt.test.DragTest1;
+import org.sgx.raphael4gwt.test.DrawAndClick;
 import org.sgx.raphael4gwt.test.EventRegisterAndUnregister;
 import org.sgx.raphael4gwt.test.FillTest1;
 import org.sgx.raphael4gwt.test.FontTest1;
@@ -19,10 +20,13 @@ import org.sgx.raphael4gwt.test.FreeTransformTest1;
 import org.sgx.raphael4gwt.test.GradientMouseTest1;
 import org.sgx.raphael4gwt.test.GradientTest1;
 import org.sgx.raphael4gwt.test.ImageSimpleTest;
+import org.sgx.raphael4gwt.test.ImageTransforms1;
+import org.sgx.raphael4gwt.test.MouseCoordsOnHoverTest;
 import org.sgx.raphael4gwt.test.MouseRelativeCoordsTest;
 import org.sgx.raphael4gwt.test.PathEditorTest1;
 import org.sgx.raphael4gwt.test.PrintLettersOnPath;
 import org.sgx.raphael4gwt.test.SetSimpleTest1;
+import org.sgx.raphael4gwt.test.ShapeEditor1;
 import org.sgx.raphael4gwt.test.Test;
 import org.sgx.raphael4gwt.test.util.GUIUtil;
 
@@ -164,6 +168,20 @@ public class GalleryUtil {
 		
 		t = new BlurAndEmbossTest1(paper, w, h);
 		tests.put(t.getName(), t);
+		
+		t = new ImageTransforms1(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		t = new MouseCoordsOnHoverTest(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		t = new DrawAndClick(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		t = new ShapeEditor1(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		
 	}
 
 	Map<String, List<Test>> getTestsByTag() {

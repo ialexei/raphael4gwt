@@ -11,14 +11,7 @@ protected Animation(){}
  * @return a new animation object
  */
 public native final Animation delay(int ms)/*-{
-		var dump = function(o) {
-			var s = "{";
-			for(var i in o) {
-				s+=i+"("+typeof(o[i])+"): "+o[i]+", ";
-			}
-			return s+"}";
-		};
-		$wnd.alert(dump(this));
+		
 	return this.delay(ms);
 }-*/;
 /**

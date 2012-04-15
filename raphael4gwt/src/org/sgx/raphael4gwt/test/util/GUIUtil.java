@@ -13,7 +13,11 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-
+/**
+ * 
+ * @author sg
+ *
+ */
 public class GUIUtil {
 
 	public static String formLabelWidth="120px";

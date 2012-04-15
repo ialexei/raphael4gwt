@@ -16,14 +16,29 @@ public class Rectangle extends JavaScriptObject {
 	public native final double getWidth()/*-{
 		return this.width;
 	}-*/;
+	public native final void setWidth(double w)/*-{
+		this.width=w;
+	}-*/;
 	public native final double getHeight()/*-{
 		return this.height;
+	}-*/;
+	public native final void setHeight(double h)/*-{
+		this.height=h;
 	}-*/;
 	public native final double getX()/*-{
 		return this.x;
 	}-*/;
+	public native final void setX(double x)/*-{
+		this.x=x;
+	}-*/;
 	public native final double getY()/*-{
 		return this.y;
 	}-*/;
+	public native final void setY(double y)/*-{
+		this.y=y;
+	}-*/;
 	
+	public native final String print()/*-{
+		return "Rect("+this.x+", "+this.y+", "+this.width+", "+this.height+")";
+	}-*/;
 }

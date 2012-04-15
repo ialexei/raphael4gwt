@@ -28,6 +28,16 @@ public class Paper extends JavaScriptObject {
 		return this.circle(x, y, r);
 	}-*/;
 	/**
+	 * 
+	 * @param x - x coordinate of the center
+	 * @param y - y coordinate of the center
+	 * @param r - radius
+	 * @return a new Circle Shape
+	 */
+	public final native Circle circle(double x, double y, double r)/*-{
+		return this.circle(x, y, r);
+	}-*/;
+	/**
 	 * Draws a text string. If you need line breaks, put “\n” in the string. 
 	 * 
 	 * 
@@ -47,6 +57,15 @@ public class Paper extends JavaScriptObject {
 	public final native void setSize(int w, int h)/*-{
 		this.setSize(w, h);
 	}-*/;
+	
+	public final native int getWidth()/*-{
+		return this.width;
+	}-*/;
+	
+	public final native int getHeight()/*-{
+		return this.height;
+	}-*/;
+	
 	/**
 	 * Points to the topmost element on the paper 
 	 * @return
@@ -67,7 +86,9 @@ public class Paper extends JavaScriptObject {
 	public final native Rect rect(int x, int y, int w, int h)/*-{
 		return this.rect(x, y, w, h);
 	}-*/;
-	
+	public final native Rect rect(double x, double y, double w, double h)/*-{
+		return this.rect(x, y, w, h);
+	}-*/;
 	public final native Rect rect(Rectangle r)/*-{
 		return this.rect(r.x, r.y, r.width, r.height);
 	}-*/;
@@ -86,6 +107,9 @@ public class Paper extends JavaScriptObject {
 	 * @return a new Rect shape.
 	 */
 	public final native Rect rect(int x, int y, int w, int h, int r) /*-{
+		return this.rect(x, y, w, h, r);
+	}-*/;
+	public final native Rect rect(double x, double y, double w, double h, double r) /*-{
 		return this.rect(x, y, w, h, r);
 	}-*/;
 	
@@ -141,6 +165,18 @@ public class Paper extends JavaScriptObject {
 	 * @return
 	 */
 	public native final Image image(String imgUrl, int x, int y, int w, int h)/*-{
+		return this.image(imgUrl, x, y, w, h);
+	}-*/;
+	/**
+	 * create's a raphael image shape from a normal (not data:) url.
+	 * @param imgUrl
+	 * @param x
+	 * @param y
+	 * @param w
+	 * @param h
+	 * @return
+	 */
+	public native final Image image(String imgUrl, double x, double y, double w, double h)/*-{
 		return this.image(imgUrl, x, y, w, h);
 	}-*/;
 	public static String getImageResourceUrl(ImageResource imgRes) {
@@ -258,6 +294,24 @@ txt[0].attr({fill: "#f00"});
 	 * @param y y position of the text
 	 * @param text text to print
 	 * @param font font object, see Paper.getFont
+	 * @return
+	 */
+	public native final Path print(double x, double y, String text, Font font)/*-{
+		return this.print(x,y,text,font);
+	}-*/;
+	/**
+	 * Creates set of shapes to represent given font at given position with given size. Result of the method is set object (see Paper.set) which contains each letter as separate path object.
+	 * Usage: 
+	 * <pre>
+var txt = r.print(10, 50, "print", r.getFont("Museo"), 30).attr({fill: "#fff"});
+// following line will paint first letter in red
+txt[0].attr({fill: "#f00"});
+
+	 * </pre> 
+	 * @param x x position of the text
+	 * @param y y position of the text
+	 * @param text text to print
+	 * @param font font object, see Paper.getFont
 	 * @paam size - the font size in pixels - default 16
 	 * @ret
 	 */
@@ -313,7 +367,7 @@ txt[0].attr({fill: "#f00"});
 		return this.getById(id);
 	}-*/;
 
-	/**
+	/**Returns you topmost element under given point. 
 	 * Use it like:
 	 * <pre>
 	 * paper.getElementByPoint(mouseX, mouseY).attr({stroke: "#f00"});
@@ -326,7 +380,41 @@ txt[0].attr({fill: "#f00"});
 		return this.getElementByPoint(x, y);
 	}-*/;
 	
+	/**Returns you topmost element under given point. 
+	 * Use it like:
+	 * <pre>
+	 * paper.getElementByPoint(mouseX, mouseY).attr({stroke: "#f00"});
+	 * </pre>
+	 * @return topmost element under given point. 
+	 * @param p
+	 */
+	public native final Shape getElementByPoint(Point p)/*-{
+		return this.getElementByPoint(p.x, p.y);
+	}-*/;
 	
+	/**Returns set of elements that have common point inside 
+	 * Use it like:
+	 * <pre>
+	 * paper.getElementByPoint(mouseX, mouseY).attr({stroke: "#f00"});
+	 * </pre>
+	 * @return topmost element under given point. 
+	 * @param x coordinate from the top left corner of the window
+	 * @param y coordinate from the top left corner of the window
+	 */
+	public native final Set getElementsByPoint(int x, int y)/*-{
+		return this.getElementsByPoint(x, y);
+	}-*/;
+	/**Returns set of elements that have common point inside 
+	 * Use it like:
+	 * <pre>
+	 * paper.getElementByPoint(mouseX, mouseY).attr({stroke: "#f00"});
+	 * </pre>
+	 * @return topmost element under given point. 
+	 * @param p
+	 */
+	public native final Set getElementsByPoint(Point p)/*-{
+		return this.getElementsByPoint(p.x, p.y);
+	}-*/;
 	/* *** SETS *** */
 	/**
 	 * Creates array-like object to keep and operate several elements at once.
@@ -358,7 +446,17 @@ txt[0].attr({fill: "#f00"});
 	public final native Ellipse ellipse(int x, int y, int rx, int ry)/*-{
 		return this.ellipse(x, y, rx, ry);
 	}-*/;
-
+	/**
+	 * Draws an ellipse. 
+	 * @param x x coordinate of the centre
+	 * @param y y coordinate of the centre
+	 * @param rx horizontal radius
+	 * @param ry vertical radius
+	 * @return
+	 */
+	public final native Ellipse ellipse(double x, double y, double rx, double ry)/*-{
+		return this.ellipse(x, y, rx, ry);
+	}-*/;
 
 	
 	

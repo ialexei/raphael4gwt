@@ -60,4 +60,17 @@ public interface TestResources extends ClientBundle {
 	  
 	  @Source("BlurAndEmbossTest1.java")
 	  public TextResource BlurAndEmbossTest1();
+	  
+	  @Source("ImageTransforms1.java")
+	  public TextResource ImageTransforms1();
+	  
+	  @Source("MouseCoordsOnHoverTest.java")
+	  public TextResource MouseCoordsOnHoverTest();
+	  
+	  @Source("DrawAndClick.java")
+	  public TextResource DrawAndClick();
+	  
+	  @Source("ShapeEditor1.java")
+	  public TextResource ShapeEditor1();
+	  
 }

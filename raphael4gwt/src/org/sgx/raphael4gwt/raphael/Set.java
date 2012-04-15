@@ -21,8 +21,8 @@ public native final void clear()/*-{
  * @param s shape to be removed from the set
  * @return true if object was found & removed from the set
  */
-public native final boolean excludes(Shape s)/*-{
-	return this.excludes(s);
+public native final boolean exclude(Shape s)/*-{
+	return this.exclude(s);
 }-*/;
 
 /**
@@ -91,6 +91,24 @@ public native final JsArray<Shape> items()/*-{
 public native final Shape item(int i)/*-{
 	return this.items[i];
 }-*/;
+public native final String print()/*-{
+	var s = "Set(";
+	for(var i = 0; i<this.length; i++) {
+		s+=(this[i].type?this[i].type:"undef")+", ";
+	}
+	return s;
+}-*/;
+//public String print() {
+//	final StringBuffer s = new StringBuffer("Set(");
+//	forEach(new ForEachCallback() {		
+//		@Override
+//		public boolean call(Shape shape, int index) {
+//			s.append(shape.getType()+", ");
+//			return true;
+//		}
+//	});
+//	return s.toString()+")";
+//}
 
 ///**
 // * add shapes "on top" of this set

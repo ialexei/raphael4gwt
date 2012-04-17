@@ -26,14 +26,14 @@ public class FreeTransform extends JavaScriptObject {
 			EVENT_DRAG_END="drag end";
 	
 	
-/**
- * Update options and callback.
- * @param opts
- * @param c
- */
-public native final void setOpts(FTOptions opts, FTCallback c)/*-{
-//	this.setOpts
-}-*/;
+///**
+// * Update options and callback.
+// * @param opts
+// * @param c
+// */
+//public native final void setOpts(FTOptions opts, FTCallback c)/*-{
+////	this.setOpts
+//}-*/;
 /**
  * Removes handle and deletes all values set by the plugin.
  */
@@ -47,13 +47,22 @@ public native final void updateHandles()/*-{
 	this.updateHandles();
 }-*/;
 
-//public native final Shape getHandleX()/*-{
-//	return this.handles.x.disc;
-//}-*/;
-//public native final Shape getHandleY()/*-{
-//	return this.handles.y.disc;
-//}-*/;
-//public native final Shape getHandleCenter()/*-{
-//	return this.handles.center.disc;
-//}-*/;
+/**
+ * hide handles
+ */
+public native final void hideHandles()/*-{
+	this.hideHandles();
+}-*/;
+/**
+ * hide handles
+ */
+public native final void showHandles()/*-{
+	this.showHandles();
+}-*/;
+/**
+ * Programmatically apply transformations.
+ */
+public native final void apply()/*-{
+	this.apply();
+}-*/;
 }

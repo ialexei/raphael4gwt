@@ -1,13 +1,8 @@
 package org.sgx.raphael4gwt.test;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Path;
-import org.sgx.raphael4gwt.raphael.Rect;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
-import org.sgx.raphael4gwt.raphael.event.HoverListener;
 import org.sgx.raphael4gwt.raphael.ft.FTCallback;
 import org.sgx.raphael4gwt.raphael.ft.FTOptions;
 import org.sgx.raphael4gwt.raphael.ft.FTSubject;
@@ -16,9 +11,6 @@ import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 import org.sgx.raphael4gwt.test.image.IconPaths;
 
 import com.google.gwt.core.client.JsArrayString;
-import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 /**

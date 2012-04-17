@@ -22,7 +22,9 @@ public native final void clear()/*-{
  * @return true if object was found & removed from the set
  */
 public native final boolean exclude(Shape s)/*-{
-	return this.exclude(s);
+	var b = this.exclude(s)
+	if(b)return true;
+	else return false; 
 }-*/;
 
 /**
@@ -45,11 +47,6 @@ public native final Set forEach(ForEachCallback c)/*-{
 		c.@org.sgx.raphael4gwt.raphael.event.ForEachCallback::call(Lorg/sgx/raphael4gwt/raphael/Shape;I)(shape, index);
 	});
 	return this.forEach(f, null);
-//	return this.forEach(
-//		function(shape, index){
-//			c.@org.sgx.raphael4gwt.raphael.event.ForEachCallback::call(Lorg/sgx/raphael4gwt/raphael/Shape;I)(shape, index);
-//		}, null
-//	);
 }-*/;
 /**
  * Removes last element and returns it
@@ -96,7 +93,7 @@ public native final String print()/*-{
 	for(var i = 0; i<this.length; i++) {
 		s+=(this[i].type?this[i].type:"undef")+", ";
 	}
-	return s;
+	return s+")";
 }-*/;
 //public String print() {
 //	final StringBuffer s = new StringBuffer("Set(");

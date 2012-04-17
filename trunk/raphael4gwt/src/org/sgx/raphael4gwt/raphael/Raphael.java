@@ -14,6 +14,7 @@ import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayNumber;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 
@@ -253,10 +254,16 @@ public static native Rectangle createRectangle(int x, int y, int width, int heig
  * @return
  */
 public static Point getCoordsInPaper(Paper p, NativeEvent e) {
+	
 	return createPoint(
-		e.getClientX() - p.getCanvasElement().getAbsoluteLeft(),
-		e.getClientY() - p.getCanvasElement().getAbsoluteTop()
+		e.getClientX() - p.getCanvasElement().getAbsoluteLeft()+Document.get().getBodyOffsetLeft(),
+		e.getClientY() - p.getCanvasElement().getAbsoluteTop()+Document.get().getBodyOffsetTop()
 	);
+	
+//	return createPoint(
+//		e.getClientX(),
+//		e.getClientY()
+//	);
 }
 /**
  * get the mouse event coords relative to a shape, using getCoordsInPaper and shape.getBBox()

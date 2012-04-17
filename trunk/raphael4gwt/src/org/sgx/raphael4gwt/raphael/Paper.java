@@ -241,7 +241,8 @@ var c = paper.path("M10 10L90 90");
 		return this.getFont(fontFamily, weight, style);
 	}-*/;
 	/**
-	 * Finds font object in the registered fonts by given parameters. You could specify only one word from the font name, like “Myriad” for “Myriad Pro”. 
+	 * Finds font object in the registered fonts by given parameters. You could specify only one word from the font name, like “Myriad” for “Myriad Pro”.
+	 * 
 	 * @param fontFamily font family name or any word from it
 	 * @param weight - for example "800"
 	 * @param style - for example "italic"
@@ -251,13 +252,17 @@ var c = paper.path("M10 10L90 90");
 		return this.getFont(fontFamily, weight, style, stretch);
 	}-*/;
 	
+	/**
+	 * Executes given function for each element on the paper. 
+	 * If callback function returns false it will stop loop running. 
+	 * Note: param index in ForEachCallback:call will always be zero (don't work) 
+	 * @param c
+	 * @return
+	 */
 	public native final Paper forEach(ForEachCallback c)/*-{
-//		var f = $entry(function(){
-//			c.@org.sgx.raphael4gwt.raphael.event.ForEachCallback::call(Lorg/sgx/raphael4gwt/raphael/Shape;I)(this);
-//		});
-//		return this.forEach(f);
-
+		
 		var f = $entry(function(shape, index){
+			index=0;
 			c.@org.sgx.raphael4gwt.raphael.event.ForEachCallback::call(Lorg/sgx/raphael4gwt/raphael/Shape;I)(shape, index);
 		});
 		return this.forEach(f, null);
@@ -378,6 +383,40 @@ txt[0].attr({fill: "#f00"});
 	 */
 	public native final Shape getElementByPoint(int x, int y)/*-{
 		return this.getElementByPoint(x, y);
+	}-*/;
+	
+	/**
+	 * the original getElementByPoint do not work if elements has been 
+	 * transformated, we clone the function but using getBBOX(true). x and y here are different from 
+	 * original getElementsByPoint and must be coords relative to the paper (use Raphael.getCoordsInPaper())
+	 * @param x x coord of the point relative to paper - use Raphael.getCoordsInPaper()
+	 * @param y y coord of the point relative to paper - use Raphael.getCoordsInPaper()
+	 * @return
+	 */
+	public native final Set getTransfElementsByPoint(int x, int y)/*-{		
+		var set = this.set();
+        this.forEach(function (el) {
+            if ($wnd.r4g._isPointInside(el.getBBox(false), x, y)) {
+                set.push(el);
+            }
+        });
+        return set;
+	}-*/;
+	/**
+	 * the original getElementByPoint do not work if elements 
+	 * has been transformated. x and y here are different from 
+	 * original getElementsByPoint and must be coords relative to the paper (use Raphael.)
+	 * @param p coord of the point relative to paper - use Raphael.getCoordsInPaper()
+	 * @return
+	 */
+	public native final Set getTransfElementsByPoint(Point p)/*-{
+		var set = this.set();
+        this.forEach(function (el) {
+            if ($wnd.r4g._isPointInside(el.getBBox(false), p.x, p.y)) {
+                set.push(el);
+            }
+        });
+        return set;
 	}-*/;
 	
 	/**Returns you topmost element under given point. 

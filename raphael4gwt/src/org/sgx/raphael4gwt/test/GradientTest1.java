@@ -5,7 +5,10 @@ import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Gradient;
 import org.sgx.raphael4gwt.raphael.base.Stop;
+import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
 import org.sgx.raphael4gwt.test.image.IconPaths;
+
+import com.google.gwt.user.client.Window;
 
 public class GradientTest1 extends Test {
 	
@@ -32,6 +35,18 @@ public void test() {
 	
 	//note that we also can pass the gradient raphael string directly: 
 	ellipse2.attr(Attrs.create().fill("r(0.25, 0.75)#fff-#000"));
+	
+	//test paper foreach()
+	final StringBuffer sb = new StringBuffer("shapes in paper: \n"); 
+	paper.forEach(new ForEachCallback() {
+		
+		@Override
+		public boolean call(Shape shape, int index) {
+			sb.append(shape.getType()+", ");
+			return true;
+		}
+	});
+	Window.alert(sb.toString());
 	
 }	
 

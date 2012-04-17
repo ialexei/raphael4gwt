@@ -616,18 +616,10 @@ Note: Glow is not connected to the element. If you change element attributes it 
 	 * @return
 	 */
 	public final native Set glow(Glow glow)/*-{
-//		var dump = function(o) {
-//			var s = "{";
-//			for(var i in o) {
-//				s+=i+"("+typeof(o[i])+"): "+o[i]+", ";
-//			}
-//			return s+"}";
-//		};
-		
+		if(glow==null)
+			return null;
 		var g = glow.@org.sgx.raphael4gwt.raphael.base.Glow::getNative()();
-//		$wnd.alert(dump(g));
 		return this.glow(g);
-		//return this.glow(glow);
 	}-*/;
 
 

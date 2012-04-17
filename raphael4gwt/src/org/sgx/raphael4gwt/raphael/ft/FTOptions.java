@@ -25,6 +25,14 @@ public native final Attrs getAttrs()/*-{
 public native final void setAttrs(Attrs a)/*-{	
 	this["attrs"]=a;
 }-*/;
+/**gets the distance of the handles from the center of the element (num times radius, default: 1.2).*/
+public native final double getDistance()/*-{	
+	this.distance;
+}-*/;
+/**sets the distance of the handles from the center of the element (num times radius, default: 1.2).*/
+public native final void setDistance(double dist)/*-{	
+	this.distance=dist;
+}-*/;
 
 //public native final void setFillColor(String c)/*-{
 //	this["attrs"]["fill"]=c;

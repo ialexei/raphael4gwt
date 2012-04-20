@@ -73,4 +73,7 @@ public interface TestResources extends ClientBundle {
 	  @Source("ShapeEditor1.java")
 	  public TextResource ShapeEditor1();
 	  
+	  @Source("AttrChangeListenerTest1.java")
+	  public TextResource AttrChangeListenerTest1();
+	  
 }

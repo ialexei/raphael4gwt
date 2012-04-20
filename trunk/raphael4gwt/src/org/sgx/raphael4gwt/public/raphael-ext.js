@@ -95,31 +95,82 @@
 		//TODO
 	};
 	/**
-	 * @returns a new set tht is the interception ot this and the other set param
+	 * @returns a new set that is the intersection of this and the other set param
 	 */
-	Raphael.st.intercept = function(other) {
+	Raphael.st.intersect = function(other) {
 		if(!other)return[];
 		var ret = this.paper.set();
 		for(var i = 0; i < this.length; i++) {
-			if(other.contains)
+			if(other.contains(this[i]))
+				ret.push(this[i]);
 		}
 		return ret;
 	};	
 	/**
-	 * @returns a new set that is the adding of this and the other set param
+	 * @returns this plus other set els added
 	 */
 	Raphael.st.add = function(other) {
-		if(!other)return[];
-		var ret = this.paper.set();
-		for(var i = 0; i < this.length; i++) 
-			ret.push(this[i]);
+		if(!other)return this;
 		for(var i = 0; i < other.length; i++) 
-			if(!ret.contains(other[i]))
-				ret.push(other[i]);
-		return ret;
+			if(!this.contains(other[i]))
+				this.push(other[i]);
+		return this;
+	};
+	/**
+	 * @returns this with other set els substracted
+	 */
+	Raphael.st.substract = function(other) {
+		if(!other)return this;
+		for(var i = 0; i < other.length; i++) 
+			if(this.contains(other[i]))
+				this.exclude(other[i]);
+		return this;
 	};
 })();
 
+
+
+
+
+
+/* attribute change notifications. use like this:
+ * circle1.addAttrChangeListener("transform", function(attrName, oldValue, newValue){
+ * ...
+ * })
+ *  */
+(function() {
+	Raphael.st._attrChangeListeners = Raphael.el._attrChangeListeners = {};
+	Raphael.st.addAttrChangeListener = Raphael.el.addAttrChangeListener = 
+		function(attr, tl) {
+		if(!this._attrChangeListeners[attr])
+			this._attrChangeListeners[attr]=[];
+		this._attrChangeListeners[attr].push(tl);
+	};
+	Raphael.st.___attr = Raphael.st.attr;
+	Raphael.el.___attr = Raphael.el.attr;
+	Raphael.st.attr = Raphael.el.attr = function(name, value) {
+		if ( name != null && Raphael.is(name, "object") ) {
+			var params = name;
+			for(var attr in params) {
+				var listeners = this._attrChangeListeners[attr];
+				if(listeners) {
+					for ( var i = 0; i < listeners.length; i++) {
+						listeners[i](attr, this.___attr(attr), params[attr]);
+					}
+				}
+			}
+		}
+		else if (name!=null && value!=null) {
+			var listeners = this._attrChangeListeners[attr];
+			if(listeners) {
+				for ( var i = 0; i < listeners.length; i++) {
+					listeners[i](name, this.___attr(name), value);
+				}
+			}
+		}
+		this.___attr(name, value);
+	};
+})();
 
 
 

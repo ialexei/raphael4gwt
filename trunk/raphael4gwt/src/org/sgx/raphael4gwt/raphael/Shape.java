@@ -674,7 +674,16 @@ Note: Glow is not connected to the element. If you change element attributes it 
 	
 	
 	
-	/// EXTENSIONS - see raphael-ext.js
+	// EXTENSIONS - see raphael-ext.js
+	public final native Shape addAttrChangeListener(String attrName, AttrChangeListener l)/*-{
+		var f = $entry(function(attrName, oldVal, newVal) {
+			l.@org.sgx.raphael4gwt.raphael.AttrChangeListener::attributeChange(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)(attrName, oldVal, newVal);
+		});
+		this.addAttrChangeListener(attrName, f);
+		return this;
+	}-*/;
+	
+	
 	/**
 	 * blur plugin. supportes both svg and vml based browsers.
 	 * use blur(0) for deleting blur

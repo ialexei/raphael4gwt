@@ -8,6 +8,7 @@ import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.test.AllMouseEvents;
 import org.sgx.raphael4gwt.test.AllPathIcons;
 import org.sgx.raphael4gwt.test.AnimTransformAndPathTest1;
+import org.sgx.raphael4gwt.test.AttrChangeListenerTest1;
 import org.sgx.raphael4gwt.test.BlurAndEmbossTest1;
 import org.sgx.raphael4gwt.test.CircleGlowingAndDraggin;
 import org.sgx.raphael4gwt.test.DragAndSnap;
@@ -181,7 +182,8 @@ public class GalleryUtil {
 		t = new ShapeEditor1(paper, w, h);
 		tests.put(t.getName(), t);
 		
-		
+		t = new AttrChangeListenerTest1(paper, w, h);
+		tests.put(t.getName(), t);
 	}
 
 	Map<String, List<Test>> getTestsByTag() {

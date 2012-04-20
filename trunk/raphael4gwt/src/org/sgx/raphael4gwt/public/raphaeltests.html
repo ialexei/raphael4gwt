@@ -19,33 +19,37 @@
  var paper = Raphael(200,200,500, 500);
  
  var rect = paper.rect(100,100,180,150).attr({fill: "red"});
+ var defaultClipRect = rect.attr("clip-rect");
+ alert("Default cliprect hides the shape: "+defaultClipRect);
+ rect.attr({"clip-rect": defaultClipRect});
+ 
 //  rect.transform("t200,200,r45")
 //  var rect2 = paper.rect(100,100,180,150).attr({fill: "none"});
  
- var mask = paper.rect(0,0,500,500).attr({fill: "blue", opacity: 0.2});
- mask.click(function(e){
-// 	 var coords = {"x": e.clientX, "y": e.clientY};
-debugger;
-	 var coords = {"x": e.screenX, "y": e.screenY};
-	 var els = paper.getElementsByPoint(coords.x, coords.y), 
-	 	 els2 = getTransfElementsByPoint(paper, coords.x, coords.y);
-	 els.exclude(mask);
-	 alert("mouse coords: "+coords.x+", "+coords.y+
-			 "\nraphael's getElementsByPoint count: "+els.length+
-			 "\n my getTransfElementsByPoint count: "+els2.length);
- });
+//  var mask = paper.rect(0,0,500,500).attr({fill: "blue", opacity: 0.2});
+//  mask.click(function(e){
+// // 	 var coords = {"x": e.clientX, "y": e.clientY};
+// debugger;
+// 	 var coords = {"x": e.screenX, "y": e.screenY};
+// 	 var els = paper.getElementsByPoint(coords.x, coords.y), 
+// 	 	 els2 = getTransfElementsByPoint(paper, coords.x, coords.y);
+// 	 els.exclude(mask);
+// 	 alert("mouse coords: "+coords.x+", "+coords.y+
+// 			 "\nraphael's getElementsByPoint count: "+els.length+
+// 			 "\n my getTransfElementsByPoint count: "+els2.length);
+//  });
  
  
  
- function getTransfElementsByPoint(paper, x,y) {
-	 var set = paper.set();
-	 paper.forEach(function(el){
-		 var bb = el.getBBox();
-		 if(x>bb.x&&x<bb.x+bb.width&&y>bb.y&&y<bb.y+bb.height)
-			 set.push(el)
-	 });
-	 return set;
- }
+//  function getTransfElementsByPoint(paper, x,y) {
+// 	 var set = paper.set();
+// 	 paper.forEach(function(el){
+// 		 var bb = el.getBBox();
+// 		 if(x>bb.x&&x<bb.x+bb.width&&y>bb.y&&y<bb.y+bb.height)
+// 			 set.push(el)
+// 	 });
+// 	 return set;
+//  }
  
 	 </script>
 

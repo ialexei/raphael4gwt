@@ -70,6 +70,7 @@ public native final Set push(JsArray<Shape> shapes)/*-{
 	return this.push(shapes);
 }-*/;
 
+
 /**
  * @return the number of items
  */
@@ -88,6 +89,35 @@ public native final JsArray<Shape> items()/*-{
 public native final Shape item(int i)/*-{
 	return this.items[i];
 }-*/;
+
+/**
+ * Removes given element from the set 
+ * @param index position of the deletion
+ * @param count number of element to remove
+ * @return set elements that were deleted
+ */
+public native final Set splice(int index, int count)/*-{
+	return this.splice(index, count);
+}-*/;
+/**http://raphaeljs.com/reference.html#Set.splice
+ * replaces given element from the set with s2
+ * @param index position of the deletion
+ * @param count number of element to remove
+ * @return set elements that were deleted
+ */
+public native final Set splice(int index, int count, Set s2)/*-{ 
+	var args = [index, count];
+	for(var i = 0; i< s2.length; i++) {
+		args.push(s2[i]);
+	}
+	return this.splice.apply(this, args);
+}-*/;
+
+//extensions
+
+/**
+ * @return the types of the shapes this set contains
+ */
 public native final String print()/*-{
 	var s = "Set(";
 	for(var i = 0; i<this.length; i++) {
@@ -95,6 +125,24 @@ public native final String print()/*-{
 	}
 	return s+")";
 }-*/;
+
+public native final Set intersect(Set other)/*-{
+	return this.intersect(other);
+}-*/;
+public native final boolean contains(Shape s)/*-{
+	return this.contains(s);
+}-*/;
+public native final boolean containsAll(Set other)/*-{
+	return this.containsAll(other);
+}-*/;
+public native final Set add(Set other)/*-{
+	return this.add(other);
+}-*/;
+
+public native final Set substract(Set other)/*-{
+	return this.add(other);
+}-*/;
+
 //public String print() {
 //	final StringBuffer s = new StringBuffer("Set(");
 //	forEach(new ForEachCallback() {		

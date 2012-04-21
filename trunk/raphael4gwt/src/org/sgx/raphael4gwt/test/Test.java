@@ -5,8 +5,8 @@ import org.sgx.raphael4gwt.raphael.Raphael;
 import org.sgx.raphael4gwt.raphael.util.Util;
 
 public abstract class Test {
-	Paper paper;
-	int paperWidth, paperHeight;
+	protected Paper paper;
+	protected int paperWidth, paperHeight;
 	String name;
 	String description;
 	String[] tags;

@@ -64,17 +64,31 @@ public class JsUtil {
 	}
 
 	
-	
-	
-	
-
-	
-//	public static native Object apply(JavaScriptObject func, Object thisArg, 
-//			Object[] params)/*-{
-//		$wnd.alert("aboutto");
-//		return func.apply(thisArg, params);
-//		$wnd.alert("afterthat");
-//	}-*/;
-//	
+	public static JsArrayNumber toJsArray(double[]a) {
+		JsArrayNumber jsa = (JsArrayNumber) JsArrayNumber.createArray();
+		for (int i = 0; i < a.length; i++) {
+			jsa.push(a[i]);
+		}
+		return jsa;
+	}
+	public static JsArrayString toJsArray(String[] a) {
+		JsArrayString jsa = (JsArrayString) JsArrayNumber.createArray();
+		for (int i = 0; i < a.length; i++) {
+			jsa.push(a[i]);
+		}
+		return jsa;
+	}
+	public static JsArray toJsArray(JavaScriptObject[] ja) {
+		JsArray jsa = (JsArray) JsArray.createArray();
+		for(JavaScriptObject t : ja) {
+			jsa.push(t);
+		}
+		return jsa;
+	}
+//	public static <T extends JavaScriptObject> T[] toJavaArray(JsArray<T> s) {
+//		T[] arr = (T[]) new JavaScriptObject[s.length()];
+//		
+//		return null;
+//	}
 
 }

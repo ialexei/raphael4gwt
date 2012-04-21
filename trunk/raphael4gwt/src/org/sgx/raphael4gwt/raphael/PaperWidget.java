@@ -1,6 +1,5 @@
 package org.sgx.raphael4gwt.raphael;
 
-import org.sgx.raphael4gwt.raphael.event.Callback;
 import org.sgx.raphael4gwt.raphael.event.PaperListener;
 
 import com.google.gwt.dom.client.Style.Overflow;
@@ -26,13 +25,6 @@ public class PaperWidget extends SimplePanel {
 		getElement().getStyle().setOverflow(Overflow.SCROLL);
 		this.__onload=onload;
 	}
-//	public PaperWidget(int paperWidth, int paperHeight) {
-//		this.paperWidth = paperWidth;
-//		this.paperHeight = paperHeight;
-//		getElement().getStyle().setOverflow(Overflow.SCROLL);
-//		paper = Raphael.paper(getElement(), paperWidth, paperHeight);
-////		this.__onload=onload;
-//	}
 	
 	public Paper getPaper() {
 		return paper;
@@ -42,7 +34,6 @@ public class PaperWidget extends SimplePanel {
 	protected void onLoad() {
 		super.onLoad();
 		paper = Raphael.paper(getElement(), paperWidth, paperHeight);
-//		__onload.call();	
 		__onload.paperLoaded(paper);
 	}
 	

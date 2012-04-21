@@ -547,6 +547,13 @@ console.log(el.transform());
 		return this.animate(a);
 	}-*/;
 	/**
+	 * animates this shape according to animation object. see Raphael.animation
+	 * @return
+	 */
+	public final native Shape animate(Attrs attrs, int ms, String easing)/*-{
+		return this.animate(attrs, ms, easing);
+	}-*/;
+	/**
 	 * Acts similar to animate, but ensure that given animation runs in sync with another given element. 
 	 * @param el element to sync with
 	 * @param anim animation to sync with

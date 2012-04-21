@@ -8,12 +8,6 @@
  	<script src='raphael-ext.js' />
  	<script src='raphael.free_transform.js' />
  	<script src='raphael4gwt.js' />
-<!-- 	<script src="raphael-min.js"><![CDATA[ -->
-<!-- 	if ($wnd.Raphael) { -->
-<!-- 		return true; -->
-<!-- 	} else { -->
-<!-- 		return false; -->
-<!-- 	}]]></script> -->
 
 	<source path="raphael" />
 	

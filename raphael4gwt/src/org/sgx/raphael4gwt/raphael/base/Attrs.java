@@ -481,6 +481,10 @@ public class Attrs extends JavaScriptObject {
 		this["font-weight"]=val;
 		return this;
 	}-*/;
+	public final native Attrs fontWeight(double val)/*-{
+		this["font-weight"]=val;
+		return this;
+	}-*/;
 	public final native int getFontSize()/*-{
 		return this["font-size"];
 	}-*/;
@@ -634,7 +638,11 @@ public class Attrs extends JavaScriptObject {
 		this["r"]=val;
 		return this;
 	}-*/;
-	
+
+	public final native Attrs r(double val)/*-{
+		this["r"]=val;
+		return this;
+	}-*/;
 	public final native int getRadiusX()/*-{
 		return this["rx"];
 	}-*/;
@@ -669,4 +677,5 @@ public class Attrs extends JavaScriptObject {
 //		}
 //		return s+")";
 	}-*/;
+
 }

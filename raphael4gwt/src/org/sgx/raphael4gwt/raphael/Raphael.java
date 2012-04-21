@@ -76,10 +76,21 @@ public static native Paper paper(Element container, int w, int h)/*-{
 	return $wnd.Raphael(container, w, h);
 }-*/;
 public static native Paper paper(Element container, String w, String h)/*-{
-if(!container)
-	return null;
-return $wnd.Raphael(container, w, h);
+	if(!container)
+		return null;
+	return $wnd.Raphael(container, w, h);
 }-*/;
+public static native Paper paper(Element container)/*-{
+	if(!container)
+		return null;
+	return $wnd.Raphael(container);
+}-*/;
+public static native Paper paper(String container)/*-{
+	if(!container)
+		return null;
+	return $wnd.Raphael(container);
+}-*/;
+
 /**
  * container must be attached to the document. Be careful to add container's parent to the doucment before calling this constructor.
  * @param x

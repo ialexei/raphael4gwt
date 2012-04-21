@@ -655,5 +655,18 @@ public class Attrs extends JavaScriptObject {
 		this["ry"]=val;
 		return this;
 	}-*/;
-
+	
+	
+	//API extensions
+	public final native String print()/*-{
+		
+		return "Attrs"+$wnd.r4g.dump(this ,true)+"";
+//		var s = "Attrs(";
+//		for(var i in this) {
+//			if(this[i]!=null) {
+//				s+=i+": "+this[i]+", ";
+//			}
+//		}
+//		return s+")";
+	}-*/;
 }

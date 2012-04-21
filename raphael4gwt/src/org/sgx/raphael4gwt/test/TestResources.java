@@ -76,4 +76,7 @@ public interface TestResources extends ClientBundle {
 	  @Source("AttrChangeListenerTest1.java")
 	  public TextResource AttrChangeListenerTest1();
 	  
+	  @Source("SetTest2.java")
+	  public TextResource SetTest2();
+	  
 }

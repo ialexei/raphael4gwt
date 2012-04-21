@@ -12,6 +12,7 @@ import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.core.client.JsArrayString;
 import com.google.gwt.dom.client.Element;
 /**
  * this correspond to Element object in raphaeljs ref.
@@ -493,12 +494,29 @@ console.log(el.transform());
 //		this.attr(a);
 //	}-*/;
 	
-	public final native Attrs attr()/*-{
-		return this.attr();
-		//return @org.sgx.raphael4gwt.raphael.base.Attrs::createFromNative(Lorg/sgx/raphael4gwt/raphael/base/NativeAttrs;)(this.attr());
+	/**
+	 * API extension 
+	 * @return an object with all the available attributes and value examples.
+	 */
+	public final static native Attrs getAvailableAttrs()/*-{
+		return $wnd.Raphael._availableAttrs;
 	}-*/;
-	public final native Shape attr(Attrs attrs)/*-{	
-		//var a = attrs.@org.sgx.raphael4gwt.raphael.base.Attrs::getNativeAttrs()();
+
+//	/**
+//	 * API extension
+//	 * @return this shape attribute object
+//	 */
+//	public final native Attrs getAttributes()/*-{
+////		alert($wnd.r4g.dump($wnd.Raphael._availableAttrs));
+//		var thisAttrs = {};
+//		for(var i in $wnd.Raphael._availableAttrs) {
+//			if(this.attr(i))
+//				thisAttrs[i]=this.attr(i);
+//		}
+//		return thisAttrs;
+//	}-*/;
+	
+	public final native Shape attr(Attrs attrs)/*-{
 		this.attr(attrs);		
 		return this;
 	}-*/;
@@ -509,11 +527,9 @@ console.log(el.transform());
 		return this;
 	}-*/;
 	
-//	public Attrs getAttrs() {
-//		Attrs attrs = new Attrs();
-//		attrs.setNativeAttrs(getNativeAttrs());
-//		return attrs;
-//	}
+	public final native Attrs attr()/*-{
+		return this.attr();			
+	}-*/;
 	
 	
 	

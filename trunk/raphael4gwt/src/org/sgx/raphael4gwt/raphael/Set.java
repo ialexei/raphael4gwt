@@ -43,10 +43,14 @@ public native final boolean exclude(Shape s)/*-{
  * </pre> 
  */
 public native final Set forEach(ForEachCallback c)/*-{
-	var f = $entry(function(shape, index){
-		c.@org.sgx.raphael4gwt.raphael.event.ForEachCallback::call(Lorg/sgx/raphael4gwt/raphael/Shape;I)(shape, index);
-	});
-	return this.forEach(f, null);
+	var f = function(){
+		var ret = $entry(function(shape, index){
+			return c.@org.sgx.raphael4gwt.raphael.event.ForEachCallback::call(Lorg/sgx/raphael4gwt/raphael/Shape;I)(shape, index);
+		}).apply(this, arguments);
+		ret = $wnd.r4g._castToBoolean(ret);
+		return ret;
+	};
+	return this.forEach(f);
 }-*/;
 /**
  * Removes last element and returns it
@@ -77,18 +81,18 @@ public native final Set push(JsArray<Shape> shapes)/*-{
 public native final int size()/*-{
 	return this.length;
 }-*/;
-/**
- * @return the array of shapes that constitute this set.
- */
-public native final JsArray<Shape> items()/*-{
-	return this.items;
-}-*/;
-/**
- * @return the array of shapes that constitute this set.
- */
-public native final Shape item(int i)/*-{
-	return this.items[i];
-}-*/;
+///**
+// * @return the array of shapes that constitute this set.
+// */
+//public native final JsArray<Shape> items()/*-{
+//	return this.items;
+//}-*/;
+///**
+// * @return the array of shapes that constitute this set.
+// */
+//public native final Shape item(int i)/*-{
+//	return this.items[i];
+//}-*/;
 
 /**
  * Removes given element from the set 
@@ -143,27 +147,18 @@ public native final Set substract(Set other)/*-{
 	return this.add(other);
 }-*/;
 
-//public String print() {
-//	final StringBuffer s = new StringBuffer("Set(");
-//	forEach(new ForEachCallback() {		
-//		@Override
-//		public boolean call(Shape shape, int index) {
-//			s.append(shape.getType()+", ");
-//			return true;
-//		}
-//	});
-//	return s.toString()+")";
-//}
+/**
+ * @return this set with all elements for which f return true removed.
+ */
+public native final Set remove(ForEachCallback c)/*-{
+	var f = function(){
+		var ret = $entry(function(shape, index){
+			return c.@org.sgx.raphael4gwt.raphael.event.ForEachCallback::call(Lorg/sgx/raphael4gwt/raphael/Shape;I)(shape, index);
+		}).apply(this, arguments);
+		ret = $wnd.r4g._castToBoolean(ret);
+		return ret;
+	};
+	return this.remove(f);
+}-*/;
 
-///**
-// * add shapes "on top" of this set
-// */
-//public native final Set push(Collection<Shape> c)/*-{
-//	var arr = [];
-//	var it = c.@java.util.Collection::iterator()();
-//	while(it.@java.util.Iterator::hasNext()()) {
-//		arr.push(it.@java.util.Iterator::next()());
-//	}
-//	return this.push(arr);
-//}-*/;
 }

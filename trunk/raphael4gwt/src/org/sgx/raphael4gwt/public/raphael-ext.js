@@ -117,7 +117,7 @@
 		return this;
 	};
 	/**
-	 * @returns this with other set els substracted
+	 * @returns this with other set els removed
 	 */
 	Raphael.st.substract = function(other) {
 		if(!other)return this;
@@ -125,6 +125,32 @@
 			if(this.contains(other[i]))
 				this.exclude(other[i]);
 		return this;
+	};	
+	/**
+	 * @return this set with all elements for which f return true removed.
+	 */
+	Raphael.st.remove = function(f) {
+//		window.alert(this.length);
+		var set = this;
+		this.forEach(function(el, idx) {
+			var result = f(el, idx);
+			result = typeof(result)=="object" ? (result+"")=="true" : result;
+//			window.alert("set: "+set+", el: "+el+", result: "+result);
+			if(result) {
+				set.exclude(el);
+//				alert("excluded! "+typeof(el)+" - "+typeof(false));
+			}
+			return true;
+		});
+		
+//		for ( var i = 0; i < this.length; i++) {
+//			var result = f(this.items[i],i);
+////			alert
+//			if(this.items[i] && result) {
+//				this.exclude(this.items[i]);
+//			}
+//		}
+		return set;
 	};
 })();
 
@@ -168,7 +194,7 @@
 				}
 			}
 		}
-		this.___attr(name, value);
+		return this.___attr(name, value);
 	};
 })();
 

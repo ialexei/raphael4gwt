@@ -5,6 +5,7 @@ import org.sgx.raphael4gwt.raphael.base.Animation;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Glow;
 import org.sgx.raphael4gwt.raphael.base.Rectangle;
+import org.sgx.raphael4gwt.raphael.event.Callback;
 import org.sgx.raphael4gwt.raphael.event.DDListener;
 import org.sgx.raphael4gwt.raphael.event.DragOverListener;
 import org.sgx.raphael4gwt.raphael.event.HoverListener;
@@ -465,6 +466,19 @@ console.log(el.transform());
 		return this.toFront();
 	}-*/;
 	
+	/**Inserts current object after the given one.*/
+	public final native Shape insertAfter(Shape s)/*-{
+		return this.insertAfter(s);
+	}-*/;
+	/**Inserts current object before the given one.*/
+	public final native Shape insertBefore(Shape s)/*-{
+		return this.insertBefore(s);
+	}-*/;
+	/**Inserts current object before the given one.*/
+	public final native boolean isPointInside(double x, double y)/*-{
+		return this.isPointInside(x, y);
+	}-*/;
+	
 	
 	
 	
@@ -483,6 +497,11 @@ console.log(el.transform());
 //	public final native void setAttribute(String name, float value)/*-{
 //		this.attr(name, value);
 //	}-*/;
+	/**
+	 * do not make any sense to call this on Set elements, only individual shapes.
+	 * @param name
+	 * @return
+	 */
 	public final native String getAttribute(String name)/*-{
 		return this.attr(name)+"";
 	}-*/;
@@ -552,6 +571,11 @@ console.log(el.transform());
 	 */
 	public final native Shape animate(Attrs attrs, int ms, String easing)/*-{
 		return this.animate(attrs, ms, easing);
+	}-*/;
+	public final native Shape animate(Attrs attrs, int ms, String easing, Callback callback)/*-{
+		return this.animate(attrs, ms, easing, function() {
+			callback.@org.sgx.raphael4gwt.raphael.event.Callback::call(Lorg/sgx/raphael4gwt/raphael/Shape;)(this);
+		});
 	}-*/;
 	/**
 	 * Acts similar to animate, but ensure that given animation runs in sync with another given element. 

@@ -2,20 +2,23 @@ package org.sgx.raphael4gwt.raphael.jsutil;
 
 import java.util.Map;
 
+import org.sgx.raphael4gwt.graphael.bar.BarContext;
 import org.sgx.raphael4gwt.raphael.util.Util;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayNumber;
 import com.google.gwt.core.client.JsArrayString;
-
+/**
+ * javascript related utilities
+ * @author sg
+ *
+ */
 public class JsUtil {
 	public static native <T> T get(JavaScriptObject o, Object p)/*-{
-	//	$wnd.alert("in prop "+o+" - "+p+" - "+o.getAttribute(p));
 		return o[p];
 	}-*/;
 	public static native Object put(JavaScriptObject o, Object pname, Object val)/*-{
-	//	$wnd.alert("in prop "+o+" - "+p+" - "+o.getAttribute(p));
 		o[pname]=val;
 	}-*/;
 	public static native JsArrayString props(JavaScriptObject o)/*-{
@@ -48,13 +51,7 @@ public class JsUtil {
 		arr.push(o);
 		return arr;
 	}-*/;
-//	public static JsArray<JavaScriptObject> toArray(JavaScriptObject ...objs) {
-//		JsArray<JavaScriptObject> a = (JsArray<JavaScriptObject>) JsArray.createArray();
-//		for (int i = 0; i < objs.length; i++) {
-//			a.push(objs[i]);
-//		}
-//		return a;
-//	}
+
 	public static JsArrayNumber toJsArrayNumber(int[] a) {
 		JsArrayNumber jsa = (JsArrayNumber) JsArrayNumber.createArray();
 		for (int i = 0; i < a.length; i++) {
@@ -85,10 +82,54 @@ public class JsUtil {
 		}
 		return jsa;
 	}
-//	public static <T extends JavaScriptObject> T[] toJavaArray(JsArray<T> s) {
-//		T[] arr = (T[]) new JavaScriptObject[s.length()];
-//		
-//		return null;
-//	}
+	
+	public static JsArray to2DJsArray(double[][] ja) {
+		JsArray jsa = (JsArray) JsArray.createArray();
+		if(ja==null)
+			return jsa;
+		for (int i = 0; i < ja.length; i++) {
+			jsa.push(toJsArray(ja[i]));
+		}
+		return jsa;
+	}
+	public static JsArray to2DJsArray(String[][] ja) {
+		JsArray jsa = (JsArray) JsArray.createArray();
+		if(ja==null)
+			return jsa;
+		for (int i = 0; i < ja.length; i++) {
+			jsa.push(toJsArray(ja[i]));
+		}
+		return jsa;
+	}
+	public final native static void putBoolean(JavaScriptObject o, String prop,
+			boolean b)/*-{
+		if(b) {
+//			$wnd.alert("putBoolean: "+prop+" - true");
+			o[prop]=true;
+		}
+		else {
+//			$wnd.alert("putBoolean: "+prop+" - false");
+			o[prop]=false;
+		}
+		
+	}-*/;
+	public final native static void putNumber(JavaScriptObject o, String prop, 
+			double v) /*-{
+		o[prop]=v;
+	}-*/;
 
+
+	public static double[] toJavaDoubleArray(JsArrayNumber a) {
+		if(a==null)return null;
+		double[] dd = new double[a.length()];
+		for (int i = 0; i < dd.length; i++) {
+			dd[i]=a.get(i);
+		}
+		return dd;
+	}
+//	public static String dump(JavaScriptObject o) {
+//		String s = "(";
+////		o.
+//		return s+")";
+//	}
 }

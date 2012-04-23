@@ -1,12 +1,11 @@
 package org.sgx.raphael4gwt.raphael;
 
-import java.util.Collection;
-
 import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
 
 import com.google.gwt.core.client.JsArray;
 
 public class Set extends Shape {
+	
 protected Set(){}
 
 /**
@@ -26,6 +25,7 @@ public native final boolean exclude(Shape s)/*-{
 	if(b)return true;
 	else return false; 
 }-*/;
+
 
 /**
  * Executes given ForEachCallback for each element in the set. If ForEachCallback returns false it will stop loop running.
@@ -150,7 +150,7 @@ public native final Set substract(Set other)/*-{
 /**
  * @return this set with all elements for which f return true removed.
  */
-public native final Set remove(ForEachCallback c)/*-{
+public native final Set filter(ForEachCallback c)/*-{
 	var f = function(){
 		var ret = $entry(function(shape, index){
 			return c.@org.sgx.raphael4gwt.raphael.event.ForEachCallback::call(Lorg/sgx/raphael4gwt/raphael/Shape;I)(shape, index);

@@ -129,27 +129,16 @@
 	/**
 	 * @return this set with all elements for which f return true removed.
 	 */
-	Raphael.st.remove = function(f) {
-//		window.alert(this.length);
+	Raphael.st.filter = function(f) {
 		var set = this;
 		this.forEach(function(el, idx) {
 			var result = f(el, idx);
 			result = typeof(result)=="object" ? (result+"")=="true" : result;
-//			window.alert("set: "+set+", el: "+el+", result: "+result);
 			if(result) {
 				set.exclude(el);
-//				alert("excluded! "+typeof(el)+" - "+typeof(false));
 			}
 			return true;
 		});
-		
-//		for ( var i = 0; i < this.length; i++) {
-//			var result = f(this.items[i],i);
-////			alert
-//			if(this.items[i] && result) {
-//				this.exclude(this.items[i]);
-//			}
-//		}
 		return set;
 	};
 })();
@@ -172,9 +161,12 @@
 			this._attrChangeListeners[attr]=[];
 		this._attrChangeListeners[attr].push(tl);
 	};
-	Raphael.st.___attr = Raphael.st.attr;
+	
+	/* now the trik part - override the attr() function - 
+	 * no need to do it for Set because they call individual shape attr() */ 
+//	Raphael.st.___attr = Raphael.st.attr;
 	Raphael.el.___attr = Raphael.el.attr;
-	Raphael.st.attr = Raphael.el.attr = function(name, value) {
+	Raphael.el.attr = function(name, value) {
 		if ( name != null && Raphael.is(name, "object") ) {
 			var params = name;
 			for(var attr in params) {
@@ -195,7 +187,25 @@
 			}
 		}
 		return this.___attr(name, value);
-	};
+	};	
+//	Raphael.st.attr = function (name, value) {
+//		//extension - aSet.attr("transform") will return this set's first el attr transform
+//		if(name && !value && Raphael.is(name, "string")) {
+//			
+//		}
+//		else if (name && R.is(name, array) && R.is(name[0], "object")) {
+////			return this.___attr(name, value);
+//            for (var j = 0, jj = name.length; j < jj; j++) {
+//                this.items[j].attr(name[j]);
+//            }
+//        } 
+//        else {
+//            for (var i = 0, ii = this.items.length; i < ii; i++) {
+//                this.items[i].attr(name, value);
+//            }
+//        }
+//        return this;
+//    };
 })();
 
 

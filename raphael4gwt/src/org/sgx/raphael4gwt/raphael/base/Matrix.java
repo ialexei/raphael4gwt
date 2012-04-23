@@ -64,7 +64,7 @@ public final native MatrixTransf split()/*-{
  * Splits matrix into primitive transformations 
  * @return
  */
-public MatrixTransf getTransformations() {
+public final MatrixTransf getTransformations() {
 	return split();
 }
 /**

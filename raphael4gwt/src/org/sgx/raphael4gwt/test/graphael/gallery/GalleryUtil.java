@@ -7,7 +7,12 @@ import java.util.Map;
 import org.sgx.raphael4gwt.raphael.Paper;
 //import org.sgx.raphael4gwt.test.Test;
 import org.sgx.raphael4gwt.test.Test;
+import org.sgx.raphael4gwt.test.graphael.gallery.tests.BarChartTest1;
+import org.sgx.raphael4gwt.test.graphael.gallery.tests.BarChartTest2;
+import org.sgx.raphael4gwt.test.graphael.gallery.tests.BarChartTest3;
+import org.sgx.raphael4gwt.test.graphael.gallery.tests.LineChartTest1;
 import org.sgx.raphael4gwt.test.graphael.gallery.tests.PieChartTest1;
+import org.sgx.raphael4gwt.test.graphael.gallery.tests.TooltipTest1;
 import org.sgx.raphael4gwt.test.util.GUIUtil;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -95,6 +100,20 @@ public class GalleryUtil {
 		t = new PieChartTest1(paper, w, h);
 		tests.put(t.getName(), t);
 
+		t = new BarChartTest1(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		t = new BarChartTest2(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		t = new BarChartTest3(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		t = new TooltipTest1(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		t = new LineChartTest1(paper, w, h);
+		tests.put(t.getName(), t);
 	}
 
 	Map<String, List<Test>> getTestsByTag() {

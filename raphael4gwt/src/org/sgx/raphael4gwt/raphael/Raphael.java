@@ -120,7 +120,7 @@ public static native float angle(int x1, int y1, int x2, int y2, int x3, int y3)
  */
 public static native Animation animation(JavaScriptObject params, int ms, String easing, Callback callback)/*-{
 	return $wnd.Raphael.animation(params, ms, easing, function() {
-		callback.@org.sgx.raphael4gwt.raphael.event.Callback::call()();
+		callback.@org.sgx.raphael4gwt.raphael.event.Callback::call(Lorg/sgx/raphael4gwt/raphael/Shape;)(this);
 	});
 }-*/;
 /**
@@ -134,7 +134,7 @@ public static native Animation animation(JavaScriptObject params, int ms, String
 public static native Animation animation(Attrs params, int ms, String easing, Callback callback)/*-{
 	//var p = params.@org.sgx.raphael4gwt.raphael.base.Attrs::getNativeAttrs()();
 	return $wnd.Raphael.animation(params, ms, easing, function() {
-		callback.@org.sgx.raphael4gwt.raphael.event.Callback::call()();
+		callback.@org.sgx.raphael4gwt.raphael.event.Callback::call(Lorg/sgx/raphael4gwt/raphael/Shape;)(this);
 	});
 }-*/;
 /**

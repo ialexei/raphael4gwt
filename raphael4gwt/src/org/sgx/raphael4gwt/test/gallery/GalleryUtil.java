@@ -29,6 +29,7 @@ import org.sgx.raphael4gwt.test.PrintLettersOnPath;
 import org.sgx.raphael4gwt.test.SetSimpleTest1;
 import org.sgx.raphael4gwt.test.SetTest2;
 import org.sgx.raphael4gwt.test.ShapeEditor1;
+import org.sgx.raphael4gwt.test.ShapeUnitTest1;
 import org.sgx.raphael4gwt.test.Test;
 import org.sgx.raphael4gwt.test.util.GUIUtil;
 
@@ -188,6 +189,10 @@ public class GalleryUtil {
 		
 		t = new SetTest2(paper, w, h);
 		tests.put(t.getName(), t);
+		
+		t = new ShapeUnitTest1(paper, w, h);
+		tests.put(t.getName(), t);
+		
 	}
 
 	Map<String, List<Test>> getTestsByTag() {

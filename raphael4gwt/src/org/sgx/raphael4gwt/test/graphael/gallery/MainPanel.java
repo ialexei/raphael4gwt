@@ -99,6 +99,7 @@ public class MainPanel extends VerticalPanel {
 			public void paperLoaded(Paper paper) {
 				/* the paper is loaded! so now we can instantiate all our tests */
 				MainPanel.this.paper=paper;
+//				native1(paper);
 				GalleryUtil.getInstance().loadAllTest(paperWidget.getPaper(), PAPER_WIDTH, PAPER_HEIGHT);
 				GalleryUtil.getInstance().doAddAllGeneralTests(testGeneral);
 			}
@@ -109,5 +110,10 @@ public class MainPanel extends VerticalPanel {
 		paperWidget.setSize("100%", "100%");
 		
 	}
+
+//	protected native final void native1(Paper p)/*-{
+//		$wnd.alert(p.piechart+"");
+//	}-*/;
+
 
 }

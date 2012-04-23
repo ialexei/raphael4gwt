@@ -79,4 +79,8 @@ public interface TestResources extends ClientBundle {
 	  @Source("SetTest2.java")
 	  public TextResource SetTest2();
 	  
+	  @Source("ShapeUnitTest1.java")
+	  public TextResource ShapeUnitTest1();
+	  
+	  
 }

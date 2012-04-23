@@ -1,13 +1,16 @@
 package org.sgx.raphael4gwt.test.graphael.gallery.tests;
 
 import org.sgx.raphael4gwt.graphael.GPaper;
-import org.sgx.raphael4gwt.graphael.pie.PieContext;
-import org.sgx.raphael4gwt.graphael.pie.PieHoverListener;
+import org.sgx.raphael4gwt.graphael.pie.PieSector;
+import org.sgx.raphael4gwt.graphael.pie.PieSectorCallback;
+import org.sgx.raphael4gwt.graphael.pie.PieSectorHoverListener;
 import org.sgx.raphael4gwt.graphael.pie.PieOpts;
-import org.sgx.raphael4gwt.graphael.pie.Piechart;
+import org.sgx.raphael4gwt.graphael.pie.PieChart;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.test.Test;
+
+import com.google.gwt.user.client.Window;
 /**
  * similar example as http://g.raphaeljs.com/piechart2.html
  * @author sg
@@ -25,11 +28,12 @@ public class PieChartTest1 extends Test {
 			new String[]{"http://raphaeljs.com", "http://g.raphaeljs.com"}
 		);
 		
-		final Piechart piechart = getGPaper().piechart(300, 200, 100, vals, opts);
+		final PieChart piechart = getGPaper().piechart(300, 200, 100, vals, opts);
 		
-		piechart.sectorHover(new PieHoverListener() {		
+		// a simple example of sectorHover() for registering listeners when individual sector hovering.
+		piechart.sectorHover(new PieSectorHoverListener() {		
 			@Override
-			public void hoverIn(PieContext c) {
+			public void hoverIn(PieSector c) {
 				c.getSector().stop();
 				c.getSector().scale(1.1, 1.1, c.getCx(), c.getCy());
 				if(c.getLabelIcon()!=null) {
@@ -41,7 +45,7 @@ public class PieChartTest1 extends Test {
 				}
 			}			
 			@Override
-			public void hoverOut(PieContext c) {
+			public void hoverOut(PieSector c) {
 				c.getSector().animate(Attrs.create().transform("s1 1 "+c.getCx()+" "+c.getCy()), 500, "bounce");
 				if(c.getLabelIcon()!=null) {
 					c.getLabelIcon().animate(Attrs.create().r(5), 500, "bounce");
@@ -51,6 +55,18 @@ public class PieChartTest1 extends Test {
 				}
 			}	
 		});
+		
+		//a simple example of using sectorEach() for iterating through pie chart sectors
+		final StringBuffer sb = new StringBuffer("sectors labels: ");
+		piechart.sectorEach(new PieSectorCallback() {			
+			@Override
+			public void call(PieSector ctx) {
+				if(ctx.getLabelText()!=null) {
+					sb.append(ctx.getLabelText().getAttribute("text")+", ");
+				}
+			}
+		});
+		Window.alert(sb.toString());
 	}
 
 	//test class stuff

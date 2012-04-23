@@ -3,11 +3,16 @@
 <module>
 	<inherits name="com.google.gwt.user.User" />
 	<inherits name="com.google.gwt.resources.Resources" />
+	
 	<inherits name="org.sgx.raphael4gwt.Raphael4Gwt" />
 	<inherits name="org.sgx.raphael4gwt.GRaphael4Gwt" />	
+	
 	<inherits name="com.google.gwt.logging.Logging" />
 	<inherits name='com.google.gwt.user.theme.clean.Clean' />
 
 	<entry-point class="org.sgx.raphael4gwt.test.graphael.gallery.GRaphael4GwtTest" />
+	
 	<source path="test" />
+<!-- 	<source path="graphael" /> -->
+<!-- 	<source path="raphael" /> -->
 </module>

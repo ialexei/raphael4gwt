@@ -46,7 +46,7 @@ public class SetTest2 extends Test {
 		});
 		testCase1.assertEquals(1, counter, "1.5");
 		
-		set1.remove(new ForEachCallback() {	//removes rect2
+		set1.filter(new ForEachCallback() {	//removes rect2
 			@Override
 			public boolean call(Shape shape, int index) {				
 				boolean b = shape.getData("data1")!=null && 

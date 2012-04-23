@@ -7,27 +7,32 @@ public class UnitUtil {
 	
 List<String> failures;
 List<String> passes;
+
 public UnitUtil() {
 	failures=new LinkedList<String>();
 	passes=new LinkedList<String>();
 }
 public void assertEquals(Object espected, Object actual, String msg) {
+	
+	String passMsg = msg, 
+		failMsg = msg+" fail espected="+espected+" but actual was: "+actual;
+	
 	if(espected==null&&actual==null) {
-		passes.add(msg);
+		passes.add(passMsg);
 	}
 	else if(espected==null&&actual!=null||espected!=null&&actual==null) {
-		failures.add(msg);
+		failures.add(failMsg);
 	}
 	else if(espected!=null&&actual!=null) {
 		if(espected.equals(actual)) {
-			passes.add(msg);
+			passes.add(passMsg);
 		}
 		else {
-			failures.add(msg);
+			failures.add(failMsg);
 		}
 	}
 	else {
-		failures.add(msg);
+		failures.add(failMsg);
 	}
 }
 public List<String> getFailures() {

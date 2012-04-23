@@ -4,7 +4,18 @@
  * Copyright (c) 2009 Dmitry Baranovskiy (http://g.raphaeljs.com)
  * Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
  */
-(function () {
+
+/* sgurin notes about bars: 
+ * 
+ * for a barchart like 
+ * var data = [[55, 20, 13, 32, 5, 1, 2, 10], [65, 10, 23, 42, 15, 11, 12, 20]], 
+ * stacked or not, there will be 8+8 shapes and these are, 
+ *  
+ * this[0][0] and this[0][1] - for each data sub array respectively.
+ */
+
+
+//(function () {
     var mmin = Math.min,
         mmax = Math.max;
 
@@ -140,7 +151,6 @@
      */
     function VBarchart(paper, x, y, width, height, values, opts) {
         opts = opts || {};
-
         var chartinst = this,
             type = opts.type || "square",
             gutter = parseFloat(opts.gutter || "20%"),
@@ -283,53 +293,37 @@
             }
         }
 
-        chart.label = function (labels, isBottom) {
+        /**
+         * sgurin rewritten
+         * @param labels an array of array of strings, 
+         * like [["label1", ...]]. dimensions must be same. 
+         * it will store labels in a set of sets called this.labels, for example:
+         * 
+         * var g1 = paper.barchart(...).label([[...]]);
+         * g1.label.forEach(function(labelSet){
+         * 		//labelSet is the n-th set of labels:
+         * 
+         * 		labelSet.forEach(function(label){
+         * 			//do something with each individual label
+         * 		})
+         * });
+         * @returns
+         */
+        chart.label = function (labels) {
             labels = labels || [];
             this.labels = paper.set();
-
-            var L, l = -Infinity;
-
-            if (opts.stacked) {
-                for (var i = 0; i < len; i++) {
-                    var tot = 0;
-
-                    for (var j = 0; j < (multi || 1); j++) {
-                        tot += multi ? values[j][i] : values[i];
-
-                        if (j == multi - 1) {
-                            var label = paper.labelise(labels[i], tot, total);
-
-                            L = paper.text(bars[i * (multi || 1) + j].x, y + height - barvgutter / 2, label).attr(txtattr).insertBefore(covers[i * (multi || 1) + j]);
-
-                            var bb = L.getBBox();
-
-                            if (bb.x - 7 < l) {
-                                L.remove();
-                            } else {
-                                this.labels.push(L);
-                                l = bb.x + bb.width;
-                            }
-                        }
-                    }
-                }
-            } else {
-                for (var i = 0; i < len; i++) {
-                    for (var j = 0; j < (multi || 1); j++) {
-                        var label = paper.labelise(multi ? labels[j] && labels[j][i] : labels[i], multi ? values[j][i] : values[i], total);
-
-                        L = paper.text(bars[i * (multi || 1) + j].x, isBottom ? y + height - barvgutter / 2 : bars[i * (multi || 1) + j].y - 10, label).attr(txtattr).insertBefore(covers[i * (multi || 1) + j]);
-
-                        var bb = L.getBBox();
-
-                        if (bb.x - 7 < l) {
-                            L.remove();
-                        } else {
-                            this.labels.push(L);
-                            l = bb.x + bb.width;
-                        }
-                    }
-                }
-            }
+            
+        	var root=this[0];
+        	for(var i = 0; i < root.length; i++) {
+        		var set = root[i], 
+        			l1 = [];
+        		if(set) for ( var j = 0; j < set.length; j++) {
+        			var bar = set[j], bb = bar.getBBox();
+					l1.push(paper.label(bb.x, bb.y, labels[i][j]));
+				}
+        	}
+        	this.push(this.labels);
+        	
             return this;
         };
 
@@ -532,12 +526,12 @@
 
             for (var i = 0; i < len; i++) {
                 for (var j = 0; j < multi; j++) {
-                    var  label = paper.labelise(multi ? labels[j] && labels[j][i] : labels[i], multi ? values[j][i] : values[i], total),
+                    var  label = Raphael.g.labelise(multi ? labels[j] && labels[j][i] : labels[i], multi ? values[j][i] : values[i], total),
                         X = isRight ? bars[i * (multi || 1) + j].x - barheight / 2 + 3 : x + 5,
                         A = isRight ? "end" : "start",
                         L;
 
-                    this.labels.push(L = paper.text(X, bars[i * (multi || 1) + j].y, label).attr(txtattr).attr({ "text-anchor": A }).insertBefore(covers[0]));
+                    this.labels.push(L = paper.text(X, bars[i * (multi || 1) + j].y, label).attr(Raphael.g.txtattr).attr({ "text-anchor": A }).insertBefore(covers[0]));
 
                     if (L.getBBox().x < x + 5) {
                         L.attr({x: x + 5, "text-anchor": "start"});
@@ -618,4 +612,4 @@
     Raphael.fn.barchart = function(x, y, width, height, values, opts) {
         return new VBarchart(this, x, y, width, height, values, opts);
     };
-})();
+//})();

@@ -10,7 +10,7 @@
     	src="raphael.js"></script>
    	<script type="text/javascript" language="javascript" 
     	src="graphael/g.raphael.js"></script>
-    	<script type="text/javascript" language="javascript" 
+    <script type="text/javascript" language="javascript" 
     	src="graphael/g.bar.js"></script>
   </head>
 
@@ -18,16 +18,14 @@
 	<input type="text" style="width: 100%" id="logbox" value=""></input>
 
 	 <script type="text/javascript" language="javascript" >
-		
-	 var paper = Raphael(0, 0, 1500, 1500); 
-// 	 var rect = paper.rect(100,100,180,150).attr({fill: "red"});
-var data = [[55, 20]], 
-labels = [["asd", "sdf"]];
-
-	 
-paper.barchart(10, 10, 300, 220, data).label(labels);
-	 
-	 
+	
+ var paper = Raphael(0, 0, 1500, 1500); 
+ var rect = paper.rect(100,100,180,150).attr({fill: "red"});
+ 
+ var data = [[55, 20, 13, 32, 5, 1, 2, 10], [65, 10, 23, 42, 15, 11, 12, 20]], 
+ 	labels = [["asd", "sdf","asd", "sdf","asd", "sdf","asd", "sdf"], ["asd1", "sdf23","asd4", "sdf5","asd2", "sdf3","asd1", "sdf"]];
+ paper.barchart(10, 10, 300, 220, data).label(labels);
+ 
  
 	 </script>
 

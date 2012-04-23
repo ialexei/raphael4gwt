@@ -3,6 +3,7 @@ package org.sgx.raphael4gwt.test;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Path;
 import org.sgx.raphael4gwt.raphael.Raphael;
+import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Animation;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.event.Callback;
@@ -30,11 +31,11 @@ public class AnimTransformAndPathTest1 extends Test {
 		
 		alarm1.attr(now);
 		Animation animation1 = Raphael.animation(
-				future1, 2000, Raphael.EASING_BACKIN, new Callback() {			
-			@Override
-			public void call() {
-				Window.alert("transformation finished");				
-			}
+				future1, 2000, Raphael.EASING_BACKIN, new Callback() {					
+				@Override
+				public void call(Shape src) {
+					Window.alert("transformation finished - src is : "+src.getType());
+				}
 		});
 		alarm1.animate(animation1);
 		

@@ -3,18 +3,13 @@ package org.sgx.raphael4gwt.test;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Path;
 import org.sgx.raphael4gwt.raphael.Raphael;
-import org.sgx.raphael4gwt.raphael.Set;
-import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Animation;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Font;
-import org.sgx.raphael4gwt.raphael.event.Callback;
-import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 
 import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.user.client.Window;
 
 public class FontTest1 extends Test {
 

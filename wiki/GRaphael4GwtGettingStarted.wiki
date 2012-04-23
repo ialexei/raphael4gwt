@@ -1,0 +1,10 @@
+#labels graphael,raphaeljs,gwt,raphael4gwt,charts,charting
+#Getting started to write charts using [graphael charting library http://g.raphaeljs.com/] ported to GWT (GRaphael4gwt)
+
+= Introduction =
+
+This project, raphael4gwt, also includes support for [graphael charting library http://g.raphaeljs.com/] as a second GWT module. [graphael charting library http://g.raphaeljs.com/] is a javascriupt library, based on [raphaeljs http://raphaeljs.com/] for making good looking and live charts on web pages. 
+
+In this document I will try to explain how to get started to make graphael charts on your GWT applications. 
+
+First of all, download the latest version of [http://code.google.com/p/raphael4gwt/ raphael4gwt]

@@ -2,6 +2,7 @@ package org.sgx.raphael4gwt.graphael;
 
 import org.sgx.raphael4gwt.graphael.bar.BarChart;
 import org.sgx.raphael4gwt.graphael.bar.BarOpts;
+import org.sgx.raphael4gwt.graphael.dot.DotChart;
 import org.sgx.raphael4gwt.graphael.dot.DotOpts;
 import org.sgx.raphael4gwt.graphael.line.LineChart;
 import org.sgx.raphael4gwt.graphael.line.LineOpts;
@@ -65,7 +66,7 @@ public final native BarChart hbarchart(double x, double y, double w, double h,
 }-*/;
 
 
-public final native PieChart dotchart(double x, double y, double w, 
+public final native DotChart dotchart(double x, double y, double w, 
 		double h, double[] xs, double[] ys, double[] data, DotOpts opts)/*-{	
 	return this.dotchart(x, y, w, h, 
 		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(xs),
@@ -102,7 +103,7 @@ public final native LineChart linechart(double x, double y, double w,
  * @param size (number) amount of padding around the Element [default: `5`] 
  * @return (object) set containing the popup path and the text element 
  \*/
-public final native Set popup(double x, double y, String text, String dir, int size)/*-{	
+public final native GShape popup(double x, double y, String text, String dir, int size)/*-{	
 	return this.popup(x,y,text,dir,size);
 }-*/;
 /**Puts the given `text` into a 'popup' tooltip. The text is given a default style according to getTextAttrs(). @see GShape.popup().
@@ -115,7 +116,7 @@ public final native Set popup(double x, double y, String text, String dir, int s
  * @param dir (string) location of the text relative to the tail: `'down'`, `'left'`, `'up'` [default], or `'right'`.
  * @return (object) set containing the popup path and the text element 
  \*/
-public final native Set popup(double x, double y, String text, String dir)/*-{	
+public final native GShape popup(double x, double y, String text, String dir)/*-{	
 	return this.popup(x,y,text,dir);
 }-*/;
 /**Puts the given `text` into a 'popup' tooltip. The text is given a default style according to getTextAttrs(). @see GShape.popup().
@@ -127,7 +128,7 @@ public final native Set popup(double x, double y, String text, String dir)/*-{
  * @param text (string) text to place inside the popup
  * @return (object) set containing the popup path and the text element 
  \*/
-public final native Set popup(double x, double y, String text)/*-{	
+public final native GShape popup(double x, double y, String text)/*-{	
 	return this.popup(x,y,text);
 }-*/;
 /**
@@ -142,7 +143,7 @@ public final native Set popup(double x, double y, String text)/*-{
  @return set containing the tag path and the text element
   Usage: paper.tag(50, 50, "$9.99", 60);
  */
-public final native Set tag(double x, double y, String text, double angle, double r)/*-{	
+public final native GShape tag(double x, double y, String text, double angle, double r)/*-{	
 	return this.tag(x,y,text,angle,r);
 }-*/;
 /**
@@ -156,7 +157,7 @@ public final native Set tag(double x, double y, String text, double angle, doubl
  @return set containing the tag path and the text element
   Usage: paper.tag(50, 50, "$9.99", 60);
  */
-public final native Set tag(double x, double y, String text, double angle)/*-{	
+public final native GShape tag(double x, double y, String text, double angle)/*-{	
 	return this.tag(x,y,text,angle);
 }-*/;
 
@@ -182,7 +183,7 @@ public final native Set flag(double x, double y, String text, double angle)/*-{
  @return set containing the drop path and the text element
  Usage: paper.drop(50, 50, "$9.99", 60);
  */
-public final native Set drop(double x, double y, String text, double angle)/*-{	
+public final native GShape drop(double x, double y, String text, double angle)/*-{	
 	return this.drop(x,y,text,angle);
 }-*/;
 
@@ -196,7 +197,7 @@ public final native Set drop(double x, double y, String text, double angle)/*-{
  @return set containing the blob path and the text element
  Usage: paper.blob(50, 50, "$9.99", 60);
  \*/
-public final native Set blob(double x, double y, String text, double angle)/*-{	
+public final native GShape blob(double x, double y, String text, double angle)/*-{	
 	return this.blob(x,y,text,angle);
 }-*/;
 
@@ -211,7 +212,7 @@ public final native Set blob(double x, double y, String text, double angle)/*-{
  @return set containing the label path and the text element
   
  \*/
-public final native Set label(double x, double y, String text, double angle)/*-{	
+public final native GShape label(double x, double y, String text, double angle)/*-{	
 	return this.label(x,y,text,angle);
 }-*/;
 /**Puts the given `text` into a 'label' tooltip. The text is given a default style according to @g.txtattr. See @Element.label
@@ -223,7 +224,7 @@ public final native Set label(double x, double y, String text, double angle)/*-{
  @return set containing the label path and the text element
   
  \*/
-public final native Set label(double x, double y, String text)/*-{	
+public final native GShape label(double x, double y, String text)/*-{	
 	return this.label(x,y,text);
 }-*/;
 

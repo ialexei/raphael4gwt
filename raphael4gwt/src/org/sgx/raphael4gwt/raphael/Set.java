@@ -158,7 +158,7 @@ public native final Set filter(ForEachCallback c)/*-{
 		ret = $wnd.r4g._castToBoolean(ret);
 		return ret;
 	};
-	return this.remove(f);
+	return this.filter(f);
 }-*/;
 
 }

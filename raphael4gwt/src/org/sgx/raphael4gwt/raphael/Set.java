@@ -161,4 +161,12 @@ public native final Set filter(ForEachCallback c)/*-{
 	return this.filter(f);
 }-*/;
 
+/**
+ * @return the first non-set shape children of this set. will return 
+ * null if no non-set children shape is found.
+ */
+public native final Shape firstShape()/*-{
+	return this.firstShape();
+}-*/;
+
 }

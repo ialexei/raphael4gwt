@@ -1,7 +1,9 @@
 package org.sgx.raphael4gwt.raphael.base;
 import com.google.gwt.core.client.JavaScriptObject;
 /**
- *  TODO: if I dont use $wnd.Math.round() for ensure int gwt compielr complains in devmode.
+ * Use Raphael.createPoint methods for instantiating points and arrays of points. 
+ *  TODO: if I dont use $wnd.Math.round() for ensure int gwt compielr 
+ *  complains in devmode.
  * @author sg
  *
  */

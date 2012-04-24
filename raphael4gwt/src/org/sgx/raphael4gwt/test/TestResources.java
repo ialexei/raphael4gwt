@@ -82,5 +82,6 @@ public interface TestResources extends ClientBundle {
 	  @Source("ShapeUnitTest1.java")
 	  public TextResource ShapeUnitTest1();
 	  
-	  
+	  @Source("PathCmdsTest1.java")
+	  public TextResource PathCmdsTest1();
 }

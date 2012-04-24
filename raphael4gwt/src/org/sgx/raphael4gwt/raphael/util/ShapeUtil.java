@@ -9,7 +9,7 @@ public class ShapeUtil {
 	public static interface ShapePrinter {
 		String print(Shape s);
 	}
-	private static Shape sh;
+//	private static Shape sh;
 	public static String printSet(Set set, final ShapePrinter p) {
 		final StringBuffer sb = new StringBuffer("Set{");
 		set.forEach(new ForEachCallback() {		
@@ -22,32 +22,32 @@ public class ShapeUtil {
 		sb.append("}");
 		return sb.toString();
 	}
-	/**
-	 * recurses a set till a normal shape is found and returned.
-	 * @param s
-	 * @return
-	 */
-	public static Shape getFirstShape(Set s) {
-		sh = null;
-		s.forEach(new ForEachCallback() {			
-			@Override
-			public boolean call(Shape shape, int index) {
-				String type = shape.getType();
-				if(type==null)
-					return true;
-				if(type.equals("set")) {
-					sh=getFirstShape((Set)shape);
-					if(sh!=null)
-						return false;
-					else
-						return true;
-				}
-				else {
-					sh=shape;
-					return false;
-				}
-			}
-		});
-		return sh;
-	}
+//	/**
+//	 * recurses a set till a normal shape is found and returned.
+//	 * @param s
+//	 * @return
+//	 */
+//	public static Shape getFirstShape(Set s) {
+//		sh = null;
+//		s.forEach(new ForEachCallback() {			
+//			@Override
+//			public boolean call(Shape shape, int index) {
+//				String type = shape.getType();
+//				if(type==null)
+//					return true;
+//				if(type.equals("set")) {
+//					sh=getFirstShape((Set)shape);
+//					if(sh!=null)
+//						return false;
+//					else
+//						return true;
+//				}
+//				else {
+//					sh=shape;
+//					return false;
+//				}
+//			}
+//		});
+//		return sh;
+//	}
 }

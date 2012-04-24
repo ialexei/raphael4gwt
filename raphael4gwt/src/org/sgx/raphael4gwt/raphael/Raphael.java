@@ -13,6 +13,7 @@ import org.sgx.raphael4gwt.raphael.event.Callback;
 import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayNumber;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
@@ -52,11 +53,25 @@ public static final String
 	EASING_BACKIN="backIn",
 	EASING_BACKOUT="backOut",
 	EASING_ELASTIC="elastic",
-	EASING_BOUNCE="bounce";
+	EASING_BOUNCE="bounce"
+	;
 
 
+/* *** PATHS *** */
 
-
+public static final String 
+	PATH_MOVETO="M", 
+	PATH_CLOSEPATH="Z", 
+	PATH_LINETO="L", 
+	PATH_HLINETO="H",
+	PATH_VLINETO="V", 
+	PATH_CURVETO="C", 
+	PATH_SMOOTH_CURVETO="S", 
+	PATH_QUADBESIER_CURVETO="Q",
+	PATH_SMOOTH_QUADBESIER_CURVETO="T",
+	PATH_ELLIPTIC_ARC="A",
+	PATH_CATMULLROM_CURVETO="R"
+	;
 
 /* *** ARROW *** */	
 	
@@ -252,6 +267,29 @@ public static native int deg(int deg)/*-{
 public static native Point createPoint(double x, double y)/*-{
 	return {"x": x, "y": y};
 }-*/;
+//public static Point[][] createPoint2DArray(int rows, int cols) {
+//	
+//}
+public static native JsArray<Point> createPoint1DJsArray(int rows)/*-{
+	var a = [];
+	for (var i = 0; i < rows; i++) {
+		a.push({"x":1,"y":1});
+	}
+	return a;
+}-*/;
+public static native JsArray<JsArray<Point>> createPoint2DJsArray(int rows, int cols)/*-{
+	var a = [];
+	for (var i = 0; i < rows; i++) {
+		var b = [];
+		for (var j = 0; j < cols; j++) {
+			b.push({"x":1,"y":1});
+		}
+		a.push(b);
+	}
+	return a;
+}-*/;
+
+
 
 public static native Rectangle createRectangle(int x, int y, int width, int height)/*-{
 	return {"x": x, "y": y, "width": width, "height": height};

@@ -24,6 +24,7 @@ import org.sgx.raphael4gwt.test.ImageSimpleTest;
 import org.sgx.raphael4gwt.test.ImageTransforms1;
 import org.sgx.raphael4gwt.test.MouseCoordsOnHoverTest;
 import org.sgx.raphael4gwt.test.MouseRelativeCoordsTest;
+import org.sgx.raphael4gwt.test.PathCmdsTest1;
 import org.sgx.raphael4gwt.test.PathEditorTest1;
 import org.sgx.raphael4gwt.test.PrintLettersOnPath;
 import org.sgx.raphael4gwt.test.SetSimpleTest1;
@@ -191,6 +192,9 @@ public class GalleryUtil {
 		tests.put(t.getName(), t);
 		
 		t = new ShapeUnitTest1(paper, w, h);
+		tests.put(t.getName(), t);
+
+		t = new PathCmdsTest1(paper, w, h);
 		tests.put(t.getName(), t);
 		
 	}

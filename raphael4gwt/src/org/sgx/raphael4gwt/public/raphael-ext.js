@@ -141,6 +141,23 @@
 		});
 		return set;
 	};
+	
+	/**
+	 * return the first non-set shape children of this set. will return 
+	 * null if no non-set children shape is found.
+	 */
+	Raphael.st.firstShape = function() {
+		var nonSetShape = null;
+		this.forEach(function(el, idx) {
+			if(el.type!="set") {
+				nonSetShape=el;
+				return false; //breaks foreach
+			}
+			else				
+				return true;
+		});
+		return nonSetShape;
+	};
 })();
 
 

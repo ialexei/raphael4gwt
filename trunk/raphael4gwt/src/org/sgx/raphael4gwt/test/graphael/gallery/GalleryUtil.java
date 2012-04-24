@@ -10,6 +10,7 @@ import org.sgx.raphael4gwt.test.Test;
 import org.sgx.raphael4gwt.test.graphael.gallery.tests.BarChartTest1;
 import org.sgx.raphael4gwt.test.graphael.gallery.tests.BarChartTest2;
 import org.sgx.raphael4gwt.test.graphael.gallery.tests.BarChartTest3;
+import org.sgx.raphael4gwt.test.graphael.gallery.tests.DotChartTest1;
 import org.sgx.raphael4gwt.test.graphael.gallery.tests.LineChartTest1;
 import org.sgx.raphael4gwt.test.graphael.gallery.tests.PieChartTest1;
 import org.sgx.raphael4gwt.test.graphael.gallery.tests.TooltipTest1;
@@ -114,6 +115,10 @@ public class GalleryUtil {
 		
 		t = new LineChartTest1(paper, w, h);
 		tests.put(t.getName(), t);
+		
+		t = new DotChartTest1(paper, w, h);
+		tests.put(t.getName(), t);
+		
 	}
 
 	Map<String, List<Test>> getTestsByTag() {

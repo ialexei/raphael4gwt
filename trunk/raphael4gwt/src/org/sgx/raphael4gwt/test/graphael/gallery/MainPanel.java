@@ -16,8 +16,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class MainPanel extends VerticalPanel {
-	private static final int PAPER_WIDTH = 600;
-	private static final int PAPER_HEIGHT = 600;
+	private static final int PAPER_WIDTH = 900;
+	private static final int PAPER_HEIGHT = 900;
 	private FlowPanel testEvent;
 	private PaperWidget paperWidget;
 	private HorizontalSplitPanel horizontalSplitPanel;
@@ -87,6 +87,7 @@ public class MainPanel extends VerticalPanel {
 				
 		
 		VerticalPanel vp2 = new VerticalPanel();
+		vp2.setWidth("100%");
 		testPanel = new VerticalPanel();
 		testPanel.setWidth("100%");
 		GalleryUtil.getInstance().setTestPanel(testPanel);

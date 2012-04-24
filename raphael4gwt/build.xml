@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- @author: sgurin -->
-<project name="raphael4gwt" default="javadocs">
+<project name="raphael4gwt" default="all">
 
 	<property file="build.properties"/>
 	<description>
@@ -8,7 +8,23 @@
 		@author: sgurin
     </description>
 
+	<target name="all">
+		<antcall target="clean">
+			<property file="build.properties"/>
+		</antcall>
+		
+		<antcall target="clean">
+			<property file="build.properties"/>
+		</antcall>
+	</target>
+	
+	<target name="js">
+		<exec dir="src/org/sgx/raphael4gwt/public" executable="sh" >
+		  <arg line="preparejs.sh"/>
+		</exec>
 
+	</target>
+	
 	<target name="jar" depends="">
 		<mkdir dir="dist"/>
 		<!--
@@ -19,7 +35,6 @@
 			<fileset dir="war/WEB-INF/classes" excludes="**/Test.class" />
 			<fileset dir="src" excludes="**/Test.java" />
 		</jar>
-
 
 	</target>
 

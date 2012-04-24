@@ -29,7 +29,7 @@ public class BarChartTest1 extends Test {
 			{55, 20, 13, 32, 5, 1, 2, 10}
 		};
 		
-		getPaper().text(100,100, "click the chart\n for painting it...");
+		getPaper().text(100,600, "click the chart for painting it...");
 		final BarChart barchart = getGPaper().barchart(100,100,400,400, vals);
 		
 		//because charts are set we can iterate and paint each row.

@@ -57,3 +57,5 @@ public class GRaphael4GwtTest implements EntryPoint {
 }
 
 }}}
+
+In summary, a GPaper have methods for drawing different kind of charts, like piecharts, dotcharts, linecharts, bar charts, etc. You build the charts just like any other shape and pass the values to represent (arrays of numbers) and some configuration for the chart in an Opts objects. Just see the [example gallery http://cancerbero.vacau.com/gwt/graphael4gwtGallery/] java sources for detailed examples. 

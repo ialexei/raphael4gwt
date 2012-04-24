@@ -8,6 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.sgx.raphael4gwt.raphael.base.Point;
+
 
 
 public class Util {
@@ -180,4 +182,9 @@ public static String quotePath(String path) {
 //	public static boolean isWindows() {
 //		return File.separator.equals("\\");
 //	}
+
+	public static int getLength(Object []a) {
+		if(a==null)return 0;
+		else return a.length;
+	}
 }

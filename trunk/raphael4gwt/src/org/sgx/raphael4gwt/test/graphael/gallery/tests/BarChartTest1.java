@@ -37,8 +37,7 @@ public class BarChartTest1 extends Test {
 		barchart.click(new MouseEventListener() {			
 			@Override
 			public void notifyMouseEvent(NativeEvent e) {
-				Shape firstShape = ShapeUtil.getFirstShape(barchart);
-				String transform = firstShape.getAttribute("transform");
+				String transform = barchart.firstShape().getAttribute("transform");
 
 				if(transform!=null && !transform.equals("s1,1")) {
 					
@@ -57,7 +56,8 @@ public class BarChartTest1 extends Test {
 				}
 			}
 		});
-		barchart.label(new String[][]{{"asd", "sdf", "dfg", "wer", "asd", "sdf", "dfg", "wer"}}, true);
+		barchart.label(new String[][]{{"c++", "java", "python", "smalltalk", "lisp", 
+			"javascript", "perl", "shall"}}, true);
 		
 		
 	}

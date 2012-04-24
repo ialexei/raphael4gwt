@@ -8,10 +8,10 @@
     
     <script type="text/javascript" language="javascript" 
     	src="raphael.js"></script>
-   	<script type="text/javascript" language="javascript" 
-    	src="graphael/g.raphael.js"></script>
-    	<script type="text/javascript" language="javascript" 
-    	src="graphael/g.bar.js"></script>
+<!--    	<script type="text/javascript" language="javascript"  -->
+<!--     	src="graphael/g.raphael.js"></script> -->
+<!--     	<script type="text/javascript" language="javascript"  -->
+<!--     	src="graphael/g.bar.js"></script> -->
   </head>
 
   <body>
@@ -20,12 +20,14 @@
 	 <script type="text/javascript" language="javascript" >
 		
 	 var paper = Raphael(0, 0, 1500, 1500); 
-// 	 var rect = paper.rect(100,100,180,150).attr({fill: "red"});
-var data = [[55, 20]], 
-labels = [["asd", "sdf"]];
-
 	 
-paper.barchart(10, 10, 300, 220, data).label(labels);
+// 	 paper.rect(10,10,80,90).attr({fill: "red"});
+	 paper.path("M20,20,L10.0,20.0,L40.0,40.0,L40.0,50.0,L60.0,20.0Z");
+// 	 var rect = paper.rect(100,100,80, 90).attr({fill: "red"}).blur();
+// 	 var rect = paper.rect(200,200,80,90).attr({fill: "red"}).blur(3);
+// var data = [[55, 20]], 
+// labels = [["asd", "sdf"]]; 
+// paper.barchart(10, 10, 300, 220, data).label(labels);
 	 
 	 
  

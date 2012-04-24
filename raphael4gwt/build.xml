@@ -12,19 +12,19 @@
 		<antcall target="clean">
 			<property file="build.properties"/>
 		</antcall>
-		
+
 		<antcall target="clean">
 			<property file="build.properties"/>
 		</antcall>
 	</target>
-	
+
 	<target name="js">
 		<exec dir="src/org/sgx/raphael4gwt/public" executable="sh" >
-		  <arg line="preparejs.sh"/>
+			<arg line="preparejs.sh"/>
 		</exec>
 
 	</target>
-	
+
 	<target name="jar" depends="">
 		<mkdir dir="dist"/>
 		<!--
@@ -50,17 +50,32 @@
 		<delete dir="www-test"/>
 	</target>
 
+
+	
+	
+
 	<target name="javadocs" depends="" description="generates javadoc and also UML Diagram">
 
+		
+		<path id="project.src.path">
+			<pathelement location="${reports.dir}/src-all/" />
+			<pathelement location="${gwt.src}/user/src/" />
+		</path>
+			
+		
 		<!-- first copy all source files from all source folders to a common source folder -->
 		<mkdir dir="${reports.dir}/src-all"/>
 		<copydir dest="${reports.dir}/src-all/org" src="${reports.dir}/src/org">
 		</copydir>
 
+		
 		<!-- do the javadoc -->
 		<mkdir dir="${reports.dir}/javadoc"/>
-		<javadoc sourcepath="${reports.dir}/src-all" packagenames="org.sgx.raphael4gwt.raphael.*" 
+		
+		<javadoc sourcepathref="project.src.path" packagenames="org.sgx.raphael4gwt.*" 
+			excludepackagenames="org.sgx.raphael4gwt.test.*,org.sgx.raphael4gwt.public.*" useexternalfile="true"
 			destdir="${reports.dir}/javadoc" private="true">
+			
 			<doclet name="org.umlgraph.doclet.UmlGraphDoc" path="lib/UmlGraph.jar">
 				<param name="-attributes" />
 				<param name="-operations" />

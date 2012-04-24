@@ -1,5 +1,14 @@
 ALL=g.raphael.all
 
+YUIC=../../../../../../yuicompressor-2.4.7.jar
+
+#minify first
+java -jar $YUIC -o g.raphael-min.js g.raphael.js
+java -jar $YUIC -o g.bar-min.js g.bar.js
+java -jar $YUIC -o g.dot-min.js g.dot.js
+java -jar $YUIC -o g.line-min.js g.line.js
+java -jar $YUIC -o g.pie-min.js g.pie.js
+
 cat g.raphael-min.js > $ALL-min.js
 cat g.bar-min.js >> $ALL-min.js
 cat g.dot-min.js >> $ALL-min.js

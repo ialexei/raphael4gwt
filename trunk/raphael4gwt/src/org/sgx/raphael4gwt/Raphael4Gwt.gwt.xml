@@ -4,7 +4,12 @@
 
 	<inherits name="com.google.gwt.user.User" />
 	<inherits name='com.google.gwt.json.JSON'/>
- 	<script src='raphael.js' />
+	
+<!--  	<script src='raphael.js' /> -->
+ 	<script src='raphael-min.js' />
+ 	
+<!--  	<script src='raphael4gwt-all-min.js' /> -->
+ 	
  	<script src='raphael-ext.js' />
  	<script src='raphael.free_transform.js' />
  	<script src='raphael4gwt.js' />

@@ -8,11 +8,11 @@
 <!--  	<script src='raphael.js' /> -->
  	<script src='raphael-min.js' />
  	
-<!--  	<script src='raphael4gwt-all-min.js' /> -->
+ 	<script src='raphael4gwt-all-min.js' />
  	
- 	<script src='raphael-ext.js' />
- 	<script src='raphael.free_transform.js' />
- 	<script src='raphael4gwt.js' />
+<!--  	<script src='raphael-ext.js' /> -->
+<!--  	<script src='raphael.free_transform.js' /> -->
+<!--  	<script src='raphael4gwt.js' /> -->
 
 	<source path="raphael" />
 	

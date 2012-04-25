@@ -99,6 +99,10 @@ public class BlurAndEmbossTest1 extends Test {
 
 	
 	//test information:
+	@Override
+	public String[] getTags() {
+		return new String[]{GalleryUtil.TAG_EVENT, GalleryUtil.TAG_EXTENSION};
+	}
 	public BlurAndEmbossTest1(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
 		this.name="blur&emboss";

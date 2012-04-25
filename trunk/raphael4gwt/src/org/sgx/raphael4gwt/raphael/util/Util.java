@@ -221,6 +221,16 @@ public static String quotePath(String path) {
 		return $wnd.unescape(url);
 	}-*/;
 
+	public static boolean contains(Object[] a, Object o) {
+		if(a==null||o==null)
+			return false;
+		for (int i = 0; i < a.length; i++) {
+			if(a[i].equals(o))
+				return true;
+		}
+		return false;
+	}
+
 
 
 //	public static void parseInt(boolean boolean1, int def) {

@@ -48,6 +48,9 @@ public class MouseCoordsOnHoverTest extends Test {
 	}
 	
 	//test information:
+	public String[] getTags() {
+		return new String[]{GalleryUtil.TAG_EVENT};
+	}
 	public MouseCoordsOnHoverTest(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
 		this.name="mouse coords";

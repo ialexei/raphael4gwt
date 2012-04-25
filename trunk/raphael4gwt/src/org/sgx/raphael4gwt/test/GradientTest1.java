@@ -6,6 +6,7 @@ import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Gradient;
 import org.sgx.raphael4gwt.raphael.base.Stop;
 import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
+import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 import org.sgx.raphael4gwt.test.image.IconPaths;
 
 import com.google.gwt.user.client.Window;
@@ -51,7 +52,9 @@ public void test() {
 }	
 
 //the following is only information about the test case:
-
+public String[] getTags() {
+	return new String[]{ GalleryUtil.TAG_GRADIENT};
+}
 public GradientTest1(Paper paper, int paperWidth, int paperHeight) {
 	super(paper, paperWidth, paperHeight);
 	this.name="gradients";

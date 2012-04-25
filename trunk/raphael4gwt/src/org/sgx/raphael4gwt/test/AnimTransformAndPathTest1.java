@@ -8,6 +8,7 @@ import org.sgx.raphael4gwt.raphael.base.Animation;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.event.Callback;
 import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
+import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 import org.sgx.raphael4gwt.test.image.IconPaths;
 
 import com.google.gwt.user.client.Window;
@@ -42,6 +43,10 @@ public class AnimTransformAndPathTest1 extends Test {
 	}
 	
 	//test stuff
+	@Override
+	public String[] getTags() {
+		return new String[]{GalleryUtil.TAG_PATH, GalleryUtil.TAG_ANIM};
+	}
 	public AnimTransformAndPathTest1(Paper paper, int paperWidth,
 			int paperHeight) {
 		super(paper, paperWidth, paperHeight);

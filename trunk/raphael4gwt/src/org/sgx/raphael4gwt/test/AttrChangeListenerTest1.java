@@ -5,6 +5,7 @@ import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
+import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.user.client.Window;
@@ -39,6 +40,10 @@ public class AttrChangeListenerTest1 extends Test {
 	}
 
 	//test information:
+	@Override
+	public String[] getTags() {
+		return new String[]{GalleryUtil.TAG_EVENT, GalleryUtil.TAG_EXTENSION};
+	}
 	public AttrChangeListenerTest1(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
 		this.name="attr change";

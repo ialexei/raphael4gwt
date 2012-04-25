@@ -100,6 +100,9 @@ public class DrawAndClick extends Test {
 	}
 
 	//test information:
+	public String[] getTags() {
+		return new String[]{GalleryUtil.TAG_EVENT};
+	}
 	public DrawAndClick(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
 		this.name="draw&select";

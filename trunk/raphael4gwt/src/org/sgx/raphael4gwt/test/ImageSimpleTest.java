@@ -3,6 +3,7 @@ package org.sgx.raphael4gwt.test;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
+import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 import org.sgx.raphael4gwt.test.image.TestImageResources;
 
 import com.google.gwt.dom.client.NativeEvent;
@@ -56,6 +57,9 @@ public class ImageSimpleTest extends Test {
 
 	
 	//test information:
+	public String[] getTags() {
+		return new String[]{GalleryUtil.TAG_SHAPE};
+	}
 	public ImageSimpleTest(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
 		this.name="Image simple test";

@@ -227,6 +227,10 @@ public class ShapeEditor1 extends Test {
 	
 	
 	//test information:
+	public String[] getTags() {
+		return new String[]{GalleryUtil.TAG_SHAPE, GalleryUtil.TAG_EVENT, 
+				GalleryUtil.TAG_SET, GalleryUtil.TAG_EXTENSION};
+	}
 	public ShapeEditor1(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
 		this.name="editor1";

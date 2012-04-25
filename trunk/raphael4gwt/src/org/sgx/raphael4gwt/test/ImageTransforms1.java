@@ -53,6 +53,9 @@ public class ImageTransforms1 extends Test {
 
 	
 	//test information:
+	public String[] getTags() {
+		return new String[]{GalleryUtil.TAG_EXTENSION};
+	}
 	public ImageTransforms1(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
 		this.name="image transforms";

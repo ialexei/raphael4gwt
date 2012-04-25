@@ -13,7 +13,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class AllMouseEvents extends Test {
+public class ScrollBigPaperTest1 extends Test {
 
 	private TextArea ta;
 
@@ -104,19 +104,12 @@ public class AllMouseEvents extends Test {
 		ta.setText(msg+".\nCoords : "+c.getX()+" - "+c.getY());
 	}
 
-	
-	//test stuff
-	
-	@Override
-	public String[] getTags() {
-		return new String[]{GalleryUtil.TAG_EVENT};
-	}
 	@Override
 	public String getJavaClassSource() {
 		return TestResources.INSTANCE.AllMouseEvents().getText();
 	}
 
-	public AllMouseEvents(Paper paper, int paperWidth, int paperHeight) {
+	public ScrollBigPaperTest1(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
 		this.name="all mouse events";
 		this.description="Show all mouse events tests";

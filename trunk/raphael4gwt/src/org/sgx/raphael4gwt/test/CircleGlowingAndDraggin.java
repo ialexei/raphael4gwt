@@ -10,6 +10,7 @@ import org.sgx.raphael4gwt.raphael.base.Glow;
 import org.sgx.raphael4gwt.raphael.event.DDListener;
 import org.sgx.raphael4gwt.raphael.event.HoverListener;
 import org.sgx.raphael4gwt.raphael.util.Util;
+import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 
 import com.google.gwt.dom.client.NativeEvent;
 
@@ -17,13 +18,7 @@ public class CircleGlowingAndDraggin extends Test{
 
 	private int paperAbsX;
 	private int paperAbsY;
-
-	public CircleGlowingAndDraggin(Paper paper, int paperWidth, int paperHeight) {
-		super(paper, paperWidth, paperHeight);
-		this.name="Circles, Glowing and Dragging";
-		this.description="an example that show Circles, Glowing and Mouse Dragging";
-	}
-
+	
 	@Override
 	public void test() {
 		int circleCount=20;
@@ -69,7 +64,16 @@ public class CircleGlowingAndDraggin extends Test{
 			c.setAttribute("fill", randomColor());
 		}
 	}
-
+	
+	//test stuff
+	public String[] getTags() {
+		return new String[]{GalleryUtil.TAG_EVENT};
+	}
+	public CircleGlowingAndDraggin(Paper paper, int paperWidth, int paperHeight) {
+		super(paper, paperWidth, paperHeight);
+		this.name="Circles, Glowing and Dragging";
+		this.description="an example that show Circles, Glowing and Mouse Dragging";
+	}
 	@Override
 	public String getJavaClassSource() {
 		return TestResources.INSTANCE.CircleGlowingAndDraggin().getText();

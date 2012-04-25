@@ -5,11 +5,11 @@ import org.sgx.raphael4gwt.raphael.Raphael;
 import org.sgx.raphael4gwt.raphael.util.Util;
 
 public abstract class Test {
-	protected Paper paper;
+	protected Paper paper=null;
 	protected int paperWidth, paperHeight;
-	String name;
-	String description;
-	String[] tags;
+	String name=null;
+	String description=null;
+	String[] tags=null;
 	
 	public Test(Paper paper, int paperWidth, int paperHeight) {
 		this(paper, paperWidth, paperHeight, "", "", new String[]{});

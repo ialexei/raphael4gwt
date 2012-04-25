@@ -25,12 +25,25 @@ Raphael.el.freePathEditor = function() {
 
 })();	 
 
+var paperX = 100, paperY = 100;
+var paper = Raphael(paperX, paperY, 1500, 1500); 
+var circle = paper.circle(100,100,80).attr({fill: "red"});
+circle.drag(
+	function(dx, dy, x, y, e){ //onmove
+		circle.attr({cx: x-paperY, cy: y-paperY});
+	}, 
+	function(x, y, e){ //drag start
+		
+	}, 	
+	function(e){ //drop
+		
+	}
+);
 
-var paper = Raphael(0, 0, 1500, 1500); 
-var pathString = "M20,20,L10.0,20.0,L40.0,40.0,L40.0,50.0,L60.0,20.0Z";
-paper.path(pathString);
-var pathObj = Raphael.parsePathString(pathString)
-debugger;
+// var pathString = "M20,20,L10.0,20.0,L40.0,40.0,L40.0,50.0,L60.0,20.0Z";
+// paper.path(pathString);
+// var pathObj = Raphael.parsePathString(pathString)
+// debugger;
 
 // 	 paper.rect(10,10,80,90).attr({fill: "red"});
 // 	 var rect = paper.rect(100,100,80, 90).attr({fill: "red"}).blur();

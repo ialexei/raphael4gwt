@@ -6,9 +6,18 @@ import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayMixed;
 
 /**
- * a java tool for creating pths programatically
+ * an java tool for creating pths programatically. this is not part of 
+ * raphael api, but an artificial path helper written 100% in java.
  * 
- * i'm also responsible of knowing how to build myself from Raphael.parsePathString()
+ * i'm also responsible of knowing how to build myself from 
+ * Raphael.parsePathString()
+ * 
+ * Usecase examples: #see PathCmdsTest1 - 
+ * <pre>
+PathCmd pc = new PathCmd(10,10);
+pc.L(20, 20).M(10,180).L(0,0).T(10,100).T(100,10).Z();
+Path p1 = getPaper().path(pc.toPathString());
+ * 
  * 
  * TODO: parse a path attr string and build a chain of commands
  * @author sg
@@ -150,13 +159,10 @@ public class PathCmd {
 				c.getType().equals(Raphael.PATH_VLINETO) ) {				
 			if(len==0)
 				return;
-//			sb.append(c.getType());
 			for (int i = 0; i < len; i++) {
 				PCPoint[] a = _points[i];
 				if(a!=null&&a.length>0) {
 					sb.append(c.getType()+a[0].getX()
-//							+
-//						(i==len-1 ? "":",")
 						);					
 				}
 			}
@@ -169,14 +175,10 @@ public class PathCmd {
 			
 			if(len==0)
 				return;
-//			sb.append(c.getType());
 			for (int i = 0; i < len; i++) {
 				PCPoint[] a = _points[i];
 				if(a!=null&&a.length>0) {
-					sb.append(c.getType()+a[0].getX()+","+a[0].getY()
-//							+
-//						(i==len-1 ? "":",")
-						);					
+					sb.append(c.getType()+a[0].getX()+","+a[0].getY());					
 				}
 			}
 		}		
@@ -188,7 +190,6 @@ public class PathCmd {
 			
 			if(len==0)
 				return;
-//			sb.append(c.getType());
 			for (int i = 0; i < len; i++) {
 				PCPoint[] a = _points[i];
 				if(a!=null&&a.length>0) {
@@ -196,7 +197,6 @@ public class PathCmd {
 					if(a.length>=2) { //catmul second point is optional
 						sb.append(","+a[1].getX()+","+a[2].getY());
 					}
-//					sb.append(i<len-1 ? "":",");
 				}
 			}
 		}	
@@ -350,7 +350,12 @@ public class PathCmd {
 		this.setNext(pathCmd2);
 		return pathCmd2;
 	}
-	
+	/**
+	 * alias for close
+	 */
+	public PathCmd Z() {
+		return close();
+	}
 	
 	
 	

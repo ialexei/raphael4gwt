@@ -7,6 +7,7 @@ import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.event.Callback;
 import org.sgx.raphael4gwt.raphael.util.Util;
+import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 /**
  * using path, PathCmd, animations and transformations for bringing paths into life.
  * @author sg
@@ -64,7 +65,9 @@ public void call(Shape src) {
 
 
 //test stuff
-
+public String[] getTags() {
+	return new String[]{GalleryUtil.TAG_SHAPE, GalleryUtil.TAG_ANIM, GalleryUtil.TAG_PATH};
+}
 public LivePathTest(Paper paper, int paperWidth, int paperHeight) {
 	super(paper, paperWidth, paperHeight);
 	this.name="live paths";

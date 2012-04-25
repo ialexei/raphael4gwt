@@ -83,7 +83,9 @@ public class FreeTransformTest1 extends Test {
 	
 	
 	//test only stuff:
-	
+	public String[] getTags() {
+		return new String[]{GalleryUtil.TAG_FT};
+	}
 	@Override
 	public String getJavaClassSource() {
 		return TestResources.INSTANCE.FreeTransformTest1().getText();

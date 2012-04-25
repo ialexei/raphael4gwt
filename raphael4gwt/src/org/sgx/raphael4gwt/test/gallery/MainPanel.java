@@ -29,7 +29,7 @@ public class MainPanel extends VerticalPanel {
 	private FlowPanel testEvent;
 	private PaperWidget paperWidget;
 	private HorizontalSplitPanel horizontalSplitPanel;
-	private FlowPanel testGeneral;
+//	private FlowPanel testGeneral;
 	protected Paper paper;
 	private VerticalPanel testPanel;
 
@@ -85,13 +85,13 @@ public class MainPanel extends VerticalPanel {
 		setCellWidth(horizontalSplitPanel, "100%");
 		horizontalSplitPanel.setSize("100%", "100%");
 		
-		DecoratedStackPanel decoratedStackPanel = new DecoratedStackPanel();
+		final DecoratedStackPanel decoratedStackPanel = new DecoratedStackPanel();
 		horizontalSplitPanel.setLeftWidget(decoratedStackPanel);
 		decoratedStackPanel.setSize("100%", "100%");
 		
-		testGeneral = new FlowPanel();
-		decoratedStackPanel.add(testGeneral, "General", false);
-		testGeneral.setSize("100%", "100%");
+//		testGeneral = new FlowPanel();
+//		decoratedStackPanel.add(testGeneral, "General", false);
+//		testGeneral.setSize("100%", "100%");
 				
 		
 		VerticalPanel vp2 = new VerticalPanel();
@@ -108,7 +108,7 @@ public class MainPanel extends VerticalPanel {
 				/* the paper is loaded! so now we can instantiate all our tests */
 				MainPanel.this.paper=paper;
 				GalleryUtil.getInstance().loadAllTest(paperWidget.getPaper(), PAPER_WIDTH, PAPER_HEIGHT);
-				GalleryUtil.getInstance().doAddAllGeneralTests(testGeneral);
+				GalleryUtil.getInstance().doAddAllGeneralTestsCategorized(decoratedStackPanel);
 
 				GalleryUtil.getInstance().checkUrl();
 			}

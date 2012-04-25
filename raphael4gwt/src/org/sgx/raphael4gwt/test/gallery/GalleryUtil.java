@@ -1,5 +1,7 @@
 package org.sgx.raphael4gwt.test.gallery;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,11 +42,27 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DecoratedStackPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class GalleryUtil {
 
+	public static final String 
+		TAG_PATH="path", TAG_ANIM="animation", 
+		TAG_GRADIENT="gradient", TAG_EVENT="event",
+		TAG_EXTENSION = "extensions",TAG_FONT="fonts",TAG_FT="free transform",
+		TAG_SHAPE="shapes", TAG_SET="sets",
+		TAG_ALLCATEGORY="all tests";
+						
+	private static final String [] TAG_ALL = 
+		{TAG_PATH, TAG_ANIM, TAG_GRADIENT, TAG_EVENT, TAG_SHAPE, TAG_EXTENSION,
+		TAG_FONT,TAG_FT};
+
+	
+	
 	private static GalleryUtil instance;
 	protected Test currentTest;
 
@@ -97,21 +115,50 @@ public class GalleryUtil {
 		return currentTest;
 	}
 
-	public void doAddAllGeneralTests(Panel parentPanel) {
-
+	
+	/**
+	 * put tests in categories by tag - using only tags defined in TAG_ constants.
+	 */
+	public void doAddAllGeneralTestsCategorized(
+			DecoratedStackPanel parentPanel) {
+		
 		if (tests.keySet().isEmpty()) {
 			GUIUtil.showErrorMessage(
-					"Error - no tests defined. this is a bug",
-					"Error - no tests defined. this is a bug - call GalleryUtil::loadAlltest first ");
+				"Error - no tests defined. this is a bug",
+				"Error - no tests defined. this is a bug - " +
+				"call GalleryUtil::loadAlltest first ");
 		}
-		Button button = null;
+		
+		Map<String, Widget> tagPanels = new HashMap<String, Widget>();
+		for (int i = 0; i < TAG_ALL.length; i++) {
+			String tag = TAG_ALL[i];
+			FlowPanel panel = new FlowPanel();
+			tagPanels.put(tag, panel);
+			for (String testName : tests.keySet()) {
+				Test t = tests.get(testName);
+				if(t!=null&&Util.contains(t.getTags(), tag)) {
+					panel.add(createButtonFor(t));
+				}				
+			}
+		}
+		
+		//add a "all" category
+		FlowPanel panel = new FlowPanel();
+		tagPanels.put(TAG_ALLCATEGORY, panel);
 		for (String testName : tests.keySet()) {
-			button = createButtonFor(tests.get(testName));
-			parentPanel.add(button);
+			Test t = tests.get(testName);
+			panel.add(createButtonFor(t));
 		}
-
+		Object[] names = (Object[]) tagPanels.keySet().toArray();
+		Arrays.sort(names);
+		for(Object tag : names) {
+			parentPanel.add(tagPanels.get(tag+""), tag+"", false);
+		}		
 	}
+	
 
+	
+	
 	/**
 	 * all tests loading
 	 * 
@@ -226,7 +273,6 @@ public class GalleryUtil {
 			}
 		}
 	}
-	
 
 
 

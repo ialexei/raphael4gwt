@@ -8,6 +8,7 @@ import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Font;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
+import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 
 import com.google.gwt.dom.client.NativeEvent;
 
@@ -62,6 +63,10 @@ public class FontTest1 extends Test {
 
 	
 	//test stuff
+	public String[] getTags() {
+		return new String[]{GalleryUtil.TAG_FONT};
+	}
+	
 	public FontTest1(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
 		this.name="fonts&anim1";

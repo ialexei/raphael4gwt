@@ -24,7 +24,9 @@ import com.google.gwt.dom.client.NativeEvent;
 /**
  * this is the main entry point to raphael4gwt library. 
  * This class also contain many utilities and constant values of raphael
- * This class IS NOT a gwt overlay type, it is used statically
+ * 
+ * 
+ * impl note: while this has static native methods, This class IS NOT an gwt overlay type,
  * 
  * @author sg
  *

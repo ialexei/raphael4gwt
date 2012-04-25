@@ -19,16 +19,11 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class PathEditorTest1 extends Test {
 
 	@Override
-	public void test() {
-//		getPaper().text("")
-		
-		Panel buttonPanel = getButtonPanel();
-		
-		Button moveToButton = new Button("moveto", new ClickHandler() {
-			
+	public void test() {		
+		Panel buttonPanel = getButtonPanel();		
+		Button moveToButton = new Button("moveto", new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
 				
 			}
 		});

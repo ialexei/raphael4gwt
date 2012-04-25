@@ -211,6 +211,20 @@ var c = paper.path("M10 10L90 90");
 	public native final Path path(String pathString)/*-{
 		return this.path(pathString);
 	}-*/;
+	/**
+	 * builds a path object using a path commands. 
+	 * Usage example: 
+	 * <pre>
+PathCmd pc = new PathCmd(10,10); 
+pc.L(20, 20).M(10,180).L(0,0).T(10,100).T(100,10).Z();
+getPaper().path(pc); //make sure pc references the FIRST command
+	 * </pre>
+	 * @param cmd - patrh command that represent the path we want to create
+	 * @return
+	 */
+	public native final Path path(PathCmd cmd)/*-{
+		return this.path(cmd.@org.sgx.raphael4gwt.raphael.PathCmd::toPathString()());
+	}-*/;
 	
 	/**
 	 * Finds font object in the registered fonts by given parameters. You could specify only one word from the font name, like “Myriad” for “Myriad Pro”. 

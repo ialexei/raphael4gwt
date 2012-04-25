@@ -21,7 +21,10 @@ public class PrintLettersOnPath extends Test {
 
 	
 	//test stuff
-
+	public String[] getTags() {
+		return new String[]{GalleryUtil.TAG_PATH, GalleryUtil.TAG_FONT,
+				GalleryUtil.TAG_EXTENSION};
+	}
 	public PrintLettersOnPath(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
 		this.name="printLettersOnPath";

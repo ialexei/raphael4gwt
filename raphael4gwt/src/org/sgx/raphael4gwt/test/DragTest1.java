@@ -5,6 +5,7 @@ import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Raphael;
 import org.sgx.raphael4gwt.raphael.base.Point;
 import org.sgx.raphael4gwt.raphael.event.DDListener;
+import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 
 import com.google.gwt.dom.client.NativeEvent;
 
@@ -36,7 +37,9 @@ public class DragTest1 extends Test{
 	}
 
 	//test information:
-	
+	public String[] getTags() {
+		return new String[]{GalleryUtil.TAG_EVENT};
+	}
 	public DragTest1(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
 		this.name="drag&drop";

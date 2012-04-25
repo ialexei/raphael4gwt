@@ -6,6 +6,7 @@ import java.util.List;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Path;
 import org.sgx.raphael4gwt.raphael.event.HoverListener;
+import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 import org.sgx.raphael4gwt.test.image.IconPaths;
 
 import com.google.gwt.dom.client.NativeEvent;
@@ -51,6 +52,12 @@ public class AllPathIcons extends Test {
 		
 	}
 
+	
+	//test stuff
+	@Override
+	public String[] getTags() {
+		return new String[]{GalleryUtil.TAG_PATH, GalleryUtil.TAG_EVENT};
+	}
 	@Override
 	public String getJavaClassSource() {
 		return TestResources.INSTANCE.AllPathIcons().getText();

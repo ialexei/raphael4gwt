@@ -4,6 +4,7 @@ import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Rect;
 import org.sgx.raphael4gwt.raphael.Set;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
+import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 import org.sgx.raphael4gwt.test.util.UnitUtil;
 
 import com.google.gwt.user.client.Window;
@@ -55,6 +56,9 @@ public class ShapeUnitTest1 extends Test {
 	
 	
 	//test data:
+	public String[] getTags() {
+		return new String[]{GalleryUtil.TAG_SHAPE};
+	}
 	public ShapeUnitTest1(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
 		this.name="ShapeUnit1";

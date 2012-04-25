@@ -6,6 +6,7 @@ import org.sgx.raphael4gwt.raphael.Set;
 import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
 import org.sgx.raphael4gwt.raphael.util.ShapeUtil;
+import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 import org.sgx.raphael4gwt.test.util.UnitUtil;
 
 import com.google.gwt.user.client.Window;
@@ -82,6 +83,9 @@ public class SetTest2 extends Test {
 	}
 
 	//test data:
+	public String[] getTags() {
+		return new String[]{GalleryUtil.TAG_SET, GalleryUtil.TAG_EXTENSION};
+	}
 	public SetTest2(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
 		this.name="Set 2";

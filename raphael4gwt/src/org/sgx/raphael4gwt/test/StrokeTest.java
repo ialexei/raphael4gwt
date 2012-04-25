@@ -6,6 +6,7 @@ import java.util.List;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Path;
 import org.sgx.raphael4gwt.raphael.event.HoverListener;
+import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 import org.sgx.raphael4gwt.test.image.IconPaths;
 
 import com.google.gwt.dom.client.NativeEvent;
@@ -54,6 +55,9 @@ public class StrokeTest extends Test {
 
 
 	//test data
+	public String[] getTags() {
+		return new String[]{GalleryUtil.TAG_SHAPE, GalleryUtil.TAG_EVENT};
+	}
 	public StrokeTest(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
 		this.name="strokes";

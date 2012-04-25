@@ -6,6 +6,7 @@ import org.sgx.raphael4gwt.raphael.Raphael;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Point;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
+import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.user.client.Window;
@@ -38,7 +39,9 @@ public void test() {
 
 
 //test information:
-
+public String[] getTags() {
+	return new String[]{GalleryUtil.TAG_EVENT};
+}
 public MouseRelativeCoordsTest(Paper paper, int paperWidth, int paperHeight) {
 	super(paper, paperWidth, paperHeight);
 	this.name="relative coords";

@@ -13,30 +13,34 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 		@author: sgurin
     </description>
 
+	
+	
+	
+	
+	
 	<target name="all">
 		<antcall target="js"/>
 		<antcall target="clean"/>
 		<antcall target="jar"/>
 	</target>
-
 	
-	<target name="js">
-		<exec dir="src/org/sgx/raphael4gwt/public" executable="sh" >
-			<arg line="preparejs.sh"/>
-		</exec>
-	</target>
-
+	<target name="compile" depends="clean">
+		<antcall target="javac">
+		</antcall>
+		<antcall target="gwtc">
+			<param name="moduleName" value="org.sgx.raphael4gwt.Raphael4Gwt"/>
+		</antcall>
+		<antcall target="gwtc">
+			<param name="moduleName" value="org.sgx.raphael4gwt.Raphael4GwtTest"/>
+		</antcall>
+		<antcall target="gwtc">
+			<param name="moduleName" value="org.sgx.raphael4gwt.GRaphael4Gwt"/>
+		</antcall>
+		<antcall target="gwtc">
+			<param name="moduleName" value="org.sgx.raphael4gwt.GRaphael4GwtTest"/>
+		</antcall>
+	</target>	
 	
-	<target name="jar" depends="compile">
-		<mkdir dir="dist"/>
-		<jar destfile="dist/rapahel4gwt-${rapahel4gwt.version}.jar">
-			<fileset dir="war/WEB-INF/classes" excludes="**/Test.class" />
-			<fileset dir="src" excludes="**/Test.java" />
-		</jar>
-	</target>
-
-
-
 	<target name="clean" depends="">
 		<delete dir="dist"/>
 		<delete dir="javadoc"/>
@@ -47,41 +51,63 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 		<delete dir="war/org.sgx.raphael4gwt.GRaphael4Gwt"/>
 		<delete dir="war/org.sgx.raphael4gwt.GRaphael4GwtTest"/>
 		<delete dir="www-test"/>
+		<delete dir="classes"/>
+	</target>
+	
+	<target name="jar" depends="compile">
+		<mkdir dir="dist"/>
+		<jar destfile="dist/rapahel4gwt-${rapahel4gwt.version}.jar">
+			<fileset dir="classes" excludes="**/Test.class" />
+			<fileset dir="src" excludes="**/Test.java" />
+		</jar>
 	</target>
 
+	
+	
+	
+	
+	
+	
+	
+	
+	<target name="js">
+		<exec dir="src/org/sgx/raphael4gwt/public" executable="sh" >
+			<arg line="preparejs.sh"/>
+		</exec>
+	</target>
+	
+	
+	
+	
+	
+	
+	
+	<path id="javac.class.path">
+		<pathelement location="${gwt.sdk}/gwt-user.jar" />
+		<fileset dir="${gwt.sdk}" includes="gwt-dev*.jar" />
+		<fileset dir="war/WEB-INF/lib" includes="**/*.jar" />
+	</path>
+	
+	<target name="javac">
+		<mkdir dir="classes"/>
+		<javac srcdir="src"
+	         destdir="classes"
+	         classpathref="javac.class.path"
+	  />
+	</target>
+	
+	
+
+
+	
+	
 
 	
 	<path id="gwtc.class.path">
 		<pathelement location="${gwt.sdk}/gwt-user.jar" />
 		<fileset dir="${gwt.sdk}" includes="gwt-dev*.jar" />
 		<fileset dir="war/WEB-INF/lib" includes="**/*.jar" />
-		
-		
-		<!--<pathelement location="src" />		
-		<fileset dir="${gwt.sdk}/" includes="**/*.jar" />		
-		-->
 	</path>
-	
-	<target name="compile" depends="clean">
-		
-		<antcall target="gwtc">
-			<param name="moduleName" value="org.sgx.raphael4gwt.Raphael4Gwt"/>
-		</antcall>
-
-		<antcall target="gwtc">
-			<param name="moduleName" value="org.sgx.raphael4gwt.Raphael4GwtTest"/>
-		</antcall>
-
-		<antcall target="gwtc">
-			<param name="moduleName" value="org.sgx.raphael4gwt.GRaphael4Gwt"/>
-		</antcall>		
-		
-		<antcall target="gwtc">
-			<param name="moduleName" value="org.sgx.raphael4gwt.GRaphael4GwtTest"/>
-		</antcall>		
-		
-	</target>
-	
 
 	<target name="gwtc" description="individual GWT compile to JavaScript">
 		<java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
@@ -108,21 +134,19 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 	
 	
 	
+	
+	
 
 	<target name="javadocs" depends="" description="generates javadoc and also UML Diagram">
-
-		
 		<path id="project.src.path">
 			<pathelement location="${reports.dir}/src-all/" />
 			<pathelement location="${gwt.src}/user/src/" />
-		</path>
-			
+		</path>			
 		
 		<!-- first copy all source files from all source folders to a common source folder -->
 		<mkdir dir="${reports.dir}/src-all"/>
 		<copydir dest="${reports.dir}/src-all/org" src="${reports.dir}/src/org">
 		</copydir>
-
 		
 		<!-- do the javadoc -->
 		<mkdir dir="${reports.dir}/javadoc"/>
@@ -150,5 +174,8 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 		<delete dir="src-all"/>
 
 	</target>
+	
+	
+	
 
 </project>

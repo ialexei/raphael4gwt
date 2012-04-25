@@ -3,11 +3,12 @@
 <!DOCTYPE article [
     <!ENTITY R "raphaël">
     <!ENTITY RG "raphaël4GWT">
-    
-    <!ENTITY RGBASE "http://cancerbero.vacau.com/raphaelmarkup">
-      
+    <!ENTITY JS "JavaScript">
+    <!ENTITY J "Java">
+    <!ENTITY RGBASE "http://cancerbero.vacau.com/raphaelmarkup">      
 ]>
-<!-- <!ENTITY RMBASE "http://localhost:8081/rm"> -->
+
+
 <article version="5.0" xmlns="http://docbook.org/ns/docbook"
          xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -68,20 +69,62 @@
   <section id="sec-introduction">
     <title >Introduction</title>
 
-    <para>In this section we will try to explain what is &RG;. </para>
+    <para>Officially, <ulink url="http://code.google.com/p/raphael4gwt/">&RG;</ulink> is a 
+    porting of the nice &JS; vector drawing library <ulink url="http://code.google.com/p/raphael4gwt/">&R;</ulink>
+    for <ulink url="https://developers.google.com/web-toolkit/">GWT</ulink>. Unofficially, with &RG;
+    GWT users can do vector drawing to their GWT applications in java.</para>
     
-    <para><ulink url="http://rapaheljs.com">&R;</ulink> is a portable and easy to use javascript library for vector drawing.
-    This project, <ulink url="http://code.google.com/p/raphaelmarkup">&RG;</ulink> 
-    brings &R; API to XML, so users can "do &R; drawing" in XML.</para>
+    <para>So if you want to start drawing in your GWT applications, this document is for you. You don't have to know anything about &R; library
+    because this User Guide will explaing everithing from the start. Nevertheless, if you do know &R; it will be easier for you to getting 
+    started with &RG; because the &J; API is very analogous to &R;'s..</para>
     
-    <para>This means that &RG; defines a XML syntax for &R; API and implements a 
-    javascript engine for rendering XML Documents in raphael </para>    
+    <para>&RG; is a complete java API for the &R; &JS; drawing library. It is designed with the following considerations in mind: </para>
     
-    <mediaobject>
-    <imageobject> <imagedata fileref="img/rm1.png" format="PNG"/> </imageobject>
-    <textobject> <phrase>first look at raphaelmarkup as a component</phrase> </textobject>
-    </mediaobject>   
+    <itemizedlist>
     
+    <listitem>
+    <formalpara><title>Complete API</title><para>&RG; supports all &R; features and contains some artificial java types for easy 
+    working with advanced &R; features like paths, gradients, animations, etc in &J;</para></formalpara>
+    </listitem>
+    
+    <listitem>
+    <formalpara><title>Straightforward API</title><para>&RG; is designed so the &J; API
+    is very similar to the &JS; API, so &JS; &R; users will feel familiar with the API and do not have top re-learn a new Java API.</para></formalpara>
+    </listitem>
+    
+    <listitem>
+    <formalpara><title>Lightweight - zero overhead.</title><para>&RG; uses 
+    <ulink url="https://developers.google.com/web-toolkit/doc/latest/DevGuideCodingBasicsOverlay">GWT Overlay Types</ulink>
+    intensively, for avoiding overhead while wrapping native objects. Your &RG; java code will be translated to javascript native code
+    that will run with the same efficiency as native &J; &R; code.</para></formalpara>
+    </listitem>    
+    
+    <listitem>
+    <formalpara><title>Documentation and examples</title><para>&RG; comes with a nice User guide (this document!) that will introduce the library from the simple cases to the more advanced techniques and tools. 
+    Also, there is available a <ulink url="http://cancerbero.vacau.com/gwt/raphael4gwtGallery/">Big example gallery</ulink> that contain a lot of punctual examples which you can run and see its &J; sources online. 
+    Great for learning from examples!</para></formalpara>
+    </listitem>    
+    
+    <listitem>
+    <formalpara><title>Updated</title><para>&RG; is based and on latest &R; version (2.1 as this document is being written),
+    and it will be always updated for reflecting last &R; improvements..</para></formalpara> 
+    </listitem>  
+    
+    <listitem>
+    <formalpara><title>Charts</title><para>&RG; supports the full <ulink url="http://g.raphael.com">GRaphael</ulink> chart library for making charts in &J; as 
+    a separate GWT module. See the <ulink url="http://cancerbero.vacau.com/gwt/graphael4gwtGallery">Chars example gallery</ulink>
+    for looking at charts example with its &J; sources. </para></formalpara> 
+    </listitem> 
+    
+    </itemizedlist>
+    
+  </section>
+  
+  <section id="sec-getting-started">
+  <para>In this section we will detail the neccesary things to do for being able of drawing with &RG; in your GWT applications. </para>
+  
+  <para>First of all we need a functional GWT application project in which we want to draw using &RG;. In eclipse, if you have Google's plugins installed,
+   you can create a new GWT application project doing File -> New -> Web Application project. </para>
   </section>
   
      

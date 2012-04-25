@@ -1,28 +1,38 @@
 <!doctype html>
-
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-
-    <title>raphael4gwt test</title>
-    
-    <script type="text/javascript" language="javascript" 
-    	src="raphael.js"></script>
-<!--    	<script type="text/javascript" language="javascript"  -->
-<!--     	src="graphael/g.raphael.js"></script> -->
-<!--     	<script type="text/javascript" language="javascript"  -->
-<!--     	src="graphael/g.bar.js"></script> -->
+    <title>raphael4gwt test</title>    
+    <script type="text/javascript" language="javascript" src="raphael.js"></script>
   </head>
 
   <body>
-	<input type="text" style="width: 100%" id="logbox" value=""></input>
-
 	 <script type="text/javascript" language="javascript" >
-		
-	 var paper = Raphael(0, 0, 1500, 1500); 
-	 
+(function(){
+	
+/**
+ * install a new free path editor- only applicable for paths 
+ */	 
+Raphael.el.freePathEditor = function() {
+	if(this.type!="path")
+		return null;
+	
+	var fpe = 
+		this._fpe = //ref from shape to the FPE object
+		this.paper.set();
+	
+};
+
+})();	 
+
+
+var paper = Raphael(0, 0, 1500, 1500); 
+var pathString = "M20,20,L10.0,20.0,L40.0,40.0,L40.0,50.0,L60.0,20.0Z";
+paper.path(pathString);
+var pathObj = Raphael.parsePathString(pathString)
+debugger;
+
 // 	 paper.rect(10,10,80,90).attr({fill: "red"});
-	 paper.path("M20,20,L10.0,20.0,L40.0,40.0,L40.0,50.0,L60.0,20.0Z");
 // 	 var rect = paper.rect(100,100,80, 90).attr({fill: "red"}).blur();
 // 	 var rect = paper.rect(200,200,80,90).attr({fill: "red"}).blur(3);
 // var data = [[55, 20]], 

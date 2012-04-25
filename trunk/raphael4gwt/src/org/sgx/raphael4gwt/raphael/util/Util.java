@@ -8,7 +8,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.sgx.raphael4gwt.raphael.Raphael;
 import org.sgx.raphael4gwt.raphael.base.Point;
+
+import com.google.gwt.user.client.Window;
 
 
 
@@ -187,4 +190,37 @@ public static String quotePath(String path) {
 		if(a==null)return 0;
 		else return a.length;
 	}
+
+	public static String randomColor() {
+		return Raphael.rgb(Util.randomBetween(0,255), Util.randomBetween(0,255), Util.randomBetween(0,255));
+	}
+
+	public final native static String getCurrentAddressUrl()/*-{
+		return $wnd.document.location.href;
+	}-*/;
+	
+	public static Map<String, String> parseUrlParams(String url) {
+		url = Util.unescapeUrl(url);
+		Map<String, String> m = new HashMap<String, String>();
+		String[] b = url.split("&"), a=null;
+		if(b!=null) for (int j = 0; j < b.length; j++) {
+			a = b[j].split("=");
+			if(a!=null&&a.length==2) {
+				m.put(a[0], a[1]);
+			}
+		}
+		
+		return m;
+	}
+
+	public final native static String unescapeUrl(String url)/*-{
+		return $wnd.unescape(url);
+	}-*/;
+
+
+
+//	public static void parseInt(boolean boolean1, int def) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 }

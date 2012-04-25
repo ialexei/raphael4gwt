@@ -109,12 +109,15 @@ public class MainPanel extends VerticalPanel {
 				MainPanel.this.paper=paper;
 				GalleryUtil.getInstance().loadAllTest(paperWidget.getPaper(), PAPER_WIDTH, PAPER_HEIGHT);
 				GalleryUtil.getInstance().doAddAllGeneralTests(testGeneral);
+
+				GalleryUtil.getInstance().checkUrl();
 			}
 		});
 		paperWidget.getElement().getStyle().setBorderStyle(BorderStyle.SOLID);
 		vp2.add(paperWidget);
 		horizontalSplitPanel.setRightWidget(vp2);
 		paperWidget.setSize("100%", "100%");
+		
 		
 	}
 

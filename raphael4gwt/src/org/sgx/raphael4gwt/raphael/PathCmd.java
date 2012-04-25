@@ -2,8 +2,13 @@ package org.sgx.raphael4gwt.raphael;
 
 import org.sgx.raphael4gwt.raphael.util.Util;
 
+import com.google.gwt.core.client.JsArray;
+import com.google.gwt.core.client.JsArrayMixed;
+
 /**
  * a java tool for creating pths programatically
+ * 
+ * i'm also responsible of knowing how to build myself from Raphael.parsePathString()
  * 
  * TODO: parse a path attr string and build a chain of commands
  * @author sg
@@ -63,6 +68,46 @@ public class PathCmd {
 	public PathCmd(double x, double y) {
 		points=new PCPoint[][]{{new PCPoint(x, y)}};
 		type=Raphael.PATH_MOVETO;
+	}
+	/**
+	 * build from path array using Raphael.parsePathString() . it will build all the chai  of path commands.
+	 * @param pathString
+	 */
+	public PathCmd(String pathString) {
+		this();
+		JsArray<JsArrayMixed> pp = Raphael.parsePathString(pathString);
+		if(pp==null||pp.length()==0)
+			return;
+		
+		PathCmd cmd = this;
+		for (int i = 0; i < pp.length(); i++) {
+			JsArrayMixed ppc = pp.get(i);
+			
+			PathCmd nextCmd = new PathCmd();
+			cmd.setNext(nextCmd);
+			
+			if(ppc==null||ppc.length()==0)
+				continue;
+			
+			String type = ppc.getString(0);
+			if(type==null||type.equals(""))
+				continue;
+				
+			cmd.setType(type);
+			
+			if(type.equals(Raphael.PATH_LINETO)||type.equals(Raphael.PATH_MOVETO)||
+					type.equals(Raphael.PATH_SMOOTH_QUADBESIER_CURVETO) && ppc.length()==3) {
+				cmd.setPoints(new PCPoint[][]{{new PCPoint(ppc.getNumber(1), ppc.getNumber(2))}});
+			}
+			
+			cmd=nextCmd;
+			
+			//TODO: do the folowing better, case by case...
+//			PCPoint[][] points = new PCPoint[Math.round(ppc.length()/2+0.5)]
+//			for (int j = 1; j < ppc.length(); j+=2) {
+//				Util.parseInt(ppc.getNumber(j), 0);
+//			}
+		}
 	}
 	
 	private PathCmd() {

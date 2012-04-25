@@ -81,7 +81,7 @@ public abstract class Test {
 	public abstract String getJavaClassSource();
 
 	protected String randomColor() {
-		return Raphael.rgb(Util.randomBetween(0,255), Util.randomBetween(0,255), Util.randomBetween(0,255));
+		return Util.randomColor();
 	}
 
 }

@@ -1,6 +1,7 @@
 package org.sgx.raphael4gwt.test;
 
 import org.sgx.raphael4gwt.raphael.Paper;
+import org.sgx.raphael4gwt.raphael.Path;
 import org.sgx.raphael4gwt.raphael.PathCmd;
 import org.sgx.raphael4gwt.raphael.Set;
 import org.sgx.raphael4gwt.raphael.Shape;
@@ -25,6 +26,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class PathCmdsTest1 extends Test {
 
+	private Path lp1;
+
 	@Override
 	public void test() {
 		Attrs attrs = Attrs.create().fill("#33ff11").
@@ -33,20 +36,29 @@ public class PathCmdsTest1 extends Test {
 		PathCmd pc = new PathCmd(0,0);
 		pc.lineto(new double[][]{{10,20}, {40,40}, {40,50}, {60,20}}).close();
 		getPaper().text(250,20, "lineto(new double[][]{{10,20}, \n{40,40}, {40,50}, {60,20}}).close()");		
-		getPaper().path(pc.toPathString()).attr("transform", "t100,30s2").attr(attrs);
+		getPaper().path(pc.toPathString()).attr("transform", "t180,30s2").attr(attrs);
 		
 		PathCmd pc2 = new PathCmd(0,0);
 		pc.smoothQuadBezierCurveTo(new double[][]{{10,20}, {40,40}, {40,50}, {60,20}}).close();
 		getPaper().text(150,210, "smoothQuadBezierCurveTo(new \ndouble[][]{{10,20}, {40,40}, {40,50}, {60,20}}).close()");		
-		getPaper().path(pc.toPathString()).attr("transform", "t100,160s2").attr(attrs);
+		getPaper().path(pc.toPathString()).attr("transform", "t180,160s2").attr(attrs);
+		
 		
 		//and now a random path
+		getPaper().text(400, 400, "a very strange thing");
 		PathCmd pc3 = new PathCmd(400,400), aux = pc3;
-		for (int i = 0; i < 20; i++) {
-			aux=aux.T(Util.randomBetween(330, 400), Util.randomBetween(330, 400));
+		for (int i = 0; i < 12; i++) {
+			aux=aux.T(Util.randomBetween(370, 400), Util.randomBetween(370, 400));
 		}
 		aux.close();
-		getPaper().path(pc3.toPathString()).attr(attrs.strokeWidth(2));;
+		getPaper().path(pc3.toPathString()).attr(attrs.strokeWidth(2));
+		
+		//now build a pathcmd from path string
+		getPaper().text(80,20,"PathCmd builded \nfrom path string");
+		
+		PathCmd cmd4 = new PathCmd("M20,20L40,40L70,90L20,50L10,10Z");
+		lp1 = getPaper().path(cmd4.toPathString());
+		
 	}
 	
 	//test stuff

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.sgx.raphael4gwt.raphael.Paper;
+import org.sgx.raphael4gwt.raphael.util.Util;
 import org.sgx.raphael4gwt.test.AllMouseEvents;
 import org.sgx.raphael4gwt.test.AllPathIcons;
 import org.sgx.raphael4gwt.test.AnimTransformAndPathTest1;
@@ -22,6 +23,7 @@ import org.sgx.raphael4gwt.test.GradientMouseTest1;
 import org.sgx.raphael4gwt.test.GradientTest1;
 import org.sgx.raphael4gwt.test.ImageSimpleTest;
 import org.sgx.raphael4gwt.test.ImageTransforms1;
+import org.sgx.raphael4gwt.test.LivePathTest;
 import org.sgx.raphael4gwt.test.MouseCoordsOnHoverTest;
 import org.sgx.raphael4gwt.test.MouseRelativeCoordsTest;
 import org.sgx.raphael4gwt.test.PathCmdsTest1;
@@ -36,6 +38,7 @@ import org.sgx.raphael4gwt.test.util.GUIUtil;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -62,13 +65,17 @@ public class GalleryUtil {
 		Button b = new Button(t.getName(), new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				currentTest = t;
-				t.getPaper().clear();
-				getTestPanel().clear();
-				t.test();
+				setCurrentTest(t);
 			}
 		});
 		return b;
+	}
+
+	protected void setCurrentTest(Test t) {
+		currentTest = t;
+		t.getPaper().clear();
+		getTestPanel().clear();
+		t.test();
 	}
 
 	VerticalPanel testPanel;
@@ -197,12 +204,29 @@ public class GalleryUtil {
 		t = new PathCmdsTest1(paper, w, h);
 		tests.put(t.getName(), t);
 		
+		t = new LivePathTest(paper, w, h);
+		tests.put(t.getName(), t);
 	}
 
 	Map<String, List<Test>> getTestsByTag() {
 		return null;
 
 	}
+
+	/**
+	 * check for a test=testName paraemter passed in the url
+	 * and show that test if that is the case.
+	 */
+	public void checkUrl() {
+		Map<String, String> urlParams = Util.parseUrlParams(Util.getCurrentAddressUrl());
+		if(urlParams.containsKey("test")) {
+			Test t = tests.get(urlParams.get("test"));
+			if(t!=null) {
+				setCurrentTest(t);
+			}
+		}
+	}
+	
 
 
 

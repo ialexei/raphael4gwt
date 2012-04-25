@@ -84,4 +84,7 @@ public interface TestResources extends ClientBundle {
 	  
 	  @Source("PathCmdsTest1.java")
 	  public TextResource PathCmdsTest1();
+	  
+	  @Source("LivePathTest.java")
+	  public TextResource LivePathTest();
 }

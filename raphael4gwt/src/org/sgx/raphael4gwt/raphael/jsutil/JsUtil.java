@@ -2,7 +2,6 @@ package org.sgx.raphael4gwt.raphael.jsutil;
 
 import java.util.Map;
 
-import org.sgx.raphael4gwt.graphael.bar.BarContext;
 import org.sgx.raphael4gwt.raphael.util.Util;
 
 import com.google.gwt.core.client.JavaScriptObject;

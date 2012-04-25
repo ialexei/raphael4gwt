@@ -6,6 +6,7 @@ import org.sgx.raphael4gwt.raphael.base.Arrow;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Color;
 import org.sgx.raphael4gwt.raphael.base.Matrix;
+import org.sgx.raphael4gwt.raphael.base.PathIntersectPoint;
 import org.sgx.raphael4gwt.raphael.base.Point;
 import org.sgx.raphael4gwt.raphael.base.RGB;
 import org.sgx.raphael4gwt.raphael.base.Rectangle;
@@ -14,6 +15,7 @@ import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.core.client.JsArrayMixed;
 import com.google.gwt.core.client.JsArrayNumber;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
@@ -55,7 +57,9 @@ public static final String
 	EASING_ELASTIC="elastic",
 	EASING_BOUNCE="bounce"
 	;
-
+public static final String[] EASING_ALL = {EASING_LINEAR, 
+	EASING_EASEIN, EASING_EASEOUT, EASING_EASEINOUT,EASING_EASEINOUT,EASING_BACKIN,
+	EASING_BACKOUT,EASING_BACKOUT,EASING_ELASTIC,EASING_BOUNCE};
 
 /* *** PATHS *** */
 
@@ -73,6 +77,20 @@ public static final String
 	PATH_CATMULLROM_CURVETO="R"
 	;
 
+public static final String 
+	STROKE_DASHARRAY_NORMAL="",STROKE_DASHARRAY_DASH="-", STROKE_DASHARRAY_POINT=".",
+	STROKE_DASHARRAY_DASH_POINT="-.",STROKE_DASHARRAY_DASH_POINT_POINT="-..",
+	STROKE_DASHARRAY_POINT_SPACE=". ",STROKE_DASHARRAY_DASH_SPACE="- ",
+	STROKE_DASHARRAY_DASH_DASH="--",STROKE_DASHARRAY_DASH_SPACE_POINT="- .",
+	STROKE_DASHARRAY_DASH_DASH_POINT="--.",STROKE_DASHARRAY_DASH_DASH_POINT_POINT="--..";
+
+public static final String[] STROKE_DASHARRAY_ALL = {
+	STROKE_DASHARRAY_NORMAL, STROKE_DASHARRAY_DASH, STROKE_DASHARRAY_POINT,
+	STROKE_DASHARRAY_DASH_POINT,STROKE_DASHARRAY_DASH_POINT_POINT,	
+	STROKE_DASHARRAY_POINT_SPACE,STROKE_DASHARRAY_DASH_SPACE,
+	STROKE_DASHARRAY_DASH_DASH,STROKE_DASHARRAY_DASH_SPACE_POINT,
+	STROKE_DASHARRAY_DASH_DASH_POINT,STROKE_DASHARRAY_DASH_DASH_POINT_POINT
+};
 /* *** ARROW *** */	
 	
 	
@@ -334,17 +352,105 @@ public static Point getCoordsInShape(Paper paper, Shape shape,
 	return getCoordsInShape(paper, shape, false, e);
 }
 
-//{
-//	return (Point) JsUtil.obj(
-//		"x", e.getClientX() - paper.getCanvasElement().getAbsoluteLeft(), 
-//		"y", e.getClientY() - paper.getCanvasElement().getAbsoluteTop()
-//	);
-//}
 
-//public static final native Attrs attrs()/*-{
-//	return {};
-//}-*/;
+ 
+/**
+ * Utility method Returns true if two bounding boxes intersect
+ * @param bb1 bounding box
+ * @param bb2 bounding box
+ * @return
+ */
+public static native boolean isBBoxIntersect(String bb1, String bb2)/*-{
+	return $wnd.Raphael.isBBoxIntersect(bb1, bb2);
+}-*/;
 
+
+/**
+ * Utility method Returns true if given point is inside bounding boxes. 
+ * @param bb bounding box
+ * @param x x coordinate of the point
+ * @param y y coordinate of the point
+ * @return
+ */
+public static native boolean isPointInsideBBox(String bb, double x, double y)/*-{
+	return $wnd.Raphael.isBBoxIntersect(bb, x, y);
+}-*/;
+
+/**
+ * Utility method Returns true if given point is inside a given closed path. 
+ * @param path path string
+ * @param x x of the point
+ * @param y y of the point
+ * @return
+ */
+public static native boolean isPointInsidePath(String path, double x, double y)/*-{
+	return $wnd.Raphael.isPointInsidePath(path, x, y);
+}-*/;
+
+/**
+ * Utility method Returns true if given point is inside a given closed path. 
+ * @param path path string
+ * @param m a matrix instance
+ * @return transformed path string
+ */
+public static native String mapPath(String path, Matrix m)/*-{
+	return $wnd.Raphael.mapPath(path, x, y);
+}-*/;
+
+
+//parsing utilities
+/**
+ * tility method Parses given path string into an array of arrays of path segments.
+ * Use together with PathCmd for a more java friendly access, like this:
+ * <pre>
+ * PathCmd c = new PathCmd(Raphael.parsePathString("a path str..."));
+ * </pre>  
+ * @param pathString path string
+ * @return array of segments.
+ */
+public static native JsArray<JsArrayMixed> parsePathString(String pathString)/*-{
+	return $wnd.Raphael.parsePathString(pathString);
+}-*/;
+/**
+ * Utility method Parses given path string into an array of transformations. 
+ * @param pathString transform string
+ * @return array of transformations.
+ */
+public static native JsArray parseTransformString(String pathString)/*-{
+	return $wnd.Raphael.parseTransformString(pathString);
+}-*/;
+/**
+ * Utility method Converts path to a new path where all segments are cubic bezier curves. 
+ * @param pathString path string
+ * @return array of segments.
+ */
+public static native JsArray path2curve(String pathString)/*-{
+	return $wnd.Raphael.path2curve(pathString);
+}-*/;
+/**
+ * Utility method Return bounding box of a given path 
+ * @param pathString
+ * @return
+ */
+public static native Rectangle pathBBox(String pathString)/*-{
+	return $wnd.Raphael.pathBBox(pathString);
+}-*/;
+/**
+ * Utility method Finds intersections of two paths 
+ * @param pathString
+ * @return dots of intersection
+ */
+public static native JsArray<PathIntersectPoint> pathIntersection(String path1, String path2)/*-{
+	return $wnd.Raphael.pathBBox(pathString);
+}-*/;
+/**
+ * Utility method Converts path to relative form 
+ * @param pathString path string or array of segments
+ * @return array of segments.
+ */
+public static native JsArray pathToRelative(String pathString)/*-{
+	return $wnd.Raphael.pathToRelative(pathString);
+}-*/;
 
 }
 

@@ -200,8 +200,12 @@ public static String quotePath(String path) {
 	}-*/;
 	
 	public static Map<String, String> parseUrlParams(String url) {
-		url = Util.unescapeUrl(url);
 		Map<String, String> m = new HashMap<String, String>();
+		if(url==null&&!url.contains("?"))
+			return m;
+		else
+			url=url.split("\\?")[1];
+		url = Util.unescapeUrl(url);
 		String[] b = url.split("&"), a=null;
 		if(b!=null) for (int j = 0; j < b.length; j++) {
 			a = b[j].split("=");

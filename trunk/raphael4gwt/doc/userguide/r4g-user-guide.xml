@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE article [
+    <!ENTITY R "raphaël">
+    <!ENTITY RG "raphaël4GWT">
+    
+    <!ENTITY RGBASE "http://cancerbero.vacau.com/raphaelmarkup">
+      
+]>
+<!-- <!ENTITY RMBASE "http://localhost:8081/rm"> -->
+<article version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <info>
+    <title>&RG; User Guide</title>
+
+    <author>
+      <personname><firstname>Sebastián</firstname><surname>Gurin</surname></personname>
+
+      <affiliation>
+        <orgname>&RG;</orgname>
+      </affiliation>
+    </author>
+
+    <pubdate>06-17-2010</pubdate>
+  </info>
+  
+  <abstract><para>&RG; User Guide and Reference</para></abstract>
+   
+  <revhistory>  
+    <revision>
+      <revnumber>0.01</revnumber>
+      <date>25 April 2012</date>
+      <authorinitials>sgurin</authorinitials>
+      <revremark>Initial revision and release with only some sections</revremark>
+    </revision>
+  
+  </revhistory>
+  
+   <section id="sec-about-this-document">
+    <title>About this document</title>
+  	<para>This document is available in the following formats:</para>  
+  	<orderedlist>    
+	  <listitem><formalpara><title>pdf</title><para>
+	  <ulink url="../r4g-user-guide-pdf/r4g-user-guide.pdf">&RG; User Guide</ulink></para></formalpara></listitem>
+	  
+	  <listitem><formalpara><title>html fragmented</title><para>
+	  <ulink url="../r4g-user-guide-htmls/t1.html">&RG; User Guide</ulink></para></formalpara></listitem>
+	  
+	    <listitem><formalpara><title>html all in one </title><para>
+	  <ulink url="../r4g-user-guide-html/r4g-user-guide.html">&RG; User Guide</ulink></para></formalpara></listitem>
+	  
+	  
+	  <listitem><formalpara><title>docbook (sources) </title><para>
+	  <ulink url="../r4g-user-guide.xml">&RG; User Guide</ulink></para></formalpara></listitem>
+	  
+	  <listitem><formalpara><title>download htmls</title><para>
+	  <ulink url="../r4g-user-guide-htmls.tgz">&RG; User Guide</ulink></para></formalpara></listitem>
+  
+  	</orderedlist>
+  </section>
+  
+  
+  <section id="sec-introduction">
+    <title >Introduction</title>
+
+    <para>In this section we will try to explain what is &RG;. </para>
+    
+    <para><ulink url="http://rapaheljs.com">&R;</ulink> is a portable and easy to use javascript library for vector drawing.
+    This project, <ulink url="http://code.google.com/p/raphaelmarkup">&RG;</ulink> 
+    brings &R; API to XML, so users can "do &R; drawing" in XML.</para>
+    
+    <para>This means that &RG; defines a XML syntax for &R; API and implements a 
+    javascript engine for rendering XML Documents in raphael </para>    
+    
+    <mediaobject>
+    <imageobject> <imagedata fileref="img/rm1.png" format="PNG"/> </imageobject>
+    <textobject> <phrase>first look at raphaelmarkup as a component</phrase> </textobject>
+    </mediaobject>   
+    
+  </section>
+  
+     
+</article>

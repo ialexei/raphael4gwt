@@ -1,35 +1,27 @@
-package org.sgx.raphael4gwt.test.gallery;
+package org.sgx.raphael4gwt.gtest.gallery;
 
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.PaperWidget;
-import org.sgx.raphael4gwt.raphael.event.Callback;
 import org.sgx.raphael4gwt.raphael.event.PaperListener;
 import org.sgx.raphael4gwt.raphael.util.GUIUtil;
-import org.sgx.raphael4gwt.test.CircleGlowingAndDraggin;
-import org.sgx.raphael4gwt.test.DragAndSnap;
-import org.sgx.raphael4gwt.test.EventRegisterAndUnregister;
-import org.sgx.raphael4gwt.test.ImageSimpleTest;
 
-import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.BorderStyle;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalSplitPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class MainPanel extends VerticalPanel {
-	private static final int PAPER_WIDTH = 600;
-	private static final int PAPER_HEIGHT = 600;
+	private static final int PAPER_WIDTH = 900;
+	private static final int PAPER_HEIGHT = 900;
 	private FlowPanel testEvent;
 	private PaperWidget paperWidget;
 	private HorizontalSplitPanel horizontalSplitPanel;
-//	private FlowPanel testGeneral;
+	private FlowPanel testGeneral;
 	protected Paper paper;
 	private VerticalPanel testPanel;
 
@@ -85,16 +77,17 @@ public class MainPanel extends VerticalPanel {
 		setCellWidth(horizontalSplitPanel, "100%");
 		horizontalSplitPanel.setSize("100%", "100%");
 		
-		final DecoratedStackPanel decoratedStackPanel = new DecoratedStackPanel();
+		DecoratedStackPanel decoratedStackPanel = new DecoratedStackPanel();
 		horizontalSplitPanel.setLeftWidget(decoratedStackPanel);
 		decoratedStackPanel.setSize("100%", "100%");
 		
-//		testGeneral = new FlowPanel();
-//		decoratedStackPanel.add(testGeneral, "General", false);
-//		testGeneral.setSize("100%", "100%");
+		testGeneral = new FlowPanel();
+		decoratedStackPanel.add(testGeneral, "General", false);
+		testGeneral.setSize("100%", "100%");
 				
 		
 		VerticalPanel vp2 = new VerticalPanel();
+		vp2.setWidth("100%");
 		testPanel = new VerticalPanel();
 		testPanel.setWidth("100%");
 		GalleryUtil.getInstance().setTestPanel(testPanel);
@@ -107,10 +100,9 @@ public class MainPanel extends VerticalPanel {
 			public void paperLoaded(Paper paper) {
 				/* the paper is loaded! so now we can instantiate all our tests */
 				MainPanel.this.paper=paper;
+//				native1(paper);
 				GalleryUtil.getInstance().loadAllTest(paperWidget.getPaper(), PAPER_WIDTH, PAPER_HEIGHT);
-				GalleryUtil.getInstance().doAddAllGeneralTestsCategorized(decoratedStackPanel);
-
-				GalleryUtil.getInstance().checkUrl();
+				GalleryUtil.getInstance().doAddAllGeneralTests(testGeneral);
 			}
 		});
 		paperWidget.getElement().getStyle().setBorderStyle(BorderStyle.SOLID);
@@ -118,7 +110,11 @@ public class MainPanel extends VerticalPanel {
 		horizontalSplitPanel.setRightWidget(vp2);
 		paperWidget.setSize("100%", "100%");
 		
-		
 	}
+
+//	protected native final void native1(Paper p)/*-{
+//		$wnd.alert(p.piechart+"");
+//	}-*/;
+
 
 }

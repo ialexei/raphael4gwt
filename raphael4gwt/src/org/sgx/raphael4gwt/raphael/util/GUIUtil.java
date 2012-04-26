@@ -1,4 +1,4 @@
-package org.sgx.raphael4gwt.test.util;
+package org.sgx.raphael4gwt.raphael.util;
 
 import java.util.LinkedList;
 import java.util.List;

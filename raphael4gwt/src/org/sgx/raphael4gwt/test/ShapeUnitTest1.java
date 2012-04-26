@@ -4,8 +4,8 @@ import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Rect;
 import org.sgx.raphael4gwt.raphael.Set;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
+import org.sgx.raphael4gwt.raphael.util.UnitUtil;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
-import org.sgx.raphael4gwt.test.util.UnitUtil;
 
 import com.google.gwt.user.client.Window;
 

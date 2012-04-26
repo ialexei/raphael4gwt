@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.sgx.raphael4gwt.raphael.Paper;
+import org.sgx.raphael4gwt.raphael.util.GUIUtil;
 //import org.sgx.raphael4gwt.test.Test;
 import org.sgx.raphael4gwt.test.Test;
 import org.sgx.raphael4gwt.test.graphael.gallery.tests.BarChartTest1;
@@ -14,7 +15,6 @@ import org.sgx.raphael4gwt.test.graphael.gallery.tests.DotChartTest1;
 import org.sgx.raphael4gwt.test.graphael.gallery.tests.LineChartTest1;
 import org.sgx.raphael4gwt.test.graphael.gallery.tests.PieChartTest1;
 import org.sgx.raphael4gwt.test.graphael.gallery.tests.TooltipTest1;
-import org.sgx.raphael4gwt.test.util.GUIUtil;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

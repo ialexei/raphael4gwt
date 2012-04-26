@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.sgx.raphael4gwt.raphael.Paper;
+import org.sgx.raphael4gwt.raphael.util.GUIUtil;
 import org.sgx.raphael4gwt.raphael.util.Util;
 import org.sgx.raphael4gwt.test.AllMouseEvents;
 import org.sgx.raphael4gwt.test.AllPathIcons;
@@ -36,7 +37,6 @@ import org.sgx.raphael4gwt.test.SetTest2;
 import org.sgx.raphael4gwt.test.ShapeEditor1;
 import org.sgx.raphael4gwt.test.ShapeUnitTest1;
 import org.sgx.raphael4gwt.test.Test;
-import org.sgx.raphael4gwt.test.util.GUIUtil;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

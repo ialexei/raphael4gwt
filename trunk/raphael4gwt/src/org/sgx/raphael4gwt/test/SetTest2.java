@@ -6,8 +6,8 @@ import org.sgx.raphael4gwt.raphael.Set;
 import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
 import org.sgx.raphael4gwt.raphael.util.ShapeUtil;
+import org.sgx.raphael4gwt.raphael.util.UnitUtil;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
-import org.sgx.raphael4gwt.test.util.UnitUtil;
 
 import com.google.gwt.user.client.Window;
 

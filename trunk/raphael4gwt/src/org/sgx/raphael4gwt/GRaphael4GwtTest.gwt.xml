@@ -8,8 +8,8 @@
 	
 	<inherits name='com.google.gwt.user.theme.clean.Clean' />
 
-	<entry-point class="org.sgx.raphael4gwt.test.graphael.gallery.GRaphael4GwtTest" />
+	<entry-point class="org.sgx.raphael4gwt.gtest.gallery.GRaphael4GwtTest" />
 	
-	<source path="test" />
+	<source path="gtest" />
 	
 </module>

@@ -29,6 +29,7 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 		</antcall>
 		<antcall target="gwtc">
 			<param name="moduleName" value="org.sgx.raphael4gwt.Raphael4Gwt"/>
+			<param name="srcpath" value="src"/>
 		</antcall>
 		<antcall target="gwtc">
 			<param name="moduleName" value="org.sgx.raphael4gwt.Raphael4GwtTest"/>
@@ -92,8 +93,7 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 		<mkdir dir="classes"/>
 		<javac srcdir="src"
 	         destdir="classes"
-	         classpathref="javac.class.path"
-	  />
+	         classpathref="javac.class.path"/>
 	</target>
 	
 	
@@ -104,8 +104,9 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 
 	
 	<path id="gwtc.class.path">
-		<pathelement location="${gwt.sdk}/gwt-user.jar" />
-		<fileset dir="${gwt.sdk}" includes="gwt-dev*.jar" />
+		<!--<pathelement location="${gwt.sdk}/gwt-user.jar" />-->
+		<pathelement location="classes" />
+		<fileset dir="${gwt.sdk}" includes="**/*.jar" />
 		<fileset dir="war/WEB-INF/lib" includes="**/*.jar" />
 	</path>
 
@@ -117,6 +118,8 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 			</classpath>
 			
 			<jvmarg value="-Xmx256M" />	
+			
+			<arg value="-strict"></arg>
 			
 			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG 		
 			<arg value="-draftCompile"></arg>			

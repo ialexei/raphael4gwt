@@ -3,7 +3,7 @@ package org.sgx.raphael4gwt.test.graphael.gallery;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.PaperWidget;
 import org.sgx.raphael4gwt.raphael.event.PaperListener;
-import org.sgx.raphael4gwt.test.util.GUIUtil;
+import org.sgx.raphael4gwt.raphael.util.GUIUtil;
 
 import com.google.gwt.dom.client.Style.BorderStyle;
 import com.google.gwt.event.dom.client.ClickEvent;

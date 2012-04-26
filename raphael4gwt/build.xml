@@ -29,7 +29,6 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 		</antcall>
 		<antcall target="gwtc">
 			<param name="moduleName" value="org.sgx.raphael4gwt.Raphael4Gwt"/>
-			<param name="srcpath" value="src"/>
 		</antcall>
 		<antcall target="gwtc">
 			<param name="moduleName" value="org.sgx.raphael4gwt.Raphael4GwtTest"/>

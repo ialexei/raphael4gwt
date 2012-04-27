@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='espinillo'>
+
+	<inherits name='com.google.gwt.user.User' />
+
+	<inherits name='com.google.gwt.user.theme.clean.Clean' />
+
+
+	<inherits name="org.sgx.raphael4gwt.Raphael4Gwt" />
+	<inherits name="com.google.gwt.logging.Logging" />
+	<inherits name='org.sgx.gwteditors.Gwteditors' />
+
+
+	<stylesheet src="espinillo.css" />
+
+	<entry-point class='org.sgx.espinillo.client.Espinillo' />
+
+	<source path='client' />
+	<source path='shared' />
+
+</module>

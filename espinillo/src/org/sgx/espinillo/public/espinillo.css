@@ -1,0 +1,10 @@
+.top-panel {
+	padding: 12px;
+	background-color: #ededed;
+}
+.left-panel {
+	padding: 12px;
+	background-color: #ededed;
+/* 	display: block; */
+	width: 130px;
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @author: sgurin 
+edit gwt.sdk property in build.properties according to your system and perform ant 
+to compile the project and build dist/raphael4gwt.jar file
+For performing javascript minimization and concatenation call ant js (need linux and yuicompressor.jar in the root folder)
+For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src property)
+-->
+<project name="espinillo" default="installdeps">
+
+	<property file="build.properties"/>
+	<description>
+        make java doc of all this java project
+		@author: sgurin
+    </description>
+
+
+	<target name="installdeps">
+		<copy file="${raphael4gwt.jar}" todir="war/WEB-INF/lib"></copy>
+		<copy file="${org.sgx.editors.jar}" todir="war/WEB-INF/lib"></copy>
+	</target>
+
+	
+	<path id="gwtc.class.path">
+		<pathelement location="${gwt.sdk}/gwt-user.jar" />
+		<fileset dir="${gwt.sdk}" includes="gwt-dev*.jar" />
+		<fileset dir="war/WEB-INF/lib" includes="**/*.jar" />
+	</path>
+
+	<target name="gwtc" description="individual GWT compile to JavaScript">
+		<java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+			<classpath>
+				<pathelement location="src" />
+				<path refid="gwtc.class.path" />				
+			</classpath>
+			
+			<jvmarg value="-Xmx256M" />	
+			
+			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG 		
+			<arg value="-draftCompile"></arg>			
+			<arg value="-style"></arg>
+			<arg value="DETAILED"></arg>-->
+			
+			<arg value="-war" />
+			<arg value="war" />
+								
+			<arg value="org.sgx.espinillo.Espinillo" />			
+		</java>
+	</target>
+	
+</project>

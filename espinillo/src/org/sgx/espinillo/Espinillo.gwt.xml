@@ -11,6 +11,15 @@
 	<inherits name='org.sgx.gwteditors.Gwteditors' />
 
 
+
+
+  <inherits name="com.google.gwt.i18n.I18N"/>
+
+	<extend-property name="locale" values="en"/>
+	<extend-property name="locale" values="es" />
+	<set-property-fallback name="locale" value="en"/>
+
+
 	<stylesheet src="espinillo.css" />
 
 	<entry-point class='org.sgx.espinillo.client.Espinillo' />

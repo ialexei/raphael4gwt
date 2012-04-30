@@ -18,7 +18,6 @@ public class ShapePropsPanel extends VerticalPanel {
 
 	public ShapePropsPanel() {
 		super();
-//		VerticalPanel vp = new VerticalPanel();
 		setWidth("200px");
 		getElement().addClassName("left-panel");
 		add(new Label("Shape Properties"));

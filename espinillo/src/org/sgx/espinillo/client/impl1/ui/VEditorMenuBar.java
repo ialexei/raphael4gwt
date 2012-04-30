@@ -1,9 +1,8 @@
 package org.sgx.espinillo.client.impl1.ui;
 
 import org.sgx.espinillo.client.impl1.commands.ClipboardCmd;
-import org.sgx.espinillo.client.impl1.ui.htmls.HTMLResources;
+import org.sgx.espinillo.client.impl1.ui.i18in.Messages;
 import org.sgx.espinillo.client.impl1.util.ClipboardUtil;
-import org.sgx.espinillo.client.impl1.util.ShapeUtil;
 import org.sgx.espinillo.client.impl1.util.ToolUtil;
 import org.sgx.espinillo.client.model.Document;
 import org.sgx.espinillo.client.model.SelectionListener;
@@ -12,51 +11,60 @@ import org.sgx.gwteditors.client.util.AcceptCancelDialogListener;
 import org.sgx.gwteditors.client.util.GUIUtil;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Set;
-//import org.sgx.raphael4gwt.raphael.util.GUIUtil;
 
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.user.client.ui.MenuItem;
+import com.google.gwt.user.client.ui.MenuItemSeparator;
+import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class VEditorMenuBar extends MenuBar{
 	
 	public VEditorMenuBar() {
+				
 		MenuBar menuBar_1 = new MenuBar(true);
+				
 		
-		MenuItem mntmFile = new MenuItem("File", false, menuBar_1);
+		MenuItem mntmFile = new MenuItem(Messages.INSTANCE.file(), false, menuBar_1);
 		
-		MenuItem mntmOpen = new MenuItem("Open", false, new Command() {
+		MenuItem mntmOpen = new MenuItem(Messages.INSTANCE.open(), false, new Command() {
 			public void execute() {
 				
 				VerticalPanel vp = new VerticalPanel();
 				final TextArea input = new TextArea();
 				input.setSize("100%", "200px");
 				
-				vp.add(new Label("Please copy the data of a previus saved document " +
-					"to open it: "));
+				vp.add(new Label(Messages.INSTANCE.msg1()));
 				vp.add(input);
-				DialogBox db = GUIUtil.acceptCancelDialog("Open document", vp, 
+				DialogBox db = GUIUtil.acceptCancelDialog(
+					Messages.INSTANCE.openDocument(), vp, 
 					new AcceptCancelDialogListener() {
 				
-				@Override
-				public void notifyCancel(DialogBox db) {
-				}
-				
-				@Override
-				public void notifyAccept(DialogBox db) {
-					//TODO: oipen a new document - now we use the same paper.
-					Paper paper = getVeditor().getCurrentDocument().getPaper();
-					paper.clear();
-					Document doc = VEditorMain.newDocument(getVeditor(), paper, "unamed2", 
-						new SelectionListener() {					
-						@Override
-						public void selectionChange(Document d) {
-							VEditorWidget.getInstance().getShapePropertiesPanel()
-								.notifyEspinilloSelectionChange(d.getSelection());
-						}					
-					});
-					paper.add(input.getText());
-				}
-			});
+					@Override
+					public void notifyCancel(DialogBox db) {
+						db.hide();
+					}
+					
+					@Override
+					public void notifyAccept(DialogBox db) {
+						//TODO: oipen a new document - now we use the same paper.
+						Paper paper = getVeditor().getCurrentDocument().getPaper();
+						paper.clear();
+						VEditorMain.newDocument(getVeditor(), paper, Messages.INSTANCE.unamed(), 
+							new SelectionListener() {					
+							@Override
+							public void selectionChange(Document d) {
+								VEditorWidget.getInstance().getShapePropertiesPanel()
+									.notifyEspinilloSelectionChange(d.getSelection());
+							}					
+						});
+						paper.add(input.getText());
+					}
+				});
 				GUIUtil.showDialogBox(db);
 			}
 
@@ -64,7 +72,7 @@ public class VEditorMenuBar extends MenuBar{
 		});
 		menuBar_1.addItem(mntmOpen);
 		
-		MenuItem mntmSave = new MenuItem("Save", false, new Command() {
+		MenuItem mntmSave = new MenuItem(Messages.INSTANCE.save(), false, new Command() {
 			public void execute() {
 				Document doc = VEditorWidget.getInstance().getVeditor().getCurrentDocument();
 				
@@ -74,21 +82,27 @@ public class VEditorMenuBar extends MenuBar{
 				allshapes.exclude(ToolUtil.getInstance().getPaperMask(doc));
 				input.setText(allshapes.writeToString());
 				input.setSize("100%", "200px");
-				vp.add(new Label("This is \""+doc.getName()+
-					"\" data\nPlease copy&paste it in a text file."));
+				vp.add(new Label(
+						Messages.INSTANCE.msg2(getVeditor().getCurrentDocument().getName())
+						));
 				vp.add(input);
 				
-				DialogBox db = GUIUtil.acceptDialog("Save document", vp);
+				DialogBox db = GUIUtil.acceptDialog(Messages.INSTANCE.saveDocument(), vp);
 				GUIUtil.showDialogBox(db);
 			}
 		});
 		menuBar_1.addItem(mntmSave);
 		addItem(mntmFile);
+		
+		
+		
+		
+		
 		MenuBar menuBar_2 = new MenuBar(true);
 		
-		MenuItem mntmEdit = new MenuItem("Edit", false, menuBar_2);
+		MenuItem mntmEdit = new MenuItem(Messages.INSTANCE.edit(), false, menuBar_2);
 		
-		MenuItem mntmUndo = new MenuItem("Undo", false, new Command() {			
+		MenuItem mntmUndo = new MenuItem(Messages.INSTANCE.undo(), false, new Command() {			
 			@Override
 			public void execute() {
 				getVeditor().getCurrentDocument().undo();
@@ -96,7 +110,7 @@ public class VEditorMenuBar extends MenuBar{
 		});
 		menuBar_2.addItem(mntmUndo);
 		
-		MenuItem mntmRedo = new MenuItem("Redo", false, new Command() {			
+		MenuItem mntmRedo = new MenuItem(Messages.INSTANCE.redo(), false, new Command() {			
 			@Override
 			public void execute() {
 				getVeditor().getCurrentDocument().redo();
@@ -107,7 +121,7 @@ public class VEditorMenuBar extends MenuBar{
 		MenuItemSeparator separator = new MenuItemSeparator();
 		menuBar_2.addSeparator(separator);
 		
-		MenuItem mntmCopy = new MenuItem("Copy", false, new Command() {			
+		MenuItem mntmCopy = new MenuItem(Messages.INSTANCE.copy(), false, new Command() {			
 			@Override
 			public void execute() {
 				Document doc = getVeditor().getCurrentDocument();
@@ -118,7 +132,7 @@ public class VEditorMenuBar extends MenuBar{
 		});
 		menuBar_2.addItem(mntmCopy);
 		
-		MenuItem mntmCut = new MenuItem("Cut", false, new Command() {			
+		MenuItem mntmCut = new MenuItem(Messages.INSTANCE.cut(), false, new Command() {			
 			@Override
 			public void execute() {
 				Document doc = getVeditor().getCurrentDocument();
@@ -129,7 +143,7 @@ public class VEditorMenuBar extends MenuBar{
 		});
 		menuBar_2.addItem(mntmCut);
 		
-		MenuItem mntmPaste = new MenuItem("Paste", false, new Command() {			
+		MenuItem mntmPaste = new MenuItem(Messages.INSTANCE.paste(), false, new Command() {			
 			@Override
 			public void execute() {
 				Document doc = getVeditor().getCurrentDocument();
@@ -140,18 +154,24 @@ public class VEditorMenuBar extends MenuBar{
 		});
 		menuBar_2.addItem(mntmPaste);
 		addItem(mntmEdit);
+		
+		
+		
+		
+		
+		
 		MenuBar menuBar_3 = new MenuBar(true);
 		
-		MenuItem mntmHelp = new MenuItem("Help", false, menuBar_3);
+		MenuItem mntmHelp = new MenuItem(Messages.INSTANCE.help(), false, menuBar_3);
 		
-		MenuItem mntmUserManual = new MenuItem("User Manual", false, (Command) null);
+		MenuItem mntmUserManual = new MenuItem(Messages.INSTANCE.userManual(), false, (Command) null);
 		menuBar_3.addItem(mntmUserManual);
 		
-		MenuItem mntmAbout = new MenuItem("About", false, new Command() {			
+		MenuItem mntmAbout = new MenuItem(Messages.INSTANCE.about(), false, new Command() {			
 			@Override
 			public void execute() {
-				DialogBox db = GUIUtil.acceptDialog("About", 
-						new HTML(HTMLResources.INSTANCE.aboutDialog().getText()));
+				DialogBox db = GUIUtil.acceptDialog(Messages.INSTANCE.about(), 
+						new HTML(Messages.INSTANCE.html_aboutDialogContent()));
 				GUIUtil.showDialogBox(db);
 //				HTML h = new HTML(HTMLResources.INSTANCE.aboutDialog().getText());
 //				db = new DialogBox();

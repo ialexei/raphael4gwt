@@ -176,6 +176,15 @@ public class Attrs extends JavaScriptObject {
 		return this;
 	}-*/;
 	/**
+	 * stroke width in pixels, default is '1'
+	 * @param val
+	 * @return
+	 */
+	public final native Attrs strokeWidth(double val)/*-{
+		this["stroke-width"]=val;
+		return this;
+	}-*/;
+	/**
 	 * @return One of the following strings: "”, "-”, ".”, "-.”, "-..”, ". ”, "- ”, "--”, "- .”, "--.”, "--..”
 	 */
 	public final native String getStrokeDashArray()/*-{
@@ -280,6 +289,19 @@ public class Attrs extends JavaScriptObject {
 	public final native void setArrowEnd(String val)/*-{
 		this["arrow-end"]=val;
 	}-*/;
+	
+	/**arrowhead on the end of the path.<br/>
+	 * you can use the base.Arrow class to easily define them, like
+	 * <pre>attr.arrowEnd(Arrow.build(Arrow.TYPE_CLASSIC, Arrow.WIDTH_SHORT, ARROW.LENGTH_MIDIUM));</pre>
+	 * or you can build an string yourself follwoing:<br/>
+	 * . The format for string is <type>[-<width>[-<length>]]. Possible types: classic, block, open, oval, diamond, none, width: wide, narrow, midium, length: long, short, midium.
+	 */
+	public final native Attrs setArrowEnd(Arrow a)/*-{		
+		this["arrow-end"]=a.@org.sgx.raphael4gwt.raphael.base.Arrow::toString()();;
+		return this;
+	}-*/;
+	
+	
 	/**arrowhead on the end of the path.<br/>
 	 * you can use the base.Arrow class to easily define them, like
 	 * <pre>attr.arrowEnd(Arrow.build(Arrow.TYPE_CLASSIC, Arrow.WIDTH_SHORT, ARROW.LENGTH_MIDIUM));</pre>
@@ -290,6 +312,17 @@ public class Attrs extends JavaScriptObject {
 		this["arrow-end"]=val;
 		return this;
 	}-*/;
+	/**arrowhead on the end of the path.<br/>
+	 * you can use the base.Arrow class to easily define them, like
+	 * <pre>attr.arrowEnd(Arrow.build(Arrow.TYPE_CLASSIC, Arrow.WIDTH_SHORT, ARROW.LENGTH_MIDIUM));</pre>
+	 * or you can build an string yourself follwoing:<br/>
+	 * . The format for string is <type>[-<width>[-<length>]]. Possible types: classic, block, open, oval, diamond, none, width: wide, narrow, midium, length: long, short, midium.
+	 */
+	public final native Attrs arrowEnd(Arrow a)/*-{		
+		this["arrow-end"]=a.@org.sgx.raphael4gwt.raphael.base.Arrow::toString()();;
+		return this;
+	}-*/;
+	
 	
 	/**
 	 * comma or space separated values: x, y, width and height
@@ -414,6 +447,10 @@ public class Attrs extends JavaScriptObject {
 		this["width"]=val;
 		return this;
 	}-*/;
+	public final native Attrs width(double val)/*-{
+		this["width"]=val;
+		return this;
+	}-*/;
 
 	public final native int getHeight()/*-{
 		return this["height"];
@@ -429,6 +466,7 @@ public class Attrs extends JavaScriptObject {
 		this["height"]=val;
 		return this;
 	}-*/;
+	
 	
 	public final native int getX()/*-{
 		return this["x"];
@@ -666,16 +704,28 @@ public class Attrs extends JavaScriptObject {
 	
 	
 	//API extensions
-	public final native String print()/*-{
-		
+	public final native String print()/*-{		
 		return "Attrs"+$wnd.r4g.dump(this ,true)+"";
-//		var s = "Attrs(";
-//		for(var i in this) {
-//			if(this[i]!=null) {
-//				s+=i+": "+this[i]+", ";
-//			}
-//		}
-//		return s+")";
 	}-*/;
-
+	/**
+	 * artificially added only for load and save() work with JSArray<Attrs>. 
+	 * Has no meaning in other usage scenarios
+	 */
+	public final native String getType()/*-{
+		return this.type ? this.type : "";
+	}-*/;
+	/**
+	 * artificially added only for load and save() work with JSArray<Attrs>. 
+	 * Has no meaning in other usage scenarios
+	 */
+	public final native String type()/*-{
+		return this.type ? this.type : "";
+	}-*/;
+	/**
+	 * artificially added only for load and save() work with JSArray<Attrs>. 
+	 * Has no meaning in other usage scenarios
+	 */
+	public final native String type(String t)/*-{
+		return this.type ? this.type : "";
+	}-*/;
 }

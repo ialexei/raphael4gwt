@@ -15,7 +15,9 @@ public static final String TYPE_CLASSIC="classic",
 	LENGTH_LONG="long",LENGTH_SHORT="short",LENGTH_MIDIUM="midium";
 
 String type, width, length;
-
+public Arrow(){
+	this(TYPE_CLASSIC, WIDTH_WIDE, LENGTH_SHORT);
+}
 public Arrow(String type, String width, String length) {
 	super();
 	this.type = type;

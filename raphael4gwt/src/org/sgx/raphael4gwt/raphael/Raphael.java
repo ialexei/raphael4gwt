@@ -454,5 +454,20 @@ public static native JsArray pathToRelative(String pathString)/*-{
 	return $wnd.Raphael.pathToRelative(pathString);
 }-*/;
 
+
+
+
+
+//extensions
+/**
+ * artificial method for creating a set passing shaes in a cvararg java method
+ */
+public static Set set(Paper paper, Shape...shapes) {
+	Set s = paper.set();
+	for (int i = 0; i < shapes.length; i++) {
+		s.push(shapes[i]);
+	}
+	return s;
+}
 }
 

@@ -5,6 +5,7 @@ import org.sgx.raphael4gwt.raphael.base.Animation;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Glow;
 import org.sgx.raphael4gwt.raphael.base.Rectangle;
+import org.sgx.raphael4gwt.raphael.event.AttrChangeListener;
 import org.sgx.raphael4gwt.raphael.event.Callback;
 import org.sgx.raphael4gwt.raphael.event.DDListener;
 import org.sgx.raphael4gwt.raphael.event.DragOverListener;
@@ -545,6 +546,10 @@ console.log(el.transform());
 		this.attr(name, val);
 		return this;
 	}-*/;
+	public final native Shape attr(String name, double val)/*-{
+		this.attr(name, val);
+		return this;
+	}-*/;
 	
 	public final native Attrs attr()/*-{
 		return this.attr();			
@@ -724,7 +729,7 @@ Note: Glow is not connected to the element. If you change element attributes it 
 	// EXTENSIONS - see raphael-ext.js
 	public final native Shape addAttrChangeListener(String attrName, AttrChangeListener l)/*-{
 		var f = $entry(function(attrName, oldVal, newVal) {
-			l.@org.sgx.raphael4gwt.raphael.AttrChangeListener::attributeChange(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)(attrName, oldVal, newVal);
+			l.@org.sgx.raphael4gwt.raphael.event.AttrChangeListener::attributeChange(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)(attrName, oldVal, newVal);
 		});
 		this.addAttrChangeListener(attrName, f);
 		return this;
@@ -819,5 +824,19 @@ Note: Glow is not connected to the element. If you change element attributes it 
 	public final native Shape convolveSobel(double size, double multiplier)/*-{
 		this.sobel(size, multiplier);
 		return this;
+	}-*/;
+	/**
+	 * extension 
+	 * @return a json object just like espected by paper.add. the returned Attrs object has a type property loaded
+	 */
+	public final native JsArray<Attrs> writeToObject()/*-{
+		return this.writeToObject();
+	}-*/;
+	/**
+	 * extension 
+	 * @return a json object just like espected by paper.add. the returned Attrs object has a type property loaded
+	 */
+	public final native JsArray<Attrs> writeToString()/*-{
+		return this.writeToString();
 	}-*/;
 }

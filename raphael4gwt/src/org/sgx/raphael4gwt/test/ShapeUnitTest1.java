@@ -18,7 +18,7 @@ public class ShapeUnitTest1 extends Test {
 	@Override
 	public void test() {
 		
-		UnitUtil testCase1 = new UnitUtil();
+		UnitUtil testCase1 = new UnitUtil(ShapeUnitTest1.class.getName());
 		String results = null;
 		
 		try {

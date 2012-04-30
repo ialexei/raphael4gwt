@@ -1,5 +1,6 @@
 package org.sgx.raphael4gwt.raphael;
 
+import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Font;
 import org.sgx.raphael4gwt.raphael.base.NativeFont;
 import org.sgx.raphael4gwt.raphael.base.Point;
@@ -10,12 +11,31 @@ import org.sgx.raphael4gwt.raphael.ft.FTOptions;
 import org.sgx.raphael4gwt.raphael.ft.FreeTransform;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.resources.client.ImageResource;
 
 public class Paper extends JavaScriptObject {
 	
 	protected Paper(){}
+	
+	/**
+	 * Imports elements in JSON array in format {type: type, <attributes>}
+	 * @return resulting set of imported elements
+	 */
+	public final native Set add(JsArray<Attrs> content)/*-{
+		return this.add(content);
+	}-*/;
+	
+	/**
+	 * the same as add() but parsing json string using google dom utils.
+	 * Imports elements in JSON array in format {type: type, <attributes>}
+	 * @return resulting set of imported elements
+	 */
+	public final native Set add(String json)/*-{
+		var obj = @com.google.gwt.core.client.JsonUtils::unsafeEval(Ljava/lang/String;)(json);//escapeValue(Ljava/lang/String;)()
+		return this.add(obj);
+	}-*/;
 	
 	/**
 	 * 
@@ -600,4 +620,22 @@ txt[0].attr({fill: "#f00"});
 			Font font, int size, String onpath)/*-{
 		return this.printLetters(x, y, str, font, size, null, null, onpath);
 	}-*/;
+	
+	
+	/**
+	 * extension 
+	 * @return a js object just like espected by paper.add
+	 */
+	public final native JsArray<Attrs> writeToObject()/*-{
+		return this.writeToObject();
+	}-*/;
+	
+	/**
+	 * extension 
+	 * @return a json string in the structure espected by paper.add
+	 */
+	public final native String writeToString()/*-{
+		return this.writeToString();
+	}-*/;
+
 }

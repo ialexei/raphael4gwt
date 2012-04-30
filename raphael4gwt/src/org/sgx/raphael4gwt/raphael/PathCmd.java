@@ -1,5 +1,6 @@
 package org.sgx.raphael4gwt.raphael;
 
+import org.sgx.raphael4gwt.raphael.base.Point;
 import org.sgx.raphael4gwt.raphael.util.Util;
 
 import com.google.gwt.core.client.JsArray;
@@ -78,6 +79,9 @@ public class PathCmd {
 		points=new PCPoint[][]{{new PCPoint(x, y)}};
 		type=Raphael.PATH_MOVETO;
 	}
+	public PathCmd(Point p) {
+		this(p.getX(), p.getY());
+	}
 	/**
 	 * build from path array using Raphael.parsePathString() . it will build all the chai  of path commands.
 	 * @param pathString
@@ -141,7 +145,16 @@ public class PathCmd {
 		toPathString(sb);
 		return sb.toString();
 	}
-
+	public static void removeLast(PathCmd c) {
+		PathCmd a = c, prev=null;
+		while(a!=null) {
+			if(a.getNext()==null && prev!=null) {
+				prev.next=null;
+			}
+			prev=a;
+			a=a.getNext();
+		}
+	}
 	private void cmdToString(PathCmd c, StringBuffer sb) {
 		PCPoint[][] _points = c.getPoints();
 		int len = Util.getLength(_points);
@@ -249,6 +262,16 @@ public class PathCmd {
 		return this.lineto(new double[][]{{x,y}});
 	}
 	/**
+	 * creates a new PathCmd of type "moveto" and values "points" and concatenates after this PathCmd.
+	 * Use: 
+	 * path1.lineto(new double[][]{{20,30}, {50,120}}); 
+	 * @param points
+	 * @return the new PathCmd 
+	 */
+	public PathCmd lineto(Point p) {
+		return lineto(p.getX(), p.getY());
+	}
+	/**
 	 * alias for smoothQuadBezierCurveTo
 	 */
 	public PathCmd L(double x, double y) {
@@ -275,6 +298,16 @@ public class PathCmd {
 		pathCmd2.setType(Raphael.PATH_MOVETO);
 		this.setNext(pathCmd2);
 		return pathCmd2;
+	}	
+	/**
+	 * creates a new PathCmd of type "moveto" and values "points" and concatenates afther this PathCmd.
+	 * Use: 
+	 * path1.lineto(); 
+	 * @param points
+	 * @return the new PathCmd 
+	 */
+	public PathCmd moveto(Point p) {
+		return lineto(p.getX(), p.getY());
 	}	
 	/**
 	 * alias for moveto
@@ -320,6 +353,17 @@ public class PathCmd {
 		this.setNext(pathCmd2);
 		return pathCmd2;
 	}
+	/**
+	 * creates a new PathCmd of type "smoothQuadBezierCurveTo" and values "points" and concatenates after this PathCmd.
+	 * Use: 
+	 * path1.smoothQuadBezierCurveTo(new double[][]{{20,30}, {50,120}}); 
+	 * @param points
+	 * @return the new PathCmd 
+	 */
+	public PathCmd smoothQuadBezierCurveTo(Point p) {
+		return smoothQuadBezierCurveTo(p.getX(), p.getY());
+	}
+	
 	/**
 	 * creates a new PathCmd of type "smoothQuadBezierCurveTo" and values "points" and concatenates after this PathCmd.
 	 * @param points

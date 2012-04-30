@@ -24,7 +24,7 @@ public class SetTest2 extends Test {
 	@Override
 	public void test() {
 		
-		UnitUtil testCase1 = new UnitUtil();
+		UnitUtil testCase1 = new UnitUtil(SetTest2.class.getName());
 		
 		Rect rect1 = paper.rect(30,40, 50, 60), 
 			rect2 = paper.rect(130,140, 50, 60);

@@ -33,4 +33,8 @@ public interface Document {
 	boolean redo();
 	void addSelectionListener(SelectionListener l);
 	boolean removeSelectionListener(SelectionListener l);
+//	void removeCommandListener(CommandListener l);
+//	void addCommandListener(CommandListener l);
+	void removeCommandListener(Class commandClass, CommandListener l);
+	void addCommandListener(Class commandClass, CommandListener l);
 }

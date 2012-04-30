@@ -37,11 +37,11 @@ Attrs defSelFeedbackAttrs;
 LWMap<String, Shape> selectionFeedbacks;
 int hpadding=4, vpadding=4;
 
-public Shape getSelectionFeedback(Paper p, Shape s) {
+public Shape getSelectionFeedback(Paper paper, Shape s) {
 	String sid = ShapeUtil.getInstance().getShapeId(s);
 	Shape sf = selectionFeedbacks.get(sid);
 	if(sf==null) {
-		sf = newSelectionFeedback(p, s);
+		sf = newSelectionFeedback(paper, s);
 		selectionFeedbacks.put(sid, sf);
 	}
 	Rectangle bb = s.getBBox(false);
@@ -51,19 +51,28 @@ public Shape getSelectionFeedback(Paper p, Shape s) {
 	sf.show();
 	return sf;
 }
-public Set getSelectionFeedbacks(final Paper p, Set shapes) {
-	final Set set = p.set();
-//	logger.log(Level.INFO, "getSelectionFeedback "+shapes.print());
+public void updateSelectionFeedbacks(final Paper paper, Set shapes) {
 	shapes.forEach(new ForEachCallback() {		
 		@Override
 		public boolean call(Shape el, int index) {
-//			String sid = ShapeUtil.getInstance().getShapeId(el);
-			Shape sf = getSelectionFeedback(p, el);
-//					selectionFeedbacks.get(sid);
-//			if(sf==null) {
-//				sf = newSelectionFeedback(p, el);
-//				selectionFeedbacks.put(sid, sf);
-//			}
+			updateSelectionFeedback(paper, el);
+			return true;
+		}
+	});
+}
+public void updateSelectionFeedback(Paper paper, Shape el) {
+	Shape sf = getSelectionFeedback(paper, el);
+	Rectangle bb = sf.getBBox();
+	sf.attr(Attrs.create().x(bb.getX()).y(bb.getY()).
+		width(bb.getWidth()).height(bb.getHeight()));
+}
+
+public Set getSelectionFeedbacks(final Paper paper, Set shapes) {
+	final Set set = paper.set();
+	shapes.forEach(new ForEachCallback() {		
+		@Override
+		public boolean call(Shape el, int index) {
+			Shape sf = getSelectionFeedback(paper, el);
 			if(sf!=null) {
 				set.push(sf);
 			}
@@ -72,7 +81,7 @@ public Set getSelectionFeedbacks(final Paper p, Set shapes) {
 	});
 	return set;
 }
-protected Shape newSelectionFeedback(Paper p, Shape s) {
+protected Shape newSelectionFeedback(Paper paper,Shape s) {
 	Rectangle bb = s.getBBox();
 	bb.setHeight(bb.getHeight()+hpadding/2);
 	bb.setWidth(bb.getWidth()+vpadding/2);
@@ -80,7 +89,7 @@ protected Shape newSelectionFeedback(Paper p, Shape s) {
 	bb.setY(bb.getY()-vpadding/2);
 	
 //	logger.log(Level.INFO, "newSelectionFeedback of "+s.getType()+" - bbox: "+bb.print()+" - shape id : "+ShapeUtil.getInstance().getShapeId(s));
-	Shape r = p.rect(bb).attr(getDefaultSelectionFeedbackAttrs());
+	Shape r = paper.rect(bb).attr(getDefaultSelectionFeedbackAttrs());
 	r.setData(ShapeUtil.CLASS_NAME, ShapeUtil.CLASS_SELFEEDBACK);
 	r.toFront();
 	r.show();

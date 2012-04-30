@@ -27,7 +27,7 @@ public class CreateShapeCmd extends AbstractCommand {
 	
 	
 	public CreateShapeCmd(Document drawing, String shapeType, Attrs shapeAttrs) {
-		super(drawing);
+		super("create shape", drawing);
 		this.shapeType = shapeType;
 		this.shapeAttrs = shapeAttrs;
 	}

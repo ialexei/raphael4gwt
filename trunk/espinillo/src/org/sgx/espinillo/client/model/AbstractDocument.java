@@ -1,7 +1,9 @@
 package org.sgx.espinillo.client.model;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 import org.sgx.raphael4gwt.raphael.Paper;
@@ -18,16 +20,32 @@ public abstract class AbstractDocument implements Document {
 	Set selection;
 	List<SelectionListener> selectionListeners;
 	private VEditor veditor;
+	Map<Class, List<CommandListener>> commandListeners;
 
-	public AbstractDocument(VEditor veditor, Paper paper){
+	public AbstractDocument(VEditor veditor, Paper paper, String name){
 		super();
 		this.veditor=veditor;
 		this.paper=paper;
+		this.name=name;
 		shapes=new LinkedList<Shape>();
 		commandStack=new Stack<Command>();
 		undoedCmds=new Stack<Command>();
+		commandListeners=new HashMap<Class, List<CommandListener>>();
 		selection=paper.set();
 		selectionListeners=new LinkedList<SelectionListener>();
+	}
+	@Override
+	public void addCommandListener(Class commandClass, CommandListener l) {		
+		if(!commandListeners.containsKey(commandClass)){
+			commandListeners.put(commandClass, new LinkedList<CommandListener>());
+		}
+		commandListeners.get(commandClass).add(l);
+	}
+	@Override
+	public void removeCommandListener(Class commandClass,CommandListener l) {
+		if(commandListeners.containsKey(commandClass)){
+			commandListeners.get(commandClass).remove(l);
+		}
 	}
 	public Paper getPaper() {
 		return paper;
@@ -80,9 +98,17 @@ public abstract class AbstractDocument implements Document {
 	}
 	
 	@Override
-	public void execute(Command cmd) {		
+	public void execute(Command cmd) {	
+		List<CommandListener> listeners = commandListeners.get(cmd.getClass());
+		if(listeners!=null) for(CommandListener l : listeners) {
+			if(!l.beforeCommandExec(cmd))
+				return;
+		}
 		if(cmd.doIt()) {
 			getCommandStack().push(cmd);
+			if(listeners!=null) for(CommandListener l : listeners) {
+				l.onCommandExec(cmd);
+			}
 		}
 	}
 

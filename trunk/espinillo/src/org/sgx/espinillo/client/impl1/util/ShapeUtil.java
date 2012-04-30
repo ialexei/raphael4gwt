@@ -121,7 +121,14 @@ public static String printShape(Set set, final ShapePrinter p) {
 	sb.append("}");
 	return sb.toString();
 }
-
+/**
+ * 
+ * @param paper
+ * @param shapes
+ */
+public void addShapes(Paper paper, Set shapes) {
+	paper.add(shapes.writeToObject()); //TODO: do it better
+}
 
 
 }

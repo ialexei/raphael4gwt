@@ -12,4 +12,5 @@ public interface Command {
 boolean doIt();
 boolean undoIt();
 Document getDrawing();
+String getCommandName();
 }

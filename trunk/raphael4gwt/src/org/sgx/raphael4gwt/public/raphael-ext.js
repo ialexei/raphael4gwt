@@ -165,6 +165,114 @@
 
 
 
+
+/**WRITE functions - export the paper and shapes to object and json string 
+ * as described in Paper.add() 
+ * explanation: raphaeljs has paper.add() for importing 
+ * shapes in json format, but do not have any toJSON for exporting in the same way. 
+ * @author: sgurin
+ */
+(function(){
+	
+	var shapeToObject = function(shape,arr) {
+		if(shape.type=="set") {
+			var aSet = shape;
+			shape.forEach(function(shape) {
+				shapeToObject(shape, arr)
+			});
+			return;
+		}
+		else {
+			var obj=shape.attr();
+			obj["type"]=shape.type;
+			arr.push(obj);
+		}
+	};
+	/**
+	 * @return an array on objects as described in Paper.add()
+	 */
+	Raphael.el.writeToObject = function() {
+		var a = [];
+		shapeToObject(this, a);
+		return a;
+	};
+	/**
+	 * @return an json string with structure described in Paper.add()
+	 */
+	Raphael.el.writeToString = function() {
+		var a = this.writeToObject();
+		var sb = [];
+		for(var i = 0; i<a.length; i++) {
+			var shapeDesc = a[i], sb2=[];
+			sb2.push('"type":'+"\""+shapeDesc.type+"\"");
+			for(var attrName in shapeDesc) {
+				val = (shapeDesc[attrName]+"").replace(/\"/g, "\\\"");
+				sb2.push('"'+attrName+'":"'+val+"\"");
+			}
+			var s = "{"+sb2.join(",")+"}";
+			if(i<a.length-1) 
+				s+=","
+			sb.push(s);
+		}
+		return sb.join(",")
+	};
+	/**
+	 * @return a json object just like expected by paper.add
+	 */	 
+	Raphael.fn.writeToObject = function() {
+		var a = [];
+		this.forEach(function(shape) {
+			a = a.concat(shape.writeToObject());			
+		});
+		return a;
+	};
+	/**
+	 * @return a json object just like expected by paper.add
+	 */	 
+	Raphael.fn.writeToString = function() {
+		var a = [];
+		this.forEach(function(shape) {
+			a = a.concat(shape.writeToString());			
+		});
+		return "["+a.join(",")+"]";
+	};
+})();	 
+
+
+
+
+
+
+///* path editor */
+//(function(){
+//
+///**
+//* install a new free path editor- only applicable for paths 
+//@return an object {allShapes: set w all handlers.}
+//*/	 
+//Raphael.el.pathEditor = function() {
+//	if(this.type!="path"||!this.attr("path")||this.attr("path")=="")
+//		return null;
+//	
+//	this.pe={};
+//	this.pe.createHandler(cmd, cmdIdx) {
+//		
+//	}
+//	var pe = 
+//		this.pe.allShapes = //ref from shape to the FPE object
+//			this.paper.set();
+//	
+//	var str = this.attr("path"), cmds = Raphael.parsePathString(str);
+//	for ( var i = 0; i < cmd.length; i++) {
+//		
+//	}
+//	return pe;
+//};
+//
+//})();	 
+
+
+
 /* attribute change notifications. use like this:
  * circle1.addAttrChangeListener("transform", function(attrName, oldValue, newValue){
  * ...

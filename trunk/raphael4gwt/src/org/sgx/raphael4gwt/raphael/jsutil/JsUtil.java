@@ -51,6 +51,33 @@ public class JsUtil {
 		return arr;
 	}-*/;
 
+	public static boolean arrayContains(JsArray<JavaScriptObject> a, 
+			JavaScriptObject val) {
+		for (int i = 0; i < a.length(); i++) {
+			JavaScriptObject o = a.get(i);
+			if(o!=null&&o.equals(val))
+				return true;
+		}
+		return false;
+	}
+	public static boolean arrayContains(JsArrayString a, 
+			String val) {
+		for (int i = 0; i < a.length(); i++) {
+			String o = a.get(i);
+			if(o!=null&&o.equals(val))
+				return true;
+		}
+		return false;
+	}
+	public static boolean arrayContains(JsArrayNumber a, 
+			String val) {
+		for (int i = 0; i < a.length(); i++) {
+			Number o = a.get(i);
+			if(o!=null&&o.equals(val))
+				return true;
+		}
+		return false;
+	}
 	public static JsArrayNumber toJsArrayNumber(int[] a) {
 		JsArrayNumber jsa = (JsArrayNumber) JsArrayNumber.createArray();
 		for (int i = 0; i < a.length; i++) {

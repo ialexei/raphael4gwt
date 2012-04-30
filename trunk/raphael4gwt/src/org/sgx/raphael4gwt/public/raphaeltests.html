@@ -1,60 +1,38 @@
 <!doctype html>
 <html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>raphael4gwt test</title>    
-    <script type="text/javascript" language="javascript" src="raphael.js"></script>
-  </head>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>raphael4gwt test</title>
+<script type="text/javascript" language="javascript" src="raphael.js"></script>
+<script type="text/javascript" language="javascript" src="raphael-ext.js"></script>
+</head>
 
-  <body>
-	 <script type="text/javascript" language="javascript" >
-(function(){
+<div id="paper1"></div>
+<body>
+	<script type="text/javascript" language="javascript">
+
+var p = Raphael("paper1", 2000,2000);
+p.rect(20,30,40,50);
+p.circle(20,30,40);
+p.text(200,200,"laksjdlksjd\"\"'''lksjdlkasjd")
+alert(p.writeToString());
+
+// var s = "alksjdlaksjd\"\"\"asdasd";
+// alert()s.replace(/\");
+
+// function doDrawing(paper) {
+// 	paper.rect(60,60,400,400).attr({fill: "red"});
+// }
+// Raphael("paper1", 2000,2000, function(){
+// 	 var style = document.getElementById("paper1").style;
+// 	 style.width="300px";
+// 	 style.height="300px";
+// 	 style.overflow="scroll";
+// 	 doDrawing(this);
 	
-/**
- * install a new free path editor- only applicable for paths 
- */	 
-Raphael.el.freePathEditor = function() {
-	if(this.type!="path")
-		return null;
+//  }); //a large paper
 	
-	var fpe = 
-		this._fpe = //ref from shape to the FPE object
-		this.paper.set();
-	
-};
-
-})();	 
-
-var paperX = 100, paperY = 100;
-var paper = Raphael(paperX, paperY, 1500, 1500); 
-var circle = paper.circle(100,100,80).attr({fill: "red"});
-circle.drag(
-	function(dx, dy, x, y, e){ //onmove
-		circle.attr({cx: x-paperY, cy: y-paperY});
-	}, 
-	function(x, y, e){ //drag start
-		
-	}, 	
-	function(e){ //drop
-		
-	}
-);
-
-// var pathString = "M20,20,L10.0,20.0,L40.0,40.0,L40.0,50.0,L60.0,20.0Z";
-// paper.path(pathString);
-// var pathObj = Raphael.parsePathString(pathString)
-// debugger;
-
-// 	 paper.rect(10,10,80,90).attr({fill: "red"});
-// 	 var rect = paper.rect(100,100,80, 90).attr({fill: "red"}).blur();
-// 	 var rect = paper.rect(200,200,80,90).attr({fill: "red"}).blur(3);
-// var data = [[55, 20]], 
-// labels = [["asd", "sdf"]]; 
-// paper.barchart(10, 10, 300, 220, data).label(labels);
-	 
-	 
- 
 	 </script>
 
-  </body>
+</body>
 </html>

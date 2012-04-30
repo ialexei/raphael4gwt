@@ -87,4 +87,11 @@ public interface TestResources extends ClientBundle {
 	  
 	  @Source("LivePathTest.java")
 	  public TextResource LivePathTest();
+	  
+	  @Source("PaperLoadAndSave.java")
+	  public TextResource PaperLoadAndSave();
+	  
+	  @Source("PaperLoadAndSaveUnit1.java")
+	  public TextResource PaperLoadAndSaveUnit1();
+	  
 }

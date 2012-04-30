@@ -1,17 +1,32 @@
 package org.sgx.raphael4gwt.raphael.util;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-
+import java.util.Set;
+/**
+ * junit like simplistic framework
+ * @author sg
+ *
+ */
 public class UnitUtil {
 	
 List<String> failures;
 List<String> passes;
+private String testName;
+static Set<UnitUtil> alltests = new HashSet<UnitUtil>();
 
-public UnitUtil() {
+public UnitUtil(String testName) {
+	this.testName=testName;
 	failures=new LinkedList<String>();
 	passes=new LinkedList<String>();
+	alltests.add(this);
 }
+
+public static Set<UnitUtil> getAlltests() {
+	return alltests;
+}
+
 public void assertEquals(Object espected, Object actual, String msg) {
 	
 	String passMsg = msg, 
@@ -59,6 +74,14 @@ public String printResults() {
 		}
 	}
 	return s;
+}
+
+public String getTestName() {
+	return testName;
+}
+
+public void setTestName(String testName) {
+	this.testName = testName;
 }
 
 }

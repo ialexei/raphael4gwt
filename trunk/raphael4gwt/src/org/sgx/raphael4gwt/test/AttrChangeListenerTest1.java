@@ -1,9 +1,9 @@
 package org.sgx.raphael4gwt.test;
 
-import org.sgx.raphael4gwt.raphael.AttrChangeListener;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
+import org.sgx.raphael4gwt.raphael.event.AttrChangeListener;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 

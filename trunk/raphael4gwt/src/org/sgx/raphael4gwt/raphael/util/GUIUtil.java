@@ -8,6 +8,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextArea;
@@ -38,6 +39,42 @@ public class GUIUtil {
 //			t.printStackTrace();
 	}
 
+	public static interface TextEntryDialogListener {
+		void notifyAccept(String text, DialogBox db);
+		void notifyCancel(String text, DialogBox db);		 
+	}
+	public static abstract class TextEntryDialogAcceptListener
+		implements TextEntryDialogListener {
+		
+		public abstract void notifyAccept(String text, DialogBox db);
+		public void notifyCancel(String text, DialogBox db){};		
+	}
+	public static void openTextEntryDialog(String title, String text, 
+			final TextEntryDialogListener l) {
+		VerticalPanel p = new VerticalPanel();
+		final DialogBox db = new DialogBox();
+		db.add(p);
+		p.add(new Label("Enter the text. Use \\n for new lines"));
+		final TextArea ta = new TextArea();
+		ta.setSize("100%", "200px");
+		p.add(ta);
+		FlowPanel fp = new FlowPanel();
+		p.add(fp);
+		fp.add(new Button("Accept", new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				l.notifyAccept(ta.getText(), db);
+			}
+		}));
+		fp.add(new Button("Cancel", new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				db.hide();
+				l.notifyCancel(ta.getText(), db);
+			}
+		}));
+		showDialogBox(db);
+	}
 	/**
 	 * common method for dispatching rpc / services exceptions
 	 * @param msg 
@@ -97,7 +134,7 @@ public class GUIUtil {
 		ta.setSize("600px", (getMaxHeight()-200)+"px");
 		showDialogBox(d);		
 	}
-	private static void showDialogBox(DialogBox d) {
+	public static void showDialogBox(DialogBox d) {
 		d.setAnimationEnabled(true);
 		d.setGlassEnabled(true);
 		d.center();

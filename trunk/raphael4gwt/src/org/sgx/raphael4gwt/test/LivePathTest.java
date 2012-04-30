@@ -23,7 +23,7 @@ private int ms;
 public void test() {
 	maxx=400; maxy=400; minx=70; miny=70; pointCount=15;
 	Attrs attrs = Attrs.create().fill("#33ff11").
-			stroke("#125566").strokeWidth(5).opacity(0.5);
+			stroke("#125566").strokeWidth(5).opacity(0.8);
 	
 	//and now a random path
 	getPaper().text(400, 400, "a very strange thing");

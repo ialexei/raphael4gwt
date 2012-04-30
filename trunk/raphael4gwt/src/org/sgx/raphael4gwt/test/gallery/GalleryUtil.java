@@ -29,6 +29,8 @@ import org.sgx.raphael4gwt.test.ImageTransforms1;
 import org.sgx.raphael4gwt.test.LivePathTest;
 import org.sgx.raphael4gwt.test.MouseCoordsOnHoverTest;
 import org.sgx.raphael4gwt.test.MouseRelativeCoordsTest;
+import org.sgx.raphael4gwt.test.PaperLoadAndSave;
+import org.sgx.raphael4gwt.test.PaperLoadAndSaveUnit1;
 import org.sgx.raphael4gwt.test.PathCmdsTest1;
 import org.sgx.raphael4gwt.test.PathEditorTest1;
 import org.sgx.raphael4gwt.test.PrintLettersOnPath;
@@ -253,6 +255,14 @@ public class GalleryUtil {
 		
 		t = new LivePathTest(paper, w, h);
 		tests.put(t.getName(), t);
+		
+		t = new PaperLoadAndSave(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		t = new PaperLoadAndSaveUnit1(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		
 	}
 
 	Map<String, List<Test>> getTestsByTag() {

@@ -7,7 +7,7 @@
 
 
 	<inherits name="org.sgx.raphael4gwt.Raphael4Gwt" />
-	<inherits name="com.google.gwt.logging.Logging" />
+<!-- 	<inherits name="com.google.gwt.logging.Logging" /> -->
 	<inherits name='org.sgx.gwteditors.Gwteditors' />
 
 

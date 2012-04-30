@@ -18,11 +18,11 @@ public class Toolbar1 implements Toolbar {
 		TOOL_ELLIPSE="ellipse", 
 		TOOL_CIRCLE="circle", 
 		TOOL_RECT="rect", TOOL_LINE="line", TOOL_CURVE="curve",
-		TOOL_SELECTION="selection", TOOL_TEXT="text";
+		TOOL_SELECTION="selection", TOOL_TEXT="text", TOOL_FT="free transform";
 
 	private static final String[] TOOLS = new String[]{
 		TOOL_ELLIPSE, TOOL_CIRCLE, TOOL_RECT, TOOL_LINE, 
-		TOOL_CURVE, TOOL_TEXT, TOOL_SELECTION
+		TOOL_CURVE, TOOL_TEXT, TOOL_SELECTION, TOOL_FT
 	};
 	
 	Map<Document, Tool> currentTool;
@@ -63,6 +63,9 @@ public class Toolbar1 implements Toolbar {
 			return new CurveTool(d);
 		if(name.equals(TOOL_TEXT))
 			return new TextTool(d);
+		if(name.equals(TOOL_FT))
+			return new FTTool(d);
+		
 		return null;
 	}
 

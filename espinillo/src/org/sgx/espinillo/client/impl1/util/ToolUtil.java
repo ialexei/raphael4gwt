@@ -39,15 +39,29 @@ public class ToolUtil {
 	private static final int MASK_MOVE_THROTTLE = 100;
 	
 	private Rect _pMask = null;
-	
+
+	/**
+	 * this is the method for creating the mask
+	 * @param d
+	 * @return
+	 */
 	public Rect showPaperMask(Document d) {
-		if(_pMask==null) {
+		if(_pMask==null||_pMask.isRemoved()) {
 			_pMask=createPaperMask(d);
 			_pMask.setData(ShapeUtil.CLASS_NAME, ShapeUtil.CLASS_MASK);
 		}
 		_pMask.toFront();
 		return _pMask;
 	}
+
+	public Shape getPaperMask(Document d) {
+		if(_pMask==null) {
+			showPaperMask(d);//creates
+			hidePaperMask(d);
+		}
+		return _pMask;
+	}
+	
 	private Rect createPaperMask(final Document d) {
 		Rect r = (Rect) d.getPaper().rect(0,0,d.getPaper().getWidth(),d.getPaper().getHeight()).
 			attr(Attrs.create().opacity(0.2).fill("#ffffff"));
@@ -99,5 +113,6 @@ public class ToolUtil {
 		});
 		return set;
 	}
+
 	
 }

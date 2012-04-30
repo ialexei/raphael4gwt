@@ -11,7 +11,7 @@ public class ChangeShapeAttrsCmd extends AbstractCommand {
 	Attrs oldAttrs, newAttrs;
 	
 	public ChangeShapeAttrsCmd(Document drawing, Shape shape, Attrs newAttrs) {
-		super(drawing);
+		super("change attrs", drawing);
 		this.shape=shape;
 		this.newAttrs=newAttrs;
 	}
@@ -24,8 +24,27 @@ public class ChangeShapeAttrsCmd extends AbstractCommand {
 
 	@Override
 	public boolean undoIt() {
-		// TODO Auto-generated method stub
-		return false;
+		shape.attr(oldAttrs);
+		return true;
+	}
+	public Shape getShape() {
+		return shape;
+	}
+	public void setShape(Shape shape) {
+		this.shape = shape;
+	}
+	public Attrs getOldAttrs() {
+		return oldAttrs;
+	}
+	public void setOldAttrs(Attrs oldAttrs) {
+		this.oldAttrs = oldAttrs;
+	}
+	public Attrs getNewAttrs() {
+		return newAttrs;
+	}
+	public void setNewAttrs(Attrs newAttrs) {
+		this.newAttrs = newAttrs;
 	}
 
+	
 }

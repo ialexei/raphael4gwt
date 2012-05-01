@@ -37,7 +37,7 @@ public class SelectionTool extends AbstractTool {
 	private MouseEventListener clickHandler;
 	
 	public SelectionTool(Document doc){
-		super(doc, Toolbar1.TOOL_SELECTION);
+		super(doc, Toolbar1.TOOL_SELECTION, Toolbar1.TOOL_SELECTION_LABEL);
 	}	
 	
 	public Attrs getInitFeedbackAttrs() {

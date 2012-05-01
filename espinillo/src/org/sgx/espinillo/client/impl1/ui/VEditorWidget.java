@@ -5,6 +5,7 @@ import org.sgx.espinillo.client.model.Document;
 import org.sgx.espinillo.client.model.SelectionListener;
 import org.sgx.espinillo.client.model.VEditor;
 import org.sgx.espinillo.client.model.tool.Toolbar;
+import org.sgx.espinillo.client.util.Util;
 import org.sgx.gwteditors.client.impl1.EditorFramework1;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.PaperWidget;
@@ -19,9 +20,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * 
  * @author sg
- *
  */
 public class VEditorWidget extends DockPanel {
 	
@@ -71,18 +70,22 @@ public class VEditorWidget extends DockPanel {
 		
 		FlowPanel toolbarPanel = new FlowPanel();
 		topPanel.add(toolbarPanel);
-		
-		for(final String tn : veditor.getToolbar().getAllToolNames()) {
-			Button b = new Button(tn, new ClickHandler() {			
+		final Toolbar toolbar = veditor.getToolbar();
+		for (int i = 0; i < toolbar.getAllToolNames().length; i++) {
+			final String name = toolbar.getAllToolNames()[i];
+			String label = toolbar.getAllToolLabels()[i];
+			label=label==null?name:label;
+			Button b = new Button(label, new ClickHandler() {			
 				@Override
 				public void onClick(ClickEvent event) {
 					Document doc = getVeditor().getCurrentDocument();
 					Toolbar toolbar = getVeditor().getToolbar();
-					toolbar.setCurrentTool(doc, toolbar.newTool(tn, doc));
+					toolbar.setCurrentTool(doc, toolbar.newTool(name, doc));
 				}
 			});
+			b.getElement().addClassName(Util.toCSSClass(name));
 			toolbarPanel.add(b);
-		}		
+		}
 		
 		
 		
@@ -128,13 +131,11 @@ public class VEditorWidget extends DockPanel {
 		});
 		paperWidget.setWidth("100%");
 		add(paperWidget, DockPanel.CENTER);
-		
-		
 	}
-public Label getStatus() {
-	return status;
-}
-public VEditor getVeditor() {
-	return veditor;
-}
+	public Label getStatus() {
+		return status;
+	}
+	public VEditor getVeditor() {
+		return veditor;
+	}
 }

@@ -34,8 +34,8 @@ public abstract class AbstractPathTool1 extends AbstractTool {
 	private MouseEventListener moveHandler;
 	protected String shapeOriginalPath;
 	
-	public AbstractPathTool1(Document doc){
-		super(doc, Toolbar1.TOOL_LINE);
+	public AbstractPathTool1(Document doc, String name, String label){
+		super(doc, name, label);
 		firstClick=true;
 	}	
 	

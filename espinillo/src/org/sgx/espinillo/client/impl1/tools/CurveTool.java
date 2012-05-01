@@ -14,7 +14,7 @@ import com.google.gwt.user.client.Window;
 public class CurveTool extends AbstractPathTool1 {
 
 	public CurveTool(Document doc) {
-		super(doc);
+		super(doc, Toolbar1.TOOL_CURVE, Toolbar1.TOOL_CURVE_LABEL);
 	}
 
 	@Override

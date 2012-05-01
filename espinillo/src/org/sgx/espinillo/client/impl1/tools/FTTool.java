@@ -54,7 +54,7 @@ public class FTTool extends AbstractTool {
 	protected Shape fs;
 	
 	public FTTool(Document doc){
-		super(doc, Toolbar1.TOOL_TEXT);
+		super(doc, Toolbar1.TOOL_FT, Toolbar1.TOOL_FT_LABEL);
 	}	
 	protected Set filterOnlyShapes(Set els) {
 		if(mask!=null)

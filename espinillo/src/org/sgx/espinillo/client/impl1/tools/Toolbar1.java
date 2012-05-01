@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.sgx.espinillo.client.impl1.ui.i18in.Messages;
 import org.sgx.espinillo.client.model.Document;
 import org.sgx.espinillo.client.model.tool.Tool;
 import org.sgx.espinillo.client.model.tool.Toolbar;
@@ -20,9 +21,24 @@ public class Toolbar1 implements Toolbar {
 		TOOL_RECT="rect", TOOL_LINE="line", TOOL_CURVE="curve",
 		TOOL_SELECTION="selection", TOOL_TEXT="text", TOOL_FT="free transform";
 
-	private static final String[] TOOLS = new String[]{
+	public static final String[] TOOLS = new String[]{
 		TOOL_ELLIPSE, TOOL_CIRCLE, TOOL_RECT, TOOL_LINE, 
 		TOOL_CURVE, TOOL_TEXT, TOOL_SELECTION, TOOL_FT
+	};
+	
+	public static final String 
+		TOOL_ELLIPSE_LABEL = Messages.INSTANCE.ellipse(),
+		TOOL_CIRCLE_LABEL = Messages.INSTANCE.circle(),
+		TOOL_RECT_LABEL = Messages.INSTANCE.rect(),
+		TOOL_LINE_LABEL = Messages.INSTANCE.line(),
+		TOOL_CURVE_LABEL = Messages.INSTANCE.curve(),
+		TOOL_TEXT_LABEL = Messages.INSTANCE.text(),						
+		TOOL_SELECTION_LABEL = Messages.INSTANCE.selection(),
+		TOOL_FT_LABEL = Messages.INSTANCE.freeTransform();
+	
+	public static final String[] TOOL_LABELS = new String[]{
+		TOOL_ELLIPSE_LABEL, TOOL_CIRCLE_LABEL, TOOL_RECT_LABEL, TOOL_LINE_LABEL, 
+		TOOL_CURVE_LABEL, TOOL_TEXT_LABEL, TOOL_SELECTION_LABEL, TOOL_FT_LABEL
 	};
 	
 	Map<Document, Tool> currentTool;
@@ -34,6 +50,9 @@ public class Toolbar1 implements Toolbar {
 	@Override
 	public String[] getAllToolNames() {
 		return TOOLS;
+	}
+	public String[] getAllToolLabels() {
+		return TOOL_LABELS;
 	}
 
 	//current tool for each document knower: 

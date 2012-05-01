@@ -7,12 +7,14 @@ import org.sgx.espinillo.client.impl1.util.ToolUtil;
 import org.sgx.espinillo.client.model.Document;
 import org.sgx.espinillo.client.model.SelectionListener;
 import org.sgx.espinillo.client.model.VEditor;
+import org.sgx.espinillo.client.util.Util;
 import org.sgx.gwteditors.client.util.AcceptCancelDialogListener;
 import org.sgx.gwteditors.client.util.GUIUtil;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Set;
 
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
@@ -67,8 +69,6 @@ public class VEditorMenuBar extends MenuBar{
 				});
 				GUIUtil.showDialogBox(db);
 			}
-
-			
 		});
 		menuBar_1.addItem(mntmOpen);
 		
@@ -92,6 +92,42 @@ public class VEditorMenuBar extends MenuBar{
 			}
 		});
 		menuBar_1.addItem(mntmSave);
+		menuBar_1.addSeparator();
+		
+		
+		MenuItem mntmLangs = new MenuItem(Messages.INSTANCE.language(), false, new Command() {
+			public void execute() {
+				
+			}
+		});		
+		MenuBar langsMenuBar = new MenuBar(true);
+		MenuItem langes = new MenuItem(Messages.INSTANCE.english(), false, new Command() {
+			public void execute() {
+				String url = Util.getCurrentAddressUrl();
+				if(!url.contains("en.html")&&!url.contains("index.html")) {
+					if(Window.confirm(Messages.INSTANCE.reloadEditorConfirmation())) {
+						Util.setCurrentAddressUrl("/en.html");
+					}
+				}
+			}
+		});
+		langsMenuBar.addItem(langes);
+		MenuItem langen = new MenuItem(Messages.INSTANCE.spanish(), false, new Command() {
+			public void execute() {
+				String url = Util.getCurrentAddressUrl();
+				if(!url.contains("es.html")) {
+					if(Window.confirm(Messages.INSTANCE.reloadEditorConfirmation())) {
+						Util.setCurrentAddressUrl("/es.html");
+					}
+				}
+			}
+		});
+		langsMenuBar.addItem(langen);
+		
+		mntmLangs.setSubMenu(langsMenuBar);
+		menuBar_1.addItem(mntmLangs);
+		
+//		menuBar_1.addItem(langsMenuItem);
 		addItem(mntmFile);
 		
 		
@@ -173,8 +209,6 @@ public class VEditorMenuBar extends MenuBar{
 				DialogBox db = GUIUtil.acceptDialog(Messages.INSTANCE.about(), 
 						new HTML(Messages.INSTANCE.html_aboutDialogContent()));
 				GUIUtil.showDialogBox(db);
-//				HTML h = new HTML(HTMLResources.INSTANCE.aboutDialog().getText());
-//				db = new DialogBox();
 			}
 		});
 		menuBar_3.addItem(mntmAbout);

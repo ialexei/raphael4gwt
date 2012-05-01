@@ -34,7 +34,7 @@ public class CircleTool extends AbstractTool {
 	private DDListener ddListener;
 	
 	public CircleTool(Document d){
-		super(d, Toolbar1.TOOL_CIRCLE);
+		super(d, Toolbar1.TOOL_CIRCLE, Toolbar1.TOOL_CIRCLE_LABEL);
 	}	
 	
 	public Attrs getInitFeedbackAttrs() {

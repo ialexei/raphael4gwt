@@ -33,7 +33,7 @@ public class TextTool extends AbstractTool {
 	private MouseEventListener clickHandler;
 	
 	public TextTool(Document doc){
-		super(doc, Toolbar1.TOOL_TEXT);
+		super(doc, Toolbar1.TOOL_TEXT, Toolbar1.TOOL_TEXT_LABEL);
 	}	
 	
 	@Override

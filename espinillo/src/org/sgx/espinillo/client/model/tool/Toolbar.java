@@ -20,6 +20,7 @@ public interface Toolbar {
 	
 	Tool newTool(String name, Document d);
 	String[] getAllToolNames();
+	String[] getAllToolLabels();
 	
 //	void changeTool(String toolName);
 	public Tool getCurrentTool(Document d);

@@ -21,4 +21,5 @@ void removeToolListener(ToolListener l);
 Document getDocument();
 void setDocument(Document document);
 String getName();
+String getLabel();
 }

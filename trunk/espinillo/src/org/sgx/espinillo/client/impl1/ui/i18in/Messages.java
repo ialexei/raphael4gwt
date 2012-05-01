@@ -45,4 +45,28 @@ public interface Messages extends com.google.gwt.i18n.client.Messages {
 	String msg2(String docname);
 	
 	String html_aboutDialogContent();
+
+	String language();
+
+	String spanish();
+
+	String english();
+
+	String reloadEditorConfirmation();
+
+	String ellipse();
+
+	String circle();
+
+	String line();
+
+	String rect();
+
+	String curve();
+
+	String text();
+
+	String selection();
+
+	String freeTransform();
 }

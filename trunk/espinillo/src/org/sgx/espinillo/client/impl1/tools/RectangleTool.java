@@ -32,7 +32,7 @@ public class RectangleTool extends AbstractTool {
 	private DDListener ddListener;
 	
 	public RectangleTool(Document doc){
-		super(doc, Toolbar1.TOOL_RECT);
+		super(doc, Toolbar1.TOOL_RECT, Toolbar1.TOOL_RECT_LABEL);
 	}	
 	
 	public Attrs getInitFeedbackAttrs() {

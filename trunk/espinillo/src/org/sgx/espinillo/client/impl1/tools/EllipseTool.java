@@ -34,7 +34,7 @@ public class EllipseTool extends AbstractTool {
 	private DDListener ddListener;
 	
 	public EllipseTool(Document d){
-		super(d, Toolbar1.TOOL_ELLIPSE);
+		super(d, Toolbar1.TOOL_ELLIPSE, Toolbar1.TOOL_ELLIPSE_LABEL);
 	}	
 	
 	public Attrs getInitFeedbackAttrs() {

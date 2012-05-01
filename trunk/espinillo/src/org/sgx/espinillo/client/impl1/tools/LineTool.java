@@ -14,7 +14,7 @@ import com.google.gwt.user.client.Window;
 public class LineTool extends AbstractPathTool1 {
 
 	public LineTool(Document doc) {
-		super(doc);
+		super(doc, Toolbar1.TOOL_LINE, Toolbar1.TOOL_LINE_LABEL);
 	}
 
 	@Override

@@ -10,10 +10,11 @@ public abstract class AbstractTool implements Tool {
 
 	private Document document;
 	private List<ToolListener> listeners;
-	private String name;
-	public AbstractTool(Document document, String name) {
+	private String name, label;
+	public AbstractTool(Document document, String name, String label) {
 		this.document=document;
 		this.name=name;
+		this.label=label;
 		listeners=new LinkedList<ToolListener>();
 	}
 	public void addToolListener(ToolListener l) {
@@ -58,5 +59,9 @@ public abstract class AbstractTool implements Tool {
 	@Override
 	public void uninstall() {
 		
+	}
+	@Override
+	public String getLabel() {
+		return label;
 	}
 }

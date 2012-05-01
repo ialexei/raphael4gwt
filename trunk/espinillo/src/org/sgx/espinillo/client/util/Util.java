@@ -188,4 +188,17 @@ public static String quotePath(String path) {
 		return Min + (int)(Math.random() * ((Max - Min) + 1));
 
 	}
+
+	public final native static String getCurrentAddressUrl()/*-{
+		return $wnd.document.location.href;
+	}-*/;
+	public final native static void setCurrentAddressUrl(String url)/*-{
+		$wnd.document.location.href=url;
+	}-*/;
+
+	public static String toCSSClass(String tn) {
+		return tn.replace(' ', '-');
+	}
+
 }
+

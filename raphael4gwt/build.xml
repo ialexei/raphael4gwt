@@ -62,8 +62,14 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 		</jar>
 	</target>
 
-	
-	
+	<!-- make a .jar using current dev-mode .class generated files in war/WEB-INF/classes. do not use these generated jars! -->
+	<target name="_fast_jar_" depends="">
+		<mkdir dir="dist"/>
+		<jar destfile="dist/rapahel4gwt-${rapahel4gwt.version}.jar">
+			<fileset dir="war/WEB-INF/classes" excludes="**/Test.class" />
+			<fileset dir="src" excludes="**/Test.java" />
+		</jar>
+	</target>
 	
 	
 	

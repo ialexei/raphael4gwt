@@ -12,10 +12,14 @@
 	<script type="text/javascript" language="javascript">
 
 var p = Raphael("paper1", 2000,2000);
-p.rect(20,30,40,50);
-p.circle(20,30,40);
-p.text(200,200,"laksjdlksjd\"\"'''lksjdlkasjd")
-alert(p.writeToString());
+var rect = p.rect(20,30,40,50);
+alert(rect.isRemoved())
+p.clear();
+alert(rect.isRemoved());
+
+// p.circle(20,30,40);
+// p.text(200,200,"laksjdlksjd\"\"'''lksjdlkasjd")
+// alert(p.writeToString());
 
 // var s = "alksjdlaksjd\"\"\"asdasd";
 // alert()s.replace(/\");

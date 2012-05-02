@@ -1,8 +1,6 @@
 package org.sgx.raphael4gwt.raphael;
 
-//import com.google.gwt.core.client.JavaScriptObject;
 import org.sgx.raphael4gwt.raphael.base.Animation;
-import org.sgx.raphael4gwt.raphael.base.Arrow;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Color;
 import org.sgx.raphael4gwt.raphael.base.Matrix;
@@ -11,12 +9,10 @@ import org.sgx.raphael4gwt.raphael.base.Point;
 import org.sgx.raphael4gwt.raphael.base.RGB;
 import org.sgx.raphael4gwt.raphael.base.Rectangle;
 import org.sgx.raphael4gwt.raphael.event.Callback;
-import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayMixed;
-import com.google.gwt.core.client.JsArrayNumber;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
@@ -200,12 +196,12 @@ return $wnd.Raphael.getColor();
 }-*/;
 /**
  * Parses colour string as RGB object. Accepted string formats:
-* Colour name (“red”, “green”, “cornflowerblue”, etc)<br/>
-* #••• — shortened HTML colour: (“#000”, “#fc0”, etc)<br/>
-* #•••••• — full length HTML colour: (“#000000”, “#bd2300”)<br/>
-* rgb(•••, •••, •••) — red, green and blue channels’ values: (“rgb(200, 100, 0)”)<br/>
-* rgb(•••%, •••%, •••%) — same as above, but in %: (“rgb(100%, 175%, 0%)”)<br/>
-* hsb(•••, •••, •••) — hue, saturation and brightness values: (“hsb(0.5, 0.25, 1)”)<br/>
+* Colour name ("red", "green", "cornflowerblue", etc)<br/>
+* #••• — shortened HTML colour: ("#000", "#fc0", etc)<br/>
+* #•••••• — full length HTML colour: ("#000000", "#bd2300")<br/>
+* rgb(•••, •••, •••) — red, green and blue channels’ values: ("rgb(200, 100, 0)")<br/>
+* rgb(•••%, •••%, •••%) — same as above, but in %: ("rgb(100%, 175%, 0%)")<br/>
+* hsb(•••, •••, •••) — hue, saturation and brightness values: ("hsb(0.5, 0.25, 1)")<br/>
 * hsb(•••%, •••%, •••%) — same as above, but in %<br/>
 * hsl(•••, •••, •••) — same as hsb<br/>
 * hsl(•••%, •••%, •••%) — same as hsb<br/>

@@ -14,7 +14,6 @@ import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
-import com.google.gwt.core.client.JsArrayString;
 import com.google.gwt.dom.client.Element;
 /**
  * this correspond to Element object in raphaeljs ref.
@@ -112,12 +111,12 @@ public class Shape extends JavaScriptObject {
 
 Each letter is a command. There are four commands: t is for translate, r is for rotate, s is for scale and m is for matrix.<br/>
 
-There are also alternative “absolute” translation, rotation and scale: T, R and S. They will not take previous transformation into account. 
+There are also alternative "absolute" translation, rotation and scale: T, R and S. They will not take previous transformation into account. 
 For example, ...T100,0 will always move element 100 px horisontally, while ...t100,0 could move it vertically if there is r90 before. 
 Just compare results of r90t100,0 and r90T100,0.<br/>
 
-So, the example line above could be read like “translate by 100, 100; rotate 30° around 100, 100; scale twice around 100, 100; rotate 45° 
-around centre; scale 1.5 times relative to centre”. As you can see rotate and scale commands have origin coordinates as optional parameters, 
+So, the example line above could be read like "translate by 100, 100; rotate 30° around 100, 100; scale twice around 100, 100; rotate 45° 
+around centre; scale 1.5 times relative to centre". As you can see rotate and scale commands have origin coordinates as optional parameters, 
 the default is the centre point of the element. Matrix accepts six parameters.<br/>
 
 Usage<br/>
@@ -452,7 +451,7 @@ console.log(el.transform());
 		return this.node;
 	}-*/;	
 	/**
-	 * Internal reference to “paper” where object drawn. Mainly for use in plugins and element extensions. 
+	 * Internal reference to "paper" where object drawn. Mainly for use in plugins and element extensions. 
 	 * @return
 	 */
 	public final native Paper paper()/*-{
@@ -836,7 +835,23 @@ Note: Glow is not connected to the element. If you change element attributes it 
 	 * extension 
 	 * @return a json object just like espected by paper.add. the returned Attrs object has a type property loaded
 	 */
-	public final native JsArray<Attrs> writeToString()/*-{
+	public final native String writeToString()/*-{
 		return this.writeToString();
 	}-*/;
+	/**
+	 * @return a new 1-length set containing this.
+	 */
+	public final native Set asSet()/*-{
+		var set = this.paper.set();
+		set.push(this);
+		return set;
+	}-*/;
+	/**
+	 * for simple shapes return true iff this shape was removed from its paper (i.e if paper.clear() was called or shape.remove() it will return true;). This has no meaning for Sets
+	 * @return
+	 */
+	public final native boolean isRemoved()/*-{
+		return this.isRemoved();
+	}-*/;
+
 }

@@ -163,8 +163,14 @@
 
 
 
-
-
+(function(){
+	Raphael.el.isRemoved = function() {
+		return this.node.parentNode==null;
+	};	
+	Raphael.st.isRemoved = function() {
+		return true;
+	};	
+})();
 
 /**WRITE functions - export the paper and shapes to object and json string 
  * as described in Paper.add() 
@@ -215,6 +221,23 @@
 			sb.push(s);
 		}
 		return sb.join(",")
+	};
+	Raphael.st.writeToObject = function() {
+		var a = [];
+		this.forEach(function(shape) {
+			a = a.concat(shape.writeToObject());			
+		});
+		return a;
+	};
+	/**
+	 * @return a json object just like expected by paper.add
+	 */	 
+	Raphael.st.writeToString = function() {
+		var a = [];
+		this.forEach(function(shape) {
+			a = a.concat(shape.writeToString());			
+		});
+		return "["+a.join(",")+"]";
 	};
 	/**
 	 * @return a json object just like expected by paper.add

@@ -1,11 +1,10 @@
 package org.sgx.raphael4gwt.raphael.base;
 
-import com.google.gwt.core.client.JavaScriptObject;
 
 /**java representation of raphael gradients. Constants and utilities are in the Raphael class.
  * 
 <br/>
-radial gradient: “r[(‹fx›, ‹fy›)]‹colour›[-‹colour›[:‹offset›]]*-‹colour›”, example: “r#fff-#000” – gradient from white to black or “r(0.25, 0.75)#fff-#000” – gradient from white to black with focus point at 0.25, 0.75. Focus point coordinates are in 0..1 range. Radial gradients can only be applied to circles and ellipses. 
+radial gradient: "r[(‹fx›, ‹fy›)]‹colour›[-‹colour›[:‹offset›]]*-‹colour›", example: "r#fff-#000" – gradient from white to black or "r(0.25, 0.75)#fff-#000" – gradient from white to black with focus point at 0.25, 0.75. Focus point coordinates are in 0..1 range. Radial gradients can only be applied to circles and ellipses. 
 
  * @author sg
  *
@@ -31,7 +30,7 @@ public static Gradient radial(double rx, double ry, String initColor, String fin
 	return radial(rx,ry, initColor, null, finalColor);
 }
 /**
- * Linear gradient format: “‹angle›-‹colour›[-‹colour›[:‹offset›]]*-‹colour›”, example: “90-#fff-#000” – 90° gradient from white to black or “0-#fff-#f00:20-#000” – 0° gradient from white via red (at 20%) to black.
+ * Linear gradient format: "‹angle›-‹colour›[-‹colour›[:‹offset›]]*-‹colour›", example: "90-#fff-#000" – 90° gradient from white to black or "0-#fff-#f00:20-#000" – 0° gradient from white via red (at 20%) to black.
  * @param angle - in degrees
  * @param initColor
  * @param finalColor
@@ -41,7 +40,7 @@ public static Gradient linear(double angle, String initColor, String finalColor)
 	return linear(angle, initColor, null, finalColor);
 }
 /**
- * Linear gradient format: “‹angle›-‹colour›[-‹colour›[:‹offset›]]*-‹colour›”, example: “90-#fff-#000” – 90° gradient from white to black or “0-#fff-#f00:20-#000” – 0° gradient from white via red (at 20%) to black.
+ * Linear gradient format: "‹angle›-‹colour›[-‹colour›[:‹offset›]]*-‹colour›", example: "90-#fff-#000" – 90° gradient from white to black or "0-#fff-#f00:20-#000" – 0° gradient from white via red (at 20%) to black.
  * @param angle
  * @param initColor
  * @param stops

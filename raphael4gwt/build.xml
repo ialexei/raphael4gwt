@@ -41,6 +41,12 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 		</antcall>
 	</target>	
 	
+	<target name="_raphael4gwtgallery_gwtc">
+		<antcall target="gwtc">
+			<param name="moduleName" value="org.sgx.raphael4gwt.Raphael4GwtTest"/>
+		</antcall>
+	</target>
+	
 	<target name="clean" depends="">
 		<delete dir="dist"/>
 		<delete dir="javadoc"/>
@@ -98,7 +104,11 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 		<mkdir dir="classes"/>
 		<javac srcdir="src"
 	         destdir="classes"
-	         classpathref="javac.class.path"/>
+	         classpathref="javac.class.path">
+			
+			<compilerarg line="-encoding utf-8"/>
+			
+		</javac>
 	</target>
 	
 	

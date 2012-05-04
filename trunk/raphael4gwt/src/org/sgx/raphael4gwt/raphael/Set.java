@@ -123,11 +123,7 @@ public native final Set splice(int index, int count, Set s2)/*-{
  * @return the types of the shapes this set contains
  */
 public native final String print()/*-{
-	var s = "Set(";
-	for(var i = 0; i<this.length; i++) {
-		s+=(this[i].type?this[i].type:"undef")+", ";
-	}
-	return s+")";
+	return this.print();
 }-*/;
 
 public native final Set intersect(Set other)/*-{

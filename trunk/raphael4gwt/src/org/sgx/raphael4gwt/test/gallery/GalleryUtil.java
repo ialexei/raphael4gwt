@@ -1,7 +1,6 @@
 package org.sgx.raphael4gwt.test.gallery;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +10,7 @@ import org.sgx.raphael4gwt.raphael.util.GUIUtil;
 import org.sgx.raphael4gwt.raphael.util.Util;
 import org.sgx.raphael4gwt.test.AllMouseEvents;
 import org.sgx.raphael4gwt.test.AllPathIcons;
+import org.sgx.raphael4gwt.test.AnimKeyframesTest1;
 import org.sgx.raphael4gwt.test.AnimTransformAndPathTest1;
 import org.sgx.raphael4gwt.test.AttrChangeListenerTest1;
 import org.sgx.raphael4gwt.test.BlurAndEmbossTest1;
@@ -42,11 +42,9 @@ import org.sgx.raphael4gwt.test.Test;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -56,12 +54,12 @@ public class GalleryUtil {
 		TAG_PATH="path", TAG_ANIM="animation", 
 		TAG_GRADIENT="gradient", TAG_EVENT="event",
 		TAG_EXTENSION = "extensions",TAG_FONT="fonts",TAG_FT="free transform",
-		TAG_SHAPE="shapes", TAG_SET="sets",
+		TAG_SHAPE="shapes", TAG_SET="sets",TAG_CUSTOMATTR="Custom attributes",
 		TAG_ALLCATEGORY="all tests";
 						
 	private static final String [] TAG_ALL = 
 		{TAG_PATH, TAG_ANIM, TAG_GRADIENT, TAG_EVENT, TAG_SHAPE, TAG_EXTENSION,
-		TAG_FONT,TAG_FT};
+		TAG_FONT,TAG_FT,TAG_CUSTOMATTR};
 
 	
 	
@@ -262,6 +260,11 @@ public class GalleryUtil {
 		t = new PaperLoadAndSaveUnit1(paper, w, h);
 		tests.put(t.getName(), t);
 		
+//		t = new CustomAttributesTest1(paper, w, h);
+//		tests.put(t.getName(), t);
+		
+		t = new AnimKeyframesTest1(paper, w, h);
+		tests.put(t.getName(), t);
 		
 	}
 

@@ -14,6 +14,13 @@ import com.google.gwt.core.client.JsArrayString;
  *
  */
 public class JsUtil {
+	/**
+	 * usefull for setting breakpoints in firebug from java.
+	 */
+	public static native void firebug()/*-{
+		$wnd.r4g._firebug();
+	}-*/;
+
 	public static native <T> T get(JavaScriptObject o, Object p)/*-{
 		return o[p];
 	}-*/;

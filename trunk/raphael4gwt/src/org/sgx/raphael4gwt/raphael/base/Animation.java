@@ -3,7 +3,10 @@ package org.sgx.raphael4gwt.raphael.base;
 import com.google.gwt.core.client.JavaScriptObject;
 
 public class Animation extends JavaScriptObject {
-	
+/**
+ * Raphaël Animation object. Can be created with Raphael.animation().
+ * @see http://raphaeljs.com/reference.html#Raphael.animation
+ */
 protected Animation(){}
 /**
  * Creates a copy of existing animation object with given delay. 

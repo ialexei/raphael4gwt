@@ -41,7 +41,7 @@ public final native PieChart inject(Shape s)/*-{
  * @return
  */
 
-public final native PieChart sectorEach(PieSectorCallback l)/*-{
+public final native PieChart each(PieSectorCallback l)/*-{
 	var f = $entry(function() {
 		l.@org.sgx.raphael4gwt.graphael.pie.PieSectorCallback::call(Lorg/sgx/raphael4gwt/graphael/pie/PieSector;)(this);
 	}); 

@@ -1,5 +1,7 @@
 package org.sgx.raphael4gwt.gtest.gallery.tests;
 
+import java.util.logging.Logger;
+
 import org.sgx.raphael4gwt.graphael.GPaper;
 import org.sgx.raphael4gwt.graphael.pie.PieSector;
 import org.sgx.raphael4gwt.graphael.pie.PieSectorCallback;
@@ -41,7 +43,8 @@ public class PieChartTest1 extends Test {
 					c.getLabelIcon().attr(Attrs.create().r(7.5));
 				}
 				if(c.getLabelText()!=null) { 
-					c.getLabelText().attr(Attrs.create().fontWeight(800));
+					c.getLabelText().attr(Attrs.create().fontWeight(800).
+						stroke(c.getSector().attr("fill")));
 				}
 			}			
 			@Override
@@ -58,7 +61,7 @@ public class PieChartTest1 extends Test {
 		
 		//a simple example of using sectorEach() for iterating through pie chart sectors
 		final StringBuffer sb = new StringBuffer("sectors labels: ");
-		piechart.sectorEach(new PieSectorCallback() {			
+		piechart.each(new PieSectorCallback() {			
 			@Override
 			public void call(PieSector ctx) {
 				if(ctx.getLabelText()!=null) {
@@ -83,4 +86,5 @@ public class PieChartTest1 extends Test {
 		return TestResources.INSTANCE.PieChartTest1().getText();
 	}
 
+	static Logger logger = Logger.getLogger("PieChartTest1");
 }

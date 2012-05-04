@@ -94,4 +94,10 @@ public interface TestResources extends ClientBundle {
 	  @Source("PaperLoadAndSaveUnit1.java")
 	  public TextResource PaperLoadAndSaveUnit1();
 	  
+	  @Source("CustomAttributesTest1.java")
+	  public TextResource CustomAttributesTest1();
+	  
+	  @Source("AnimKeyframesTest1.java")
+	  public TextResource AnimKeyframesTest1();
+	  	  
 }

@@ -58,6 +58,7 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 		<delete dir="war/org.sgx.raphael4gwt.GRaphael4GwtTest"/>
 		<delete dir="www-test"/>
 		<delete dir="classes"/>
+		<delete dir="java2html"/>		
 	</target>
 	
 	<target name="jar" depends="compile">
@@ -89,6 +90,22 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 	</target>
 	
 	
+	<target name="java2html">
+		<mkdir dir="java2html"/>
+		<java failonerror="true" fork="true"  classname="j2h">
+			<classpath>
+				<pathelement location="j2h.jar" />			
+			</classpath>
+			
+			<arg value="-d" />
+			<arg value="java2html" />
+			
+			<arg value="-js" />
+			<arg value="src" />
+										
+		</java>
+	</target>
+				
 	
 	
 	

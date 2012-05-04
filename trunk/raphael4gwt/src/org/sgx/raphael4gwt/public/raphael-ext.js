@@ -146,6 +146,10 @@
 	 * return the first non-set shape children of this set. will return 
 	 * null if no non-set children shape is found.
 	 */
+
+	Raphael.el.firstShape=function() {
+		return this;
+	};
 	Raphael.st.firstShape = function() {
 		var nonSetShape = null;
 		this.forEach(function(el, idx) {
@@ -153,11 +157,29 @@
 				nonSetShape=el;
 				return false; //breaks foreach
 			}
-			else				
-				return true;
+			else {			
+				nonSetShape = el.firstShape();
+				if(nonSetShape==null)
+					return true;
+				else
+					return false;
+			}
 		});
 		return nonSetShape;
 	};
+	
+	Raphael.el.print = function() {
+		return this.type?this.type:"undef";
+	}
+	Raphael.st.print = function() {
+		var s = "Set(";
+		this.forEach(function(shape){
+			s+=shape.print()+", ";			
+		});
+		return s+")";
+	}
+
+	
 })();
 
 

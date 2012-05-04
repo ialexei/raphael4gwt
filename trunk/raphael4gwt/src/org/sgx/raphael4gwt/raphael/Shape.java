@@ -1,5 +1,6 @@
 package org.sgx.raphael4gwt.raphael;
 
+import org.sgx.raphael4gwt.raphael.base.AnimKeyFrames;
 import org.sgx.raphael4gwt.raphael.base.AnimStatus;
 import org.sgx.raphael4gwt.raphael.base.Animation;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
@@ -485,15 +486,32 @@ console.log(el.transform());
 	
 	/* *** ATRIBUTES *** */
 	
-	public final native void setAttribute(String name, String value)/*-{
+//	public final native void setAttribute(String name, String value)/*-{
+//		this.attr(name, value);
+//	}-*/;
+//	public final native void setAttribute(String name, int value)/*-{
+//		this.attr(name, value);
+//	}-*/;
+//	public final native void setAttribute(String name, double value)/*-{
+//		this.attr(name, value);
+//	}-*/;
+
+//	public final native Shape setAttribute(String name, Object value)/*-{
+//		this.attr(name, value);
+//		return this;
+//	}-*/;
+	public final native Shape setAttribute(String name, int value)/*-{
 		this.attr(name, value);
+		return this;
 	}-*/;
-	public final native void setAttribute(String name, int value)/*-{
-		this.attr(name, value);
-	}-*/;
-	public final native void setAttribute(String name, double value)/*-{
-		this.attr(name, value);
-	}-*/;
+	public final native Shape setAttribute(String name, String value)/*-{
+	this.attr(name, value);
+	return this;
+}-*/;
+	public final native Shape setAttribute(String name, double value)/*-{
+	this.attr(name, value);
+	return this;
+}-*/;
 //	public final native void setAttribute(String name, float value)/*-{
 //		this.attr(name, value);
 //	}-*/;
@@ -550,6 +568,12 @@ console.log(el.transform());
 		return this;
 	}-*/;
 	
+
+	public final native String attr(String name)/*-{
+		return this.attr(name);
+	}-*/;
+
+	
 	public final native Attrs attr()/*-{
 		return this.attr();			
 	}-*/;
@@ -576,11 +600,35 @@ console.log(el.transform());
 	public final native Shape animate(Attrs attrs, int ms, String easing)/*-{
 		return this.animate(attrs, ms, easing);
 	}-*/;
+	/**
+	 * animates this shape according to animation object. see Raphael.animation
+	 * @return
+	 */
+	public final native Shape animate(Attrs attrs, int ms)/*-{
+		return this.animate(attrs, ms, "linear");
+	}-*/;
 	public final native Shape animate(Attrs attrs, int ms, String easing, Callback callback)/*-{
 		return this.animate(attrs, ms, easing, function() {
 			callback.@org.sgx.raphael4gwt.raphael.event.Callback::call(Lorg/sgx/raphael4gwt/raphael/Shape;)(this);
 		});
 	}-*/;
+	/**use it like
+	 * <pre>
+	 * 
+	 * AnimKeyFrames kf = AnimKeyFrames.create().
+	 * 	put("20%" ,Attrs.create().fill("yellow")).
+	 *  put("100%", Attrs.create().fill("blue")); 
+	 *  rect1.animate(kf);
+	 *  </pre>
+	 * perform an animation composed by several "keyframes". 
+	 * @param kf
+	 * @return
+	 */
+	public final native Shape animate(AnimKeyFrames kf, int ms)/*-{
+		this.animate(kf, ms);
+		return this;
+	}-*/;
+
 	/**
 	 * Acts similar to animate, but ensure that given animation runs in sync with another given element. 
 	 * @param el element to sync with
@@ -591,6 +639,7 @@ console.log(el.transform());
 	public final native Shape animateWith(Shape el, Animation anim, Animation animation)/*-{
 		return this.animate(a);
 	}-*/;
+	
 	/**
 	 * pauses all animations
 	 * @return

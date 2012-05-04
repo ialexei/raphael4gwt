@@ -27,4 +27,7 @@ public interface TestResources extends ClientBundle {
 	  
 	  @Source("LineChartTest1.java")
 	  public TextResource LineChartTest1();
+	  
+	  @Source("BarChartColumnTest1.java")
+	  public TextResource BarChartColumnTest1();
 }

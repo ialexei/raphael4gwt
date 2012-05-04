@@ -5,14 +5,25 @@
 	<inherits name="com.google.gwt.user.User" />
 	<inherits name='com.google.gwt.json.JSON'/>
 	
-<!--  	<script src='raphael.js' /> -->
- 	<script src='raphael-min.js' />
- 	
+	
+	
+	<!--  the next are three ways of including the javascripts - please live only one uncommented. -->
+	
+	<!-- 1 - For production - recommended - 2 large minified javascript files -->	
+ 	<script src='raphael-min.js' /> 	
  	<script src='raphael4gwt-all-min.js' />
  	
-<!--  	<script src='raphael-ext.js' /> -->
-<!--  	<script src='raphael.free_transform.js' /> -->
-<!--  	<script src='raphael4gwt.js' /> -->
+ 	
+	<!-- 2 - For development - the non minified version of js for debuggin - two large non min js-->
+	<!-- <script src='raphael.js' /> 	 -->
+	<!-- <script src='raphael4gwt-all.js' /> -->
+ 	
+
+	<!-- 3 - For development - non minified files separated --> 	
+	<!-- <script src='raphael.js' /> -->
+	<!-- <script src='raphael-ext.js' /> -->
+	<!-- <script src='raphael.free_transform.js' /> -->
+	<!-- <script src='raphael4gwt.js' /> -->
 
 	<source path="raphael" />
 	

@@ -1,10 +1,15 @@
 package org.sgx.raphael4gwt.gtest.gallery.tests;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.sgx.raphael4gwt.graphael.GPaper;
 import org.sgx.raphael4gwt.graphael.bar.BarChart;
 import org.sgx.raphael4gwt.raphael.Paper;
+import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
+import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 import org.sgx.raphael4gwt.gtest.gallery.Test;
 
 import com.google.gwt.dom.client.NativeEvent;
@@ -14,7 +19,7 @@ import com.google.gwt.dom.client.NativeEvent;
  *
  */
 public class BarChartTest1 extends Test {	
-	
+	static Logger logger = Logger.getLogger("BarChartTest1");
  
 	@Override
 	public void test() {
@@ -25,14 +30,18 @@ public class BarChartTest1 extends Test {
 		
 		getPaper().text(100,600, "click the chart for painting it...");
 		final BarChart barchart = getGPaper().barchart(100,100,400,400, vals);
+//		Shape fs = barchart.firstShape();
+//		JsUtil.firebug();
+		logger.log(Level.SEVERE, barchart.print());
+//		String transform = barchart.firstShape().getAttribute("transform");
 		
 		//because charts are set we can iterate and paint each row.
 		barchart.attr("transform", "s1,1");
 		barchart.click(new MouseEventListener() {			
 			@Override
 			public void notifyMouseEvent(NativeEvent e) {
-				String transform = barchart.firstShape().getAttribute("transform");
-
+				Shape fs = barchart.firstShape();
+				String transform = fs.getAttribute("transform");
 				if(transform!=null && !transform.equals("s1,1")) {
 					
 					barchart.animate(Attrs.create().

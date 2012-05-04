@@ -38,6 +38,7 @@ public class MainPanel extends VerticalPanel {
 		setSize("100%", GUIUtil.getMaxHeightStr());
 		
 		FlowPanel toobarPanel = new FlowPanel();
+		toobarPanel.getElement().addClassName("toolbar-panel");
 		add(toobarPanel);
 		
 		Button aboutButton = new Button("About", new ClickHandler() {			
@@ -75,6 +76,26 @@ public class MainPanel extends VerticalPanel {
 			}
 		});		
 		toobarPanel.add(showJavaButton);
+		
+
+		Button showJavaButton2 = new Button("view java sources 2", new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				String className = GalleryUtil.getInstance().getCurrentTest().getClass().getName(); //getSimpleName is not supported by gwt
+				String simpleName = className.substring(className.lastIndexOf('.')+1, className.length());
+				String html = "http://cancerbero.vacau.com/gwt/raphael4gwt-j2h/org/sgx/raphael4gwt/test/"+simpleName+".java.html";
+				Window.alert(html	);
+				
+				//				String className = GalleryUtil.getInstance().getCurrentTest().getClass().getSimpleName();
+				
+				Window.open(html, className, null);
+				
+//				GUIUtil.showText(GalleryUtil.getInstance().getCurrentTest().getName()+"'s java class source code: ", 
+//					GalleryUtil.getInstance().getCurrentTest().getJavaClassSource());				
+			}
+		});		
+		toobarPanel.add(showJavaButton2);
+		
 		
 		
 		horizontalSplitPanel = new HorizontalSplitPanel();

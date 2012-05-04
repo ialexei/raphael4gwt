@@ -1,8 +1,8 @@
 package org.sgx.raphael4gwt.graphael.bar;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import org.sgx.raphael4gwt.graphael.GShape;
 
-public class Bar extends JavaScriptObject {
+public class Bar extends GShape {
 	protected Bar(){}	
 	public native final double getX()/*-{
 		return this.x;
@@ -12,5 +12,11 @@ public class Bar extends JavaScriptObject {
 	}-*/;
 	public native final double getValue()/*-{
 		return this.value;
+	}-*/;
+	public native final double getWidth()/*-{
+		return this.w||0;
+	}-*/;
+	public native final double getHeight()/*-{
+		return this.h||0;
 	}-*/;
 }

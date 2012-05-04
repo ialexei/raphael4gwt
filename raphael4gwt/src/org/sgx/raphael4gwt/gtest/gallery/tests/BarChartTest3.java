@@ -1,5 +1,7 @@
 	package org.sgx.raphael4gwt.gtest.gallery.tests;
 
+import java.util.logging.Logger;
+
 import org.sgx.raphael4gwt.graphael.GPaper;
 import org.sgx.raphael4gwt.graphael.bar.BarOpts;
 import org.sgx.raphael4gwt.raphael.Paper;
@@ -11,7 +13,8 @@ import org.sgx.raphael4gwt.gtest.gallery.Test;
  *
  */
 public class BarChartTest3 extends Test {	
-	
+
+	static Logger logger = Logger.getLogger("BarChartTest3");
  
 	@Override
 	public void test() {
@@ -35,7 +38,7 @@ public class BarChartTest3 extends Test {
 		getGPaper().barchart(230, 10, 200, 160, data1);
 		getGPaper().barchart(10, 210, 200, 160, data1, new BarOpts(true));
 		getGPaper().barchart(230, 210, 200, 160, data1, new BarOpts(true, BarOpts.TYPE_ROUND));
-				
+			
 	}
 
 	//test class stuff

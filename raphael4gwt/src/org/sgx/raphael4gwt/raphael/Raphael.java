@@ -71,8 +71,19 @@ public static final String
 	PATH_SMOOTH_CURVETO="S", 
 	PATH_QUADBESIER_CURVETO="Q",
 	PATH_SMOOTH_QUADBESIER_CURVETO="T",
-	PATH_ELLIPTIC_ARC="A",
-	PATH_CATMULLROM_CURVETO="R"
+	PATH_ELLIPTICAL_ARC="A",
+	PATH_CATMULLROM_CURVETO="R",
+	
+	PATH_MOVETO_REL="m", 
+	PATH_LINETO_REL="l", 
+	PATH_HLINETO_REL="h",
+	PATH_VLINETO_REL="v", 
+	PATH_CURVETO_REL="c", 
+	PATH_SMOOTH_CURVETO_REL="s", 
+	PATH_QUADBESIER_CURVETO_REL="q",
+	PATH_SMOOTH_QUADBESIER_CURVETO_REL="t",
+	PATH_ELLIPTICAL_ARC_REL="a",
+	PATH_CATMULLROM_CURVETO_REL="r"
 	;
 
 public static final String 
@@ -247,6 +258,38 @@ public static native int snapTo(int snapDiff, int value, int tolerance)/*-{
 public static native int deg(int deg)/*-{
 	return $wnd.Raphael.deg(deg);
 }-*/;
+
+//public native static void addCustomAttribute(Paper paper, 
+//	String caName, final CustomAttribute ca)/*-{
+//		
+////		$wnd._
+//		
+//	var f = $entry(function(o) {
+//		$wnd.document.getElementById("anchor1").innerHTML +=
+//			" ----- "+ this+" - "+o+" - "+arguments.length;
+//		return ca.@org.sgx.raphael4gwt.raphael.base.CustomAttribute::make(Lorg/sgx/raphael4gwt/raphael/Shape;Ljava/lang/Object;)(this,o);
+//	});	
+////	var f = function(o) {
+////		$wnd.document.getElementById("anchor1").innerHTML +=
+////			" ----- "+ this+" - "+o+" - "+arguments.length;
+////		return ca.@org.sgx.raphael4gwt.raphael.base.CustomAttribute::make(*)(this,o);
+////	};	
+//	
+//	paper.customAttributes[caName]=f;
+//}-*/;
+
+
+//{
+//}
+//public final native void setCustomAttribute(String caName, CustomAttribute ca)/*-{
+//var name = ca.@org.sgx.raphael4gwt.raphael.ca.CustomAttribute::getName()(), 
+//	
+//var f = $entry(function(o) {
+//	ca.@org.sgx.raphael4gwt.raphael.ca.CustomAttribute::make(Ljava/lang/Object;)(o);
+//});
+//
+//this.customAttributes[name]=f;	
+//}-*/;
 
 
 ///** helper utility for getting paper bounds in the document, based on gwt client dom.*/

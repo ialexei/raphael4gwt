@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.sgx.raphael4gwt.gtest.gallery.tests.BarChartColumnTest1;
 import org.sgx.raphael4gwt.gtest.gallery.tests.BarChartTest1;
 import org.sgx.raphael4gwt.gtest.gallery.tests.BarChartTest2;
 import org.sgx.raphael4gwt.gtest.gallery.tests.BarChartTest3;
@@ -117,6 +118,8 @@ public class GalleryUtil {
 		t = new DotChartTest1(paper, w, h);
 		tests.put(t.getName(), t);
 		
+		t = new BarChartColumnTest1(paper, w, h);
+		tests.put(t.getName(), t);
 	}
 
 	Map<String, List<Test>> getTestsByTag() {

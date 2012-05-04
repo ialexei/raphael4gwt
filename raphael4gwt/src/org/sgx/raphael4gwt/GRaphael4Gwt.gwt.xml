@@ -2,7 +2,17 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.4.0//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.4.0/distro-source/core/src/gwt-module.dtd">
 <module>
 	<inherits name="org.sgx.raphael4gwt.Raphael4Gwt" />
-	<script src="graphael/g.raphael.all.js"></script>
-<!-- 	<script src="graphael/g.raphael.all-min.js"></script> -->
+		
+	
+	<!--  minified version - for production  -->
+	<script src="graphael/g.raphael.all-min.js"></script>
+
+
+<!-- development version  -->
+<!-- 	<script src="graphael/g.raphael.js"></script> -->
+<!-- 	<script src="graphael/g.bar.js"></script> -->
+<!-- 	<script src="graphael/g.pie.js"></script> -->
+<!-- 	<script src="graphael/g.dot.js"></script> -->
+
 	<source path="graphael" />
 </module>

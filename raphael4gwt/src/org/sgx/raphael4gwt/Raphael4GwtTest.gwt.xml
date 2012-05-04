@@ -7,8 +7,12 @@
 	<inherits name="org.sgx.raphael4gwt.Raphael4Gwt" />
 	<inherits name='com.google.gwt.user.theme.clean.Clean' />
 
-	<script src="Anchor_Steam_NF_400.font.js"></script>
-	<script src="Phorssa_400.font.js"></script>
+	
+<!-- 	<inherits name="com.google.gwt.logging.Logging" /> -->
+
+	<script src="test/Anchor_Steam_NF_400.font.js"></script>
+	<script src="test/Phorssa_400.font.js"></script>
+<!-- 	<css src="test/raphael4gwtGallery.css"></css> -->
 
 	<entry-point class="org.sgx.raphael4gwt.test.Raphael4GwtTest" />
 	<source path="test" />

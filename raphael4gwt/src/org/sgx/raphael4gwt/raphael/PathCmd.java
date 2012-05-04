@@ -83,7 +83,7 @@ public class PathCmd {
 		this(p.getX(), p.getY());
 	}
 	/**
-	 * build from path array using Raphael.parsePathString() . it will build all the chai  of path commands.
+	 * build from path array using Raphael.parsePathString() . it will build all the chain of path commands.
 	 * @param pathString
 	 */
 	public PathCmd(String pathString) {
@@ -108,11 +108,24 @@ public class PathCmd {
 				
 			cmd.setType(type);
 			
-			if(type.equals(Raphael.PATH_LINETO)||type.equals(Raphael.PATH_MOVETO)||
-					type.equals(Raphael.PATH_SMOOTH_QUADBESIER_CURVETO) && ppc.length()==3) {
+			if(type.equals(Raphael.PATH_LINETO)||
+				type.equals(Raphael.PATH_MOVETO)||
+				(type.equals(Raphael.PATH_SMOOTH_QUADBESIER_CURVETO) && ppc.length()==3) ) {
 				cmd.setPoints(new PCPoint[][]{{new PCPoint(ppc.getNumber(1), ppc.getNumber(2))}});
 			}
-			
+			else if(type.equals(Raphael.PATH_ELLIPTICAL_ARC)&&ppc.length()==8) { //7 numbers in four points
+//				cmd.setPoints(new PCPoint[][]{
+//						{new PCPoint(ppc.getNumber(1), ppc.getNumber(2))},
+//						{new PCPoint(ppc.getNumber(3), ppc.getNumber(4))},
+//						{new PCPoint(ppc.getNumber(5), ppc.getNumber(6))},
+//						{new PCPoint(ppc.getNumber(7), 0)}});
+				cmd.setPoints(new PCPoint[][]{{
+					new PCPoint(ppc.getNumber(1), ppc.getNumber(2)),
+					new PCPoint(ppc.getNumber(3), ppc.getNumber(4)),
+					new PCPoint(ppc.getNumber(5), ppc.getNumber(6)),
+					new PCPoint(ppc.getNumber(7), 0)
+				}});
+			}
 			cmd=nextCmd;
 			
 			//TODO: do the folowing better, case by case...
@@ -206,13 +219,29 @@ public class PathCmd {
 			for (int i = 0; i < len; i++) {
 				PCPoint[] a = _points[i];
 				if(a!=null&&a.length>0) {
-					sb.append(c.getType()+Math.round(a[0].getX())+","+Math.round(a[0].getY()));	
+					sb.append(c.getType()+a[0].getX()+","+a[0].getY());	
 					if(a.length>=2) { //catmul second point is optional
 						sb.append(","+a[1].getX()+","+a[2].getY());
 					}
 				}
 			}
-		}	
+		}
+		
+		//7 numbers - 4 points
+		else if(c.getType().equals(Raphael.PATH_ELLIPTICAL_ARC)) {
+			if(len==0)
+				return;
+			for (int i = 0; i < len; i++) {
+				PCPoint[] a = _points[i];
+				if(a!=null&&a.length>0) {
+					sb.append(c.getType()+a[0].getX()+","+a[0].getY()+
+						","+a[1].getX()+","+a[1].getY()+
+						","+a[2].getX()+","+a[2].getY()+","+a[3].getX());
+				}
+			}			
+		}
+		
+		
 	}
 	
 	
@@ -333,12 +362,82 @@ public class PathCmd {
 	}
 	
 	
+	
+	//quad bezier
+	/**
+	 * creates a new PathCmd of type "quadBezierCurveTo" and values "points" and concatenates after this PathCmd.
+	 * Use: 
+	 * <pre>path1.quadBezierCurveTo(new double[][]{{20,30,40,50}, {50,120,40,50}});</pre>
+	 * <br/>
+	 * From SVG spec: Draws a quadratic Bézier curve from the current point to (x,y) using (x1,y1) as the control point. Q (uppercase) indicates that absolute coordinates will follow; q (lowercase) indicates that relative coordinates will follow. Multiple sets of coordinates may be specified to draw a polybézier. At the end of the command, the new current point becomes the final (x,y) coordinate pair used in the polybézier.
+	 * @see http://www.w3.org/TR/SVG/paths.html#PathDataQuadraticBezierCommands
+	 * @param points
+	 * @return the new PathCmd 
+	 */
+	public PathCmd quadBezierCurveTo(boolean rel, double[][] p) {
+		if(p.length==0)return null;
+		PCPoint [][] points2 = new PCPoint[p.length][2];
+		for (int i = 0; i < p.length; i++) {
+			if(p[i]!=null&&p[i].length==4) {
+				points2[i][0] = new PCPoint(p[i][0], p[i][1]);
+				points2[i][1] = new PCPoint(p[i][2], p[i][3]);
+			}
+		}
+		PathCmd pathCmd2 = new PathCmd();
+		pathCmd2.setPoints(points2);
+		pathCmd2.setType(rel?Raphael.PATH_QUADBESIER_CURVETO_REL:Raphael.PATH_QUADBESIER_CURVETO);
+		this.setNext(pathCmd2);
+		return pathCmd2;
+	}
+	
+	/**
+	 * creates a new PathCmd of type "quadBezierCurveTo" and values "points" and concatenates after this PathCmd.
+	 * Use: 
+	 * <pre>path1.quadBezierCurveTo(new double[][]{{20,30,40,50}, {50,120,40,50}});</pre>
+	 * <br/>
+	 * From SVG spec: Draws a quadratic Bézier curve from the current point to (x,y) using (x1,y1) as the control point. Q (uppercase) indicates that absolute coordinates will follow; q (lowercase) indicates that relative coordinates will follow. Multiple sets of coordinates may be specified to draw a polybézier. At the end of the command, the new current point becomes the final (x,y) coordinate pair used in the polybézier.
+	 * @see http://www.w3.org/TR/SVG/paths.html#PathDataQuadraticBezierCommands
+	 * @param points
+	 * @return the new PathCmd 
+	 */
+	public PathCmd quadBezierCurveTo(boolean rel, double  x1, double y1, double x, double y) {
+		return quadBezierCurveTo(rel, new double[][]{{x1, y1, x, y}});
+	}
+	/**
+	 * alias for quadBezierCurveTo rel=false
+	 */
+	public PathCmd Q(double[][] p) {
+		return quadBezierCurveTo(false, p);
+	}
+	/**
+	 * alias for quadBezierCurveTo rel=true
+	 */
+	public PathCmd q(double[][] p) {
+		return quadBezierCurveTo(true, p);
+	}
+	/**
+	 * alias for quadBezierCurveTo rel=false
+	 */
+	public PathCmd Q(double  x1, double y1, double x, double y) {
+		return quadBezierCurveTo(false, new double[][]{{x1, y1, x, y}});
+	}
+	/**
+	 * alias for quadBezierCurveTo rel=true
+	 */
+	public PathCmd q(double  x1, double y1, double x, double y) {
+		return quadBezierCurveTo(true, new double[][]{{x1, y1, x, y}});
+	}
+	
+	
 	//smoothQuadBezierCurveTo
 	
 	/**
 	 * creates a new PathCmd of type "smoothQuadBezierCurveTo" and values "points" and concatenates after this PathCmd.
 	 * Use: 
-	 * path1.smoothQuadBezierCurveTo(new double[][]{{20,30}, {50,120}}); 
+	 * <pre>path1.smoothQuadBezierCurveTo(new double[][]{{20,30}, {50,120}});</pre>
+	 * <br/>
+	 * From SVG spec: Draws a cubic Bézier curve from the current point to (x,y). The first control point is assumed to be the reflection of the second control point on the previous command relative to the current point. (If there is no previous command or if the previous command was not an C, c, S or s, assume the first control point is coincident with the current point.) (x2,y2) is the second control point (i.e., the control point at the end of the curve). S (uppercase) indicates that absolute coordinates will follow; s (lowercase) indicates that relative coordinates will follow. Multiple sets of coordinates may be specified to draw a polybézier. At the end of the command, the new current point becomes the final (x,y) coordinate pair used in the polybézier.
+	 * @see http://www.w3.org/TR/SVG/paths.html#PathDataQuadraticBezierCommands
 	 * @param points
 	 * @return the new PathCmd 
 	 */
@@ -356,7 +455,10 @@ public class PathCmd {
 	/**
 	 * creates a new PathCmd of type "smoothQuadBezierCurveTo" and values "points" and concatenates after this PathCmd.
 	 * Use: 
-	 * path1.smoothQuadBezierCurveTo(new double[][]{{20,30}, {50,120}}); 
+	 * <pre>path1.smoothQuadBezierCurveTo(new double[][]{{20,30}, {50,120}});</pre>
+	 * <br/>
+	 * From SVG spec: Draws a cubic Bézier curve from the current point to (x,y). The first control point is assumed to be the reflection of the second control point on the previous command relative to the current point. (If there is no previous command or if the previous command was not an C, c, S or s, assume the first control point is coincident with the current point.) (x2,y2) is the second control point (i.e., the control point at the end of the curve). S (uppercase) indicates that absolute coordinates will follow; s (lowercase) indicates that relative coordinates will follow. Multiple sets of coordinates may be specified to draw a polybézier. At the end of the command, the new current point becomes the final (x,y) coordinate pair used in the polybézier.
+	 * @see http://www.w3.org/TR/SVG/paths.html#PathDataQuadraticBezierCommands 
 	 * @param points
 	 * @return the new PathCmd 
 	 */
@@ -366,6 +468,11 @@ public class PathCmd {
 	
 	/**
 	 * creates a new PathCmd of type "smoothQuadBezierCurveTo" and values "points" and concatenates after this PathCmd.
+	 * Use: 
+	 * <pre>path1.smoothQuadBezierCurveTo(new double[][]{{20,30}, {50,120}});</pre>
+	 * <br/>
+	 * From SVG spec: Draws a cubic Bézier curve from the current point to (x,y). The first control point is assumed to be the reflection of the second control point on the previous command relative to the current point. (If there is no previous command or if the previous command was not an C, c, S or s, assume the first control point is coincident with the current point.) (x2,y2) is the second control point (i.e., the control point at the end of the curve). S (uppercase) indicates that absolute coordinates will follow; s (lowercase) indicates that relative coordinates will follow. Multiple sets of coordinates may be specified to draw a polybézier. At the end of the command, the new current point becomes the final (x,y) coordinate pair used in the polybézier.
+	 * @see http://www.w3.org/TR/SVG/paths.html#PathDataQuadraticBezierCommands
 	 * @param points
 	 * @return the new PathCmd 
 	 */
@@ -385,6 +492,12 @@ public class PathCmd {
 		return this.smoothQuadBezierCurveTo(x,y);
 	}
 	
+	
+	
+	
+	
+	//close
+	
 	/**
 	 * adds a new close command, append it to th chain and return it
 	 */
@@ -403,8 +516,89 @@ public class PathCmd {
 	
 	
 	
-	
-	
+	//arc - adds an elliptical arc	(rx ry x-axis-rotation large-arc-flag sweep-flag x y)+
+	/**
+	 * adds an elliptical arc command, append it to the chain and return it. @see http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
+	 * <br/>
+	 * From SVG spec: Draws an elliptical arc from the current point to (x, y). The size and orientation of the ellipse are defined by two radii (rx, ry) and an x-axis-rotation, which indicates how the ellipse as a whole is rotated relative to the current coordinate system. The center (cx, cy) of the ellipse is calculated automatically to satisfy the constraints imposed by the other parameters. large-arc-flag and sweep-flag contribute to the automatic calculations and help determine how the arc is drawn.
+	 * @param rx radius-x for the ellipse
+	 * @param ry radius-y for the ellipse
+	 * @param xAxisRotation x-rotation for the ellipse which indicates how the ellipse as a whole is rotated relative to the current coordinate system
+	 * @param largeArcFlag possible values 0 or 1
+	 * @param sweepFlag possible values 0 or 1
+	 * @param x x-coord of arc's end
+	 * @param y y-coord of arc's end
+	 * @return the new PathCmd 
+	 */
+	public PathCmd ellipticalArc(double[][]p) {
+		PathCmd pathCmd2 = new PathCmd();
+		PCPoint [][] points2 = new PCPoint[p.length][1];
+		for (int i = 0; i < p.length; i++) {
+			points2[i][0] = new PCPoint(p[i][0], p[i][1]);
+		}
+		pathCmd2.setType(Raphael.PATH_ELLIPTICAL_ARC);
+		this.setNext(pathCmd2);
+		return pathCmd2;
+	}
+	/**
+	 * adds an elliptical arc command, append it to the chain and return it. @see http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
+	 * <br/>
+	 * From SVG spec: Draws an elliptical arc from the current point to (x, y). The size and orientation of the ellipse are defined by two radii (rx, ry) and an x-axis-rotation, which indicates how the ellipse as a whole is rotated relative to the current coordinate system. The center (cx, cy) of the ellipse is calculated automatically to satisfy the constraints imposed by the other parameters. large-arc-flag and sweep-flag contribute to the automatic calculations and help determine how the arc is drawn.
+	 * @param rx radius-x for the ellipse
+	 * @param ry radius-y for the ellipse
+	 * @param xAxisRotation x-rotation for the ellipse which indicates how the ellipse as a whole is rotated relative to the current coordinate system
+	 * @param largeArcFlag possible values 0 or 1
+	 * @param sweepFlag possible values 0 or 1
+	 * @param x x-coord of arc's end
+	 * @param y y-coord of arc's end
+	 * @return the new PathCmd 
+	 */
+	public PathCmd ellipticalArc(double rx, double ry, double xAxisRotation, 
+			double largeArcFlag, double sweepFlag, double x, double y) {
+		return ellipticalArc(new double[][]{{rx, ry, xAxisRotation, 
+			largeArcFlag, sweepFlag, x, y}});
+	}
+	/**
+	 * adds an elliptical arc command, append it to the chain and return it. @see http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
+	 * <br/>
+	 * From SVG spec: Draws an elliptical arc from the current point to (x, y). The size and orientation of the ellipse are defined by two radii (rx, ry) and an x-axis-rotation, which indicates how the ellipse as a whole is rotated relative to the current coordinate system. The center (cx, cy) of the ellipse is calculated automatically to satisfy the constraints imposed by the other parameters. large-arc-flag and sweep-flag contribute to the automatic calculations and help determine how the arc is drawn.
+	 * @param rx radius-x for the ellipse
+	 * @param ry radius-y for the ellipse
+	 * @param xAxisRotation x-rotation for the ellipse which indicates how the ellipse as a whole is rotated relative to the current coordinate system
+	 * @param largeArcFlag possible values 0 or 1
+	 * @param sweepFlag possible values 0 or 1
+	 * @param x x-coord of arc's end
+	 * @param y y-coord of arc's end
+	 * @return the new PathCmd 
+	 */
+	public PathCmd A(double rx, double ry, double xAxisRotation, 
+			double largeArcFlag, double sweepFlag, double x, double y) {
+		return ellipticalArc(new double[][]{{rx, ry, xAxisRotation, 
+			largeArcFlag, sweepFlag, x, y}});
+	}
+	/**
+	 * adds an elliptical arc command, append it to the chain and return it. @see http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
+	 * <br/>
+	 * From SVG spec: Draws an elliptical arc from the current point to (x, y). The size and orientation of the ellipse are defined by two radii (rx, ry) and an x-axis-rotation, which indicates how the ellipse as a whole is rotated relative to the current coordinate system. The center (cx, cy) of the ellipse is calculated automatically to satisfy the constraints imposed by the other parameters. large-arc-flag and sweep-flag contribute to the automatic calculations and help determine how the arc is drawn.
+	 * @param rx radius-x for the ellipse
+	 * @param ry radius-y for the ellipse
+	 * @param xAxisRotation x-rotation for the ellipse which indicates how the ellipse as a whole is rotated relative to the current coordinate system
+	 * @param largeArcFlag possible values 0 or 1
+	 * @param sweepFlag possible values 0 or 1
+	 * @param x x-coord of arc's end
+	 * @param y y-coord of arc's end
+	 * @return the new PathCmd 
+	 */
+	public PathCmd A(double[][]p) {
+		PathCmd pathCmd2 = new PathCmd();
+		PCPoint [][] points2 = new PCPoint[p.length][1];
+		for (int i = 0; i < p.length; i++) {
+			points2[i][0] = new PCPoint(p[i][0], p[i][1]);
+		}
+		pathCmd2.setType(Raphael.PATH_ELLIPTICAL_ARC);
+		this.setNext(pathCmd2);
+		return pathCmd2;
+	}
 	
 	
 	

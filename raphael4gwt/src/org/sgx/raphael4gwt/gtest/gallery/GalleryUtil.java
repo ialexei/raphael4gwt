@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.sgx.raphael4gwt.gtest.gallery.tests.BarChartColumnTest1;
+import org.sgx.raphael4gwt.gtest.gallery.tests.BarChartDynamicUpdate;
 import org.sgx.raphael4gwt.gtest.gallery.tests.BarChartTest1;
 import org.sgx.raphael4gwt.gtest.gallery.tests.BarChartTest2;
 import org.sgx.raphael4gwt.gtest.gallery.tests.BarChartTest3;
@@ -14,6 +15,7 @@ import org.sgx.raphael4gwt.gtest.gallery.tests.PieChartTest1;
 import org.sgx.raphael4gwt.gtest.gallery.tests.TooltipTest1;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.util.GUIUtil;
+import org.sgx.raphael4gwt.raphael.util.Util;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -120,13 +122,34 @@ public class GalleryUtil {
 		
 		t = new BarChartColumnTest1(paper, w, h);
 		tests.put(t.getName(), t);
+		
+		t = new BarChartDynamicUpdate(paper, w, h);
+		tests.put(t.getName(), t);
+		
 	}
 
 	Map<String, List<Test>> getTestsByTag() {
 		return null;
 
 	}
-
-
+	protected void setCurrentTest(Test t) {
+		currentTest = t;
+		t.getPaper().clear();
+		getTestPanel().clear();
+		t.test();
+	}
+	/**
+	 * check for a test=testName paraemter passed in the url
+	 * and show that test if that is the case.
+	 */
+	public void checkUrl() {
+		Map<String, String> urlParams = Util.parseUrlParams(Util.getCurrentAddressUrl());
+		if(urlParams.containsKey("test")) {
+			Test t = tests.get(urlParams.get("test"));
+			if(t!=null) {
+				setCurrentTest(t);
+			}
+		}
+	}
 
 }

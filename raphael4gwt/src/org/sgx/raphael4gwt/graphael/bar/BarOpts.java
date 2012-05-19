@@ -11,11 +11,12 @@ public class BarOpts {
 		TYPE_SHARP="sharp", TYPE_SQUARE="square";
 		
 	boolean stacked;
-	String type;
+	String type, axis;
+	String [] axisXLabels, axisYLabels, colors;	
 	
 	public BarOpts(){
 		this(false, TYPE_SOFT);
-	}
+	}	
 	public BarOpts(boolean stacked, String type) {
 		super();
 		this.stacked = stacked;
@@ -39,12 +40,39 @@ public class BarOpts {
 	public void setType(String type) {
 		this.type = type;
 	}
+	public String getAxis() {
+		return axis;
+	}
+	public void setAxis(String axis) {
+		this.axis = axis;
+	}	
+	public String[] getAxisXLabels() {
+		return axisXLabels;
+	}
+	public void setAxisXLabels(String[] axisXLabels) {
+		this.axisXLabels = axisXLabels;
+	}
+	public String[] getAxisYLabels() {
+		return axisYLabels;
+	}
+	public void setAxisYLabels(String[] axisYLabels) {
+		this.axisYLabels = axisYLabels;
+	}
 	
-
+	public String[] getColors() {
+		return colors;
+	}
+	public void setColors(String[] colors) {
+		this.colors = colors;
+	}
 	public JavaScriptObject toNative() {
 		JavaScriptObject o = JavaScriptObject.createObject();
 		JsUtil.putBoolean(o, "stacked", stacked);
 		JsUtil.put(o, "type", type);
+		JsUtil.put(o, "axis", axis);
+		JsUtil.put(o, "colors", JsUtil.toJsArray(colors));
+		JsUtil.put(o, "axisxlabels", JsUtil.toJsArray(axisXLabels));
+		JsUtil.put(o, "axisylabels", JsUtil.toJsArray(axisYLabels));
 		return o;
 	}
 }

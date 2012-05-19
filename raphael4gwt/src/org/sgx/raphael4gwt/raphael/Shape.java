@@ -6,7 +6,6 @@ import org.sgx.raphael4gwt.raphael.base.Animation;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Glow;
 import org.sgx.raphael4gwt.raphael.base.Rectangle;
-import org.sgx.raphael4gwt.raphael.event.AttrChangeListener;
 import org.sgx.raphael4gwt.raphael.event.Callback;
 import org.sgx.raphael4gwt.raphael.event.DDListener;
 import org.sgx.raphael4gwt.raphael.event.DragOverListener;
@@ -570,7 +569,7 @@ console.log(el.transform());
 	
 
 	public final native String attr(String name)/*-{
-		return this.attr(name);
+		return this.attr(name)+"";
 	}-*/;
 
 	
@@ -751,8 +750,8 @@ Note: Glow is not connected to the element. If you change element attributes it 
 	/**
 	 * Unique id of the element. Especially usesful when you want to listen to events of the element, because all events are fired in format <module>.<action>.<id>. Also useful for Paper.getById method. 
 	 */
-	public final native String getId()/*-{
-		this.id;
+	public final native int getId()/*-{
+		return this.id;
 	}-*/;
 	/**Unique id of the element. Especially usesful when you want to listen to events of the element, because all events are fired in format <module>.<action>.<id>. Also useful for Paper.getById method. */
 	public final native void setId(String id)/*-{
@@ -775,13 +774,13 @@ Note: Glow is not connected to the element. If you change element attributes it 
 	
 	
 	// EXTENSIONS - see raphael-ext.js
-	public final native Shape addAttrChangeListener(String attrName, AttrChangeListener l)/*-{
-		var f = $entry(function(attrName, oldVal, newVal) {
-			l.@org.sgx.raphael4gwt.raphael.event.AttrChangeListener::attributeChange(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)(attrName, oldVal, newVal);
-		});
-		this.addAttrChangeListener(attrName, f);
-		return this;
-	}-*/;
+//	public final native Shape addAttrChangeListener(String attrName, AttrChangeListener l)/*-{
+//		var f = $entry(function(attrName, oldVal, newVal) {
+//			l.@org.sgx.raphael4gwt.raphael.event.AttrChangeListener::attributeChange(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)(attrName, oldVal, newVal);
+//		});
+//		this.addAttrChangeListener(attrName, f);
+//		return this;
+//	}-*/;
 	
 	
 	/**

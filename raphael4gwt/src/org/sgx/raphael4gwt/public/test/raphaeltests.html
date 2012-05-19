@@ -3,49 +3,39 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>raphael4gwt test</title>
-<script type="text/javascript" language="javascript" src="raphael.js"></script>
-<script type="text/javascript" language="javascript" src="raphael-ext.js"></script>
+<script type="text/javascript" language="javascript" src="../raphael.js"></script>
 </head>
 
 <div id="paper1"></div>
 <body>
 	<script type="text/javascript" language="javascript">
-
-var p = Raphael("paper1", 2000,2000);
-var rect = p.rect(20,30,40,50);
-p.customAttributes["hue"]=function(num) {
-// 	alert(arguments.length)
-debugger;
-	num=num%1;
-	return {fill: "hsb("+num+", 0.75, 1)"};
-};
-
-rect.attr({hue: 0.1});
-rect.animate({hue: 0.9}, 2000, ">");
-
-// alert(rect.isRemoved())
-// p.clear();
-// alert(rect.isRemoved());
-
-// p.circle(20,30,40);
-// p.text(200,200,"laksjdlksjd\"\"'''lksjdlkasjd")
-// alert(p.writeToString());
-
-// var s = "alksjdlaksjd\"\"\"asdasd";
-// alert()s.replace(/\");
-
-// function doDrawing(paper) {
-// 	paper.rect(60,60,400,400).attr({fill: "red"});
-// }
-// Raphael("paper1", 2000,2000, function(){
-// 	 var style = document.getElementById("paper1").style;
-// 	 style.width="300px";
-// 	 style.height="300px";
-// 	 style.overflow="scroll";
-// 	 doDrawing(this);
 	
-//  }); //a large paper
-	
+var paper = new Raphael(0,0,400, 400);
+
+var rect = paper.rect(50,50,50,50).attr({fill: "red"});
+
+//for being able of listening clicks and cia events with eve, first we must register some dummy event handler of the desired type to the desired shape.
+// rect.click(function(){})
+
+// eve.on("raphael.event.click."+rect.id, function(el, type, x, y, evt){
+// 	alert("something clicked at: "+x+", "+y);
+// })
+
+eve.once("raphael.event.mouseup."+rect.id, function(el, type, x, y, evt){
+	alert("something clicked at: "+x+", "+y);
+})
+
+//trigger a click event programatically to to rect
+// eve("raphael.event.click."+rect.id, rect, "click", 55, 55, {fake:"event object"});
+
+//trigger a change attribute event programatically. - we spect fill color change to brown.
+// eve("raphael.attr.fill."+rect.id, rect, "brown", "fill");
+
+
+// var rect2 = paper.rect(150,50,50,50).attr({fill: "blue"});
+// eve.on("raphael.event.click."+rect2.id, function(el, type, x, y, evt){
+// 	alert("no more");
+// });
 	 </script>
 
 </body>

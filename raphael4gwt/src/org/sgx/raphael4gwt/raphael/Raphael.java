@@ -100,7 +100,12 @@ public static final String[] STROKE_DASHARRAY_ALL = {
 	STROKE_DASHARRAY_DASH_DASH,STROKE_DASHARRAY_DASH_SPACE_POINT,
 	STROKE_DASHARRAY_DASH_DASH_POINT,STROKE_DASHARRAY_DASH_DASH_POINT_POINT
 };
-/* *** ARROW *** */	
+/* *** ARROW *** */
+
+
+
+public static final String FONT_STYLE_ITALIC = "italic", 
+	FONT_STYLE_OBLIQUE = "oblique", FONT_STYLE_NORMAL = "normal";	
 	
 	
 	
@@ -493,8 +498,24 @@ public static native JsArray pathToRelative(String pathString)/*-{
 	return $wnd.Raphael.pathToRelative(pathString);
 }-*/;
 
-
-
+/**
+ * @return true if browser supports SVG. 
+ */
+public static native boolean isSVG()/*-{
+	return $wnd.Raphael.SVG;
+}-*/;
+/**
+ * @return true if browser supports VML. 
+ */
+public static native boolean isVML()/*-{
+	return $wnd.Raphael.VML;
+}-*/;
+/**
+ * Can be "SVG" or "VML" or empty, depending on browser support
+ */
+public static native String type()/*-{
+	return $wnd.Raphael.type;
+}-*/;
 
 
 //extensions

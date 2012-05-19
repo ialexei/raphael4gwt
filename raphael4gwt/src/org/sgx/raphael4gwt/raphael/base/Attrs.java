@@ -548,6 +548,27 @@ public class Attrs extends JavaScriptObject {
 		return this;
 	}-*/;
 	/**
+	 * CSS font style - accept some of the following values normal, italic, oblique. some of the Raphael.FONT_STYLE_* properties
+	 */
+	public final native String getFontStyle()/*-{
+		return this["fontStyle"];
+	}-*/;
+	/**
+	 * CSS font style - accept some of the following values normal, italic, oblique. some of the Raphael.FONT_STYLE_* properties
+	 */
+	public final native void setFontStyle(String val)/*-{
+		this["fontStyle"]=val;
+	}-*/;
+	/**
+	 * CSS font style - accept some of the following values normal, italic, oblique. some of the Raphael.FONT_STYLE_* properties
+	 */
+	public final native Attrs fontStyle(String val)/*-{
+		this["fontStyle"]=val;
+		return this;
+	}-*/;
+	
+	
+	/**
 	 * contents of the text element. Use \n for multiline text
 	 * @return
 	 */
@@ -656,7 +677,7 @@ public class Attrs extends JavaScriptObject {
 	}-*/;
 	
 	public final native String getPath()/*-{
-		return this["path"];
+		return this["path"]+"";
 	}-*/;
 	public final native void setPath(String val)/*-{
 		this["path"]=val;

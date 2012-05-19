@@ -167,7 +167,19 @@
 		});
 		return nonSetShape;
 	};
-	
+	Raphael.st.item = function(index) {
+		var i = 0;
+		var shape = null;
+		this.forEach(function(s){
+			if(i==index) {
+				shape=s;
+				return false;
+			}
+			i++;
+			return true;
+		});
+		return shape;
+	}
 	Raphael.el.print = function() {
 		return this.type?this.type:"undef";
 	}
@@ -318,46 +330,46 @@
 
 
 
-/* attribute change notifications. use like this:
- * circle1.addAttrChangeListener("transform", function(attrName, oldValue, newValue){
- * ...
- * })
- *  */
-(function() {
-	Raphael.st._attrChangeListeners = Raphael.el._attrChangeListeners = {};
-	Raphael.st.addAttrChangeListener = Raphael.el.addAttrChangeListener = 
-		function(attr, tl) {
-		if(!this._attrChangeListeners[attr])
-			this._attrChangeListeners[attr]=[];
-		this._attrChangeListeners[attr].push(tl);
-	};
-	
-	/* now the trik part - override the attr() function - 
-	 * no need to do it for Set because they call individual shape attr() */ 
-//	Raphael.st.___attr = Raphael.st.attr;
-	Raphael.el.___attr = Raphael.el.attr;
-	Raphael.el.attr = function(name, value) {
-		if ( name != null && Raphael.is(name, "object") ) {
-			var params = name;
-			for(var attr in params) {
-				var listeners = this._attrChangeListeners[attr];
-				if(listeners) {
-					for ( var i = 0; i < listeners.length; i++) {
-						listeners[i](attr, this.___attr(attr), params[attr]);
-					}
-				}
-			}
-		}
-		else if (name!=null && value!=null) {
-			var listeners = this._attrChangeListeners[attr];
-			if(listeners) {
-				for ( var i = 0; i < listeners.length; i++) {
-					listeners[i](name, this.___attr(name), value);
-				}
-			}
-		}
-		return this.___attr(name, value);
-	};	
+///* attribute change notifications. use like this:
+// * circle1.addAttrChangeListener("transform", function(attrName, oldValue, newValue){
+// * ...
+// * })
+// *  */
+//(function() {
+//	Raphael.st._attrChangeListeners = Raphael.el._attrChangeListeners = {};
+//	Raphael.st.addAttrChangeListener = Raphael.el.addAttrChangeListener = 
+//		function(attr, tl) {
+//		if(!this._attrChangeListeners[attr])
+//			this._attrChangeListeners[attr]=[];
+//		this._attrChangeListeners[attr].push(tl);
+//	};
+//	
+//	/* now the trik part - override the attr() function - 
+//	 * no need to do it for Set because they call individual shape attr() */ 
+////	Raphael.st.___attr = Raphael.st.attr;
+//	Raphael.el.___attr = Raphael.el.attr;
+//	Raphael.el.attr = function(name, value) {
+//		if ( name != null && Raphael.is(name, "object") ) {
+//			var params = name;
+//			for(var attr in params) {
+//				var listeners = this._attrChangeListeners[attr];
+//				if(listeners) {
+//					for ( var i = 0; i < listeners.length; i++) {
+//						listeners[i](attr, this.___attr(attr), params[attr]);
+//					}
+//				}
+//			}
+//		}
+//		else if (name!=null && value!=null) {
+//			var listeners = this._attrChangeListeners[attr];
+//			if(listeners) {
+//				for ( var i = 0; i < listeners.length; i++) {
+//					listeners[i](name, this.___attr(name), value);
+//				}
+//			}
+//		}
+//		return this.___attr(name, value);
+//	};	
 //	Raphael.st.attr = function (name, value) {
 //		//extension - aSet.attr("transform") will return this set's first el attr transform
 //		if(name && !value && Raphael.is(name, "string")) {
@@ -376,7 +388,7 @@
 //        }
 //        return this;
 //    };
-})();
+//})();
 
 
 

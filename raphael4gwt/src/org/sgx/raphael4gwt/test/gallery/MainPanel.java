@@ -84,14 +84,7 @@ public class MainPanel extends VerticalPanel {
 				String className = GalleryUtil.getInstance().getCurrentTest().getClass().getName(); //getSimpleName is not supported by gwt
 				String simpleName = className.substring(className.lastIndexOf('.')+1, className.length());
 				String html = "http://cancerbero.vacau.com/gwt/raphael4gwt-j2h/org/sgx/raphael4gwt/test/"+simpleName+".java.html";
-				Window.alert(html	);
-				
-				//				String className = GalleryUtil.getInstance().getCurrentTest().getClass().getSimpleName();
-				
-				Window.open(html, className, null);
-				
-//				GUIUtil.showText(GalleryUtil.getInstance().getCurrentTest().getName()+"'s java class source code: ", 
-//					GalleryUtil.getInstance().getCurrentTest().getJavaClassSource());				
+				Window.open(html, className, null);						
 			}
 		});		
 		toobarPanel.add(showJavaButton2);

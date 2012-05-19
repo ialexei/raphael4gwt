@@ -8,6 +8,7 @@ import org.sgx.raphael4gwt.raphael.util.GUIUtil;
 import com.google.gwt.dom.client.Style.BorderStyle;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -68,6 +69,17 @@ public class MainPanel extends VerticalPanel {
 		});		
 		toobarPanel.add(showJavaButton);
 		
+		Button showJavaButton2 = new Button("view java sources 2", new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				String className = GalleryUtil.getInstance().getCurrentTest().getClass().getName(); //getSimpleName is not supported by gwt
+				String simpleName = className.substring(className.lastIndexOf('.')+1, className.length());
+				String html = "http://cancerbero.vacau.com/gwt/raphael4gwt-j2h/org/sgx/raphael4gwt/test/"+simpleName+".java.html";
+				Window.open(html, className, null);				
+			}
+		});		
+		toobarPanel.add(showJavaButton2);
+		
 		
 		horizontalSplitPanel = new HorizontalSplitPanel();
 		horizontalSplitPanel.setSize("100%", "100%");
@@ -103,6 +115,8 @@ public class MainPanel extends VerticalPanel {
 //				native1(paper);
 				GalleryUtil.getInstance().loadAllTest(paperWidget.getPaper(), PAPER_WIDTH, PAPER_HEIGHT);
 				GalleryUtil.getInstance().doAddAllGeneralTests(testGeneral);
+				
+				GalleryUtil.getInstance().checkUrl();
 			}
 		});
 		paperWidget.getElement().getStyle().setBorderStyle(BorderStyle.SOLID);

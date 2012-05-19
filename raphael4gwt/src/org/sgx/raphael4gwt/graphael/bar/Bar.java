@@ -13,6 +13,9 @@ public class Bar extends GShape {
 	public native final double getValue()/*-{
 		return this.value;
 	}-*/;
+	public native final void setValue(double v)/*-{
+		this.value=v;
+	}-*/;
 	public native final double getWidth()/*-{
 		return this.w||0;
 	}-*/;

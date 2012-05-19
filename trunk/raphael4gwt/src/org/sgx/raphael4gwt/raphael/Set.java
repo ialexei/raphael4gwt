@@ -165,4 +165,9 @@ public native final Shape firstShape()/*-{
 	return this.firstShape();
 }-*/;
 
+public native final Shape item(int index)/*-{
+	return this.item(index);
+}-*/;
+
+
 }

@@ -1,5 +1,6 @@
 package org.sgx.raphael4gwt.raphael.event;
 
+import org.sgx.raphael4gwt.raphael.eve.EveListener;
 import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 
 import com.google.gwt.core.client.JavaScriptObject;
@@ -46,5 +47,23 @@ public class EventHelper {
 	}
 	public static JsArray<JavaScriptObject> getHoverListener(HoverListener l) {
 		return JsUtil.get(hoverListeners, l);
+	}
+	
+	
+	static JavaScriptObject eveListeners = JsUtil.empty();
+	
+	public static void putEveListener(EveListener l,JavaScriptObject hin, JavaScriptObject hout) {
+		JsArray<JavaScriptObject> a = (JsArray<JavaScriptObject>) JsArray.createArray();
+		a.push(hin);
+		a.push(hout);
+		JsUtil.put(eveListeners, l, a);
+	}
+	public static JsArray<JavaScriptObject> removeEveListener(EveListener l) {
+		JsArray<JavaScriptObject> o = JsUtil.get(eveListeners, l);
+		JsUtil.put(eveListeners, l, null);
+		return o;
+	}
+	public static JsArray<JavaScriptObject> getEveListener(EveListener l) {
+		return JsUtil.get(eveListeners, l);
 	}
 }

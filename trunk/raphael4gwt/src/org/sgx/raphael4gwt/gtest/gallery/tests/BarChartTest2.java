@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import org.sgx.raphael4gwt.graphael.GPaper;
 import org.sgx.raphael4gwt.graphael.GShape;
+import org.sgx.raphael4gwt.graphael.bar.Bar;
 import org.sgx.raphael4gwt.graphael.bar.BarChart;
 import org.sgx.raphael4gwt.graphael.bar.BarContext;
 import org.sgx.raphael4gwt.graphael.bar.BarOpts;
@@ -13,6 +14,7 @@ import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Rectangle;
+import org.sgx.raphael4gwt.raphael.event.Callback;
 /**
  * shows bargraph with columns hovering 
  * @author sg
@@ -27,6 +29,10 @@ BarChart barchart=null;
 private GShape flag2=null;
 
 protected Shape flag1;
+
+protected GShape popup;
+
+private BarChart hbarchart2;
 
 @Override
 public void test() {
@@ -60,6 +66,33 @@ public void test() {
 		}
 	};
 	barchart.hover(hoverHandler1);	
+	
+	
+	double[][] stackedData = new double[][] { { 55, 20, 13, 32, 5, 1, 2, 10 }, { 20, 15, 30, 12, 10, 5, 1, 2 } };
+    BarSectorHoverListener hoverHandlerStacked = new BarSectorHoverListener() {
+        @Override
+        public void hoverOut(BarContext ctx) {
+            if (popup != null) {
+                popup.animate(Attrs.create().opacity(0), 100, ">", new Callback() {
+                    @Override
+                    public void call(Shape src) {
+                        src.remove();
+                    }
+                });
+            }
+        }
+        @Override
+        public void hoverIn(BarContext ctx) {
+        	Bar bar = (Bar) ctx.getBars().firstShape();
+            popup = getGPaper().tag(bar.getX(), bar.getY(),
+            		bar.getValue() + "", 0, 8);
+//        	popup = getGPaper().popup(bar.getX(), bar.getY(),
+//            		bar.getValue() + "", "down", 10);
+        }
+    };
+    hbarchart2 = getGPaper().hbarchart(440, 10, 200, 220, stackedData, new BarOpts(true, BarOpts.TYPE_SOFT));
+    hbarchart2.hover(hoverHandlerStacked);
+
 }
 
 //test class stuff

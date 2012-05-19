@@ -68,6 +68,7 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 			<fileset dir="src" excludes="**/Test.java" />
 		</jar>
 	</target>
+		
 
 	<!-- make a .jar using current dev-mode .class generated files in war/WEB-INF/classes. do not use these generated jars! -->
 	<target name="_fast_jar_" depends="">
@@ -89,6 +90,11 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 		</exec>
 	</target>
 	
+	<target name="publishRaphael4gwtGallery">
+		<exec dir="." executable="sh" >
+			<arg line="publishRaphael4gwtGallery.sh"/>
+		</exec>
+	</target>
 	
 	<target name="java2html">
 		<mkdir dir="java2html"/>

@@ -6,6 +6,7 @@ import org.sgx.raphael4gwt.raphael.util.Util;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.core.client.JsArrayMixed;
 import com.google.gwt.core.client.JsArrayNumber;
 import com.google.gwt.core.client.JsArrayString;
 /**
@@ -67,6 +68,16 @@ public class JsUtil {
 		}
 		return false;
 	}
+	
+	public static boolean arrayContains(JsArrayMixed a, String val) {
+		for (int i = 0; i < a.length(); i++) {
+			String o = a.getString(i);
+			if(o!=null&&o.equals(val))
+				return true;
+		}
+		return false;
+	}
+	
 	public static boolean arrayContains(JsArrayString a, 
 			String val) {
 		for (int i = 0; i < a.length(); i++) {
@@ -92,9 +103,17 @@ public class JsUtil {
 		}
 		return jsa;
 	}
-
+//	public static JsArrayMixed toJsArrayJavaObject(Object[] a) {
+//		JsArrayMixed jsa = (JsArrayMixed) JsArray.createArray();
+//		for (int i = 0; i < a.length; i++) {
+//			jsa.push((JavaScriptObject) a[i]);
+//		}
+//		return jsa;
+//	}
 	
 	public static JsArrayNumber toJsArray(double[]a) {
+		if(a==null)
+			return null;
 		JsArrayNumber jsa = (JsArrayNumber) JsArrayNumber.createArray();
 		for (int i = 0; i < a.length; i++) {
 			jsa.push(a[i]);
@@ -102,13 +121,17 @@ public class JsUtil {
 		return jsa;
 	}
 	public static JsArrayString toJsArray(String[] a) {
-		JsArrayString jsa = (JsArrayString) JsArrayNumber.createArray();
+		if(a==null)
+			return null;
+		JsArrayString jsa = JsArrayNumber.createArray().<JsArrayString>cast();
 		for (int i = 0; i < a.length; i++) {
 			jsa.push(a[i]);
 		}
 		return jsa;
 	}
 	public static JsArray toJsArray(JavaScriptObject[] ja) {
+		if(ja==null)
+			return null;
 		JsArray jsa = (JsArray) JsArray.createArray();
 		for(JavaScriptObject t : ja) {
 			jsa.push(t);
@@ -165,4 +188,13 @@ public class JsUtil {
 ////		o.
 //		return s+")";
 //	}
+
+	public static native Object evalObject(String s)/*-{
+		return $wnd.eval("("+s+")");
+	}-*/;
+
+
+
+
+	
 }

@@ -51,8 +51,9 @@ Raphael.el.popup = function (dir, size, x, y) {
     cw = Math.max(bb.width / 2 - size, 0);
     ch = Math.max(bb.height / 2 - size, 0);
 
-    this.translate(x - bb.x - (center ? bb.width / 2 : 0), y - bb.y - (center ? bb.height / 2 : 0));
-    bb = this.getBBox();
+    //sgurin : fix for raphael 2.1 https://github.com/jhurt/g.raphael/commit/97644e810fdb1e2519e2246b1a5be5934232a7de
+//    this.translate(x - bb.x - (center ? bb.width / 2 : 0), y - bb.y - (center ? bb.height / 2 : 0));
+//    bb = this.getBBox();  
 
     var paths = {
         up: [
@@ -481,7 +482,10 @@ Raphael.fn.popup = function (x, y, text, dir, size) {
     var set = this.set();
 
     text = this.text(x, y, text).attr(Raphael.g.txtattr);
-    return set.push(text.popup(dir, size), text);
+    
+    //sgurin : fix for raphael 2.1 https://github.com/jhurt/g.raphael/commit/97644e810fdb1e2519e2246b1a5be5934232a7de
+    //return set.push(text.popup(dir, size), text);
+    return set.push(text.popup(dir, size, x, y), text);
 };
 
 /*\

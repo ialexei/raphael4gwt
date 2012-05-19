@@ -12,12 +12,13 @@ import org.sgx.raphael4gwt.test.AllMouseEvents;
 import org.sgx.raphael4gwt.test.AllPathIcons;
 import org.sgx.raphael4gwt.test.AnimKeyframesTest1;
 import org.sgx.raphael4gwt.test.AnimTransformAndPathTest1;
-import org.sgx.raphael4gwt.test.AttrChangeListenerTest1;
+import org.sgx.raphael4gwt.test.EveAttrChangeTest1;
 import org.sgx.raphael4gwt.test.BlurAndEmbossTest1;
 import org.sgx.raphael4gwt.test.CircleGlowingAndDraggin;
 import org.sgx.raphael4gwt.test.DragAndSnap;
 import org.sgx.raphael4gwt.test.DragTest1;
 import org.sgx.raphael4gwt.test.DrawAndClick;
+import org.sgx.raphael4gwt.test.EveCustomEvents;
 import org.sgx.raphael4gwt.test.EventRegisterAndUnregister;
 import org.sgx.raphael4gwt.test.FillTest1;
 import org.sgx.raphael4gwt.test.FontTest1;
@@ -39,6 +40,7 @@ import org.sgx.raphael4gwt.test.SetTest2;
 import org.sgx.raphael4gwt.test.ShapeEditor1;
 import org.sgx.raphael4gwt.test.ShapeUnitTest1;
 import org.sgx.raphael4gwt.test.Test;
+import org.sgx.raphael4gwt.test.TextSelectionPreventTest;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -55,11 +57,12 @@ public class GalleryUtil {
 		TAG_GRADIENT="gradient", TAG_EVENT="event",
 		TAG_EXTENSION = "extensions",TAG_FONT="fonts",TAG_FT="free transform",
 		TAG_SHAPE="shapes", TAG_SET="sets",TAG_CUSTOMATTR="Custom attributes",
-		TAG_ALLCATEGORY="all tests";
+		TAG_EVE="Eve", TAG_ALLCATEGORY="all tests";
 						
 	private static final String [] TAG_ALL = 
 		{TAG_PATH, TAG_ANIM, TAG_GRADIENT, TAG_EVENT, TAG_SHAPE, TAG_EXTENSION,
-		TAG_FONT,TAG_FT,TAG_CUSTOMATTR};
+		TAG_FONT,TAG_FT, TAG_EVE};
+
 
 	
 	
@@ -239,7 +242,7 @@ public class GalleryUtil {
 		t = new ShapeEditor1(paper, w, h);
 		tests.put(t.getName(), t);
 		
-		t = new AttrChangeListenerTest1(paper, w, h);
+		t = new EveAttrChangeTest1(paper, w, h);
 		tests.put(t.getName(), t);
 		
 		t = new SetTest2(paper, w, h);
@@ -266,6 +269,14 @@ public class GalleryUtil {
 		t = new AnimKeyframesTest1(paper, w, h);
 		tests.put(t.getName(), t);
 		
+		t = new EveCustomEvents(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		t = new EveAttrChangeTest1(paper, w, h);
+		tests.put(t.getName(), t);		
+		
+		t = new TextSelectionPreventTest(paper, w, h);
+		tests.put(t.getName(), t);
 	}
 
 	Map<String, List<Test>> getTestsByTag() {

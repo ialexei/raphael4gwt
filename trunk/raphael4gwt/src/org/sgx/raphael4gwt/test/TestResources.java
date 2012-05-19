@@ -3,6 +3,7 @@ package org.sgx.raphael4gwt.test;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.TextResource;
+import com.google.gwt.user.client.ui.ValueBoxBase;
 
 public interface TestResources extends ClientBundle {
 	  public static final TestResources INSTANCE =  GWT.create(TestResources.class);
@@ -73,7 +74,7 @@ public interface TestResources extends ClientBundle {
 	  @Source("ShapeEditor1.java")
 	  public TextResource ShapeEditor1();
 	  
-	  @Source("AttrChangeListenerTest1.java")
+	  @Source("EveAttrChangeTest1.java")
 	  public TextResource AttrChangeListenerTest1();
 	  
 	  @Source("SetTest2.java")
@@ -99,5 +100,11 @@ public interface TestResources extends ClientBundle {
 	  
 	  @Source("AnimKeyframesTest1.java")
 	  public TextResource AnimKeyframesTest1();
-	  	  
+	  
+	  @Source("EveCustomEvents.java")
+	  public TextResource EveTest1();
+
+	  @Source("TextSelectionPreventTest.java")
+	  public TextResource TextSelectionPreventTest();
+	  
 }

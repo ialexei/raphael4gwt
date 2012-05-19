@@ -13,6 +13,7 @@
 <!-- 	<script src="graphael/g.bar.js"></script> -->
 <!-- 	<script src="graphael/g.pie.js"></script> -->
 <!-- 	<script src="graphael/g.dot.js"></script> -->
+<!-- 	<script src="graphael/g.sunburst.js"></script> -->
 
 	<source path="graphael" />
 </module>

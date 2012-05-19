@@ -12,6 +12,7 @@ import org.sgx.raphael4gwt.gtest.gallery.tests.BarChartTest3;
 import org.sgx.raphael4gwt.gtest.gallery.tests.DotChartTest1;
 import org.sgx.raphael4gwt.gtest.gallery.tests.LineChartTest1;
 import org.sgx.raphael4gwt.gtest.gallery.tests.PieChartTest1;
+import org.sgx.raphael4gwt.gtest.gallery.tests.SunBurstTest1;
 import org.sgx.raphael4gwt.gtest.gallery.tests.TooltipTest1;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.util.GUIUtil;
@@ -125,6 +126,10 @@ public class GalleryUtil {
 		
 		t = new BarChartDynamicUpdate(paper, w, h);
 		tests.put(t.getName(), t);
+		
+		t = new SunBurstTest1(paper, w, h);
+		tests.put(t.getName(), t);
+		
 		
 	}
 

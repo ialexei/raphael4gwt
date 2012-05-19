@@ -6,7 +6,7 @@ YUIC=../../../../../yuicompressor-2.4.7.jar
 java -jar $YUIC -o raphael-min.js raphael.js
 java -jar $YUIC -o raphael-ext-min.js raphael-ext.js
 java -jar $YUIC -o raphael.free_transform-min.js raphael.free_transform.js
-copy raphael4gwt.js raphael4gwt-min.js
+cp raphael4gwt.js raphael4gwt-min.js #do not compress cause it hass a debugger;
 #java -jar $YUIC -o raphael4gwt-min.js raphael4gwt.js
 
 cat raphael-ext-min.js > $ALL-min.js

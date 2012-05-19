@@ -33,4 +33,8 @@ public interface TestResources extends ClientBundle {
 	  
 	  @Source("BarChartDynamicUpdate.java")
 	  public TextResource BarChartDynamicUpdate();
+	  
+	  @Source("SunBurstTest1.java")
+	  public TextResource SunBurstTest1();
+	  
 }

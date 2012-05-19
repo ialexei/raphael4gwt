@@ -28,6 +28,12 @@ public class JsUtil {
 	public static native Object put(JavaScriptObject o, Object pname, Object val)/*-{
 		o[pname]=val;
 	}-*/;
+	public static native Object put(JavaScriptObject o, Object pname, int val)/*-{
+		o[pname]=val;
+	}-*/;
+	public static native Object put(JavaScriptObject o, Object pname, double val)/*-{
+		o[pname]=val;
+	}-*/;
 	public static native JsArrayString props(JavaScriptObject o)/*-{
 		var props = [];
 		for(var i in o) {
@@ -189,7 +195,7 @@ public class JsUtil {
 //		return s+")";
 //	}
 
-	public static native Object evalObject(String s)/*-{
+	public static native JavaScriptObject evalObject(String s)/*-{
 		return $wnd.eval("("+s+")");
 	}-*/;
 

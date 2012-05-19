@@ -6,7 +6,7 @@ import org.sgx.raphael4gwt.raphael.Text;
 import com.google.gwt.core.client.JavaScriptObject;
 /**
  * Pie chart sector information. 
- * Sector object from g.pie.js is:
+ * SunBurstSector object from g.pie.js is:
 <pre>
 sector: sector,
 cover: cover,

@@ -8,9 +8,14 @@ import org.sgx.raphael4gwt.graphael.line.LineChart;
 import org.sgx.raphael4gwt.graphael.line.LineOpts;
 import org.sgx.raphael4gwt.graphael.pie.PieOpts;
 import org.sgx.raphael4gwt.graphael.pie.PieChart;
+import org.sgx.raphael4gwt.graphael.sunburst.Cluster;
+import org.sgx.raphael4gwt.graphael.sunburst.SunBurstChart;
+import org.sgx.raphael4gwt.graphael.sunburst.SunBurstOpts;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Set;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
+
+import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * @author sg
@@ -77,7 +82,17 @@ public final native DotChart dotchart(double x, double y, double w,
 }-*/;
 
 
-
+/**
+ * creates a line chart
+ * @param x x coord of the chart
+ * @param y y coord of the chart
+ * @param w chart's width
+ * @param h chart's height
+ * @param valuesx
+ * @param valuesy
+ * @param opts
+ * @return a new linchart
+ */
 public final native LineChart linechart(double x, double y, double w, 
 		double h, double[][] valuesx, double[][] valuesy, LineOpts opts)/*-{	
 		
@@ -90,6 +105,45 @@ public final native LineChart linechart(double x, double y, double w,
 }-*/;
 
 
+/**
+ * creates a sunburst chart
+ * @param x x coord of the chart
+ * @param y y coord of the chart
+ * @param w chart's width
+ * @param h chart's height
+ * @param valuesx
+ * @param valuesy
+ * @param opts
+ * @return a new linchart
+ */
+public final native LineChart sunburst(double x, double y, JavaScriptObject clusters, 
+		SunBurstOpts opts)/*-{	
+		
+	return this.sunburst(x, y, clusters,
+		opts.@org.sgx.raphael4gwt.graphael.sunburst.SunBurstOpts::toNative()()
+	);
+				
+}-*/;
+
+public final native LineChart sunburst(double x, double y, Cluster clusters, 
+		SunBurstOpts opts)/*-{	
+		
+	return this.sunburst(x, y, 
+		clusters.@org.sgx.raphael4gwt.graphael.sunburst.Cluster::toNative()(),
+		opts.@org.sgx.raphael4gwt.graphael.sunburst.SunBurstOpts::toNative()()
+	);
+				
+}-*/;
+
+public final native SunBurstChart sunburst(double x, double y, Cluster[] clusters, 
+		SunBurstOpts opts)/*-{	
+		
+	return this.sunburst(x, y, 
+		@org.sgx.raphael4gwt.graphael.sunburst.Cluster::toNativeArray([Lorg/sgx/raphael4gwt/graphael/sunburst/Cluster;)(clusters),
+		opts.@org.sgx.raphael4gwt.graphael.sunburst.SunBurstOpts::toNative()()
+	);
+				
+}-*/;
 
 
 /**Puts the given `text` into a 'popup' tooltip. The text is given a default style according to getTextAttrs(). @see GShape.popup().

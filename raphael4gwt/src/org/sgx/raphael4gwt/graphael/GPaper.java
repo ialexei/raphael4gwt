@@ -8,6 +8,8 @@ import org.sgx.raphael4gwt.graphael.line.LineChart;
 import org.sgx.raphael4gwt.graphael.line.LineOpts;
 import org.sgx.raphael4gwt.graphael.pie.PieOpts;
 import org.sgx.raphael4gwt.graphael.pie.PieChart;
+import org.sgx.raphael4gwt.graphael.radar.RadarChart;
+import org.sgx.raphael4gwt.graphael.radar.RadarOpts;
 import org.sgx.raphael4gwt.graphael.sunburst.Cluster;
 import org.sgx.raphael4gwt.graphael.sunburst.SunBurstChart;
 import org.sgx.raphael4gwt.graphael.sunburst.SunBurstOpts;
@@ -145,6 +147,19 @@ public final native SunBurstChart sunburst(double x, double y, Cluster[] cluster
 				
 }-*/;
 
+public final native RadarChart radar(double x, double y, double radius, double[]vals, RadarOpts opts)/*-{	
+		
+	return this.radarchart(x, y, radius,
+		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(vals),
+		opts.@org.sgx.raphael4gwt.graphael.radar.RadarOpts::toNative()()
+	);
+				
+}-*/;
+public final native RadarChart radar(double x, double y, double radius, double[]vals)/*-{	
+
+	return this.radarchart(x, y, radius, @org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(vals));
+			
+}-*/;
 
 /**Puts the given `text` into a 'popup' tooltip. The text is given a default style according to getTextAttrs(). @see GShape.popup().
  *  Usagepaper.popup(50, 50, "$9.99", 'down');

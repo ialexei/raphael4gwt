@@ -56,9 +56,6 @@ public class TooltipTest1 extends Test {
 		setName("tooltips1");
 		setDescription("show all tooltip shapes built in with graphael");
 	}
-	GPaper getGPaper() {
-		return (GPaper)paper;
-	}
 	@Override
 	public String getJavaClassSource() {
 		return TestResources.INSTANCE.TooltipTest1().getText();

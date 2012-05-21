@@ -60,12 +60,10 @@ public void test() {
 	chart2.click(new BarSectorCallback() {		
 		@Override
 		public boolean call(BarContext ctx) {
-//			Window.alert(ctx+"");
 			AnimKeyFrames kf = AnimKeyFrames.create().
 			  	put("20%" ,Attrs.create().fill(Util.randomColor())).
 			    put("100%", Attrs.create().fill(Util.randomColor())); 
 			ctx.getBars().animate(kf, 2000);
-//			ctx.getBars().attr(Attrs.create().fill(Util.randomColor()));
 			return true;
 		}
 	});
@@ -79,9 +77,6 @@ public BarChartColumnTest1(Paper paper, int paperWidth, int paperHeight) {
 	super(paper, paperWidth, paperHeight);
 	setName("bar4");
 	setDescription("show horizontal bar charts with event listeners");
-}
-GPaper getGPaper() {
-	return (GPaper)paper;
 }
 @Override
 public String getJavaClassSource() {

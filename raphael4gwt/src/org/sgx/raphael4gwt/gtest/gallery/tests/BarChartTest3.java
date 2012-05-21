@@ -47,9 +47,6 @@ public class BarChartTest3 extends Test {
 		setName("bar3");
 		setDescription("shows 4 different bar graphs");
 	}
-	GPaper getGPaper() {
-		return (GPaper)paper;
-	}
 	@Override
 	public String getJavaClassSource() {
 		return TestResources.INSTANCE.BarChartTest3().getText();

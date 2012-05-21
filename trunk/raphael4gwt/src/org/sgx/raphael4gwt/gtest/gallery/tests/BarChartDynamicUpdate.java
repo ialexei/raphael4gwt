@@ -118,9 +118,6 @@ public class BarChartDynamicUpdate extends Test {
 		setName("bar dyn update");
 		setDescription("this example shows a bar chart that changes its values dynamically (bar by bar, without destroying and creating all over again)");
 	}
-	GPaper getGPaper() {
-		return (GPaper)paper;
-	}
 	@Override
 	public String getJavaClassSource() {
 		return TestResources.INSTANCE.BarChartDynamicUpdate().getText();

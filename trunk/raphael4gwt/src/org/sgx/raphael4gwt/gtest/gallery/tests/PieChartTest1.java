@@ -78,9 +78,6 @@ public class PieChartTest1 extends Test {
 		setName("piechart2");
 		setDescription("similar example as http://g.raphaeljs.com/piechart2.html");
 	}
-	GPaper getGPaper() {
-		return (GPaper)paper;
-	}
 	@Override
 	public String getJavaClassSource() {
 		return TestResources.INSTANCE.PieChartTest1().getText();

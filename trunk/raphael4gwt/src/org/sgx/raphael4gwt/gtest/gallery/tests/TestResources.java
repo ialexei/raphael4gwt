@@ -37,4 +37,12 @@ public interface TestResources extends ClientBundle {
 	  @Source("SunBurstTest1.java")
 	  public TextResource SunBurstTest1();
 	  
+	  @Source("RadarTest1.java")
+	  public TextResource RadarTest1();
+	  
+	  @Source("RadarTest2.java")
+	  public TextResource RadarTest2();
+	  
+	  
+	  
 }

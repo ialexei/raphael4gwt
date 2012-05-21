@@ -39,7 +39,6 @@ public void test() {
 	double[][] data2 = new double[][]{
 		{55, 20, 13, 32, 5, 1, 2, 10}
 	};
-	final String[] tags = {"ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep"};
 	
 	barchart = getGPaper().barchart(10, 10, 200, 220, data2, new BarOpts(BarOpts.TYPE_SOFT));
 	BarSectorHoverListener hoverHandler1 = new BarSectorHoverListener() {				
@@ -59,7 +58,6 @@ public void test() {
 			if(flag1==null){
 				Rectangle bb = ctx.getBar().getBBox();
 				flag1 = 
-//				getGPaper().blob(bb.getX(), bb.getY()+bb.getHeight(), text, angle)
 						getGPaper().rect(bb.getX(), bb.getY()+bb.getHeight(), 
 						bb.getWidth(), 10).attr(Attrs.create().fill("red")); 
 			}	
@@ -86,8 +84,6 @@ public void test() {
         	Bar bar = (Bar) ctx.getBars().firstShape();
             popup = getGPaper().tag(bar.getX(), bar.getY(),
             		bar.getValue() + "", 0, 8);
-//        	popup = getGPaper().popup(bar.getX(), bar.getY(),
-//            		bar.getValue() + "", "down", 10);
         }
     };
     hbarchart2 = getGPaper().hbarchart(440, 10, 200, 220, stackedData, new BarOpts(true, BarOpts.TYPE_SOFT));
@@ -100,9 +96,6 @@ public BarChartTest2(Paper paper, int paperWidth, int paperHeight) {
 	super(paper, paperWidth, paperHeight);
 	setName("bar2");
 	setDescription("shows bargraph with columns hovering ");
-}
-GPaper getGPaper() {
-	return (GPaper)paper;
 }
 @Override
 public String getJavaClassSource() {

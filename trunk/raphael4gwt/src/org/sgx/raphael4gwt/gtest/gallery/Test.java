@@ -1,5 +1,6 @@
 package org.sgx.raphael4gwt.gtest.gallery;
 
+import org.sgx.raphael4gwt.graphael.GPaper;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Raphael;
 import org.sgx.raphael4gwt.raphael.util.Util;
@@ -75,4 +76,7 @@ public abstract class Test {
 		return Util.randomColor();
 	}
 
+	public GPaper getGPaper() {
+		return (GPaper)paper;
+	}
 }

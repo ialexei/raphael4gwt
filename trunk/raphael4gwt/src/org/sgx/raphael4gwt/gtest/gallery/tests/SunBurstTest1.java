@@ -42,8 +42,6 @@ public void test() {
 			}),
 	};
 	
-//	JavaScriptObject clusters = JsUtil.evalObject("{   	    'Cluster A': 50,   	    'Cluster B': {   	        'Sub-Cluster B-A': 25,   	        'Sub-Cluster B-B': 75,   	    },   	    'Cluster C': {   	        'Sub-Cluster C-A': 86,   	        'Sub-Cluster C-B': 23,   	        'Sub-Cluster C-C': {   	            'Depth 3 - A': 50,   	            'Depth 3 - B': 125,   	            WithoutQuotes: 14   	        }   	    }   	}");
-	 
 	SunBurstOpts opts = new SunBurstOpts();
 	opts.setRootLabel("Clusters tests 1");
 	opts.setOffsetAngle(90);
@@ -55,8 +53,7 @@ public void test() {
 	
 	SunBurstChart sunburst1 = getGPaper().sunburst(300,300, c, opts);
 	
-	sunburst1.hover(new SunBurstHoverListener() {
-		
+	sunburst1.hover(new SunBurstHoverListener() {		
 		@Override
 		public void hoverOut(SunBurstContext c) {
 			if(glow!=null)
@@ -74,7 +71,6 @@ public void test() {
 			popup = getGPaper().popup(c.getMX(), c.getMY(), 
 				c.getSector().getLabel()+": "+c.getSector().getValue()).
 				attr(Attrs.create().opacity(0.7)).<GShape>cast();
-//			popup.animate(Attrs.create().opacity(1), 300, "linear");
 		}
 	});
 
@@ -86,9 +82,6 @@ public SunBurstTest1(Paper paper, int paperWidth, int paperHeight) {
 	super(paper, paperWidth, paperHeight);
 	setName("sunburst1");
 	setDescription("sunburst chart test 1");
-}
-GPaper getGPaper() {
-	return (GPaper)paper;
 }
 @Override
 public String getJavaClassSource() {

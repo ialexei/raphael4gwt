@@ -68,9 +68,6 @@ public class LineChartTest1 extends Test {
 		setName("line");
 		setDescription("line charts - the third with hover listeners.");
 	}
-	GPaper getGPaper() {
-		return (GPaper)paper;
-	}
 	@Override
 	public String getJavaClassSource() {
 		return TestResources.INSTANCE.LineChartTest1().getText();

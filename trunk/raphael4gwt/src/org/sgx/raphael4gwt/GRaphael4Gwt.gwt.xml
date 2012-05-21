@@ -14,6 +14,7 @@
 <!-- 	<script src="graphael/g.pie.js"></script> -->
 <!-- 	<script src="graphael/g.dot.js"></script> -->
 <!-- 	<script src="graphael/g.sunburst.js"></script> -->
+<!-- 	<script src="graphael/g.radar.js"></script> -->
 
 	<source path="graphael" />
 </module>

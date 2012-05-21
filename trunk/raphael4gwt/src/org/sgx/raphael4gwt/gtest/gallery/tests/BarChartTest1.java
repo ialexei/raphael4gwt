@@ -30,10 +30,7 @@ public class BarChartTest1 extends Test {
 		
 		getPaper().text(100,600, "click the chart for painting it...");
 		final BarChart barchart = getGPaper().barchart(100,100,400,400, vals);
-//		Shape fs = barchart.firstShape();
-//		JsUtil.firebug();
 		logger.log(Level.SEVERE, barchart.print());
-//		String transform = barchart.firstShape().getAttribute("transform");
 		
 		//because charts are set we can iterate and paint each row.
 		barchart.attr("transform", "s1,1");
@@ -70,9 +67,6 @@ public class BarChartTest1 extends Test {
 		super(paper, paperWidth, paperHeight);
 		setName("bar1");
 		setDescription("simple bar chart example");
-	}
-	GPaper getGPaper() {
-		return (GPaper)paper;
 	}
 	@Override
 	public String getJavaClassSource() {

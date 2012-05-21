@@ -78,9 +78,6 @@ public class DotChartTest1 extends Test {
 		setName("dot1");
 		setDescription("");
 	}
-	GPaper getGPaper() {
-		return (GPaper)paper;
-	}
 	@Override
 	public String getJavaClassSource() {
 		return TestResources.INSTANCE.DotChartTest1().getText();

@@ -105,7 +105,11 @@ public static final String[] STROKE_DASHARRAY_ALL = {
 
 
 public static final String FONT_STYLE_ITALIC = "italic", 
-	FONT_STYLE_OBLIQUE = "oblique", FONT_STYLE_NORMAL = "normal";	
+	FONT_STYLE_OBLIQUE = "oblique", FONT_STYLE_NORMAL = "normal";
+
+
+
+public static final String FONT_WEIGHT_NORMAL = "normal", FONT_WEIGHT_BOLD="bold";	
 	
 	
 	

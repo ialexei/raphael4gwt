@@ -1,0 +1,2068 @@
+<!doctype html>
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <title>RaphaëlJs Tutorial</title>
+    
+    <script type="text/javascript">window.raphaeltutTimer1=new Date().getTime();</script>
+    
+    <link type="text/css" rel="stylesheet" href="raphaeltut.css"/>
+    <link type="text/css" rel="stylesheet" href="prettify.css"/>    
+    
+    <script type="text/javascript" src="raphael-min.js"></script>
+    <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="raphaeltut.js"></script>    
+    <script type="text/javascript" src="generated_toc.js"></script>
+    <script type="text/javascript" src="jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="prettify.js"></script>
+    
+	<!-- some cufon fonts used in this tutorial -->
+    <script type="text/javascript" src="Phorssa_400.font.js"></script>
+    <script type="text/javascript" src="Anchor_Steam_NF_400.font.js"></script>
+    <script type="text/javascript" src="samarkan.cufonfonts.js"></script>    
+    
+    
+    
+  </head>
+
+  <body>
+
+	<div id="refererenceDialog">
+		<div id="refererenceDialogClose" onclick="$('#refererenceDialog').hide();">Close Reference</div>
+		<div id="refererenceDialogTitle"></div>
+		<div id="refererenceDialogContent">
+		</div>
+	</div>
+
+	<div id="exampleDialog">
+		<div id="exampleDialogClose" onclick="$('#exampleDialog').hide();">Close Example</div>
+		<div id="exampleDialogTitle"></div>
+		<div id="exampleDialogContent"></div>
+	</div>
+
+   <div id="wrapper">
+   
+   <div class="title">RaphaëlJs Tutorial</div>
+   
+   <p class="author">Author: <a href="http://code.google.com/p/raphael4gwt/">
+   	Sebastián Gurin</a>
+   
+   
+   
+   <h1>Table Of Contents</h1>
+   <div id="generated-toc"></div>
+   
+   
+   
+   <h1>About this document</h1>
+   
+   <p>This is a <a href="http://raphaeljs.com">Raphaël Js</a> tutorial, a tutorial about easy drawing in web pages using the great 
+   JavaScript library <a href="http://raphaeljs.com">Raphaël Js</a>.  
+      
+   <p>Since this is a JavaScript library tutorial, users should know the basics 
+   of JavaScript programming language. This document
+   nevertheless, will try to be very detailed in advanced examples code.</p>
+   
+   <p>Raphaël comes with an nice <a href="http://raphaeljs.com/reference.html#Raphael">Reference</a> where all its features are 
+   described with examples. Nevertheless, some features are not easy to understand to those not familiar with technologies 
+   like SVG or JavaScript and it is there where this tutorial wants to contribute.</p>
+    
+  
+   <h1>Acknowledgments</h1>
+   
+   <p>First of all to the author of Raphaël Js, Dmitry Baranovskiy, for this great javascript 
+   library easy to use even for those not familiar with design or drawing.</p>
+   
+   <p>Second I would like to thanks Charles Thomas, owner of the site 
+   <a href="http://www.irunmywebsite.com">http://www.irunmywebsite.com</a>, a great place dedicated to raphaeljs, 
+   with pages made of graphics created with raphaeljs and with a lot of documentation, links and examples. Many examples 
+   of this tutorial were taken from there. I recommend readers to take a visit when searching to alternative aterial or documentation related to raphaeljs.</p> 
+   
+   
+   
+   <h1>Introduction</h1>
+   
+   <p>Formally, from its web site,</p>
+   
+   <div class="quote">
+   
+   <p> <a href="http://raphaeljs.com">Raphaël Js</a>
+    Raphaël is a small JavaScript library by Dmitry Baranovskiy that should simplify your work 
+    with vector graphics on the web. If you want to create your own specific 
+    chart or image crop and rotate widget, for example, you can achieve it 
+    simply and easily with this library.</p>
+    
+   	<p>Raphaël ['ræfeɪəl] uses the <b class="index">SVG</b> W3C Recommendation and 
+   	<b class="index">VML</b> as a base 
+	for creating graphics. This means every graphical object you create is 
+	also a DOM object, so you can attach JavaScript event handlers or modify 
+	them later. Raphaël’s goal is to provide an adapter that will make drawing 
+	vector art compatible cross-browser and easy.</p>
+   
+   <p>While Raphaël Js is well documented on its <a href="">reference</a>, 
+   this document is a guide to drawing web pages with Raphaël Js for those users
+   new to vector graphics, starting with easy examples through the advanced Raphaël  
+   features like animations, event handling and Raphaël extensions development.</p>
+   
+   </div>
+
+	<p>From this definition it is important to notice the following. There are two "main types" of 
+	technologies for drawing in web pages: vector based and bitmap based. </p>
+	
+	<p>In vector based drawing, you draw <b class="emph">shape elements</b> inside a <b class="emph">document</b>, 
+	just like in html you have html elements inside an html document. Elements have parents and children 
+	and attributes that define them. Drawing technologies like Raphaël, <a href="SVG" class="index">SVG</a> and 
+	<a class="index" href="VML">VML</a> are vector based technologies.</p> 
+	
+	<p>On the other side, in bitmap based drawing we paint an array (matrix) of points with some color. 
+	There is no document or shape elements or attributes here, only a rectangle of NxM points each one with a color.
+	<a href="http://en.wikipedia.org/wiki/Canvas_element">HTML Canvas</a> is a bitmap based drawing technology.</p>
+    
+    <p>In the desktop, we can see the same vector vs. bitmap drawing technology duality, comparing vector oriented software like 
+    Corel Draw or Inskape with bitmap oriented software like photoshop or Gimp.</p>
+    
+    <p>Each technology has its pros and cons. In practice, you wouldn't make a 3D game like DOOM or an image manipulation program in a vector 
+    based technology. On the other hand, it is much more simpler to draw presentations, documents, charts, and that kind of document on a vector based technology.</p>
+    
+<!--     end of introduction -->
+   
+   
+   
+   
+   
+   
+   
+   <h1 id="sec-getting-started">Getting Sterted</h1>
+   
+ 	<p>Raphaël is a JavaScript library for drawing on web pages. Basically one 
+ 	draw shapes of different types, likes circles, text, rectangles, images. Shapes support a large number of 
+ 	attributes that give the shape's form, like colors, transformations, content, borders, animations, (and many more). 
+ 	</p>
+ 	
+ 	<p>Shapes are drawn in a <b>paper</b>, that is, a canvas element in the HTML document, 
+ 	where all shapes will live. It can be any number of papers in an HTML document and a
+	shape <b>belong</b> to one paper.</p>
+	
+	<p>In this section we will discuss how to create a paper for drawing. </p>
+	
+	<h2>Include <b class="code">raphael.js</b></h2>
+	
+	<p>The first requeriment for creating a <b class="index">paper</b> is to load the file 
+	<b class="code">raphael.js</b> in your html document like the following example. 
+	You can download the file <b class="code">raphael-min.js</b> from 
+	<a href="http://raphaeljs.com/">http://raphaeljs.com/</a>
+	and put it in the same folder of your HTML file: </p>
+	
+	<pre class="code">
+&lt;script type="text/javascript" src="raphael-min.js"&gt;&lt;/script&gt;
+	</pre>
+	
+	<div class="note">Note, you can download and work with the non minified version of raphael.js when you are developing.
+ 	 It will be easier for debugging and to read its source code for learning how some stuff is accomplished by the library. 
+ 	 Also, if you are "feeling cloudy" you can load the latest version of  <b class="code">raphael.js</b> from 
+    <a href="http://github.com">github</a>, link to this URLs directly:  
+    <a href="http://github.com/DmitryBaranovskiy/raphael/raw/master/raphael-min.js">raphael-min.js</a> and 
+    <a href="http://github.com/DmitryBaranovskiy/raphael/raw/master/raphael.js">raphael.js</a>, like the following example: </div>
+    <pre class="code">
+&lt;script type="text/javascript" src="http://github.com/DmitryBaranovskiy/raphael/raw/master/raphael-min.js"&gt;&lt;/script&gt;
+	</pre>
+	
+	
+	<h2 id="sec-creating-a-paper">Creating a paper</h2>
+	
+	<p>Once we have included raphael.js script in our web page we can proceed to create a raphaël 
+	paper and draw on it. Creating a paper in raphael is accomplished by calling 
+	<b class="code">Raphael(...)</b> functon as described in <a href="http://raphaeljs.com/reference.html#Raphael">the reference</a>. 
+	</p>
+	
+	<p>
+	The more flexible way of creating a paper, 
+	is to create it inside some HTML element of our web page. In the following example we show a 
+	complete HTML document that inserts raphael.js, has an HTML element with id "paper1" 
+	and last, creates a paper inside that element and draw a rectangle: </p>
+	
+	<pre class="code">&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta http-equiv="content-type" content="text/html; charset=UTF-8"&gt;
+    &lt;title&gt;Raphaël tutorial - Getting Started - Example 1&lt;/title&gt;    
+    &lt;script type="text/javascript" src="../raphael-min.js"&gt;&lt;/script&gt;    
+  &lt;/head&gt;
+  &lt;body&gt;
+  
+	&lt;!-- the html element where to put the paper --&gt;
+	&lt;div id="paper1"&gt;&lt;/div&gt;
+	
+	&lt;!-- a script that create's a paper and a rectangle --&gt;
+	&lt;script type="text/javascript"&gt;
+	var paper = Raphael("paper1", 500,500);
+	var rect1 = paper.rect(20,30,100,12).attr({fill: "orange"});
+	&lt;/script&gt;
+	
+  &lt;/body&gt;
+&lt;/html&gt;</pre>	
+	
+	<p>As you can see, once we include <b class="code">raphael.js</b>, we have ceated a raphael paper and drawed a rectangle on it with JavaScript. 
+	You can <a href="examples/example1.html">run this individual example</a> and checkout the source code in your browser for better understanding. </p>
+	
+	<p>We will examine paper more in deep in <a href="#sec-shape-paper">Section "Paper"</a>. </p>
+	
+	
+	<h2>Simple example</h2>
+	<p>Now that we know how to create a paper, let's make our first drawing, commenting the code with explanations. Don't feel bad 
+	if you don't catch anything, all will be explained detailed in this toturial. Notice that after the example source code there 
+	is a "Run" button that you can use for running the example without having to leave the tutorial. 
+	You can run almost all example code of this tutorial this way. </p>
+	
+<pre class="code code-run">/* create a paper - commented for Run */
+/* var paper = Raphael("paper1", 400, 400); */
+
+/* create an ellipse called ellipse1 */
+var ellipse1 = paper.ellipse(110,80,120,42);
+
+/* fill the rectangle with orange */
+ellipse1.attr({"fill": "blue", "stroke": "yellow"});
+
+/* create a text */
+var text1 = paper.text(100,90, "Click me");
+
+/* sets text font family and size */
+text1.attr({"font-family": "fantasy", "font-size": 24});
+
+/* group both the ellipse and the text in a single Set shape */
+var button1 = paper.set([ellipse1, text1]);
+button1.attr({cursor: "pointer"});
+
+/* add a click handler */
+button1.click(function(evt){
+
+	/* animate the ellipse - in two seconds its fill color and its stroke 
+	 * width will grow "bouncing". */
+	ellipse1.animate({fill:"red", "stroke-width": 20}, 2000, "bounce");
+	
+	/* also animate the text - syncronized with the eliipse animation the 
+	 * text will grow "bouncing too" */
+	text1.animateWith(ellipse1, null, {"font-size": 60}, 2000, "bounce");
+	
+}); </pre>
+
+
+	
+	<p>Now that we know how to create a raphaël's paper, in the following sections we will proceed to describe each of raphaël's supported 
+	shapes and shape's attributes. After that we will discuss more advanced topics like event handling and animations. </p>
+	
+	<p class="note">Note that, later, in all the examples code in this tutorial, for the sake of simplicity,
+	we omit the paper creation and draw directly in a paper object. We assume you already 
+	have that object paper created like described here and go to the drawing directly.</p>
+	
+	
+ 
+    
+    
+<!--    end of getting started -->
+
+
+
+   
+   
+   
+   
+   
+   <h1 class="index" id="sec-shapes">Shapes</h1>
+   
+   <p>In RaphaëlJs drawing means creating shapes of different types and modify them in time to get 
+   the result you desire</p>
+   
+   <p>In this section we will examine each of the shapes types supported by raphael like circles, rectangles, ellipses, paths, text, images, and more. </p>
+   
+   <p>Shapes are always created by a paper object: we must ask a paper to draw a certain shape on it. That shape will of some type, 
+   have some attributes, and will belong to that paper. In the following example we ask the paper to create several shapes. </p>
+   
+   <pre class="code code-run">
+var rect1 = paper.rect(20,30,100,12).attr({fill: "orange"});
+var ellipse1 = paper.ellipse(120,130,40,30).attr({fill: "red"});
+var circle1 = paper.circle(160,50,40).attr({fill: "yellow"});
+var path1 = paper.path("m10,10l30,40l150,80z").
+	attr({fill: "green", "stroke-width": 2});
+
+var set1 = paper.set();
+set1.push(rect1, ellipse1, circle1);
+set1.attr({"stroke": "purple", 
+	"stroke-width": 3, "stroke-dasharray": "."});
+	</pre>
+	
+   	<p>There are 7 types of shapes: rectangle, ellipse, circle, image, text, path and set each of one will be described on this section. </p>
+   
+   <p>
+   
+   
+<!--    	<p class="note">At any time we can know a shape's type using the property type. In the last example, <b class="code">set1.type=="set"</b>. </p> -->
+   
+	
+	<h2 id="sec-shape-attributes">Shape's Attributes</h2>	
+	
+   	<p>It is important to notice that a shape is an object with attributes that define its current state. At any time one can 
+    ask a shape for some of its attribute's value, or change some attribute. Attributes are accessed using the shape's method 
+    <a class="code raphael-ref" href="Element.attr">attr()</a>. For example, most shapes support the attribute <b class="code">fill</b> 
+    with which you can change its (fill) color. This means that at any time we can ask a rectangle for 
+	its "fill" color using <b class="code">attr("fill")</b>. Also we can use a <b class="index">JSON</b> object for setting 
+	several attributes in one call. In the following example we set three attribute values fill, stroke and stroke-width in one call to attr(): 
+	</p>
+	
+	<pre class="code code-run">
+paper.circle(100,100,60).attr({
+	fill: "red", 
+	stroke: "rgb(200,100,77)",
+	"stroke-width": 5
+})
+	</pre>
+	
+	<p>While in this section we discuss each shape type, in <a href="#sec-attributes">Section Attributes</a> we will discuss
+	each attribute supported by raphaël shapes. </p>
+	
+	
+	<h2 id="sec-shape-attributes">Shape's methods</h2>	
+	
+   <p>A shape object is not only its attributes also it support methods for doing a lot of things, like register user event listeners 
+   like mouse click, animation, and many many more stuff. In </p>
+   
+   
+   <h2 id="sec-shape-rect" class="index">Rectangle</h2>
+   
+   <p>Rectangles are created using the paper's <a href="Paper.rect"  class="code raphael-ref">Paper.rect() method</a>.</p>
+   
+   <p>The following example show some rectangles Some rectangles</p>
+   	<pre class="code code-run">
+paper.rect(100,100,200,60).attr({
+	fill: "red", 
+	stroke: "rgb(200,100,77)",
+	"stroke-width": 5
+})
+
+paper.rect(240,100,200,90,20).attr({
+	fill: "brown", 
+	stroke: "rgb(100,200,77)",
+	"stroke-width": 5,
+	"stroke-dasharray": "."
+})
+	</pre>
+	
+	<p>You can change attributes x and y for moving the rectangle. </p>
+   
+   
+   
+   <h2 id="sec-shape-circle" class="index">Circle</h2>
+   
+    <p>Circles are created using the paper's <a href="Paper.circle"  class="code raphael-ref">Paper.circle() method</a>.</p>
+    
+<!--    <p><a href="Paper.circle"  -->
+<!--    		class="raphael-ref"><b class="code">paper.circle()</b></a></p> -->
+   
+   
+   
+   <h2 id="sec-shape-ellipse" class="index">Ellipse</h2>
+   <p>Ellipses are created using the paper's <a href="Paper.ellipse"  class="code raphael-ref">Paper.ellipse() method</a>.</p>
+   
+   
+   <h2 id="sec-shape-image" class="index">Image</h2>   
+   
+   <p>Images are created using the paper's <a href="Paper.image"  class="code raphael-ref">Paper.image() method</a>.</p>
+   
+   
+   
+   
+   
+   
+      
+   <h2 id="sec-shape-path" class="index">Path</h2>
+   
+   <p>Paths are the most advanced kind of shapes. With paths we can 
+   draw almost any kind of shape, including all the basic shapes mentioned earlier, 
+   but also arbitrary polygons and curves. As we <a href="#sec-shape-print">will see</a>,
+   Raphaël uses paths for printing text of any font. </p>
+   
+    <p>We use the <a href="Paper.path"  class="code raphael-ref index">Paper.path()</a> method for crating a path. 
+    The path method accept a string that define the path. In this section we will learn the basics of drawing a Path shape. </p> 
+   
+   <p>As we said a shape is represented with a string. This string contains what we can call a sequence of path commands. A path command is a letter followed by 
+   some numbers comma or space separated.In the following example we draw a path that taht is a triangle and that consists on four commands: 
+   Move to 50,100 then draw a Line to 120,120, then draw a Line to 120,40 and then close the path (Z): 
+   
+   <pre class="code code-run">var p1 = paper.path("M10,100L120,120L120,40Z")
+p1.attr({"stroke-width": 4, fill: "red"});</pre>
+   
+   <p>You can think of a path as a pencil that draws on the paper according to path commands in the string. As you may see, the "M50,100" command means 
+   "move to 50,100" and it tells the "pencil" to move to that coords without drawing. The "L120,120" means "draw a line to 120,120" and it will 
+   make the pencil to draw a line from current point (50,100) to specified point 120,120. Last the command "Z" will make the pencil 
+   to draw a line that closes the path, drawing a line from last point to origin. </p>
+   
+   <p>The path type will be fully covered on <a href="#sec-types-path">Section Raphaël Types - Path</a>. </p>
+   
+<pre class="code code-run">
+/*Crisper lines with integers*/
+var path_1 = paper.path('M100.0001 100.0001 V400.0001');
+path_1.attr({stroke:'#FF0000', 'stroke-width': 2 ,'arrow-end': 'classic-wide-long'});
+var path_2 = paper.path('M200 100 V400');
+path_2.attr({stroke:'#FF0000', 'stroke-width': 2 ,'arrow-end': 'diamond-wide-long'});
+
+/*Gradient on a path*/
+path_3 = paper.path('M 246.078,121.508 C 246.078,113.387 235.324,105.602 216.187,99.859 C 197.05,94.117 171.097,90.891 144.031,90.891 C 116.964,90.891 91.0117,94.117 71.875,99.859 C 52.7383,105.602 41.9844,113.387 41.9844,121.508 C 41.9844,129.625 52.7383,137.414 71.875,143.152 C 91.0117,148.895 116.964,152.121 144.031,152.121 C 171.097,152.121 197.05,148.895 216.187,143.152 C 235.324,137.414 246.078,129.625 246.078,121.508z');
+path_3.attr({fill: "90-#fff-#FFFF00:50%-#FF0000"});
+/*Animated path*/
+var arc = paper.path("M300 300, L300 200, A100,100,0,0,1,400,300,L 297 300").attr({stroke:'#0000FF', 'stroke-width':6});
+arc.animate({path:"M300 300,L 300 200, A100,100,0,0,1,300,400, L300,300"},2000);
+
+/*images can be used to fill paths*/
+path_4 = paper.path('M 144.64285,71.290753 L 134.1333,73.039322 L 129.6157,82.688128 L 124.70509,73.23329 L 114.13251,71.918448 L 121.60713,64.326467 L 119.59052,53.865043 L 129.12071,58.62778 L 138.44694,53.477107 L 136.8623,64.01262 L 144.64285,71.290753 z').transform("S5");
+path_4.attr({fill: "url(images/tiles.jpg)"});
+
+/*Arc Examples*/
+var arc2 = paper.path("M 60,70 L   60,20   A 50,50 0 0,1 68.7,20.8 Z");
+var arc3 = paper.path("M 60,70 L 68.7,20.8 A 50,50 0 0,1 77.1,23.0 Z");
+var arc4 = paper.path("M 68,65 L 85.1,18.0 A 50,50 0 0,1  118,65   Z");
+var arc5 = paper.path("M 60,70 L  110,70   A 50,50 0 1,1   60,20   Z");
+arc2.attr({fill:'#008000'});
+arc3.attr({fill:'#FF0000'});
+arc4.attr({fill:'#0000FF'});
+arc5.attr({fill:'#C0C000'});
+</pre>
+   
+   
+   
+   
+   
+   
+   
+   <h2 id="sec-shape-text" class="index">Text</h2>
+      
+   <p>Text shapes are created using paper's <a href="Paper.text"  class="code raphael-ref index">Paper.text() method</a>.</p>
+   <p>We use <b class="code">paper.text(100,100,"a text")</b> for creating a text shape at 
+   coords (100,100) with the text "a text". In the following examples we draw some text shapes and set varius raphael text related attributes to them:</p>
+   
+   <pre class="code code-run">
+var text1 = paper.text(230,120,"What is happiness?\nThe feeling that power \nincreases - that resistance \nis being overcome.\n Friedrich Nietzsche").
+	attr({"font-size": "32px", "font-weight": "800", fill: "yellow", stroke:"brown", "stroke-width": "3px"});
+   </pre>
+   
+   <p class="note" id="sec-shape-text-noselection">
+A note about <span class="index">text selection</span>. In some browsers, like Google chrome, text() shapes are selectable by the user, like normal html text. 
+You can verify this if selecting the text of previus example in chrome with the mouse. 
+This can be undesired, but fortunately we can work around using jquery, and setting some CSS properties 
+for disabling text selection by the user, like this:
+   </p>
+   
+   <pre class="code code-run">
+var text1 = paper.text(230,120,
+	"What is happiness?\nThe feeling that power \nincreases - that resistance \nis being overcome.\n Friedrich Nietzsche").
+	attr({"font-size": "32px", "font-weight": "800", fill: "yellow", stroke:"brown", "stroke-width": "3px"});
+ $(text1.node).css({
+	"-webkit-touch-callout": "none",
+	"-webkit-user-select": "none",
+	"-khtml-user-select": "none",
+	"-moz-user-select": "none",
+	"-ms-user-select": "none",
+	"user-select": "none",
+})
+   </pre>  
+   
+   <p>A note about font-family attribute for text. Any web developer knows the problem of fonts on web pages, the same applies here for text shape.
+   As with any text in html pages, you can only use a font family 
+   supported by the client's browser. For example, 
+   use <b class="code">font-family="Lucida Casual"</b> only if you are sure that the 
+   client's has the font that font installed in its system. If not, the text will 
+   printed using a default font like Arial or Times New Roman. There are some portable 
+   font family names defined in the CSS standar like "courier", "serif", "sans-serif", 
+   "fantasy" that will always be present. Also, as in CSS font-family you can set several 
+   font names as a "fallback" system like <b class="code">font-family=arial,sans-serif</b>.</p>
+   
+      <p>If you really need to show some text with a custom font use 
+   <a class="code" href="#sec-shape-print">print()</a> instead.  
+   </p>
+      
+   
+   
+   
+   
+   
+   
+   <h2 id="sec-shape-print" class="index">Text with custom fonts</h2>
+   
+   <p>Raphael support a second way of making text very different than described in <a href="#sec-shape-text">Section Text</a>. 
+   alternatively to the normal text shapes created by <a href="Paper.text"  class="code raphael-ref index">Paper.text() method</a>, 
+   the shapes created by <a href="Paper.print"  class="code raphael-ref index">Paper.print() method</a> will render text using 
+   any font you like and generate a <a href="#sec-shape-path">path shape</a>. </p>
+   
+   <p>RaphaelJs rely on the
+   The <a href="https://github.com/sorccu/cufon/wiki/about">Cufón</a> technology 
+   that is used to generate JavaScript fonts, this is, javascript files, generated from TrueType fonts files,
+   which can be used to draw text in an HTML document with the font definition. Let's say it is a font implementation for 
+   the browser. It usesSVG and VML for do the drawing, the same two technologies raphaeljs is based.</p>
+   
+   <p>Basically the steps for being able to print text using a custom font in raphael.js are the followings:</p>
+   
+   <ol>
+   <li>Get a font file, can be a true type (.ttf) file from your system, or you can download from internet. Make sure you have appropiate permissions over the TTF file.</li>
+   <li>Go to the <a href="http://cufon.shoqolate.com/generate/">Cufon JavaScript Font generator</a>. upload your ttf files, and do some configuration according to your usage. 
+   Clicking the bottom "Let's do this" button will let you download your JavaScript font file, which name generally ends with *.font.js. </li>
+   
+<!--    <li>make sure the CufonJavaScript file JavaScript code starts with <b class="code">Raphael.registerFont</b> and not with <b class="code">Cufon.registerFont</b>. Change </li> -->
+   <li>Include this javascript file in your html document, after you include raphael.js file: 
+   <pre class="code">
+   &lt;html&gt;....
+   &lt;head&gt;...
+   &lt;script type="text/javascript" src="raphael-min.js"&gt;&lt;/script&gt;
+   &lt;script type="text/javascript" src="samarkan.font.js"&gt;&lt;/script&gt;
+   &lt;/head&gt;
+   .....
+   &lt;/html&gt;
+	</pre>
+   </li>
+   <li>
+   	
+   </ol>
+   
+   <pre class="code code-run">
+var font1 = paper.getFont("samarkan normal");
+paper.print(10,100,"Tim Bombadil", font1, 48);
+paper.print(10,200,"Tim Bombadil", font1, 58).
+attr({"stroke-width": 3, fill: "red", "stroke": "blue"});
+   </pre>
+   
+   
+   <p class="note">The web site <a href="http://www.cufonfonts.com/">cufonfonts</a> has a huge catalog of ready to use and free JavaScript cufon 
+   Fonts. So you can choose JavaScript fonts from there and skip steps 1 and 2.</p>
+   
+   
+    <p>can draw text using any font you like supporting major font formats like TrueType, OTF, etc. 
+   is used for rendering system fonts 
+   to vector paths. We use the <a href="Paper.print"  class="code raphael-ref">Paper.print() </a> method. </p>
+   
+   
+   <p>It is important to notice the following. The <b class="code index">text()</b> method crates a real text shape succeptible of having text 
+   related attributes like <b class="code">font-family</b>, <b class="code">font-size</b>, <b class="code">text-decoration</b>. 
+   Nevertheless, shapes created with <b class="code index">print()</b> are paths, not text. So they do not support text related attributes like those.</p>
+   
+   <p>In general, you will want to use <b class="code">print()</b> for titles and small texts that need to be pretty formated. 
+   But when showing large amounts of text, <b class="code">text()</b> is more appropriate and faster.</p>
+   
+   <p>Also, because shapes generated with <b class="code">print()</b> are in fact vector paths, we can work with it in ways 
+   that we couln'd with "normal" text shapes. For example TODO: example on text path align and text transform.</p>
+   
+   
+   
+   
+   
+   
+   
+   <h2 id="sec-shape-set"  class="index">Set</h2>
+   
+   <p>In a first examination we can see that a set is a shape that contains other shapes, including other sets. 
+   Sets are useful when we want to group several shapes for accessing all together. For example, imagine </p>
+   
+   <p>We can create a set using <a class="raphael-ref" href="Paper.set">Paper.set</a> as in the following example. 
+   There we group a bounch of shapes togheter in a set. 
+   Then we manipulate them together using the set.</p>
+   
+   <pre class="code code-run" id="ex-set-clone-1">
+var mouth = paper.rect(20,160,200,20).attr({"fill": "white"}), 
+	eye1 = paper.circle(60,60,30).attr({"fill": "brown"}), 
+	eye2 = paper.circle(160,60,30).attr({"fill": "brown"});
+
+var face1 = paper.set([mouth, eye1, eye2]);
+
+/* change all shapes of face1 */
+face1.attr({"stroke-width": 4, "transform": "S0.8"});
+
+/* clone the entire shape */
+var face2 = face1.clone()
+face2.data("name", "face2");
+face2.attr({"transform": "t200,100R40,200,200"})
+   </pre>
+   
+   <p>For iterating though all shaps contained by a set we use forEach() TODO example</p>
+   
+     
+   
+   
+   
+   
+<!--    end of section shapes -->
+
+
+
+
+
+
+
+
+	<h1 id="sec-attributes">Shape's methods and properties</h1>
+	
+	<p>All shapes support common methods each of them will be described here in detail. </p>
+	
+	
+	<h2><a class="code raphael-ref" href="Element.animate">animate()</a></h2>
+	
+	<p>All shapes support the methods <a class="raphael-ref" href="Element.animate">animate()</a> and 
+	<a class="raphael-ref" href="Element.animateWith">animateWith()</a> for animating its attributes. Animation is explained
+	in its <a href="#sec-animation">own section</a>. </p>
+	
+	
+	<h2>Event handling</h2>
+	
+	<p>Raphael support an easy to use event handling system so you can easily register event listeners, for example mouse clicks, 
+	on shapes. Event handling have <a href="#sec-events">its own section Events. </a> </p>
+	Shape's Methods
+	
+	
+	<h2><a class="raphael-ref code" href="Element.id">id</a></h2>
+	<p>Unique id of the element. Especially usesful when you want to listen to events of the element, because all events are fired in format &lt;module&gt;.&lt;action&gt;.&lt;id&gt;. Also useful for Paper.getById method. </p>
+	
+	<h2><a class="raphael-ref code" href="Element.node">node</a></h2>
+	<p>Shapes support the <a class="raphael-ref code" href="Element.node">node</a> property taht is a reference to the 
+	DOM object so you can manipulate shapes using third party javascript libraries. For example: </p>
+	
+	<pre class="code code-run">
+/* draw a circle at coordinate 10,10 with radius of 10 */
+var c = paper.circle(10, 10, 10);
+c.node.onclick = function () {
+    c.attr("fill", "red");
+};
+	</pre>
+	
+	<p class="note">Be very carefull when using this property as you may break raphaeljs internals. Only use it 
+	when really neccesary, when you cannot make something in raphael and you need another framework help for accomplish some task. </p>
+	
+		
+	<h2><a class="code raphael-ref" href="Element.clone">clone()</a></h2>
+	
+	<p>The clone() method will return an identical shape than the target, with the exception that event listeners won't be cloned: </p>
+	
+	<pre class="code code-run">
+var r1 = paper.rect(100,100,100,100).attr({fill: "red"});
+r1.click(function(){alert("clicked");});
+r1.clone(true).attr({transform: "t120,0"});
+	</pre>
+	
+	<p>In the case fo sets it will return a new set with all members cloned as well, like in the following example:</p>
+	<a class="code code-run" href="ex-set-clone-1"></a>
+
+
+	<h2><a class="code raphael-ref" href="Element.toBack">toBack()</a> and <a class="code raphael-ref" href="Element.toFront">toFront()</a></h2>
+
+	<p>When two shapes are overlapped, one will remain on top of the other. As we create new shapes in a paper, newer ones will 
+	be on top of older ones. We use the methods <a class="code raphael-ref" href="Element.toBack">toBack()</a> and <a class="code raphael-ref" href="Element.toFront">toFront()</a>
+	for changing this z-index order. In the following example, two rectangles overlapp. Because the red rectangle was drawer later, 
+	it wil remain entirely visible. If you click it we will call toBack() on it and the blue one will be visible as a consequence:</p>
+	
+	<pre class="code code-run">
+paper.text(100,20,"click the red rectangle");
+var r1 = paper.rect(60,70,100,130).attr({fill: "blue", "stroke-width": 4});
+var r2 = paper.rect(100,130,120,100).attr({fill: "red", "stroke-width": 4});
+r2.click(function(){
+	this.toBack();
+})
+	</pre>
+	
+	
+	<h2><a class="code raphael-ref" href="Element.show">show()</a> and
+	<a class="code raphael-ref" href="Element.hide">hide()</a></h2>
+	
+	<p>All shapes support methods <a class="code raphael-ref" href="Element.show">show()</a> and
+	<a class="code raphael-ref" href="Element.hide">hide()</a> for hiding and showing shapes. 
+	Hidden shapes are not removed from the paper, only hidden, as in CSS's "display: none".</p> 
+	
+	<p>The following is an example that use these two functions: </p>
+	<pre class="code code-run">
+var cx=[240,400,320];
+var cy=[160,160,300];
+
+var r = paper.circle(cx[0], cy[0], 160).attr({fill:'#FF0000'}).
+	click(function () { g.hide();b.show(); });;
+var g = paper.circle(cx[1], cy[1], 160).attr({fill:'#00FF00'}).
+	click(function () { b.hide();r.show(); });;
+var b = paper.circle(cx[2], cy[2], 160).attr({fill:'#0000FF'}).
+	click(function () { r.hide();g.show()  });;
+paper.text(20,400,'Click on a circle.').attr({fill:'#000000', 
+	'font-size':24, 'stroke-width':1 ,'text-anchor':'start'});
+
+	</pre>
+	
+	<h2><a class="code raphael-ref" href="Element.prev">prev</a> and
+	<a class="code raphael-ref" href="Element.next">next</a> properties</h2>
+	
+	<p>Remember we said that newer shapes will be on top of older ones? Well we can iterate throw 
+	all paper's shape's in that order using shape's properties 
+	<a class="code raphael-ref" href="Element.prev">prev</a> and
+	<a class="code raphael-ref" href="Element.next">next</a>. In the following example 
+	do exactly that using also paper's properties <a class="code raphael-ref" href="Paper.bottom">bottom</a> and
+	<a class="code raphael-ref" href="Paper.top">top</a>: </p>
+	
+	<a class="code code-run" href="ex-paper-bottom-and-top">s</a>
+	
+	
+
+
+
+
+
+	<h1 id="sec-attributes">Shape's Attributes</h1>
+	
+	<p>A shape is an object with attributes that define its current state. At any time one can ask a shape for some of 
+	its attribute's value, or change some attribute. Attributes are accessed using the shape's method 
+	<a class="code raphael-ref" href="Element.attr">attr() method</a>.
+	For example, all shapes have the attribute 
+	<b class="code">fill</b> with which you can change its (fill) color. This means that at any time we can ask a rectangle for 
+	its "fill" color using <b class="code">attr("fill")</b>. Also we can paint a shape red using 
+	<b class="code">rect1.attr({"fill": "red"});</b>	
+	and/or change it using. Another example are text shapes that have an 
+	<b class="code">text</b> attribute that can be used for getting or setting the text. In this case, only shapes of type text
+	will understand this attribute: for a rectangle the <b class="code">text</b> attribute has no meaning and it will be ignored.</p>
+
+	<p>Some attributes have a very simple purpose, like <b class="code">text</b> (the text of a text shape). 
+	But there are other attributes that support different formats or have more than one purpose. For example, the <b class="code">fill</b>
+	attribute may serve both for filling a shape with a color, or filling a shape with a gradient, 
+	or filling a shape using an tiled image. We use the same <b class="code">fill</b> attribute, 
+	but using different format for the value for archieving different "filling" porpuses.</p>   
+	
+	<p>In this section we will describe each supported attribute emphasising the more complex ones, alphabetically. The following table contains a summary of each attributes (taken from rpahael reference). </p>
+
+<ul  style="margin-left: 40px;">
+<li><span class="dr-json-key">arrow-end</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">arrowhead on the end of the path. The format for string is <code>&lt;type&gt;[-&lt;width&gt;[-&lt;length&gt;]]</code>. Possible types: <code>classic</code>, <code>block</code>, <code>open</code>, <code>oval</code>, <code>diamond</code>, <code>none</code>, width: <code>wide</code>, <code>narrow</code>, <code>midium</code>, length: <code>long</code>, <code>short</code>, <code>midium</code>.</span>
+</li><li><span class="dr-json-key">clip-rect</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">comma or space separated values: x, y, width and height</span>
+</li><li><span class="dr-json-key">cursor</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">CSS type of the cursor</span>
+</li><li><span class="dr-json-key">cx</span><span class="dr-type"><em class="dr-type-number">number</em></span><span class="dr-json-description">the x-axis coordinate of the center of the circle, or ellipse</span>
+</li><li><span class="dr-json-key">cy</span><span class="dr-type"><em class="dr-type-number">number</em></span><span class="dr-json-description">the y-axis coordinate of the center of the circle, or ellipse</span>
+</li><li><span class="dr-json-key">fill</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">colour, gradient or image</span>
+</li><li><span class="dr-json-key">fill-opacity</span><span class="dr-type"><em class="dr-type-number">number</em></span><span class="dr-json-description">&nbsp;</span>
+</li><li><span class="dr-json-key">font</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">&nbsp;</span>
+</li><li><span class="dr-json-key">font-family</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">&nbsp;</span>
+</li><li><span class="dr-json-key">font-size</span><span class="dr-type"><em class="dr-type-number">number</em></span><span class="dr-json-description">font size in pixels</span>
+</li><li><span class="dr-json-key">font-weight</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">&nbsp;</span>
+</li><li><span class="dr-json-key">height</span><span class="dr-type"><em class="dr-type-number">number</em></span><span class="dr-json-description">&nbsp;</span>
+</li><li><span class="dr-json-key">href</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">URL, if specified element behaves as hyperlink</span>
+</li><li><span class="dr-json-key">opacity</span><span class="dr-type"><em class="dr-type-number">number</em></span><span class="dr-json-description">&nbsp;</span>
+</li><li><span class="dr-json-key">path</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">SVG path string format</span>
+</li><li><span class="dr-json-key">r</span><span class="dr-type"><em class="dr-type-number">number</em></span><span class="dr-json-description">radius of the circle, ellipse or rounded corner on the rect</span>
+</li><li><span class="dr-json-key">rx</span><span class="dr-type"><em class="dr-type-number">number</em></span><span class="dr-json-description">horisontal radius of the ellipse</span>
+</li><li><span class="dr-json-key">ry</span><span class="dr-type"><em class="dr-type-number">number</em></span><span class="dr-json-description">vertical radius of the ellipse</span>
+</li><li><span class="dr-json-key">src</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">image URL, only works for <a href="#Element.image" class="dr-link">Element.image</a> element</span>
+</li><li><span class="dr-json-key">stroke</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">stroke colour</span>
+</li><li><span class="dr-json-key">stroke-dasharray</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">[“”, “<code>-</code>”, “<code>.</code>”, “<code>-.</code>”, “<code>-..</code>”, “<code>. </code>”, “<code>- </code>”, “<code>--</code>”, “<code>- .</code>”, “<code>--.</code>”, “<code>--..</code>”]</span>
+</li><li><span class="dr-json-key">stroke-linecap</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">[“<code>butt</code>”, “<code>square</code>”, “<code>round</code>”]</span>
+</li><li><span class="dr-json-key">stroke-linejoin</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">[“<code>bevel</code>”, “<code>round</code>”, “<code>miter</code>”]</span>
+</li><li><span class="dr-json-key">stroke-miterlimit</span><span class="dr-type"><em class="dr-type-number">number</em></span><span class="dr-json-description">&nbsp;</span>
+</li><li><span class="dr-json-key">stroke-opacity</span><span class="dr-type"><em class="dr-type-number">number</em></span><span class="dr-json-description">&nbsp;</span>
+</li><li><span class="dr-json-key">stroke-width</span><span class="dr-type"><em class="dr-type-number">number</em></span><span class="dr-json-description">stroke width in pixels, default is '1'</span>
+</li><li><span class="dr-json-key">target</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">used with href</span>
+</li><li><span class="dr-json-key">text</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">contents of the text element. Use <code>\n</code> for multiline text</span>
+</li><li><span class="dr-json-key">text-anchor</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">[“<code>start</code>”, “<code>middle</code>”, “<code>end</code>”], default is “<code>middle</code>”</span>
+</li><li><span class="dr-json-key">title</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">will create tooltip with a given text</span>
+</li><li><span class="dr-json-key">transform</span><span class="dr-type"><em class="dr-type-string">string</em></span><span class="dr-json-description">see <a href="#Element.transform" class="dr-link">Element.transform</a></span>
+</li><li><span class="dr-json-key">width</span><span class="dr-type"><em class="dr-type-number">number</em></span><span class="dr-json-description">&nbsp;</span>
+</li><li><span class="dr-json-key">x</span><span class="dr-type"><em class="dr-type-number">number</em></span><span class="dr-json-description">&nbsp;</span>
+</li><li><span class="dr-json-key">y</span><span class="dr-type"><em class="dr-type-number">number</em></span><span class="dr-json-description">&nbsp;</span>
+</li>
+</ul>
+
+	<p>Each attribute type will be explained individually in the following sections.</p>
+	
+	<h2>Arrow-end and arrow-start</h2>
+	<p>Attributes <b class="index">arrow-end</b> and <b class="index">arrow-start</b> add an arrow at the endo and/or start of a path. The path must by not closed, this is, not ending in the "Z" path command.</p>
+	<p>The format of these two strings is &lt;type&gt;[-&lt;width&gt;[-&lt;length&gt;]]. Possible types are classic, 
+	block, open, oval, diamond, none. Possible values for width are: wide, narrow, midium. And possible values 
+	for length are: long, short, midium.</p>
+	<p>The following is a simple example with a path and these two attributes.</p>
+	
+	<pre class="code, code-run">
+var path = paper.path("m100,20l200,150t120,120t40,120");
+path.attr({"stroke": "brown", 
+	"stroke-width": 3, 
+	"arrow-end": "block-wide-long", 
+	"arrow-start": "oval-narrow-midium"});
+	</pre> 
+	
+	
+	<h2 class="index">clip-rect</h2>
+	<p>What happens if an image is larger than its containing element? - The clip property lets you specify the dimensions of an absolutely positioned element that should be visible, and the element is clipped into this shape, and displayed. Comma or space separated values: x, y, width and height</p>
+	<pre class="code, code-run">
+var e = paper.ellipse(100,100,70,50);
+e.attr({"stroke": "brown", "stroke-width": 3, "clip-rect":"20,30,120,60"});
+	</pre> 
+	
+	<h2 class="index">cursor</h2>
+	<p>CSS type of the cursor: </p>
+	<table class="reference">
+	<tbody><tr>
+		<th align="left" width="20%">Value</th>
+		<th align="left" width="80%">Description</th>
+	</tr>
+	<tr>
+		<td>auto</td>
+		<td>Browser default cursor (often an arrow). This is default</td>
+	</tr>
+	<tr>
+		<td>crosshair</td>
+		<td>Crosshair cursor</td>
+	</tr>
+	<tr>
+		<td>default</td>
+		<td>Platform-depended default cursor (often an arrow)</td>
+	</tr>
+	<tr>
+		<td>e-resize</td>
+		<td>East arrows. Indicates that an element is resizable</td>
+	</tr>
+	<tr>
+		<td>help</td>
+		<td>Arrow with question mark, indicating that help is available</td>
+	</tr>
+	<tr>
+		<td>move</td>
+		<td>Crossed arrows, indicating that something can be moved</td>
+	</tr>
+	<tr>
+		<td>n-resize</td>
+		<td>North arrows. Indicates that an element is resizable</td>
+	</tr>
+	<tr>
+		<td>ne-resize</td>
+		<td>North-east arrows. Indicates that an element is resizable</td>
+	</tr>
+	<tr>
+		<td>nw-resize</td>
+		<td>North-west. Indicates that an element is resizable</td>
+	</tr>
+	<tr>
+		<td>pointer</td>
+		<td>Normal hand</td>
+	</tr>
+	<tr>
+		<td>s-resize</td>
+		<td>South arrows. Indicates that an element is resizable</td>
+	</tr>
+	<tr>
+		<td>se-resize</td>
+		<td>South-east arrows. Indicates that an element is resizable</td>
+	</tr>
+	<tr>
+		<td>sw-resize</td>
+		<td>South-west arrows. Indicates that an element is resizable</td>
+	</tr>
+	<tr>
+		<td>text</td>
+		<td>The cursor indicates text</td>
+	</tr>
+	<tr>
+		<td><i>url</i></td>
+		<td>The URL of a cursor file to be used. <b>Tip:</b> 
+		Always define a generic cursor at the end of the list in case none of 
+		the url-defined cursors work</td>
+	</tr>
+	<tr>
+		<td>w-resize</td>
+		<td>West arrows. Indicates that an element is resizable</td>
+	</tr>
+	<tr>
+		<td>wait</td>
+		<td>Hourglass or watch, indicating that the program is busy</td>
+	</tr>
+	</tbody></table>
+	
+	
+	
+	
+	<h2>cx and cy</h2>
+	<p>The x and y coordinate of the center of the circle, or ellipse. </p>
+	
+	
+	<h2 id="sec-attrs-fill">fill</h2>
+	
+	<p>The attribute fill serves to fill the inner area of a shape. It can be filled 
+	with a solid color, a gradient with two or more colors, or with a tiled image.</p>
+	
+	<h3 id="sec-attrs-fill-color">Color fill</h3>
+	
+	<p>The fill attribute can be a color and many color formats are supported: </p>
+	
+	<pre id="ex-color1" class="code code-run">
+paper.ellipse(100,100,90,40).attr({fill: "yellow"})
+paper.rect(200,100,90,40).attr({fill: "#4422ff"})
+paper.path("m200,200l280,200l290,290z").attr({fill: "rgb(213,111,5)"})
+paper.ellipse(340,100,90,40).attr({fill: "hsb(0.5,0.9,0.9)"});
+	</pre>
+	
+	<p>In <a href="#sec-types-color">Section Type Color</a> we discuss the color datatype in raphael detailed.</p>
+	
+	
+	<h3>Gradients</h3>
+
+	<p>You can use the fill attribute to set a color gradient for filling. A rich number of 
+	gradients types are supported which are descripbed in <a href="#sec-types-gradient">Raphael types - Gradients</a>. 
+	
+	
+	<h3>Images</h3>
+	
+	<p>We can also fill a shape using an image. If the image is smaller than the shape area, it will be repeated both in x 
+	and y directions (the same as in CSS's background-repeat: repeat-xy). We can only specify the image, no position or 
+	repeat parameters are supported. The only other parameter supported is <a href="sec-attrs-fillopacity">fill opacity</a>. </p> 
+	
+	<pre class="code code-run">
+paper.circle(100,100,100).attr({
+	fill: "url(images/tiled1.jpg)", 
+	"stroke-width": "3px"});
+paper.ellipse(250,100,80,120).attr({
+	fill: "url(images/tiled1.jpg)"});
+	</pre>
+	
+	<h2>fill-opacity</h2>
+	
+	<h2></h2>
+	<h2></h2>
+	<h2></h2>
+	
+	
+
+
+<!-- end of section attributes -->
+
+
+
+
+   <h1 class="index" id="sec-events">Events</h1>
+   <p>Raphaël supports listening for user events. For example if we want to show an alert dialog when the user clicks a rectangle we use:</p>
+   
+   <pre class="code code-run" id="sec-events-click1">
+paper.text(20,100,"click the rectangle please").attr({"font-size": "18px"});
+var rectangle = paper.rect(150,100,100,130).attr({fill: "red"});
+var clickHandler = function(){
+	alert("clicked");
+};
+rectangle.click(clickHandler);
+   </pre>
+   
+   <p>Also for each event type, we can unregister the function handler. In the case of the previus example this would be:</p>
+   <pre class="code">
+rectangle.unclick(clickHandler);
+   </pre>
+   
+   <p>In this section we will describe each event type. </p>
+      
+   
+   
+   <h2 class="index" id="sec-events-mouse">Mouse Events</h2> 
+   
+   <p>Raphael support the following events type related to mouse:</p>
+   <table>
+   <tr class="title"><td>Event type</td><td>meaning</td><td>Function Reference</td><td>Example</td></tr>
+   
+   <tr><td>click</td><td>the shape was clicked</td><td><a href="Element.click" class="raphael-ref">click()</a></td><td>
+   <a class="code code-run" href="sec-events-click1">
+   </a></td></tr>
+   
+   <tr><td>click</td><td>the shape was double clicked</td><td><a href="Element.dblclick" class="raphael-ref">dblclick()</a></td><td>
+   <pre class="code code-run">
+paper.text(100,10,"dmlclicking the ellipse for moving it")
+var e1 = paper.ellipse(100,100,160,120).attr({fill: "red"});
+/* move according to click coords on dblclicked */
+e1.dblclick(function(e){
+	e1.attr()
+});
+   </pre></td></tr>
+   
+   </table> 
+   
+   <h3>Normalizing events. </h3>
+   
+   <p>As web page programmers know, there are big incompatibilities  between different browsers
+   in the events object API. This is why JavaScript toolkits like jQuery, YUI, etc. where created. 
+   </p>
+   
+   <p>The following is an example about how to detect if the user is pressing some key
+   like control or alt while he is moving or clicking the mouse.</p>
+   
+   <pre class="code code-run">
+var r = paper.rect(100,100,100,80).attr({fill: "red"});
+r.click(function(e){
+	/* first normalize the event object with jquery */
+	e = $.event.fix(e);	
+    e.preventDefault();	
+	alert(e.which+", "+e.shiftKey+", "+e.altKey+", "+e.metaKey+", "+e.ctrlKey);   
+});	
+   </pre> 
+   
+   
+    
+    <h3 class="index" id="sec-events-mousewheel">Mouse Wheel</h3>
+    
+    <p id="events-mousewheel">What about mousewheel events? Well it is possible to listen to mouise wheel events in the paper, 
+    using the jquery's <a href="http://brandonaaron.net/code/mousewheel/docs">mouse wheel extension by Brandon Aaron</a>
+    
+    <p>For that you will need jquery.js (like for keyboard events) and also the jquery.mousewhell.js file that 
+    can be downloaded from <a href="http://www.github.com/brandonaaron/jquery-mousewheel/downloads">here</a>.</p>   
+
+	<p>In the following example we     
+    <pre class="code code-run">
+paper.text(100,10, "use you moue wheel under \nthe circle for chaning rx");
+var e1 = paper.ellipse(100,100,40,40).attr({fill: "red"});
+$(e1.node).bind('mousewheel', function(event, delta) {	
+	e1.attr({rx: e1.attr("rx")+delta});
+	event.preventDefault();
+});
+    </pre>
+    
+     
+    <p class="note">Note that like other rapheel mouse events, mousewheel won't be fired in shapes without a fill attribute. 
+    Notice that in that example, we needed to call event.PreventDefault(), if not the tutorial contents will be scrolled when you use the mouse-wheel.</p>
+    
+            
+    <p>Note also that you can also register the mousewheel listener in the paper 
+    itself (and not an individual shape. Instead using aShape.node, we use paper.canvas: </p>
+    
+<pre class="code code-run">
+paper.text(100,10, "use you moue wheel under \nthe circle for chaning rx");
+var e1 = paper.ellipse(100,100,40,40).attr({fill: "red"});
+$(paper.canvas).bind('mousewheel', function(event, delta) {	
+	e1.attr({rx: e1.attr("rx")+delta});
+	event.preventDefault();
+});
+</pre>
+   
+   
+   
+   <h2 class="index">Touch Events</h2>
+   
+   
+   
+   <h2 class="index" id="sec-events-keyboard">Keyboard Events</h2>   
+   
+   <p>Raphaël do not support keyboard related events. You can use the HTML Events DOM JavaScript API like in any common web page. 
+   I recommend using some javascript library like <a href="jquery.com">jquery</a> or <a href="developer.yahoo.com/yui">yui</a> 
+   for doing event stuff on html documents mainly because it will normalize the API between different browsers. This only apply 
+   for key events: the other mouse related events we saw like click(), drag() etc are managed by raphaël and do not need you 
+   to use any other javascript library. </p>
+   
+   <p>In the following example we use <a href="jquery.com">jquery</a> for register an key event listener and 
+   moving a shape with arrow keys. You can run <a href="examples/example-keyevents.html">the example alone here</a>. Remember that 
+   <b class="code">jquery.js</b> file must be included in this example. </p>
+   
+   <pre class="code code-run">
+paper.text(220,20,"please press the arrow keys for\n shaping the ellipse").attr({"font-size": "22px"});
+var ellipse = paper.ellipse(200, 200, 100, 100).attr({fill: "orange"});
+$(document).keydown(function(event) {
+	
+	/* since we are using jquery, the event is already normalize */
+	var arrowKeys = {"left": 37, "up": 38, "right": 39, "down": 40};
+	if(event.keyCode == arrowKeys["left"]) {
+		ellipse.animate({rx: ellipse.attr("rx")-40}, 1000, "bounce");
+	}
+	else if(event.keyCode == arrowKeys["up"]) {
+		ellipse.animate({ry: ellipse.attr("ry")+40}, 1000, "bounce");			
+	}
+	else if(event.keyCode == arrowKeys["right"]) {
+		ellipse.animate({rx: ellipse.attr("rx")+40}, 1000, "bounce");
+	}
+	else if(event.keyCode == arrowKeys["down"]) {
+		ellipse.animate({ry: ellipse.attr("ry")-40}, 1000, "bounce");
+	}
+	
+	/* we want to prevent document scrolling when pressing the arrows: */
+	event.preventDefault();
+	
+});
+   </pre>
+   
+   <p>Here we are registering a global key listener for all the key events that occurs
+    in the web page. If you need individual key listeners, one for each paper in your HTML document, you should create focusable 
+    one hidden HTML element like <b class="code">&lt;input type="text"&gt;</b> or <b class="code">&lt;textarea&gt;</b>
+    for each of your papers, and give focus programatically when neccessary. With jquery this can be accomplished with the focus() method. </p>
+   
+   
+   
+   
+     
+    
+   <h2 class="index" id="sec-events-eve">Eve</h2>
+   
+<pre>
+TODO: some personal thoungs about eve for publishing in the user gourps...
+
+Hi all. I'm playing with eve and it is very interesting, in particular for attribute change 
+listeners, once(), etc. I think it can be a very powerfull tool. I'm trying to fully 
+document raphael eve's event names like raphael.attr.* raphael.drag.* raphael.anim.* in my 
+raphael tutorial (http://cancerbero.vacau.com/raphaeltut/#sec-events-eve). This is not documented  
+in reference.html and I'm learning how to use it from the sources.
+
+I have some things of eve that I would improve:
+
+1) raphael.attr.* is very usefull for being notified before an attribute change and it work nice. 
+But for example,  if I programatically fire an "raphael.attr.fill" event I would spect that the 
+targets shape(s) to be modified its fill attribute. That do not happens
+
+2) For my surprise, mouse raphael events like click, dbclick, mouseup, etc type of events are 
+not being managed with eve at all. For me it is a shame becaue it gives the hability to trigger 
+click and cia programatically, use once(), and the rest of eve API.
+</pre>
+
+   
+   <p>RaphaelJs event management is based on a <a href="https://github.com/DmitryBaranovskiy/eve">tiny event helping JavaScript library called eve</a>. 
+   In this section we will discuss how to take advantadge of eve when working with events in raphaeljs.</p>
+   
+   <p>Eve is a small custom event managment library with which you can register and fire events types working with named events. You name your events 
+   like "class1.event1.id1" and then can reference (for listening) using regular expressions like eve.on("class1/*/*", function(){...}); . 
+   Just  take a look at <a href="https://github.com/DmitryBaranovskiy/eve/blob/d5acae2bd77b69a27459069a476fd1d38b283b65/e.html">eve example</a>. </p> 
+   
+   
+   <p>In eve, all events belong to a type, and each type of events are identified with a name. In eve, names have a special syntax, separating words
+   with "." or with "/" characters. For example, "raphael.*" will reffer to all events, of any type on any raphael shape, 
+   "raphael.click.*" refers to all events of type click on any element, and "raphael.click.123" reffers to click events on the shape with id 123. 
+   As you can see we can use wildcards to express that we want all the elements on a category. For example, "raphael.*.123" reffers to all 
+   types of events that occurs on shape with id 123. </p>
+   
+   
+   <p>Raphaeljs uses eve and exposes some type of events that are not "accessible" using the normal raphaeljs API. 
+   
+   In the case of raphael this is interesting, it gives a lot of flexibility that raphaeljs event api do not give. For example, we can trigger 
+   events programatically, or listen for an event only once. 
+   Also using eve we can access event types not supported bu the raphaël api, for example, notifications of stage change of an animation, 
+   attribute change notifications and other. So in conclusion, dominating eve will allow you tu fully dominate the event managment system under raphaeljs.</p> 
+   
+   
+   <p> The following table contains interesting events supported by raphael shapes. </p>
+   
+   <table>
+   
+   <tr><td>Event Name</td><td>Description</td><td>Handler function context object</td><td>handler function accepted parameters</td></tr>
+   
+   <tr><td>raphael.attr.attrName</td><td><span class="index">attribute change event</span> - notifications just before an attribute change.</td><td>the shape being modified</td><td>two params: newValue, attribute name that changes</td></tr>
+   
+   <tr><td>raphael.drag.over</td><td>the drag over event</td><td>the element being dragged</td><td>single param : element over which something is being dragged</td></tr>
+   
+   <tr><td>raphael.drag.start</td><td>the drag start event</td><td></td><td>abs x, abs y, mouse event</td></tr>
+   
+   <tr><td>raphael.drag.end</td><td>the drag end event</td><td>the element being dragged &amp; dropped</td><td>single param: the element being dragged &amp; dropped</td></tr>
+   
+   <tr><td>raphael.drag.move</td><td>the drag move event</td><td>element being dragged</td><td>dx, dy, x, y, mouse event</td></tr>
+   
+   <tr><td>raphael.anim.finish</td><td>the animation finnish</td><td>the animated shape</td><td></td></tr>
+   
+   <tr><td>raphael.anim.pause</td><td>animation pause</td><td>the animated shape</td><td></td></tr>
+   
+   <tr><td>raphael.anim.resume</td><td>animation resume</td><td>the animated shape</td><td></td></tr>
+   
+   <tr><td>raphael.anim.stop</td><td>animation stop</td><td>the animated shape</td><td></td></tr>
+   
+   <tr><td>raphael.anim.start</td><td>animation start</td><td>the animated shape</td><td></td></tr>
+   
+   <tr><td> raphael.anim.frame</td><td>animation frame passed</td><td>the animated shape</td><td>the animation object</td></tr>
+   
+   
+   
+   <tr><td>raphael.data.get</td><td>a shape data was getted</td></tr>
+   <tr><td>raphael.data.set</td><td>a shape data was setted</td></tr>
+   
+  
+   
+   
+   </table>
+   
+   
+   <p>In my raphael.js TODO: link, I added also the following:</p>
+   <table>
+    <tr><td>raphael.data.set</td><td>a shape data was setted</td></tr>
+   <tr><td>raphael.data.set</td><td>a shape data was setted</td></tr>
+   <tr><td>raphael.data.set</td><td>a shape data was setted</td></tr>
+   </table>
+   
+   
+<!-- Unique id of the element. Especially usesful when you want to listen to events of the element, 
+because all events are fired in format <module>.<action>.<id>. Also useful for Paper.getById method. -->
+   
+   
+   <p>The following are interesting examples using eve, that otherwise would be impossible to do with plain Raphaëljs. </p>
+   
+<!--    <p><b class="index">Event trigger</b>. The following example perform 2 things, first it register an event listener for clicks on ANY shape  -->
+<!--    (using "raphael.click.*"). Then it will trigger a click event on all shapes (using "raphael.click.*"). Last it will trigger the click event  -->
+<!--    only in the created circle, using "raphael.click."+c.id. Also, in both triggers, we pass a string as an argument to the event handler.  -->
+<!--    You should see some alerts dialogs showing those passed messages. </p> -->
+   
+<!--    <pre class="code code-run"> -->
+<!-- var c = paper.circle(100,100,100).attr({fill: "red"}); -->
+
+<!-- //listen to clicks on ANY shape -->
+<!-- eve.on("raphael.click.*", function(msg){ -->
+<!-- 	alert(msg); -->
+<!-- }) -->
+
+<!-- //trigger a click event in ALL shapes -->
+<!-- //eve("raphael.click.*", null, "hello ALL from eve"); -->
+
+<!-- //eve("raphael.click."+c.id, null, "hello " + c.id + " from eve"); -->
+<!-- </pre> -->
+   
+   <p>The first interesting thing that we can do whit eve is to listen for a certain attribute change of a shape. For that we use the
+   eve event names "raphael.attr.*". For example if we want to listen when the "fill" attributte of a shape with id 123 changes, 
+   we use the event "raphael.attr.fill.123". Another example, for listening when the attribute "stroke" change but this time on ANY shape we 
+   use the event "raphael.attr.stroke.*". This is shows in the following example: </p>
+   
+   <pre class="code code-run">
+var rect1 = paper.rect(50,50,100,60).attr({fill: "black", stroke: "pink"});
+
+/* register for attribute fill change event on a single shape */
+eve.on("raphael.attr.fill."+rect1.id, function(newVal) {
+	alert("fill changed for rect1 current value: "+this.attr("fill")+" - new value: "+newVal);
+});
+
+/* register for attribute stroke change event on all shapes */
+eve.on("raphael.attr.stroke.*", function(newVal) {
+	alert("stroke changed some shape id: "+this.id+" - current value: "+this.attr("stroke")+" - new value: "+newVal);
+});
+
+/* calling attr() will trigger the two listeners */ 
+rect1.attr({fill: "red", stroke: "blue"});
+
+   </pre>   
+<!-- //trigger the attribute change event programatically - this should call the listener and change the attribute (it do not). -->
+<!-- //eve("raphael.attr.fill."+rect1.id, rect1, "yellow"); -->
+   
+ 
+   
+   
+   
+   <h1 class="index" id="sec-animation">Animation</h1>
+      
+   <p>In Raphaël we say that an animation is a shape state's change, this is, a change in shape's attribute values in time.</p>
+   
+   <p>We can define transformations, and control some shape's tranformation starting, pausing or stoping animations.</p>
+   
+   <p>Almost all attributes support baing animated, but not all. They are: "blur", 
+   "clip-rect", cx, cy, fill, fill-opacity, font-size, height, opacity, path, r, rx, ry, stroke,
+   "stroke-opacity", "stroke-width", transform, width,x,y. </p>
+   
+   
+   <h2>Basic Animation</h2>
+   
+   <p>TODO</p>
+   
+   <h2 class="index">Animate with</h2>
+   <p>TODO</p>
+   
+   	<pre class="code code-run">
+var ellipse1 = paper.ellipse(110,80,120,42).
+	attr({"fill": "blue", "stroke": "yellow"});
+
+var text1 = paper.text(100,90, "Click me").
+	attr({"font-family": "fantasy", "font-size": 24});
+
+var button1 = paper.set([ellipse1, text1]).
+	attr({cursor: "pointer"});
+
+//add a click handler
+button1.click(function(evt){
+
+	/* animate the ellipse - in two seconds its fill color and its stroke 
+	 * width will grow "bouncing". */
+	ellipse1.animate({fill:"red", "stroke-width": 20}, 2000, "bounce");
+	
+	/* also animate the text - syncronized with the eliipse animation the 
+	* text will grow "bouncing too" */
+	text1.animateWith(ellipse1, null, {"font-size": 60}, 2000, "bounce");
+	
+})
+</pre>
+
+   <p>An animation consist in </p>
+   
+   <ul>
+   <li><p>final shape state, this is an attribute object  in which the animated
+   shape will have when animation finish.</li>
+   
+   <li><p>duration, this is the number of milliseconds that the animation. </p></li>
+   
+   <li><p>animation formula that determines HOW the final state is reached from the initial state.</p></li>
+   
+   </ul>
+   
+   
+   <h2 class="index">Easing Animation Formulaes</h2>
+   
+   <p>As we said, an important part of the animation if how the state of the attributes change in time. For example, when animating the X-coord of a shape in time, from x1 to x2, 
+   ¿how do we go from x1 to x2? This is defined by an animation formulae. </p>
+   
+   <p>Fortunately, Raphaeljs support several built-in animation formulae that we can use in most situations. These are called easing formulaes. In the following example, taken directly from raphaël Js home page, 
+   we show all the easing formulaes. Just click on the left circles for animate them using the corresponding Easing formulae. This is the best way of realizing what are Easing formulae and what is the effect of using each of them: </p>
+   
+   <pre class="code, code-run">
+paper.rect(0,0,500,500).attr({fill: "#1a1a1a"})
+var targets = paper.set();
+targets.push(paper.circle(300, 100, 20),
+   paper.circle(300, 150, 20),
+   paper.circle(300, 200, 20),
+   paper.circle(300, 250, 20),
+   paper.circle(300, 300, 20),
+   paper.circle(300, 350, 20),
+   paper.circle(300, 400, 20),
+   paper.circle(300, 450, 20));
+targets.attr({fill: "#000", stroke: "#fff", "stroke-dasharray": "- ", opacity: .2});
+var labels = paper.set();
+labels.push(paper.text(330, 100, "linear (default)"),
+            paper.text(330, 150, "&gt;"),
+            paper.text(330, 200, "&lt;"),
+            paper.text(330, 250, "&lt;&gt;"),
+            paper.text(330, 300, "bounce"),
+            paper.text(330, 350, "elastic"),
+            paper.text(330, 400, "backIn"),
+            paper.text(330, 450, "backOut"));
+labels.attr({font: "12px Fontin-Sans, Arial", fill: "#fff", "text-anchor": "start"});
+var movers = paper.set();
+movers.push(paper.circle(100, 100, 20),
+            paper.circle(100, 150, 20),
+            paper.circle(100, 200, 20),
+            paper.circle(100, 250, 20),
+            paper.circle(100, 300, 20),
+            paper.circle(100, 350, 20),
+            paper.circle(100, 400, 20),
+            paper.circle(100, 450, 20));
+movers.attr({fill: "#000", stroke: "#fff", "fill-opacity": 0});
+movers[0].click(function () {
+    this.cx = this.cx || 300;
+    this.animate({cx: this.cx, "stroke-width": this.cx / 100, fill: this.cx - 100 ? "hsb(0, .75, .75)" : "#000", "fill-opacity": +!!(this.cx - 100)}, 1000);
+    this.cx = this.cx == 300 ? 100 : 300;
+});
+movers[1].click(function () {
+    this.cx = this.cx || 300;
+    this.animate({cx: this.cx, "stroke-width": this.cx / 100, fill: this.cx - 100 ? "hsb(.1, .75, .75)" : "#000", "fill-opacity": +!!(this.cx - 100)}, 1000, "&gt;");
+    this.cx = this.cx == 300 ? 100 : 300;
+});
+movers[2].click(function () {
+    this.cx = this.cx || 300;
+    this.animate({cx: this.cx, "stroke-width": this.cx / 100, fill: this.cx - 100 ? "hsb(.2, .75, .75)" : "#000", "fill-opacity": +!!(this.cx - 100)}, 1000, "&lt;");
+    this.cx = this.cx == 300 ? 100 : 300;
+});
+movers[3].click(function () {
+    this.cx = this.cx || 300;
+    this.animate({cx: this.cx, "stroke-width": this.cx / 100, fill: this.cx - 100 ? "hsb(.3, .75, .75)" : "#000", "fill-opacity": +!!(this.cx - 100)}, 1000, "&lt;&gt;");
+    this.cx = this.cx == 300 ? 100 : 300;
+});
+movers[4].click(function () {
+    this.cx = this.cx || 300;
+    this.animate({cx: this.cx, "stroke-width": this.cx / 100, fill: this.cx - 100 ? "hsb(.4, .75, .75)" : "#000", "fill-opacity": +!!(this.cx - 100)}, 1000, "bounce");
+    this.cx = this.cx == 300 ? 100 : 300;
+});
+movers[5].click(function () {
+    this.cx = this.cx || 300;
+    this.animate({cx: this.cx, "stroke-width": this.cx / 100, fill: this.cx - 100 ? "hsb(.5, .75, .75)" : "#000", "fill-opacity": +!!(this.cx - 100)}, 1000, "elastic");
+    this.cx = this.cx == 300 ? 100 : 300;
+});
+movers[6].click(function () {
+    this.cx = this.cx || 300;
+    this.animate({cx: this.cx, "stroke-width": this.cx / 100, fill: this.cx - 100 ? "hsb(.6, .75, .75)" : "#000", "fill-opacity": +!!(this.cx - 100)}, 1000, "backIn");
+    this.cx = this.cx == 300 ? 100 : 300;
+});
+movers[7].click(function () {
+    this.cx = this.cx || 300;
+    this.animate({cx: this.cx, "stroke-width": this.cx / 100, fill: this.cx - 100 ? "hsb(.7, .75, .75)" : "#000", "fill-opacity": +!!(this.cx - 100)}, 1000, "backOut");
+    this.cx = this.cx == 300 ? 100 : 300;
+});
+   </pre>
+   
+   
+   <h2>cubic-bezier animation formulmae</h2>
+   <p>TODO: document asing type. Accept one of Raphael.easing_formulas or CSS format: cubic‐bezier(XX, XX, XX, XX) </p>
+   
+   
+   <h2>Animating text</h2>
+   <p>It would be nice if we can use animations for transforming a string like "hello" in another string like "world", or transfrmate some letters into others like text morphing. This is possible with raphel and we will explain here in this section how.</p>
+   
+   <p>We can animate the "text" attribute on text created with <a href="Element.print" class="raphael-ref">print()</a>, 
+   but not on text shapes created with <a href="Element.text" class="raphael-ref">text()</a>.    
+   This is because text created with print are paths, and animating paths is possible.  Animating "normal text" is not possible. 
+   So here we will be using text created like showed in <a href="#sec-shape-print">Section Text with custom fonts</a>.
+   In the following example we show some animation of a text : </p>
+   
+  <pre class="code, code-run">
+var font1 = paper.getFont("samarkan normal");
+var text1 = paper.print(10,200, "click me", font1, 58), 
+	text2 = paper.print(10,200, "ho no no no", font1, 78);	
+text2.hide();
+var bb = text1.getBBox();
+var textBg = paper.rect(bb.x, bb.y, bb.width, bb.height)
+	.attr({fill: "blue", opacity: 0.2}).toBack();
+var button1 = paper.set(text1, textBg);
+button1.click(function(e){	
+	button1.animate({path: text2.attr("path"), fill: "blue", 
+		width: text2.getBBox().width, fill: "red"}, 3000, "linear");
+});
+</pre> 
+   
+   
+   
+   
+   <h2 class="index">Key Frame animations</h2>
+   
+   <p>Key frame animations is a more general way of defining an animation. We can define in a single animation, 
+   different stages or frames of the animation, and for each stage define which attributes to animate in that stage, and which animation formulae to use. 
+   Let's check out the following example:</p>
+   
+      <pre class="code code-run">      
+var font1 = paper.getFont("samarkan normal");
+var text = paper.print(10,40, "one ring\nto rule\nthem all", font1, 84).attr({"stroke-width": 4});
+text.animate({
+	"20%": {fill: "red", stroke: "green", easing: "bounce"},
+	"40%": {fill: "blue", stroke: "black"},
+	"60%": {fill: "pink", stroke: "blue"},
+	"80%": {fill: "yellow", stroke: "black"},
+	"100%": {fill: "black", stroke: "green", easing: "bounce"}
+},6000);
+   </pre>
+   
+   <p>As you may see, we are defining 5 different snimation stages in an object that contains string percents like "20%" as property names for defining the frame segment and objects with the desired attribute state to reach whil the stage is over. </p>
+   
+   <p>Note also that some attribute objects contain the property "easing". This is no attribute, and with it we can indicate an easing transformation formulae for run that individual frame.</p>
+   
+   
+   <p>TODO</p>
+   
+<!--    end of animation -->
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   <h1 class="index">Raphael Types</h1>
+   
+   <p>Several attributes values support strings for presenting some type, like colors, gradients, paths, transformations, etc. In this section we will examine 
+   these attributes strings formats in detail and individually.</p>
+   
+   
+   
+   <h2 id="sec-types-path">Path</h2>
+   <p>In <a href="#sec-shape-path">Path Section</a> we described the path shape and saw that it is represented with a string, and that
+   this string is a sequence of "path commands". We can imagine a pencil that with each command moves, draw lines, curves, etc.</p>
+   
+   <p>Here we will discuss the path string format detailed. </p>
+   
+   
+   
+   <h2 id="sec-types-color">Color</h2>
+   <a class="code code-run" href="ex-color1"></a>
+   <p> TODO:; describe different formats for representing colors, literal, #hex rgb, hsb, etc. List util functions in Raphael
+   for colors. exemples of all that. </p>
+   
+   
+   <h2>Gradient</h2>
+   
+   <p>TODO: describe gradient format. examples. 
+   
+   
+   
+   <h2 id="sec-types-transform">Transform</h2>
+   
+   <p>As we said, <b class="code">transform</b> is an attribute that can be applied t any shape for making linear transformation, that is 
+   rotations, ,translations and scaling. TODO: describe and exemples of transform attribute format.</p>
+   
+   <p>It is important to notice the following. Transform will not transform the element it self, but it will transform the element's coordinate system. 
+   For understanding this let's make an example. As you know, we can chenge the X and Y coordinate of a rectangle using attributes X and Y. Normally, 
+   we spect that when increasing the X coordinate of a rectangle it will move it to the right, but what happens if the rectangle coordinate 
+   system is transformated?. As you may see in the following
+   example, we have transformed the coordinate system of the rectangle for rotating it using <b class="code">rect.transform("R45");</b>. 
+   I you click the rectangle, its X coordinates will be incremented, but (!) since its coordinate system was transformed (rotated 90 degrees), the 
+   rectangle won'¡t move to the right. The coordinate system was transformed and now the X axis is from top to bottom (remember the 90 degrees):	</p>
+   
+   <pre class="code code-run">
+paper.text(160,20, "Click the rectangle for \nincrementing its X coords").attr({"font-size": 18})
+var rect = paper.rect(100,100,120,70).attr({fill: "red"});
+rect.transform("R90");
+rect.click(function(){
+	rect.attr({x: 250})	
+});
+   </pre>
+   
+   <p>For deleting all transformations of a shepe, we use <b class="code">rect.transform("")</b>. </p>
+   
+   
+   <h2 id="sec-types-matrix">Matrix</h2>
+  
+	<h3>Introduction to transformation matrix</h3>
+	<p>Mathematically, all transformations can be represented as 3x3 transformation matrices of the following form:</p>
+   
+   <img src="images/Matrix.png"></img>
+   
+   <p>Since only six values are used in the above 3x3 matrix, as we said before, a transformation matrix is also expressed as a vector: [a b c d e f].</p>
+
+	<p>Transformations map coordinates and lengths from a new coordinate system into a previous coordinate system:</p>
+	
+	<img src="images/MatrixMultiply.png"></img>
+	
+	<p>Simple transformations are represented in matrix form as follows:
+
+	<h4>Translation</h4>
+	
+    <p>Translation is equivalent to the matrix</p>
+    
+   	<img src="images/MatrixTranslate.png"></img> 
+    
+    <p> or <b class="code">[1 0 0 1 tx ty]</b>, where tx and ty are the distances to translate coordinates in X and Y, respectively.</p>
+    
+    
+    <h4>Scaling</h4>
+    <p>Scaling is equivalent to the matrix</p>
+    
+    <img src="images/MatrixScale.png"></img>  
+    
+    <p>or <b class="code">[sx 0 0 sy 0 0]</b>. One unit in the X and Y directions in the new coordinate system equals sx and sy units in the previous coordinate system, respectively.</p>
+    
+    
+    <h4>Rotation</h4>
+    <p>Rotation about the origin is equivalent to the matrix</p>
+    
+    <img src="images/MatrixRotate.png"></img>  
+    
+    <p>or <b class="code">[cos(a) sin(a) -sin(a) cos(a) 0 0]</b>, which has the effect of rotating the coordinate system axes by angle a.</p>
+    
+    
+    <h4>Skew</h4>
+    <p>A skew transformation along the x-axis is equivalent to the matrix</p>
+	<img src="images/MatrixSkewX.png"></img>  
+	
+	<p>or <b class="code">[1 0 tan(a) 1 0 0]</b>, which has the effect of skewing X coordinates by angle a.</p>
+	
+	<h3>A skew transformation along the y-axis is equivalent to the matrix</h3>
+    <img src="images/MatrixSkewY.png"></img>  
+    <p>or <b class="code">[1 tan(a) 0 1 0 0]</b>, which has the effect of skewing Y coordinates by angle a.</p>
+    
+    
+    <h3>Transformation matrix in Raphaël JS</h3>
+     <p>Shapes store its current transformation in a <a href="Matrix" class="raphael-ref code">matrix property</a>. 
+    But if we apply some transformation as mentioned in <a href="#sec-types-transform">Section Transform</a>, 
+   these transformations will be stored in <a href="Matrix" class="raphael-ref code">matrix property</a>.
+   </p>
+   
+   <p>The <a href="Matrix" class="raphael-ref code">matrix property</a> is a JavaScript object which specifies a transformation in 
+   the form of a transformation matrix of six values. matrix(a,b,c,d,e,f) is equivalent to applying the transformation matrix [a b c d e f].
+   For example, the Identity transformation, that is, a transformation that do nothing, is [0 0 1 0 1 0]. More details about matrix transformation
+   can be read in the <a href="http://www.w3.org/TR/SVG/coords.html#TransformAttribute">SVG Spec - Section 7 Coordinate Systems, Transformations and Units</a></p>
+   
+   
+   <p>So we can access a shape's transformation both using shape's <b class="code">attr("transform")</b> using strings and also using the
+   <a href="Matrix" class="raphael-ref code">matrix property</a>, using a rich matrix type with which we can work numerically. 
+   In general, working with strings can be easier, but working with the <a href="Matrix" class="raphael-ref code">matrix property</a> is efficient. </p>
+   
+   
+   
+   
+   <h3>Usage Examples</h3>
+   
+   <p>Let's put the <a href="Matrix" class="raphael-ref code">matrix property</a> in action. As we know, raphael shape's do not support for skewX and skewY
+   transformation, but since we can work with a matrix object we should be able to do skew anyway. </p>
+   
+   <pre class="code code-run">
+var rect = paper.rect(150,150,100,60).attr({fill: "red"});
+/* at this point ellipse.matrix == Identity matrix == [1 0 0 0 1 0] */
+
+/* now let's do skewx with an angle of pi/8 deg. this would be [1 0 tan(pi/8) 1 0 0] */
+rect.matrix.add(1, 0, Math.tan(Math.PI/8), 1, 0, 0);
+
+/* and now let's apply the "skewed" matrix */
+rect.attr({transform: rect.matrix.toTransformString()});
+   </pre>
+   
+   <p class="note">Remember that when working with trigonometric functions like Math.tan or Math.sin, we must pass the angles in radians. Math.PI == 180 degrees.</p>
+   
+   <p class="note">Also rememeber that as we said in <a href="#sec-types-transform">Section Transform</a>, we are transforming the coordinate system
+   so it will affect all the attributes related to coordinates, for example, in the case  of a paper, the x and y attributes will be also "skewed". </p>
+   
+   <p>For deleting all transformations of a shepe, we use <b class="code">rect.transform("")</b>. </p>
+   
+   
+   
+   
+   <h2 id="sec-types-gradient">Gradients</h2>
+   <p>We can use the fill attribute to fill a shape with a color gradient. </p>
+   <pre class="code code-run">
+paper.rect(50,150,200,180).attr({fill: "90-#fff-#000", "stroke-width": 20, stroke: "red"});
+paper.circle(250,150,100).attr({fill: "0-#fff-#f00:20-#000", "stroke-width": 10, stroke: "blue"});
+   </pre>
+   
+   <h2>Linear gradient</h2>
+   
+   <h2>Radial gradient</h2>
+   
+   
+   <p>Linear gradient format: “‹angle›-‹colour›[-‹colour›[:‹offset›]]*-‹colour›”, 
+   example: “90-#fff-#000” – 90° gradient from white to black or 
+   “0-#fff-#f00:20-#000” – 0° gradient from white via red (at 20%) to black.</p>
+	
+<p>radial gradient: “r[(‹fx›, ‹fy›)]‹colour›[-‹colour›[:‹offset›]]*-‹colour›”, example: “r#fff-#000” – gradient from white to black or “r(0.25, 0.75)#fff-#000” – gradient from white to black with focus point at 0.25, 0.75. Focus point coordinates are in 0..1 range. Radial gradients can only be applied to circles and ellipses.</p> 
+   
+   <p></p>
+   
+   <h2>Images</h2>
+   <p>We reference images when creating an image shape or when filling a shape with an image. In the following example
+   we show two images, on an image shape element an another is a path filled with an image. </p>
+   
+<!--    <pre class="code core-run"> -->
+<!-- paper.image("");; -->
+<!-- var raphaelLogoStr = "M49.973,94.128C44.760999999999996,94.128,39.86,92.099,36.174,88.411L11.424,63.661C7.734,59.976,5.701,55.074,5.701,49.859C5.701,44.643,7.734,39.74,11.425,36.053000000000004L36.175,11.304000000000006C39.861,7.617000000000006,44.76,5.589000000000006,49.973,5.589000000000006C55.185,5.589000000000006,60.086,7.617000000000006,63.772999999999996,11.303000000000006L88.52199999999999,36.05500000000001C92.21199999999999,39.73800000000001,94.24699999999999,44.641000000000005,94.24699999999999,49.858000000000004C94.24699999999999,55.075,92.21299999999998,59.977000000000004,88.52099999999999,63.663000000000004L63.772,88.411C60.086,92.099,55.185,94.128,49.973,94.128L49.973,94.128ZM33.014,23.398C33.014,14.032,40.607,6.439,49.973,6.439C59.34,6.439,66.932,14.032,66.932,23.398C66.932,32.765,59.34,40.357,49.973,40.357C40.606,40.358,33.014,32.765,33.014,23.398M93.816,61.314C96.046,57.943,97.24600000000001,53.994,97.24600000000001,49.859C97.24600000000001,44.288000000000004,95.07400000000001,39.053000000000004,91.13400000000001,35.121L64.707,8.691L64.69699999999999,8.701C60.92599999999999,4.924,55.71799999999999,2.5840000000000005,49.97199999999999,2.5840000000000005S39.019,4.925,35.249,8.702L35.24,8.692L8.813,35.118C4.872000000000001,39.055,2.7010000000000005,44.290000000000006,2.7010000000000005,49.859C2.7010000000000005,55.427,4.871,60.662000000000006,8.811,64.596L32.64,88.42500000000001C33.595,89.49700000000001,34.599000000000004,90.50000000000001,35.657000000000004,91.42200000000001C39.542,95.10300000000001,44.6,97.12700000000001,49.972,97.12700000000001C55.537,97.12700000000001,60.771,94.96000000000001,64.706,91.02300000000001L90.416,65.31400000000001C90.481,65.25000000000001,90.54599999999999,65.18400000000001,90.61099999999999,65.11900000000001L91.13199999999999,64.59900000000002C92.12499999999999,63.60800000000002,93.005,62.533000000000015,93.767,61.39200000000002C93.785,61.36700000000002,93.804,61.34300000000002,93.823,61.31800000000002L93.816,61.314ZM89.535,49.859C89.535,52.451,88.783,54.925000000000004,87.39099999999999,57.043C86.556,58.183,85.68499999999999,59.179,84.78699999999999,60.04L84.723,60.104C80.496,64.125,75.72,65.264,71.667,65.264C69.437,65.264,67.424,64.91799999999999,65.842,64.51899999999999C56.579,62.17899999999999,46.51,54.20799999999999,41.902,42.58299999999999C44.385,43.63199999999999,47.112,44.21199999999999,49.972,44.21199999999999C60.719,44.21199999999999,69.588,36.02499999999999,70.674,25.56199999999999L85.683,40.56999999999999C88.167,43.053,89.535,46.351,89.535,49.859ZM49.973,10.294C57.2,10.294,63.077,16.173000000000002,63.077,23.398C63.077,30.624,57.199,36.503,49.973,36.503C42.748,36.503,36.87,30.624000000000002,36.87,23.398C36.87,16.173,42.748,10.294,49.973,10.294ZM14.262,59.146C11.779,56.665,10.411000000000001,53.367000000000004,10.411000000000001,49.86C10.411000000000001,46.352,11.778000000000002,43.054,14.261000000000001,40.574L24.415,30.418999999999997C21.765,39.440999999999995,20.627,48.934999999999995,21.237,58.036C21.456,61.307,21.907999999999998,64.44500000000001,22.558,67.44L14.262,59.146ZM31.621,33.206C33.851,50.655,47.663,67.878,63.95399999999999,71.995C66.60799999999999,72.665,69.21,72.995,71.72699999999999,72.995C71.76299999999999,72.995,71.79999999999998,72.992,71.83599999999998,72.992L59.255999999999986,85.57300000000001C56.774999999999984,88.052,53.47799999999999,89.418,49.97199999999999,89.418C47.530999999999985,89.418,45.198999999999984,88.742,43.16699999999999,87.504L43.170999999999985,87.497C42.37099999999999,86.967,41.60899999999999,86.368,40.86799999999999,85.734C40.80999999999999,85.67699999999999,40.74799999999999,85.63,40.69099999999999,85.573L38.14899999999999,83.03099999999999C32.92199999999998,77.02999999999999,29.634999999999987,68.101,28.927999999999987,57.52099999999999C28.393,49.515,29.354,41.167,31.621,33.206";  -->
+<!-- var raphaelLogo = paper.path(raphaelLogoStr); -->
+<!--    </pre> -->
+   
+   
+   
+   <h1 id="sec-paper">Paper</h1>  
+   
+   <p>Paper is the entry point in raphaeljs library for drawing shapes. We always must create a paper
+   for drawing in it, and paper is responsible for creating the shape. A shape always belong to ONE paper. 
+   Shape coordinates, like x, y, cx, cy, etc are relative to the paper's viewport.</p>
+   
+   <p>Also paper acts as an intermediate between your raphael shapes and the parent document. An HTML document can contain several papers.</p>
+   
+   <p>Is because of these facts that we will discuss paper detailed in this individual section.</p>
+   
+<!--    <h2 id="sec-shape-paper" class="index">Paper</h2> -->
+   
+<!--    <p>Strictly speaking, paper is not a shape, but it support a some useful features that we will discuse here.</p> -->
+   
+   <h2>Creating a paper in a HTML document</h2>
+   
+	<p class="note">In <a href="#sec-creating-a-paper">section "Getting Started - Creating a paper"</a> we saw how to create a raphael paper and place it 
+	inside an existing HTML element. Creating a raphael's paper this way will change some of the target HTML element styles to well fit the 
+	paper on it. Particularly it will change its size and display CSS related properties. If in your case you need to 
+	re-arrange the element or perform other task after paper is loaded, 
+	Raphaël also supports notifying when paper is fully loaded. We simply add a function that will be called after paper is loaded in the HTML DOM, like this:</p>
+	
+	<pre class="code">
+Raphael("paper1", 500, 500, function(paper){
+	paper.rect(20,30,100,12).attr({fill: "orange"});
+});
+	</pre>
+	
+	<p>Also raphael supports  the creation of a paper without having to reference any html element. This is the simple way suefull for debugging and testing. 
+	This way the paper will be created in the body HTML element, and placed at given coords. 
+	This is usefull for simple javascript examples and development. For example, in the following code we create a paper 
+	at coords 20,30 of size 500,500:</p>
+	
+	<pre class="code">
+var paper = Raphael(20,30,500,500);
+paper.ellipse(10,20,50,70).attr({})
+	</pre>
+	
+	
+	<h2>Creating shapes</h2>
+	<p>All shapes are created and belong to one paper. In <a href="#sec-shapes">Section Shapes</a>
+	we saw how to create shapes with a given paper and discuss each shape type individually. Reffer to that section
+	for specific shape's details. </p>
+	
+	<p>Here we will only enumerate all the shape creating methods of paper: </p>
+	
+	<h3><a href="Paper.rect" class="raphael-ref">rect()</a></h3>
+	<p class="code-method-doc">
+	  @signature paper.rect(x, y, width, height, radius)
+	  @param x - the x coord (number)
+	  @param y - the y coord (number)
+	  @param radius - Optional - the radius of rectangle's rounded corners. If ommited no rounded corners will be shown.  
+	  @return a new rectangle shape
+	</p>
+	  
+	<h3><a href="Paper.circle" class="raphael-ref">circle()</a></h3>
+	<p class="code-method-doc">
+	  @signature paper.circle(cx, cy, radius)
+	  @param cx the circle center's x coord (number)
+	  @param cy the circle center's y coord (number)
+	  @param radius the circle's radius in pixels (number)
+	  @return a new circle shape
+	</p>
+	
+	<p>TODO: the others</p>
+	
+	
+	
+	<h2>Paper's Properties</h2>
+	
+	<h3 >paper.canvas</h3>
+	
+	<p>paper.canvas property (undocumented) points to an HTML Element that is or contains the paper. With it you can access the 
+	"paper HTML object" directly with the HTML API, for example using a javascript toolkit like JQuery or YUI. </p>
+	
+	<p>It can be usefull for advanced users that need to perform some tasks that are not supported by raphaeljs or do 
+	advance integration with html doucment or other technology. </p>
+	
+	<p class="note">Because you will be accessing the paper object from outside of raphaeljs API you must be very carefull not
+	to brake raphael logistic when manipulating native elements from the XML DOM API. So it is recommended 
+	<b class="emph">NOT TO USE</b> paper.canvas if possible.</p> 	
+	
+	 <p>Let's see some use cases. For example, in the case of SVG, the markup generated inside the HTML document when we create a 
+	 raphael paper inside a div "exampleDialogContent" is something like the following: </p>
+	
+	<pre>
+&lt;div id="exampleDialogContent"&gt;
+	&lt;svg height="500" version="1.1" width="500"
+		xmlns="http://www.w3.org/2000/svg"
+		style="overflow: hidden; position: relative;"&gt;
+		&lt;desc&gt;Created with Raphaël 2.1.0&lt;/desc&gt;
+		&lt;defs&gt;
+		&lt;circle cx="250" cy="150" r="100" fill="url(#10-_fff-_f00:20-_000)"
+			stroke="#0000ff" style="opacity: 1;" opacity="1" fill-opacity="1"
+			stroke-width="10" /&gt;&lt;/svg&gt;
+&lt;/div&gt;
+	</pre>
+	
+	<p>As you may see the an <b class="code">&lt;svg&gt;</b> element is created inside the HTML div. In the case of SVG, the <b class="code">paper.canvas</b>
+	property points to this <b class="code">&lt;svg&gt;</b>. We can work with it directly using an HTML toolkit like jQuery or YUI. In the following example
+	we register a global mouse event listener using jQuery. Notice that in this case we are using jquery for managing events, not raphael.</p>
+	
+	 <pre class="code code-run">
+var r = paper.rect(100,100,200,200,10).attr({fill: "red"});
+/* jquery code using paper.canvas HTML element */
+$(paper.canvas).click(function(e){
+	alert("paper clicked at abs page coords: "+e.clientX+", "+e.clientY);
+});
+	 </pre>
+	 
+	 <p>Shape's also support a similar property that is discussed in the <a href="sec-">Section Shape.node property</a>
+	 <p>In sections <a href="#sec-events-keyboard">Keyboard Events</a> and <a href="#sec-events-mousewheel">Mouse Wheel Events</a> there are good examples
+	
+	
+	
+	<h3 ><a class="raphael-ref" href="Paper.canvas">paper.canvas</a></h3>
+	<p><a class="raphael-ref" href="Paper.canvas">paper.canvas</a> property </p>
+	
+	
+	
+   <p>A we said, paper are responsible of creating any shape. A paper CONTAINS a set of shapes. in that sense paper 
+   work like a set, and we can iterate all paper's shapes using forEach() TOOD: example. </p>
+   
+   <p class="note"><a class="code raphael-ref index" href="Paper.forEach">paper.forEach()</a> is different than
+   <a class="code index raphael-ref" href="Set.forEach">set.forEach()</a> only in the following sense. 
+   paper.forEach() will only iterate on shapes 
+   that are not of type set.  </p>
+   
+
+   
+   <p>A very important paper property is <b class="code">canvas</b> that is a reference to the HTML element containing the paper.  TODO: how to use the canvas property?, do it with jquery?</p>
+   
+   
+   
+   
+	<h2 id="sec-paper-bottom-and-top"><a class="code raphael-ref" href="Paper.bottom">bottom</a> and
+	<a class="code raphael-ref" href="Paper.top">top</a></h2>
+	
+	<p>Remember we said that newer shapes will be on top of older ones? Also and that in 
+	Section shape's methods toFront toBack TODO: links, we saw how these shape's function can be used to change that order.
+	 
+	
+	Using a paper's properties <a class="code raphael-ref" href="Paper.bottom">bottom</a> and
+	<a class="code raphael-ref" href="Paper.top">top</a> we can access the bottom most and the top most shapes in that paper. 
+	Also using shape's properties <a class="code raphael-ref" href="Element.next">next</a> and
+	<a class="code raphael-ref" href="Element.prev">top</a> we can iternate all the paper's shape following this order. In the 
+	following example we do exactly that from the bottom most shape to the top most shape: </p>
+	
+<pre id="ex-paper-bottom-and-top" class="code code-run">
+var bottomupinfo="";
+/*Black rectangle*/
+var back = paper.rect(50, 50, 200, 200).attr({fill:"#000"});
+/*Red rectangle*/
+var c = paper.rect(10, 10, 50, 50).attr({fill:"#f00"});
+/*Blue circle*/
+var d = paper.circle(140, 140, 50).attr({fill:"#0000ff"});
+
+var bot = paper.bottom;
+while(bot) {
+	bottomupinfo=bottomupinfo + "Type:"+bot.type+" Colour: " + bot.attrs.fill + "\n";
+	bot = bot.next;
+}
+paper.text(350,200,bottomupinfo).attr({fill:'#FF0000', 'font-size':18, 'stroke-width':1,'text-anchor':'start' });
+</pre>	
+	
+   
+   
+   
+   
+   <h1>Raphael JavaScript utilities</h1>
+   <p>The JavaScript <a href="Raphael" class="raphael-ref">Raphael</a> object contain a lot of usefull utilities that we will describe in this section</p> 
+   
+   
+   <h2><a href="Raphael.fullfill" class="raphael-ref">fullfill()</a></h2>
+   <pre class="code code-run">
+/* this will draw a rectangular shape equivalent to "M10,20h40v50h-40z" */
+paper.path(Raphael.fullfill("M{x},{y}h{dim.width}v{dim.height}h{dim['negative width']}z", {
+    x: 10,
+    y: 20,
+    dim: {
+        width: 40,
+        height: 50,
+        "negative width": -40
+    }
+}));
+   </pre>
+   
+   
+   <h2><a href="Raphael.getColor" class="source raphael-ref">getColor()</a></h2>
+   
+   <pre class="code code-run">
+var r = paper.rect(10, 10, 10, 10);
+var clones=[];
+var z=40;
+/*Note new "Brightness argument"*/
+brightness=0;
+
+/*Improves colour range. Excludes #bfbfbf.*/
+function getBrightColour(brightness) {
+	colour=Raphael.getColor(brightness);
+	while(colour=="#bfbfbf")
+	{
+		colour=Raphael.getColor(brightness);
+	}
+	return colour;
+}
+
+while (z--) {
+	clones[40-z] = r.clone();
+	colour=getBrightColour(brightness);
+	clones[40-z].attr({width:(z+1)*10,y:z*10,fill:colour});
+	paper.text(clones[40-z].attr("width")+20,clones[40-z].attr("y")+5,"#"+(40-z)+" (Colour="+colour+" , brightness= "+brightness+")").attr({"font-size":10,'text-anchor':'start'});
+	brightness=Math.round(100*(brightness+0.02))/100;
+}
+   </pre>
+   
+   
+    
+   <h2><a href="Raphael.angle" class="source raphael-ref">angle()</a></h2>
+   
+   <p>Returns angle between two or three points. If two points are used then it will return the angle between the straight line
+   that pass through the points and the x-axis. for example Raphael.angle(0,0,1,1)==e*pi/4. If we use three points, the the angle is the given one by those three points, couting clockwise.</p>
+
+<p>In the following example we align a rectangle with a path using <a href="Raphael.angle" class="source raphael-ref">Raphael.angle()</a> for getting the angle to rotate the rectangle between the path points. </p>
+   <pre class="code code-run">
+var pdim=[10, 10, 10, 200, 200, 10];
+/*Create the path which will also be used to orientate the rectangle*/
+var path_1 = paper.path('M '+pdim[0]+" "+pdim[1]+" L"+pdim[2]+" "+pdim[3]+" "+pdim[4]+" "+pdim[5]);
+path_1.attr({'stroke-width':3,stroke:'#0000FF'});
+/*Work out the angle formed by the path line*/
+var angle = Raphael.angle(pdim[0], pdim[1], pdim[2], pdim[3], pdim[4], pdim[5]);
+var aligned_rect = paper.rect(40, 270, 50, 50, 10).attr({fill:"#0000FF"});
+paper.text(220,100,"click the blue rectangle for \naligning it with the path.");
+aligned_rect.click(function(){
+	aligned_rect.rotate(angle, true);
+});
+//var warn="About to orientate the rectangle and line it up with the path(br)The path made an angle of "+angle+" degrees.";
+// rotation is absolute
+//modal.showModalFace(warn,1,[function(){ modal.shutModal(); }],"70%");
+   </pre>
+   
+
+  
+  
+   
+   <h1 class="index">Extending Raphaël</h1>
+   
+   <h2 class="index">Custom Attributes</h2>
+   
+   <p><b class="emph">Custom attributes</b> let you add new attributes to shapes. As we saw, raphaël support a set of 
+   base attributes that defines the shape state. Some attributes like path, fill, transform are very flexible. What if we want to 
+   define a new semantic for a new functionality based on a combination of one or more base attributes? This is exactly what
+   raphael custom attributes allow you to do: define new shape's attributes which are based on a combination of base attribute values.  </p>
+   
+   
+   
+   <p>For example, we have the fill color attribute. This fill color can even be animated from one color to other 
+   using raphael animations. Let's say that is convenient to define a new attribute for setting a shape color's "hue" component, 
+   as in hsv(hue, saturation, brightness) (). But what about if we are interesting on representing 
+   another kind of attribute that affects the fill color. 
+   For example we could represent the fill color's "hue" as a new <b class="emph">custom 
+   attribute</b> and even animate it named "hue" and which value is a number between 0 and 255. In the following example we
+   create such as custom attribute. Once it is defined we can use it on all shapes as if it where any other raphael attribute:</p>
+   
+   <pre class="code code-run">
+paper.customAttributes.hue = function (num) {
+    num = num % 1;
+    return {fill: "hsb(" + num + ", 0.75, 1)"};
+};
+// Custom attribute "hue" will change fill
+// to be given hue with fixed saturation and brightness.
+// Now you can use it like this:
+var c = paper.circle(100, 100, 80).attr({ hue: .45});
+// or even like this:
+c.animate({hue: 1}, 2000);
+   </pre>
+   
+   <p>As you can see, we have defined a new custom attribute "hue" using a function that accept a number (the hue)
+   and return an raphäel attribute object. TODO:....
+   (that will be the hue value for hsb(hue, saturation, brightness))</p>
+   
+   <p>Also, as the following example shows, custom attributes support multiple params, 
+   the same as above but this time supporting the three hue, saturation and bright in three separate parameters. 
+   The attribute value then will be an array of these three values. </p>
+   
+  <pre class="code code-run"> 
+paper.customAttributes.hsb = function (h, s, b) {
+    return {fill: "hsb(" + [h, s, b].join(",") + ")"};
+};
+var c = paper.circle(100, 100, 80).attr({fill: "#4455ff"});
+c.attr({hsb: [0.5, .8, 1]});
+c.animate({hsb: [1, 0, 0.5]}, 1e3);
+</pre>
+   
+   <p>Another...</p>
+   
+   <pre class="code code-run">
+paper.customAttributes.X = function(x) {
+	if(this.type=="path") {
+		//TODO: translate each point of the path
+		Raphael.parsePathString(
+	}
+};
+   </pre>
+   
+   <pre class="code code-run">
+paper.customAttributes.segment = function (x, y, r, a1, a2) {
+    var flag = (a2 - a1) &gt; 180,
+        clr = (a2 - a1) / 360;
+    a1 = (a1 % 360) * Math.PI / 180;
+    a2 = (a2 % 360) * Math.PI / 180;
+    return {
+        path: [["M", x, y], ["l", r * Math.cos(a1), r * Math.sin(a1)], 
+        	["A", r, r, 0, +flag, 1, x + r * Math.cos(a2), y + r * Math.sin(a2)], ["z"]]
+    };
+}
+var p1 = paper.path("M10,100");
+p1.attr({"segment": [230,100,180,122,144], fill: "red"});
+p1.animate({"segment": [230,100,180,111,194], fill: "blue"}, 4000, "elastic");
+   </pre>
+   
+   
+    <h2>Custom events</h2>
+   
+   <p>Shapes are not only attributes, they also respond to user events. As we will se in <a href="#sec-custom-attributes">Section Custom Attributes</a>
+   we have a simple mechanism for defining new attributes based on raphaël standar attributes. In this section we will describe how to define new 
+   events using the eve, the event management system under raphaeljs. Eve was described in detail in <a href="#sec-events-eve">Section Eve</a>.
+   Being able to define custom events and custom attributes will let you fully define new types of shapes.   
+   </p>
+   
+   <pre class="code code-run">
+//(function(){
+   
+/* define a new event called raphael.twoclick  - events handlers will be called with 
+ * the shape as context and two parameters e1 and e2 (events) */
+
+//window.lastClicks={};
+
+//whatch all shapes
+/*eve.on("raphael.click.*", function(e){
+alert("hell");
+	if(lastClicks[this.id]) {
+		//trigger the twoclick event
+		eve("raphael.twoclick."+this.id, this, lastClicks[this.id], e);
+		lastClicks[this.id]=false;
+	}
+	else {
+		lastClicks[this.id]=e;
+	}
+});
+Raphael.el.twoclick=function(f) {
+	eve.on("raphael.twoclick."+this.id, f);
+};*/
+//})();
+
+//and now usage test
+var r = paper.rect(100,100,120,80).attr({fill: "red"});
+eve.on("raphael.click."+r.id, function(e){
+alert("hell");
+});/*
+r.twoclick(function(e1, e2){
+	alert("je");
+})*/
+   </pre>
+   
+  
+   <h2 class="index">Raphaël extensions</h2>
+   <p>Raphaël also support mechanisms for more flexible extensions. For example, 
+   it will let you define you own kind of shapes, or add new methods to them. Common 
+   examples are creating a new... TODO.... type of shape
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   <h1>Useful <b class="index">Raphaël Extensions</b></h1>
+   <p>In this section we will describe how to use several Raphaël Js extensions made by users, that the author of this tutorial consider useful. </p>
+   
+   <h2 class="index">Color Picker</h2>
+   <p><a href="http://raphaeljs.com/picker.html">Color picker by Dmitry Baranovskiy</a></p>
+   
+   
+   <h2 class="index">Free Transform</h2>
+   
+   <p><a href="https://github.com/ElbertF/Raphael.FreeTransform">Free Transform</a> is a nice raphaëlJs plugin written by ElbertF, 
+   that let you install intuitive user handles to a raphael shape for making transformations on it like rotations, scale, translation etc. 
+   Once the Free Transform is installed on a shape, some auxiliar shapes called handles are attached to the shape and the user
+   can make transformation by dragging these handles. Check the nice <a href="http://elbertf.com/raphael/free_transform/">Free transform test page</a> 
+   for better understanding. </p>   
+   
+   <h2 class="index">Export to SVG</h2>
+   
+   <p><a href="https://github.com/ElbertF/Raphael.Export">Raphaël Export</a> is another Raphaël extension by ElbertF, in this case a </p>
+   
+   <div class="quote">
+  Cross-browser solution to export Raphaël elements to <a class="index" href="http://www.w3.org/Graphics/SVG/">SVG</a>, works in Internet Explorer 6, 7 and 8. 
+  Can be used to convert Raphaël drawings to PNG or PDF server-side using <a href="http://www.imagemagick.org/">ImageMagick</a> 
+  or&nbsp;<a href="http://xmlgraphics.apache.org/batik/" title="Batik SVG Toolkit">Batik</a>. </div>
+
+
+
+<!-- widgets commented dropdown don't work with latest raphael.js, uncomment and see -->
+   
+<!--    <h2>Widgets</h2> -->   
+<!--    <p><a href="http://www.irunmywebsite.com/raphael/raphael.widgets.doc.php">raphael.widgets</a> -->
+<!--    is a collection of useful widgets like checkbox, button, combo box. You can download its javascript sources from  -->
+<!--    <a href="www.irunmywebsite.com/raphael/raphael.widgets.js">irunmysite.com</a>. </p> -->
+   
+<!--    <h3>Buttons</h3> -->
+<!--    <pre class="code code-run"> -->
+<!-- button1=paper.widgets.button(paper,30, 30, 25, "Button\n1",  -->
+<!-- 	"#800000" , "#FF7F00" ,14,function(){ alert(1); }); -->
+<!-- button2=paper.widgets.button(paper,75, 100, 50, "Button \n2",  -->
+<!-- 	"#ff0" , "#004000" ,24,function(){ alert(2); }); -->
+<!-- button3=paper.widgets.button(paper,300, 110, 100, "Button\n3",  -->
+<!-- 	"#f00" , "#F3664F" ,48,function(){ alert(3); }); -->
+<!-- button4=paper.widgets.button(paper,475, 310, 150, "Button\n4", "#00f" ,  -->
+<!-- 	"#8080FF" ,64,function(){ alert(4); }); -->
+<!--    </pre> -->
+   
+<!--    <h3>Dropdown</h3> -->
+<!--    <pre class="code code-run"> -->
+<!-- var text = paper.text(100,20,"status").attr({"font-size": 22}); -->
+<!-- var onselected=function(key,value) { -->
+<!-- 	text.attr({text: "Recieved value of "+value+"(br)Recieved key of "+key}); -->
+<!-- 	//setInfoContent("InfoContent","Recieved value of "+value+"(br)Recieved key of "+key+"(br)(br)Technique:Basic Drop down.","180%","#00f"); -->
+<!-- } -->
+<!-- dropdown_a=paper.widgets.dropdown(paper, 10, 10, 24,  -->
+<!-- 	["one hundred","two hundred","three hundred"], [1,2,3],onselected,{ vmlWidth : 100, colour :"#800000" , backColour:"#FF7F00" , fontSize : 20}) ; -->
+<!-- dropdown_b=paper.widgets.dropdown(paper, 210, 160, 30,  -->
+<!-- 	["CAT","DOG","HORSE","ELEPHANT","MONKEY"], [4,5,6,7,8],onselected,{ vmlWidth : 150, colour :"#f00" , backColour:"#F3664F" , fontSize : 24}) ; -->
+<!-- dropdown_c=paper.widgets.dropdown(paper, 410, 10, 36,  -->
+<!-- 	["Raphael","DOJO","Yahoo","Prototype","Jquery","MochiKit","Ext JS","Open Rico","Qooxdoo","Moo Tools","X library","AJS"], [11,12,13,14,15,16,17,18,19,20,21,22], -->
+<!-- onselected,{ vmlWidth : 200, colour :"#00f" , backColour:"#8080FF" , fontSize : 30}) ; -->
+<!-- 	</pre> -->
+   
+   
+   <h1>Index</h1>
+   <div id="generated-index"></div>
+   
+   
+   
+</div>
+   
+  </body>
+</html>

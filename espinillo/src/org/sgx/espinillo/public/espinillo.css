@@ -17,26 +17,26 @@
 	margin-top: 10px;
 }
 .top-panel .selection {
-	background-image: url(/espinillo/imgs/selection24.png);	
+	background-image: url(imgs/selection24.png);	
 }
 .top-panel .text {
-	background-image: url(/espinillo/imgs/text24.png);
+	background-image: url(imgs/text24.png);
 }
 .top-panel .rect {
-	background-image: url(/espinillo/imgs/rect24.png);
+	background-image: url(imgs/rect24.png);
 }
 .top-panel .circle{
-	background-image: url(/espinillo/imgs/circle24.png);
+	background-image: url(imgs/circle24.png);
 }
 .top-panel .line{
-	background-image: url(/espinillo/imgs/line24.png);
+	background-image: url(imgs/line24.png);
 }
 .top-panel .ellipse{
-	background-image: url(/espinillo/imgs/ellipse24.png);
+	background-image: url(imgs/ellipse24.png);
 }
 .top-panel .curve{
-	background-image: url(/espinillo/imgs/curve24.png);
+	background-image: url(imgs/curve24.png);
 }
 .top-panel .free-transform{
-	background-image: url(/espinillo/imgs/free-transform24.png);
+	background-image: url(imgs/free-transform24.png);
 }

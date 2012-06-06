@@ -1,6 +1,7 @@
 package org.sgx.espinillo.client.impl1.ui;
 
 import org.sgx.espinillo.client.impl1.model.VEditor1;
+import org.sgx.espinillo.client.impl1.test.PaperOverlay;
 import org.sgx.espinillo.client.model.Document;
 import org.sgx.espinillo.client.model.SelectionListener;
 import org.sgx.espinillo.client.model.VEditor;
@@ -11,8 +12,11 @@ import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.PaperWidget;
 import org.sgx.raphael4gwt.raphael.event.PaperListener;
 
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -20,6 +24,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
+ * the main widget of espinillo editor - contains the paper widget, the toolbars, the menu, etc.
  * @author sg
  */
 public class VEditorWidget extends DockPanel {
@@ -33,7 +38,7 @@ public class VEditorWidget extends DockPanel {
 		return instance;
 	}
 	
-	private PaperWidget paperWidget;
+	public RCPaperWidget paperWidget;
 	private VEditor veditor;
 	private Label status;
 //	private ShapeBean currentSelectionShapeBean;
@@ -41,6 +46,8 @@ public class VEditorWidget extends DockPanel {
 	private EditorFramework1 edFramework;
 	private VEditorMenuBar menuBar;
 	private ShapePropsPanel shapePropsPanel;
+	protected PaperOverlay paperOverlay;
+	public boolean rightClickFired;
 
 	public ShapePropsPanel getShapePropertiesPanel() {
 		return shapePropsPanel;
@@ -116,21 +123,37 @@ public class VEditorWidget extends DockPanel {
 		
 		
 		//center -the paper - async loaded.
-		paperWidget = new PaperWidget(1400, 500, new PaperListener() {
+		paperWidget = new RCPaperWidget(1500, 1500, new PaperListener() {
 			
 			@Override
 			public void paperLoaded(Paper p) {
+				
 				VEditorMain.newDocument(getVeditor(), p, "unamed1", 
 					new SelectionListener() {					
 					@Override
 					public void selectionChange(Document d) {
 						shapePropsPanel.notifyEspinilloSelectionChange(d.getSelection());
-					}					
+					}
 				});
+				//put an overlay on top of the paper
+//				paperOverlay = new PaperOverlay(paperWidget);
+//				paperOverlay.getElement().setId("paperoverlay1");
+//				paperWidget.add(paperOverlay);
 			}
 		});
 		paperWidget.setWidth("100%");
+		
+		paperWidget.addContextClickHandler(new ContextClickHandler() {			
+			@Override
+			public void handleContextClick(Event theEvent) {
+				Window.alert("context");
+			}
+		});
 		add(paperWidget, DockPanel.CENTER);
+		
+		
+		
+		
 	}
 	public Label getStatus() {
 		return status;

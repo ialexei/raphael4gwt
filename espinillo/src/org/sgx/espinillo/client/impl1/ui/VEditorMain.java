@@ -5,7 +5,11 @@ import org.sgx.espinillo.client.model.Document;
 import org.sgx.espinillo.client.model.SelectionListener;
 import org.sgx.espinillo.client.model.VEditor;
 import org.sgx.raphael4gwt.raphael.Paper;
-
+/**
+ * the main system controller class of espinillo editor 
+ * @author sg
+ *
+ */
 public class VEditorMain {
 
 public static Document newDocument(VEditor veditor, Paper p, String string, 

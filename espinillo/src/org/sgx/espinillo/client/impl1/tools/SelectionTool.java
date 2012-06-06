@@ -105,6 +105,7 @@ public class SelectionTool extends AbstractTool {
 	}
 	
 	protected Set filterOnlyShapes(Set els) {
+		if(els==null)return null;
 		if(mask!=null)
 			els.exclude(mask); //els are the elements under the click
 		els.filter(new ForEachCallback() {			
@@ -128,8 +129,7 @@ public class SelectionTool extends AbstractTool {
 		return s1.add(s2).substract(s1.intersect(s2));
 	}
 
-	public static Point getPaperPosition(Paper p) {
-		
+	public static Point getPaperPosition(Paper p) {		
 		return Raphael.createPoint(p.getCanvasElement().getOffsetLeft()+p.getCanvasElement().getParentElement().getAbsoluteLeft(), 
 			p.getCanvasElement().getOffsetTop()+p.getCanvasElement().getParentElement().getAbsoluteTop());
 		

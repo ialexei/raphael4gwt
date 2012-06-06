@@ -69,4 +69,8 @@ public interface Messages extends com.google.gwt.i18n.client.Messages {
 	String selection();
 
 	String freeTransform();
+
+	String exportToSVG();
+
+	String importSVG();
 }

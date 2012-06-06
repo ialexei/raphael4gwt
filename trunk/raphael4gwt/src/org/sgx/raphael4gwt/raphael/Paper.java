@@ -14,6 +14,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.xml.client.Document;
 
 public class Paper extends JavaScriptObject {
 	
@@ -38,7 +39,27 @@ public class Paper extends JavaScriptObject {
 	}-*/;
 	
 	/**
-	 * 
+	 * Sets the view box of the paper. Practically it gives you ability to zoom and pan whole paper surface by specifying new boundaries. 
+	 * @param x new x position, default is 0
+	 * @param y new y position, default is 0
+	 * @param w new width of the canvas
+	 * @param h new height of the canvas
+	 * @param fit true if you want graphics to fit into new boundary box
+	 */
+	public final native void setViewBox(int x, int y, int w, int h, boolean fit)/*-{
+		this.setViewBox(x, y, w, h, fit);
+	}-*/;
+	/**
+	 * Sets the view box of the paper. Practically it gives you ability to zoom and pan whole paper surface by specifying new boundaries. 
+	 * @param box - the new paper's view box
+	 * @param fit true if you want graphics to fit into new boundary box
+	 */
+	public final native void setViewBox(Rectangle box, boolean fit)/*-{
+		this.setViewBox(box.x, box.y, box.width, box.height, fit);
+	}-*/;
+	
+	/**
+	 * creates a circle shape
 	 * @param x - x coordinate of the center
 	 * @param y - y coordinate of the center
 	 * @param r - radius
@@ -48,7 +69,7 @@ public class Paper extends JavaScriptObject {
 		return this.circle(x, y, r);
 	}-*/;
 	/**
-	 * 
+	 * creates a circle shape
 	 * @param x - x coordinate of the center
 	 * @param y - y coordinate of the center
 	 * @param r - radius
@@ -647,4 +668,30 @@ txt[0].attr({fill: "#f00"});
 		return set;
 	}-*/;
 
+	/**
+	 * return the content to this paper as a valid svg document using the raphael extensions https://github.com/ElbertF/Raphael.Export. In svg supporter browsers (all but IE<9)
+	 * you can inject the SVG drawing inside an html element settings its innerHTML attribute. 
+	 * @return
+	 */
+	public final native String toSVG()/*-{
+		return this.toSVG();
+	}-*/;
+	/**
+	 * import svg using plugin from https://github.com/sanojian/raphael-svg-import
+	 * @param svgXml an SVG string (xml code)
+	 * @return a new set element containing the svg  with its content already added to this paper.
+	 */
+	public final native Set importSvg(String svgXml)/*-{
+		return this.importSVGStr(svgXml);
+	}-*/;
+//	/**
+//	 * import svg using plugin from https://github.com/sanojian/raphael-svg-import
+//	 * @param doc a XML document containing the svg. Use <pre>
+//    	Document doc = XMLParser.parse(messageXml);
+//    	</pre>
+//	 * @return a new set element containing the svg  with its content already added to this paper.
+//	 */
+//	public final native Set importSvg(Document doc)/*-{
+//		return this.importSVG(doc);
+//	}-*/;
 }

@@ -3,6 +3,7 @@ package org.sgx.raphael4gwt.raphael;
 import org.sgx.raphael4gwt.raphael.event.PaperListener;
 
 import com.google.gwt.dom.client.Style.Overflow;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 /**
  * a gwt widget with a rapahel paper inside. Paper will have fixed size and the widget will s
@@ -13,7 +14,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
  * @author sg
  *
  */
-public class PaperWidget extends SimplePanel {
+public class PaperWidget extends FocusPanel {
 	private Paper paper=null;
 	private int paperWidth=0;
 	private int paperHeight=0;

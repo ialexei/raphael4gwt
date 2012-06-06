@@ -34,7 +34,7 @@ public class MainPanel extends VerticalPanel {
 	private VerticalPanel testPanel;
 
 	public MainPanel() {
-		
+		GalleryUtil.getInstance().setMainPanel(this);
 		setSize("100%", GUIUtil.getMaxHeightStr());
 		
 		FlowPanel toobarPanel = new FlowPanel();
@@ -131,8 +131,8 @@ public class MainPanel extends VerticalPanel {
 		vp2.add(paperWidget);
 		horizontalSplitPanel.setRightWidget(vp2);
 		paperWidget.setSize("100%", "100%");
-		
-		
 	}
-
+	public PaperWidget getPaperWidget() {
+		return paperWidget;
+	}
 }

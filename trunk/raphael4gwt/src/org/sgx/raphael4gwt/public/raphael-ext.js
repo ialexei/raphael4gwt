@@ -1020,4 +1020,552 @@ Raphael.el.sobel=function(size, multiplier, divisor, bias) {
         }
     }
 })();     
+
+
+
+
+
+
+
+
+
+
+
+
+
+// SVG export extension from https://github.com/ElbertF/Raphael.Export
+
+/**
+ * Raphael.Export https://github.com/ElbertF/Raphael.Export
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ */
+
+(function(R) {
+	/**
+	* Escapes string for XML interpolation
+	* @param value string or number value to escape
+	* @returns string escaped
+	*/
+	function escapeXML(s) {
+		if ( typeof s === 'number' ) return s.toString();
+
+		var replace = { '&': 'amp', '<': 'lt', '>': 'gt', '"': 'quot', '\'': 'apos' };
+
+		for ( var entity in replace ) {
+			s = s.replace(new RegExp(entity, 'g'), '&' + replace[entity] + ';');
+		}
+
+		return s;
+	}
+
+	/**
+	* Generic map function
+	* @param iterable the array or object to be mapped
+	* @param callback the callback function(element, key)
+	* @returns array
+	*/
+	function map(iterable, callback) {
+		var mapped = new Array;
+
+		for ( var i in iterable ) {
+			if ( iterable.hasOwnProperty(i) ) {
+				var value = callback.call(this, iterable[i], i);
+
+				if ( value !== null ) mapped.push(value);
+			}
+		}
+
+		return mapped;
+	}
+
+	/**
+	* Generic reduce function
+	* @param iterable array or object to be reduced
+	* @param callback the callback function(initial, element, i)
+	* @param initial the initial value
+	* @return the reduced value
+	*/
+	function reduce(iterable, callback, initial) {
+		for ( var i in iterable ) {
+			if ( iterable.hasOwnProperty(i) ) {
+				initial = callback.call(this, initial, iterable[i], i);
+			}
+		}
+
+		return initial;
+	}
+
+	/**
+	* Utility method for creating a tag
+	* @param name the tag name, e.g., 'text'
+	* @param attrs the attribute string, e.g., name1="val1" name2="val2"
+	* or attribute map, e.g., { name1 : 'val1', name2 : 'val2' }
+	* @param content the content string inside the tag
+	* @returns string of the tag
+	*/
+	function tag(name, attrs, matrix, content) {
+		if ( typeof content === 'undefined' || content === null ) {
+			content = '';
+		}
+
+		if ( typeof attrs === 'object' ) {
+			attrs = map(attrs, function(element, name) {
+				if ( name === 'transform') return;
+
+				return name + '="' + escapeXML(element) + '"';
+			}).join(' ');
+		}
+
+		return '<' + name + ( matrix ? ' transform="matrix(' + matrix.toString().replace(/^matrix\(|\)$/g, '') + ')" ' : ' ' ) + attrs + '>' +  content + '</' + name + '>';
+	}
+
+	/**
+	* @return object the style object
+	*/
+	function extractStyle(node) {
+		return {
+			font: {
+				family: node.attrs.font.replace(/^.*?"(\w+)".*$/, '$1'),
+				size:   typeof node.attrs['font-size'] === 'undefined' ? null : node.attrs['font-size']
+				}
+			};
+	}
+
+	/**
+	* @param style object from style()
+	* @return string
+	*/
+	function styleToString(style) {
+		// TODO figure out what is 'normal'
+		return 'font: normal normal normal 10px/normal ' + style.font.family + ( style.font.size === null ? '' : '; font-size: ' + style.font.size + 'px' );
+	}
+
+	/**
+	* Computes tspan dy using font size. This formula was empircally determined
+	* using a best-fit line. Works well in both VML and SVG browsers.
+	* @param fontSize number
+	* @return number
+	*/
+	function computeTSpanDy(fontSize, line, lines) {
+		if ( fontSize === null ) fontSize = 10;
+
+		//return fontSize * 4.5 / 13
+		return fontSize * 4.5 / 13 * ( line - .2 - lines / 2 ) * 3.5;
+	}
+
+	var serializer = {
+		'text': function(node) {
+			style = extractStyle(node);
+
+			var tags = new Array;
+
+			map(node.attrs['text'].split('\n'), function(text, iterable, line) {
+                                line = line || 0;
+				tags.push(tag(
+					'text',
+					reduce(
+						node.attrs,
+						function(initial, value, name) {
+							if ( name !== 'text' && name !== 'w' && name !== 'h' ) {
+								if ( name === 'font-size') value = value + 'px';
+
+								initial[name] = escapeXML(value.toString());
+							}
+
+							return initial;
+						},
+						{ style: 'text-anchor: middle; ' + styleToString(style) + ';' }
+						),
+					node.matrix,
+					tag('tspan', { dy: computeTSpanDy(style.font.size, line + 1, node.attrs['text'].split('\n').length) }, null, text)
+				));
+			});
+
+			return tags;
+		},
+		'path' : function(node) {
+			var initial = ( node.matrix.a === 1 && node.matrix.d === 1 ) ? {} : { 'transform' : node.matrix.toString() };
+
+			return tag(
+				'path',
+				reduce(
+					node.attrs,
+					function(initial, value, name) {
+						if ( name === 'path' ) name = 'd';
+
+						initial[name] = value.toString();
+
+						return initial;
+					},
+					{}
+				),
+				node.matrix
+				);
+		}
+		// Other serializers should go here
+	};
+
+	R.fn.toSVG = function() {
+		var
+			paper   = this,
+			restore = { svg: R.svg, vml: R.vml },
+			svg     = '<svg style="overflow: hidden; position: relative;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="' + paper.width + '" version="1.1" height="' + paper.height + '">'
+			;
+
+		R.svg = true;
+		R.vml = false;
+
+		for ( var node = paper.bottom; node != null; node = node.next ) {
+			if ( node.node.style.display === 'none' ) continue;
+
+			var attrs = '';
+
+			// Use serializer
+			if ( typeof serializer[node.type] === 'function' ) {
+				svg += serializer[node.type](node);
+
+				continue;
+			}
+
+			switch ( node.type ) {
+				case 'image':
+					attrs += ' preserveAspectRatio="none"';
+					break;
+			}
+
+			for ( i in node.attrs ) {
+				var name = i;
+
+				switch ( i ) {
+					case 'src':
+						name = 'xlink:href';
+
+						break;
+					case 'transform':
+						name = '';
+
+						break;
+				}
+
+				if ( name ) {
+					attrs += ' ' + name + '="' + escapeXML(node.attrs[i].toString()) + '"';
+				}
+			}
+
+			svg += '<' + node.type + ' transform="matrix(' + node.matrix.toString().replace(/^matrix\(|\)$/g, '') + ')"' + attrs + '></' + node.type + '>';
+		}
+
+		svg += '</svg>';
+
+		R.svg = restore.svg;
+		R.vml = restore.vml;
+
+		return svg;
+	};
+})(window.Raphael);
+
+
+
+
     
+
+
+
+
+
+
+
+/* import svg plugin from https://github.com/sanojian/raphael-svg-import */
+/*
+* Raphael SVG Import 0.0.1 - Extension to Raphael JS
+*
+* Copyright (c) 2009 Wout Fierens
+* Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
+* 
+* 
+* 2011-12-08 modifications by Jonas Olmstead
+* - added support for radial and linear gradients
+* - added support for paths
+* - removed prototype.js dependencies (I can't read that stuff)
+* - changed input parameter to svg xml file
+* - added support for text elements
+* - added support for nested groups
+* - added support for transforms and scaling applied to groups
+* - svg elements returned as a set
+*
+*/
+Raphael.fn.importSVGStr = function(svgString) { //added by sgurin
+	var xmlDoc = null;
+	if (window.DOMParser) {
+	  parser=new DOMParser();
+	  xmlDoc=parser.parseFromString(svgString,"text/xml");
+	}
+	else {
+	  xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+	  xmlDoc.async=false;
+	  xmlDoc.loadXML(svgString);
+	} 
+	if(xmlDoc)
+		return this.importSVG(xmlDoc);
+	else return null;
+};
+Raphael.fn.importSVG = function (svgXML) {
+  try {
+    
+    // create a set to return 
+    var m_myNewSet = this.set();
+    
+    var strSupportedShapes = "|rect|circle|ellipse|path|image|text|polygon|";
+    
+    // collect all gradient colors
+    var linGrads = svgXML.getElementsByTagName("linearGradient");
+    var radGrads = svgXML.getElementsByTagName("radialGradient");
+    
+    
+    this.doFill = function(strNode,attr,mNodeName,mNodeValue) {
+  	  // check if linear gradient
+  	  if (mNodeValue.indexOf("url") == 0) {
+  		  var opacity;
+  		  var gradID = mNodeValue.substring("url(#".length,mNodeValue.length - 1);
+			  for (var l=0;l<radGrads.length;l++)
+  		  	  if (radGrads.item(l).getAttribute("id") == gradID) {
+  			    	// get stops
+  			    	var stop1, stop2;
+  			    	for (var st=0;st<radGrads.item(l).childNodes.length;st++)
+  			    		if (radGrads.item(l).childNodes.item(st).nodeName == "stop") {
+  			    			if (stop1)
+  			    				stop2 = radGrads.item(l).childNodes.item(st);
+  			    			else
+  			    				stop1 = radGrads.item(l).childNodes.item(st);
+  			    		}
+
+					if (!stop1)
+						return;		// could not parse stops
+						
+  			    	// TODO: implement radial offset
+  			    	// radial gradients not supported for paths, so do linear
+  			    	if (strNode == "path")
+  			    		attr[mNodeName] = 90 + "-" + stop1.getAttribute("stop-color") 
+							+ "-" + stop2.getAttribute("stop-color") 
+							+ ":50-" + stop1.getAttribute("stop-color");
+  			    	else
+						attr[mNodeName] = "r(" + radGrads.item(l).getAttribute("fx") + "," 
+							+ radGrads.item(l).getAttribute("fx") + ")" + stop1.getAttribute("stop-color") 
+							+ "-" + stop2.getAttribute("stop-color");
+
+  			    	if (stop1.getAttribute("stop-opacity"))
+						opacity = stop1.getAttribute("stop-opacity")
+  		  	  }
+				  
+  		  for (var l=0;l<linGrads.length;l++)
+  		  	  if (linGrads.item(l).getAttribute("id") == gradID) {
+						// get angle
+						var b = parseFloat(linGrads.item(l).getAttribute("y2")) - parseFloat(linGrads.item(l).getAttribute("y1"));
+						var c = parseFloat(linGrads.item(l).getAttribute("x2")) - parseFloat(linGrads.item(l).getAttribute("x1"));
+  			    	var angle = Math.atan(b/c);
+  			    	if (c < 0)
+  			    		angle = angle - Math.PI;
+  			    		
+  			    	angle = parseInt(Raphael.deg(angle) + 360) % 360;
+  		  		  
+  			    	// get stops
+  			    	var stop1, stop2;
+  			    	for (var st=0;st<linGrads.item(l).childNodes.length;st++)
+  			    		if (linGrads.item(l).childNodes.item(st).nodeName == "stop") {
+  			    			if (stop1)
+  			    				stop2 = linGrads.item(l).childNodes.item(st);
+  			    			else
+  			    				stop1 = linGrads.item(l).childNodes.item(st);
+  			    		}
+						
+					if (!stop1)
+						return;		// could not parse stops
+
+  			    	// TODO: hardcoded offset value of 50
+					attr[mNodeName] = angle + "-" + stop1.getAttribute("stop-color") 
+						+ "-" + stop2.getAttribute("stop-color") 
+						+ ":50-" + stop1.getAttribute("stop-color");
+					if (stop1.getAttribute("stop-opacity"))
+						opacity = stop1.getAttribute("stop-opacity")
+   		  	  }
+  		  if (opacity)
+  			  attr["opacity"] = opacity;
+  	  } else {
+  		  attr[mNodeName] = mNodeValue;
+  	  }
+    	
+    };
+    
+    this.parseElement = function(elShape, myNewSet) {
+    	var node = elShape.nodeName;
+		
+    	if (node == "g") {
+    		// this is a group, parse the children and add to set
+			var groupSet = this.set();
+			
+    		for (var o=0;o<elShape.childNodes.length;o++)
+    			this.parseElement(elShape.childNodes.item(o), groupSet);
+				
+			// now apply transforms and attributes to set
+			for (var k=0;k<elShape.attributes.length;k++) {
+				var m = elShape.attributes[k];
+				if (m.nodeName == "transform" && groupSet.transform) {
+					var actions = m.nodeValue.split(')');
+					for (var a=0;a<actions.length;a++) {
+						if (actions[a].indexOf("matrix") == 0) 
+							groupSet.transform("m" + actions[a].substring(actions[a].indexOf("(")+1));
+						else if (actions[a]) 
+							eval("groupSet." + actions[a] + ")");
+					}
+				}
+				else
+					groupSet.attr(m.nodeName,m.nodeValue);
+			}
+			myNewSet.push(groupSet);
+			return;
+    	}
+
+    	if (node && strSupportedShapes.indexOf("|" + node + "|") >= 0) {
+        	    	
+	        var attr = { "stroke-width": 0, "fill":"#fff" };
+	        var shape;
+	        var style;
+	        // find the id
+	        var nodeID = elShape.getAttribute("id");
+	        
+	        m_font = "";
+            for (var k=0;k<elShape.attributes.length;k++) {
+	        	var m = elShape.attributes[k];
+	        	  	
+	            switch(m.nodeName) {
+	              case "stroke-dasharray":
+	                attr[m.nodeName] = "- ";
+	              break;
+	              case "style":
+	            	// TODO: handle gradient fills within a style
+	                style = m.nodeValue.split(";");
+	                for (var l=0;l<style.length;l++)
+	                	if (style[l].split(":")[0] == "fill")
+	                		this.doFill(node,attr,style[l].split(":")[0],style[l].split(":")[1]);
+	                	else
+	                		attr[style[l].split(":")[0]] = style[l].split(":")[1];
+	              break;
+	              case "fill":
+	            	  this.doFill(node,attr,m.nodeName,m.nodeValue);
+	              break;
+	              case "font-size":
+	            	  m_font = m.nodeValue + "px " + m_font;
+	            	  attr[m.nodeName] = m.nodeValue;
+	              break;
+	              case "font-family":
+	            	  m_font = m_font + "\"" + m.nodeValue + "\"";
+	              break;
+	              case "x":
+	              case "y":
+	              case "cx":
+	              case "cy":
+	              case "rx":
+	              case "ry":
+	            	  // use numbers for location coords
+	            	  attr[m.nodeName] = parseFloat(m.nodeValue);
+	              break;
+	              case "text-anchor":
+	            	  // skip these due to bug in text scaling
+	              break;
+	              default:
+	                attr[m.nodeName] = m.nodeValue;
+	              break;
+	            }
+
+	          }
+	        
+	        switch(node) {
+	          case "rect":
+	        	  if (attr["rx"])
+	        		  shape = this.rect(attr["x"],attr["y"],elShape.getAttribute("width")
+	        				  	,elShape.getAttribute("height"),attr["rx"]);
+	        	  else
+	        		  shape = this.rect();
+	          break;
+	          case "circle":
+	        	// changed to ellipse, we are not doing circles today
+	            shape = this.ellipse();
+	            attr["rx"] = attr["r"];
+	            attr["ry"] = attr["r"];
+	          break;
+	          case "ellipse":
+	            shape = this.ellipse();
+	          break;
+	          case "path":
+	            shape = this.path(attr["d"]);
+	          break;
+	          case "polygon":
+	        	// convert polygon to a path
+	            var point_string = attr["points"].trim();
+	            var aryPoints = point_string.split(" ");
+	            var strNewPoints = "M";
+	        	for (var i in aryPoints) {
+	        		if (i > 0)
+	        			strNewPoints += "L";
+	        		strNewPoints += aryPoints[i];
+	        	}
+	        	strNewPoints += "Z";
+	        	shape = this.path(strNewPoints);
+	          break;
+	          case "image":
+	            shape = this.image();
+	          break;
+	          case "text":
+	        	  shape = this.text(attr["x"],attr["y"],elShape.text || elShape.textContent);
+	        	  shape.attr("font",m_font);
+	        	  shape.attr("stroke","none");
+	        	  shape.origFontPt = parseInt(attr["font-size"]);
+	          break;
+	        }
+	        
+	        // put shape into set 
+	        myNewSet.push(shape);
+	        	        
+			// apply attributes
+	        shape.attr(attr);
+			
+			// apply transforms
+            for (var k=0;k<elShape.attributes.length;k++) {
+	        	var m = elShape.attributes[k];
+	        	  	
+	            if (m.nodeName == "transform" && shape.transform) {
+					var actions = m.nodeValue.split(')');
+					for (var a=0;a<actions.length;a++) {
+						if (actions[a].indexOf("matrix") == 0) 
+							shape.transform("m" + actions[a].substring(actions[a].indexOf("(")+1));
+						else if (actions[a]) 
+							eval("shape." + actions[a] + ")");
+					  }
+				}
+			}
+			
+	    }
+    };
+    
+    var elShape;
+    var m_font;
+    var elSVG = svgXML.getElementsByTagName("svg")[0];
+    elSVG.normalize();
+    for (var i=0;i<elSVG.childNodes.length;i++) {
+    	elShape = elSVG.childNodes.item(i);
+    	
+		this.parseElement(elShape, m_myNewSet);
+		
+     }
+
+  } catch (error) {
+    alert("The SVG data you entered was invalid! (" + error + ")");
+  }
+  
+  // return our new set
+  return m_myNewSet;
+  
+};

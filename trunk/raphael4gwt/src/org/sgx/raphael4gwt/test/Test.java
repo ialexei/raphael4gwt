@@ -1,8 +1,10 @@
 package org.sgx.raphael4gwt.test;
 
 import org.sgx.raphael4gwt.raphael.Paper;
+import org.sgx.raphael4gwt.raphael.PaperWidget;
 import org.sgx.raphael4gwt.raphael.Raphael;
 import org.sgx.raphael4gwt.raphael.util.Util;
+import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 
 public abstract class Test {
 	protected Paper paper=null;
@@ -14,6 +16,11 @@ public abstract class Test {
 	public Test(Paper paper, int paperWidth, int paperHeight) {
 		this(paper, paperWidth, paperHeight, "", "", new String[]{});
 	}
+	
+	public PaperWidget getPaperWidget() {
+		return GalleryUtil.getInstance().getMainPanel().getPaperWidget();
+	}
+	
 //	public Test(Paper paper, int paperWidth, int paperHeight) {
 //		super();
 //		this.paper = paper;

@@ -43,8 +43,7 @@ public class VEditorMenuBar extends MenuBar{
 				vp.add(new Label(Messages.INSTANCE.msg1()));
 				vp.add(input);
 				DialogBox db = GUIUtil.acceptCancelDialog(
-					Messages.INSTANCE.openDocument(), vp, 
-					new AcceptCancelDialogListener() {
+					Messages.INSTANCE.openDocument(), vp, new AcceptCancelDialogListener() {
 				
 					@Override
 					public void notifyCancel(DialogBox db) {
@@ -92,6 +91,65 @@ public class VEditorMenuBar extends MenuBar{
 			}
 		});
 		menuBar_1.addItem(mntmSave);
+		
+		MenuItem mntmNewItem = new MenuItem(Messages.INSTANCE.exportToSVG(), false, new Command() {
+			public void execute() {
+				Document doc = VEditorWidget.getInstance().getVeditor().getCurrentDocument();
+				
+				VerticalPanel vp = new VerticalPanel();
+				TextArea input = new TextArea();
+//				Set allshapes = doc.getPaper().getAllShapes();
+//				allshapes.exclude(ToolUtil.getInstance().getPaperMask(doc));
+				input.setText(doc.getPaper().toSVG());
+				input.setSize("100%", "200px");
+				vp.add(new Label(
+						Messages.INSTANCE.msg2(getVeditor().getCurrentDocument().getName())
+						));
+				vp.add(input);
+				
+				DialogBox db = GUIUtil.acceptDialog(Messages.INSTANCE.exportToSVG(), vp);
+				GUIUtil.showDialogBox(db);
+			}
+		});
+		menuBar_1.addItem(mntmNewItem);
+		
+		MenuItem mntmNewItem_1 = new MenuItem(Messages.INSTANCE.importSVG(), false, new Command() {
+			public void execute() {
+				VerticalPanel vp = new VerticalPanel();
+				final TextArea input = new TextArea();
+				input.setSize("100%", "200px");
+				input.setText("<svg style=\"overflow: hidden; position: relative;\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"600\" version=\"1.1\" height=\"600\"><rect transform=\"matrix(1,0,0,1,0,0)\" x=\"10\" y=\"20\" width=\"100\" height=\"200\" r=\"12\" rx=\"12\" ry=\"12\" fill=\"red\" stroke=\"#000\" stroke-width=\"8\"></rect><circle transform=\"matrix(1,0,0,1,0,0)\" cx=\"200\" cy=\"200\" r=\"50\" fill=\"none\" stroke=\"#000\"></circle><ellipse transform=\"matrix(1,0,0,1,0,0)\" cx=\"100\" cy=\"100\" rx=\"50\" ry=\"120\" fill=\"none\" stroke=\"#000\"></ellipse></svg>");
+				
+				vp.add(new Label(Messages.INSTANCE.msg1()));
+				vp.add(input);
+				DialogBox db = GUIUtil.acceptCancelDialog(
+					Messages.INSTANCE.importSVG(), vp, new AcceptCancelDialogListener() {
+				
+					@Override
+					public void notifyCancel(DialogBox db) {
+						db.hide();
+					}
+					
+					@Override
+					public void notifyAccept(DialogBox db) {
+						//TODO: open a new document - now we use the same paper.
+						Paper paper = getVeditor().getCurrentDocument().getPaper();
+						paper.clear();
+						VEditorMain.newDocument(getVeditor(), paper, Messages.INSTANCE.unamed(), 
+							new SelectionListener() {					
+							@Override
+							public void selectionChange(Document d) {
+								VEditorWidget.getInstance().getShapePropertiesPanel()
+									.notifyEspinilloSelectionChange(d.getSelection());
+							}					
+						});
+						paper.importSvg(input.getText());
+					}
+				});
+				GUIUtil.showDialogBox(db);
+			}
+		});
+		menuBar_1.addItem(mntmNewItem_1);
 		menuBar_1.addSeparator();
 		
 		

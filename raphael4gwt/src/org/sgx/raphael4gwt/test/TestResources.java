@@ -107,4 +107,13 @@ public interface TestResources extends ClientBundle {
 	  @Source("TextSelectionPreventTest.java")
 	  public TextResource TextSelectionPreventTest();
 	  
+	  @Source("PaperViewBoxTest1.java")
+	  public TextResource PaperViewportTest1();
+
+	  @Source("SVGImportTest1.java")
+	  public TextResource SVGImportTest1();
+	  
+	  @Source("SVGExportTest1.java")
+	  public TextResource SVGExportTest1();
+	  
 }

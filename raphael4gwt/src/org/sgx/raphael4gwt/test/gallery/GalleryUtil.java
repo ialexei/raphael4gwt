@@ -32,9 +32,12 @@ import org.sgx.raphael4gwt.test.MouseCoordsOnHoverTest;
 import org.sgx.raphael4gwt.test.MouseRelativeCoordsTest;
 import org.sgx.raphael4gwt.test.PaperLoadAndSave;
 import org.sgx.raphael4gwt.test.PaperLoadAndSaveUnit1;
+import org.sgx.raphael4gwt.test.PaperViewBoxTest1;
 import org.sgx.raphael4gwt.test.PathCmdsTest1;
 import org.sgx.raphael4gwt.test.PathEditorTest1;
 import org.sgx.raphael4gwt.test.PrintLettersOnPath;
+import org.sgx.raphael4gwt.test.SVGExportTest1;
+import org.sgx.raphael4gwt.test.SVGImportTest1;
 import org.sgx.raphael4gwt.test.SetSimpleTest1;
 import org.sgx.raphael4gwt.test.SetTest2;
 import org.sgx.raphael4gwt.test.ShapeEditor1;
@@ -57,20 +60,20 @@ public class GalleryUtil {
 		TAG_GRADIENT="gradient", TAG_EVENT="event",
 		TAG_EXTENSION = "extensions",TAG_FONT="fonts",TAG_FT="free transform",
 		TAG_SHAPE="shapes", TAG_SET="sets",TAG_CUSTOMATTR="Custom attributes",
-		TAG_EVE="Eve", TAG_ALLCATEGORY="all tests";
+		TAG_EVE="Eve", TAG_ALLCATEGORY="all tests", TAG_SVG="SVG";
 						
 	private static final String [] TAG_ALL = 
 		{TAG_PATH, TAG_ANIM, TAG_GRADIENT, TAG_EVENT, TAG_SHAPE, TAG_EXTENSION,
-		TAG_FONT,TAG_FT, TAG_EVE};
+		TAG_FONT,TAG_FT, TAG_EVE, TAG_SVG};
 
 
-	
-	
 	private static GalleryUtil instance;
 	protected Test currentTest;
 
 	Map<String, Test> tests = null;
-
+	MainPanel mainPanel;
+	
+	
 	private GalleryUtil() {
 		tests = new HashMap<String, Test>();
 	}
@@ -117,7 +120,12 @@ public class GalleryUtil {
 	public Test getCurrentTest() {
 		return currentTest;
 	}
-
+	public void setMainPanel(MainPanel mainPanel) {
+		this.mainPanel = mainPanel;
+	}
+	public MainPanel getMainPanel() {
+		return mainPanel;
+	}
 	
 	/**
 	 * put tests in categories by tag - using only tags defined in TAG_ constants.
@@ -276,6 +284,15 @@ public class GalleryUtil {
 		tests.put(t.getName(), t);		
 		
 		t = new TextSelectionPreventTest(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		t = new PaperViewBoxTest1(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		t = new SVGImportTest1(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		t = new SVGExportTest1(paper, w, h);
 		tests.put(t.getName(), t);
 	}
 

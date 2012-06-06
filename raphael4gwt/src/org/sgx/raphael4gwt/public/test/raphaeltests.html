@@ -4,38 +4,28 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>raphael4gwt test</title>
 <script type="text/javascript" language="javascript" src="../raphael.js"></script>
+<script type="text/javascript" language="javascript" src="../raphael-ext.js"></script>
 </head>
-
-<div id="paper1"></div>
+<div id="foo"></div>
+<div id="bar"></div>
 <body>
 	<script type="text/javascript" language="javascript">
 	
-var paper = new Raphael(0,0,400, 400);
+	var paper = Raphael('foo');
 
-var rect = paper.rect(50,50,50,50).attr({fill: "red"});
+    var rect = paper
+        .rect(50, 40, 50, 50)
+        .attr('fill', '#f00')
+        .transform('S2')
+        .rotate(10)
+        ;
 
-//for being able of listening clicks and cia events with eve, first we must register some dummy event handler of the desired type to the desired shape.
-// rect.click(function(){})
+    var svg = paper.toSVG();
 
-// eve.on("raphael.event.click."+rect.id, function(el, type, x, y, evt){
-// 	alert("something clicked at: "+x+", "+y);
-// })
-
-eve.once("raphael.event.mouseup."+rect.id, function(el, type, x, y, evt){
-	alert("something clicked at: "+x+", "+y);
-})
-
-//trigger a click event programatically to to rect
-// eve("raphael.event.click."+rect.id, rect, "click", 55, 55, {fake:"event object"});
-
-//trigger a change attribute event programatically. - we spect fill color change to brown.
-// eve("raphael.attr.fill."+rect.id, rect, "brown", "fill");
-
-
-// var rect2 = paper.rect(150,50,50,50).attr({fill: "blue"});
-// eve.on("raphael.event.click."+rect2.id, function(el, type, x, y, evt){
-// 	alert("no more");
-// });
+    alert(svg);
+    
+    //if you want to inject the svg directly for showing it in some html element:
+    document.getElementById('bar').innerHTML = svg;
 	 </script>
 
 </body>

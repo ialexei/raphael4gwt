@@ -68,7 +68,15 @@
    <p>Raphaël comes with an nice <a href="http://raphaeljs.com/reference.html#Raphael">Reference</a> where all its features are 
    described with examples. Nevertheless, some features are not easy to understand to those not familiar with technologies 
    like SVG or JavaScript and it is there where this tutorial wants to contribute.</p>
+   
+   <p>The author of this tutorial is also the author of  <a href="http://code.google.com/p/raphael4gwt/">raphael4gwt</a>
+    a Raphaël porting to GWT (Java). The sources of this tutorial are currently being mantained at 
+    <a href="http://code.google.com/p/raphael4gwt/source/browse/#svn%2Ftrunk%2Fraphael4gwt%2Fdoc%2Fraphaeltut">
+    raphael4gwt project page</a>. So contact with that project if you have 
+    comments or suggestiongs about this tutorial. </p>
     
+  
+  
   
    <h1>Acknowledgments</h1>
    
@@ -78,7 +86,8 @@
    <p>Second I would like to thanks Charles Thomas, owner of the site 
    <a href="http://www.irunmywebsite.com">http://www.irunmywebsite.com</a>, a great place dedicated to raphaeljs, 
    with pages made of graphics created with raphaeljs and with a lot of documentation, links and examples. Many examples 
-   of this tutorial were taken from there. I recommend readers to take a visit when searching to alternative aterial or documentation related to raphaeljs.</p> 
+   of this tutorial were taken from there. I recommend readers to take a visit when searching to alternative material or documentation related to raphaeljs.</p> 
+   
    
    
    
@@ -134,7 +143,7 @@
    
    
    
-   <h1 id="sec-getting-started">Getting Sterted</h1>
+   <h1 id="sec-getting-started">Getting Started</h1>
    
  	<p>Raphaël is a JavaScript library for drawing on web pages. Basically one 
  	draw shapes of different types, likes circles, text, rectangles, images. Shapes support a large number of 
@@ -481,7 +490,23 @@ var text1 = paper.text(230,120,
    <a class="code" href="#sec-shape-print">print()</a> instead.  
    </p>
       
+   <h3 id="class-shapes-text-multilingual">Multilingual support</h3>
    
+   <p>You can put text using any language. Just make sure you use UTF-8 support in your HTML document. 
+   This done like this in your html markup : </p>
+   
+   <pre>
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta http-equiv="content-type" content="text/html; charset=UTF-8"&gt;
+    ...
+   </pre>
+   
+   <p>Then you can use safely UTF-8 strings in any desired language in your javascript code, for example in arabian: </p> 
+   
+   <pre class="code code-run">
+paper.text(100,10,"أنا أحب القراءة كثيرا").attr({"font-size": 20});
+   </pre>
    
    
    
@@ -1085,41 +1110,23 @@ $(document).keydown(function(event) {
     
    <h2 class="index" id="sec-events-eve">Eve</h2>
    
-<pre>
-TODO: some personal thoungs about eve for publishing in the user gourps...
-
-Hi all. I'm playing with eve and it is very interesting, in particular for attribute change 
-listeners, once(), etc. I think it can be a very powerfull tool. I'm trying to fully 
-document raphael eve's event names like raphael.attr.* raphael.drag.* raphael.anim.* in my 
-raphael tutorial (http://cancerbero.vacau.com/raphaeltut/#sec-events-eve). This is not documented  
-in reference.html and I'm learning how to use it from the sources.
-
-I have some things of eve that I would improve:
-
-1) raphael.attr.* is very usefull for being notified before an attribute change and it work nice. 
-But for example,  if I programatically fire an "raphael.attr.fill" event I would spect that the 
-targets shape(s) to be modified its fill attribute. That do not happens
-
-2) For my surprise, mouse raphael events like click, dbclick, mouseup, etc type of events are 
-not being managed with eve at all. For me it is a shame becaue it gives the hability to trigger 
-click and cia programatically, use once(), and the rest of eve API.
-</pre>
-
-   
+   <p class="note">This is current an unstable API and several features described here are
+   are not currently supported by raphael.js, yet. For running these examples you need to use the same 
+   raphael.js file as this tutorial, this is <a href="raphael-min.js">raphael-min.js</a>. </p>
+       
    <p>RaphaelJs event management is based on a <a href="https://github.com/DmitryBaranovskiy/eve">tiny event helping JavaScript library called eve</a>. 
    In this section we will discuss how to take advantadge of eve when working with events in raphaeljs.</p>
    
    <p>Eve is a small custom event managment library with which you can register and fire events types working with named events. You name your events 
    like "class1.event1.id1" and then can reference (for listening) using regular expressions like eve.on("class1/*/*", function(){...}); . 
    Just  take a look at <a href="https://github.com/DmitryBaranovskiy/eve/blob/d5acae2bd77b69a27459069a476fd1d38b283b65/e.html">eve example</a>. </p> 
-   
-   
+      
    <p>In eve, all events belong to a type, and each type of events are identified with a name. In eve, names have a special syntax, separating words
-   with "." or with "/" characters. For example, "raphael.*" will reffer to all events, of any type on any raphael shape, 
-   "raphael.click.*" refers to all events of type click on any element, and "raphael.click.123" reffers to click events on the shape with id 123. 
-   As you can see we can use wildcards to express that we want all the elements on a category. For example, "raphael.*.123" reffers to all 
-   types of events that occurs on shape with id 123. </p>
-   
+   with "." or with "/" characters. All Raphaël events start with the name prefix "raphael.". For example, "raphael.*" will reffer to all events, 
+   of any type on any raphael shape, 
+   "raphael.event.click.*" refers to all events of type click on any element, and "raphael.event.click.123" reffers to click events on the shape with id 123. 
+   As you can see we can use wildcards to express that we want all the elements on a category. For example, "raphael.event.*.123" reffers to all 
+   types of events that occurs on shape with id 123. </p>   
    
    <p>Raphaeljs uses eve and exposes some type of events that are not "accessible" using the normal raphaeljs API. 
    
@@ -1128,16 +1135,36 @@ click and cia programatically, use once(), and the rest of eve API.
    Also using eve we can access event types not supported bu the raphaël api, for example, notifications of stage change of an animation, 
    attribute change notifications and other. So in conclusion, dominating eve will allow you tu fully dominate the event managment system under raphaeljs.</p> 
    
+   <p>A common eve usage scenario: Listen for <b class="index">attribute change events</b>: </p>
+   
+   <pre class="code code-run">
+var rect1 = paper.rect(10,10,100,120,5).attr({fill: "#ededff", "stroke-width": 4});
+rect1.click(function(ev){
+	rect1.attr({fill: rt.randomColor()});
+});
+//we want to be notified each time the fill color of rect1 is modified: 
+eve.on("raphael.attr.fill."+rect1.id, function(shape, attributeName, newVal){
+	alert("attribute "+attributeName+" of shape "+this.type+", id: "+this.id+" to be changed to value: "+newVal);
+}); 
+   </pre>
    
    <p> The following table contains interesting events supported by raphael shapes. </p>
    
    <table>
    
-   <tr><td>Event Name</td><td>Description</td><td>Handler function context object</td><td>handler function accepted parameters</td></tr>
+   <tr class="title"><td>Event Name</td><td>Description</td>
+   <td>Handler function context object</td>
+   <td>handler function accepted parameters</td></tr>
    
-   <tr><td>raphael.attr.attrName</td><td><span class="index">attribute change event</span> - notifications just before an attribute change.</td><td>the shape being modified</td><td>two params: newValue, attribute name that changes</td></tr>
+   <tr><td>raphael.attr.attrName</td>
+   <td><span class="index">attribute change event</span> - notifications just before an attribute change.</td>
+   <td>the shape being modified</td>
+   <td>[shape, attributeName, attributeValue]</td></tr>
    
-   <tr><td>raphael.drag.over</td><td>the drag over event</td><td>the element being dragged</td><td>single param : element over which something is being dragged</td></tr>
+   <tr><td>raphael.drag.over</td>
+   <td>the drag over event</td>
+   <td>the element being dragged</td>
+   <td>single param : element over which something is being dragged</td></tr>
    
    <tr><td>raphael.drag.start</td><td>the drag start event</td><td></td><td>abs x, abs y, mouse event</td></tr>
    
@@ -1162,17 +1189,35 @@ click and cia programatically, use once(), and the rest of eve API.
    <tr><td>raphael.data.get</td><td>a shape data was getted</td></tr>
    <tr><td>raphael.data.set</td><td>a shape data was setted</td></tr>
    
-  
+   <tr><td>raphael.remove</td><td> raphael paper was removed</td><td> a paper context object</td><td>no params</td></tr>
    
    
    </table>
    
+<!--    eve("raphael.event." + type + "." + element.id, element, type, x, y, e, element); -->
+   <p>The raphael.js file that comes with raphael4gwt and with this tutorial was modified by the author of this tutorial for supporting more interesting
+   raphael events using the eve interface. In my raphael.js TODO: link, I added also the following:</p>
+   <table>   
    
-   <p>In my raphael.js TODO: link, I added also the following:</p>
-   <table>
-    <tr><td>raphael.data.set</td><td>a shape data was setted</td></tr>
-   <tr><td>raphael.data.set</td><td>a shape data was setted</td></tr>
-   <tr><td>raphael.data.set</td><td>a shape data was setted</td></tr>
+   <tr class="title"><td>Event Name</td>
+   <td>Description</td>
+   <td>Handler function context object</td>
+   <td>handler function accepted parameters</td></tr>
+   
+   <tr><td>raphael.elementCreate.type.id</td>
+   <td>a new shape was created in a paper</td>
+   <td>the new shape. Remember you can use aShape.type, aShape.paper for obtaining its type and owner paper. </td>
+   <td>[shapeType, shapeAttributes] - shape type (string) and shape attributes (object)</td></tr>
+   
+   <tr><td>raphael.elementRemove.type.id</td>
+   <td>a shape was removed from a paper. </td>
+   <td>the removed shape</td
+   ><td>[paper, shapeId]</td></tr>
+   
+	<tr><td>raphael.event.eventType.id</td>
+	<td>raphael events notification with eve. Only soft events available: ["click", "dblclick", "mousedown", "mouseout", "mouseup"]</td>
+	<td>the event target shape</td>
+	<td>event type, x coord, y coord, event object and target element</td><td></td></tr>   
    </table>
    
    
@@ -1180,26 +1225,7 @@ click and cia programatically, use once(), and the rest of eve API.
 because all events are fired in format <module>.<action>.<id>. Also useful for Paper.getById method. -->
    
    
-   <p>The following are interesting examples using eve, that otherwise would be impossible to do with plain Raphaëljs. </p>
-   
-<!--    <p><b class="index">Event trigger</b>. The following example perform 2 things, first it register an event listener for clicks on ANY shape  -->
-<!--    (using "raphael.click.*"). Then it will trigger a click event on all shapes (using "raphael.click.*"). Last it will trigger the click event  -->
-<!--    only in the created circle, using "raphael.click."+c.id. Also, in both triggers, we pass a string as an argument to the event handler.  -->
-<!--    You should see some alerts dialogs showing those passed messages. </p> -->
-   
-<!--    <pre class="code code-run"> -->
-<!-- var c = paper.circle(100,100,100).attr({fill: "red"}); -->
-
-<!-- //listen to clicks on ANY shape -->
-<!-- eve.on("raphael.click.*", function(msg){ -->
-<!-- 	alert(msg); -->
-<!-- }) -->
-
-<!-- //trigger a click event in ALL shapes -->
-<!-- //eve("raphael.click.*", null, "hello ALL from eve"); -->
-
-<!-- //eve("raphael.click."+c.id, null, "hello " + c.id + " from eve"); -->
-<!-- </pre> -->
+   <h3>Attribute Change Event</h3>
    
    <p>The first interesting thing that we can do whit eve is to listen for a certain attribute change of a shape. For that we use the
    eve event names "raphael.attr.*". For example if we want to listen when the "fill" attributte of a shape with id 123 changes, 
@@ -1223,10 +1249,597 @@ eve.on("raphael.attr.stroke.*", function(newVal) {
 rect1.attr({fill: "red", stroke: "blue"});
 
    </pre>   
+   
+   <p>As with any eve event, we can also fire attribute change events programtically. Triggering an 
+   attribute change event on a shape will cause this shape to change the attribute just like 
+   configured in the event object: </p>
+   
+   <pre class="code code-run">
+var r1 = paper.rect(100,100,100,30,4), c1 = paper.circle(100,100,40);
+/* alert(rt.dump(Raphael._Paper)); */
+
+alert("trigger an attribute change event to all shapes");
+eve("raphael.attr.fill.*", "fill", "blue");
+
+alert("trigger an attribute change event to an specific shape"); 
+eve("raphael.attr.stroke-width."+c1.id, "stroke-width", 10);
+
+   </pre>
+   
+   
+   
+   <h3>Shape Mouse Event</h3>
+   
+   <p>Raphael will manage the following mouse events: "click", "dblclick", "mousedown", 
+   "mouseout", "mouseup" mouse events. For example, for listening or trigger mouse click 
+   events, you should use the eve event named "raphael.event.click". In the following example, we register a mouse 
+   click event listener. Also we trigger a click event programatically: </p>
+   
+     <pre class="code code-run">
+var c = paper.circle(100,100,100).attr({fill: "red"});
+var flag=0;
+
+/* register a normal click handler */
+c.click(function(evt){
+	if(evt.clientX &gt; 0)
+	flag++;
+});
+
+/* registetr a click handler for listening on clicks on the circle using eve */
+eve.on("raphael.event.click."+c.id, function(eventType, x, y, evt){
+	if(evt.clientX &gt; 0 && this.type=="circle")
+		flag++;
+}); 
+
+/* registetr a click handler for listening on clicks on ALL the shapes using eve */
+eve.on("raphael.event.click.*", function(eventType, x, y, evt){
+	if(evt.clientX &gt; 0 && this.type=="circle")
+		flag++;
+}); 
+
+/* listening to any type of event that occurs on the circle */
+eve.on("raphael.event.*."+c.id, function(eventType, x, y, evt){
+	if(evt.clientX &gt; 0 && this.type=="circle")
+		flag++;
+}); 
+
+
+/* trigger a click event on a shape */
+var evt = {clientX: c.getBBox().x+50, clientY: c.getBBox().y+50}; 
+eve("raphael.event.click."+c.id, c, "click" , evt.clientX, evt.clientY, evt);
+
+alert(flag==4 ? "ALL OK" : "ERROR");
+</pre>
+   
+   <p>As with other eve managed events, we can listen for an specific event to happen on any shape. For example, for listening 
+   ANY dblclick event that happes in ANY shape, we use <b class="code">eve("raphael.event.click.*", function)</b>eve()
+   
+   <p class="note">A this time this is not yet included in official raphael.js versions. Until that, 
+   you must use the same tutorial <a href="raphael-min.js">raphael-min.js</a> file. </p>
+   <br/> 
+   
+   <p class="note">Also, mouse events that imply heavy notification amount, like mousemove, won't be managed 
+   by eve. </p>
+   
+   
+   <h3>elementCreate and elementRemove events</h3>
+   <p>Raphael also manage events types elementCreate and elementRemove with eve. These events indicate a shape creation or a 
+   shape removal from a paper, respectively In the following example we will register for shape creation and shape removal and also
+   will trigger shape creation and shape removals programatically using eve. </p>
+	<pre class="code code-run">
+var flag=0;
+
+/* listen for shape creation */
+eve.on("raphael.elementCreate.*", function(shapeType, shapeAttrs) {
+	var newShape = this; 
+	flag++;
+}); 
+
+/* create a shape - will trigger elementCreate */
+var c = paper.circle(100,100,100).attr({fill: "red"});
+
+/* triggers an shape creation event programatically - will create a new shape */
+eve("raphael.elementCreate.*", {}, paper, "ellipse", {cx: 100, cy: 100, rx: 50, ry: 70, fill: "yellow"});
+
+/* listening for shape removal - elementRemove */
+eve.on("raphael.elementRemove.*", function(evt) {
+	var removedShape = this; 
+	flag++;
+});
+
+/* trigger a shape removal event elementRemove */
+eve("raphael.elementRemove."+c.id, {}, paper, c.id);
+
+alert(flag==3 ? "ALL OK" : "ERROR");
+	</pre>
+   
+   <p>As you can see we were able not only to detect when shapes are created or removed from its paper using eve events named "elementCreate" and "elementRemove". 
+   Also we were able to trigger these events programatically which results in new shape created or shapes removed, 
+   respectively. </p>
+   
+     
 <!-- //trigger the attribute change event programatically - this should call the listener and change the attribute (it do not). -->
 <!-- //eve("raphael.attr.fill."+rect1.id, rect1, "yellow"); -->
    
  
+   
+<!--    <p>The following are interesting examples using eve, that otherwise would be impossible to do with plain Raphaëljs. </p> -->
+   
+<!--    <p><b class="index">Event trigger</b>. The following example perform 2 things, first it register an event listener for clicks on ANY shape  -->
+<!--    (using "raphael.click.*"). Then it will trigger a click event on all shapes (using "raphael.click.*"). Last it will trigger the click event  -->
+<!--    only in the created circle, using "raphael.click."+c.id. Also, in both triggers, we pass a string as an argument to the event handler.  -->
+<!--    You should see some alerts dialogs showing those passed messages. </p> -->
+   
+
+
+
+	<h3>A gallery of usecase examples</h3>
+	
+<p>The following try to be a self explanatory code that triggers and handle mouse events and attribute change events using eve : </p>
+	
+<pre class="code code-run">
+
+var rect = paper.rect(50, 40, 50, 50).attr({fill: 'red'});
+
+alert("change a shape color triggering raphael.attr.fill.* event");
+eve("raphael.attr.fill."+rect.id, rect, "blue", "fill");
+
+//creating a shape triggering elementCreate event    
+alert("creating a shape triggering elementCreate event   ");
+paper.setStart();
+eve("raphael.elementCreate.*", {}, paper, "ellipse", {cx: 100, cy: 100, rx: 50, ry: 70, fill: "yellow"});
+var shape1 = paper.setFinish();
+
+//remove a shape triggering elementRemove event
+alert("remove a shape triggering elementRemove event");
+eve("raphael.elementRemove.*", {}, paper, rect.id);
+
+//registering click handlers for clicks events on any shape using raphael.event.click.* event
+eve.on("raphael.event.click.*", function(el, x, y, evt){
+	alert("shape "+this.type+" clicked at coords: "+x+", "+y);
+});
+paper.text(100,100, "click on any shape");
+//register aany attribute change listener for a certain shape
+var circle1 = paper.circle(100,180,100).attr({fill: "brown", opacity: 0.7});
+eve.on("raphael.attr.*."+circle1.id, function(shape, attributeName, newVal){
+	alert("attribute "+attributeName+" of shape "+this.type+" to be changed to value: "+newVal);
+}); 
+alert("attribute change listening");
+circle1.attr({fill: "blue"}); //triggers the above event raphael.attr.*.circle1Id listener
+
+alert("making attribute changes triggeringing raphael.event.*, \nIn this case trigger it for all shapes")
+eve("raphael.attr.fill."+circle1.id, circle1, circle1, "fill", "pink"); //filling a shape triggerint the event raphael.raphael
+
+</pre>
+   
+   
+   <h3>Define custom events with eve</h3>
+   
+
+<!--    <p class="code code-run"> -->
+<!-- /* raphael extension - custom event triple click.  -->
+<!--  * trippleClick event definition. I want to define a new event in the eve/raphaeljs system  -->
+<!--  * for tripleClicks, just like raphael.event.dblclick but raphael.event.3click. We will use functioninBetween() -->
+<!--  * summary: first register for shape creation (elementCreate) and for each created  -->
+<!--  * shape register 3click listeners using inBetween */ -->
+<!-- (function(){ -->
+<!-- eve.on("raphael.elementCreate.*", ) -->
+<!-- /* eve("raphael.elementCreate.*", {}, paper, "ellipse", {cx: 100, cy: 100, rx: 50, ry: 70, fill: "yellow"}); */ -->
+<!-- eve("rap")  -->
+<!-- })(); -->
+<!--    </p> -->
+   
+   
+   
+   
+   
+   <h2>Advanced Events</h2>
+   
+   
+   <p>This section describe how event listeners are stored internally. A shape stores its event listeners in an array property "events".
+   Each member of this array is an object with informration about a certainv event registration call in order. This is each time
+   you call click() dblclick() etc functions you push a new object n the events array property. 
+   The objects with event registration information have the format  {f, name, unbind} where f is the funciton handler registered by the user, 
+   name the type name of the event like "click", "dblclick", etc and the unbind being a function for unregistering the listener.  </p>
+   
+   <pre class="code code-run">
+var r = paper.rect(10,10,20,120,4).attr({fill: "blue"});
+r.click(function(evt){
+	alert("click detected: "+evt.clientX+", "+evt.clientY); 
+});
+r.click(function(evt){
+	alert("click detected also here !"+evt.clientX+", "+evt.clientY); 
+});
+
+/* now suppose that for one reason we need to search all mouse event listeners and perhaps notify some all of this programatically: */
+for(var i = 0; i&lt;r.events.length; i++) {
+	if(r.events[i].name=="click") {
+		r.events[i].f({clientX: 50, clientY: 30}); 
+	}
+}
+   </pre>
+   
+   <p class="note">Only use this if really necessary, this is not part of the API and you should only manuipulate the events array if you knmow what you are doing. </p>
+   
+   
+   
+   <h2 id="sec-events-function-throttle">Function Throttle</h2>
+   <p>Some mouse events supported by Raphaël, like mousemove, drag-move or hover are fired
+   each time the mouse pointer moves. If in your event handler functions you must
+   perform some expensive operation, and since javascript is single threaded, it may happen that
+   the event handler function to take more time than the lapsus between events and as a result an 
+   annoying kind of flickerng may appear. </p> 
+   
+   <p>For example, in the following example (used for explaining path cubic Bézier path), you can drag the blue points 
+   that are the control points of the cubic bézier path, and see how changing them will affect the shape. 
+   Some calculation is required to redraw the path when the user is dragging. Try to do the mouse
+   draggin fast and (if you are not in a super computer), you will see some undesiderable flickering: </p>
+   
+   <pre class="code code-run" href="ex-type-curve-cubic-bezier"></pre>
+      
+   <p>The origin of the flickering is that the time required to perform the calcluation inside the drag event handler is high, and so
+   and it will freeze the GUI until it is done. At that time, the mouse can be far away of prevois dragging point.</p>
+   
+   <p>There is a way of avoiding this problem, and it is using what it is called "function throttle". We will use an auxiliar function
+   that will "throttle" our event handler functions, so they are not called more than once in a given lapsus of time. 
+   The throttle function is taken from <a href="http://benalman.com/projects/jquery-throttle-debounce-plugin/">here.</a>. 
+   It do not require any javascript toolkit at all and this is the source:</p>
+   
+   <pre class="code">
+function_throttle : function( delay, no_trailing, callback, debounce_mode ) {
+    // After wrapper has stopped being called, this timeout ensures that
+    // `callback` is executed at the proper times in `throttle` and `end`
+    // debounce modes.
+    var timeout_id,
+      
+      // Keep track of the last time `callback` was executed.
+      last_exec = 0;
+    
+    // `no_trailing` defaults to falsy.
+    if ( typeof no_trailing !== 'boolean' ) {
+      debounce_mode = callback;
+      callback = no_trailing;
+      no_trailing = undefined;
+    }
+    
+    // The `wrapper` function encapsulates all of the throttling / debouncing
+    // functionality and when executed will limit the rate at which `callback`
+    // is executed.
+    function wrapper() {
+      var that = this,
+        elapsed = +new Date() - last_exec,
+        args = arguments;
+      
+      // Execute `callback` and update the `last_exec` timestamp.
+      function exec() {
+        last_exec = +new Date();
+        callback.apply( that, args );
+      };
+      
+      // If `debounce_mode` is true (at_begin) this is used to clear the flag
+      // to allow future `callback` executions.
+      function clear() {
+        timeout_id = undefined;
+      };
+      
+      if ( debounce_mode && !timeout_id ) {
+        // Since `wrapper` is being called for the first time and
+        // `debounce_mode` is true (at_begin), execute `callback`.
+        exec();
+      }
+      
+      // Clear any existing timeout.
+      timeout_id && clearTimeout( timeout_id );
+      
+      if ( debounce_mode === undefined && elapsed > delay ) {
+        // In throttle mode, if `delay` time has been exceeded, execute
+        // `callback`.
+        exec();
+        
+      } else if ( no_trailing !== true ) {
+        // In trailing throttle mode, since `delay` time has not been
+        // exceeded, schedule `callback` to execute `delay` ms after most
+        // recent execution.
+        // 
+        // If `debounce_mode` is true (at_begin), schedule `clear` to execute
+        // after `delay` ms.
+        // 
+        // If `debounce_mode` is false (at end), schedule `callback` to
+        // execute after `delay` ms.
+        timeout_id = setTimeout( debounce_mode ? clear : exec, debounce_mode === undefined ? delay - elapsed : delay );
+      }
+    };
+    
+    // Return the wrapper function.
+    return wrapper;
+},
+   </pre> 
+   
+   
+   <p>Now let me explain how it works. Suppose you want to register a click event handler but you want 
+   to be called no more than once every second. So if you make click several times in a second, the handler will be called only once.
+   We need function throttling for this and it is shows in the following example how to do it.</p>  
+   
+      <pre class="code code-run">
+/* the same function as before but without comments */
+function function_throttle( delay, no_trailing, callback, debounce_mode ) {
+ 	var timeout_id,
+   	last_exec = 0;
+	if ( typeof no_trailing !== 'boolean' ) {
+	  debounce_mode = callback;
+	  callback = no_trailing;
+	  no_trailing = undefined;
+	};
+	function wrapper() {
+	  var that = this,
+	    elapsed = +new Date() - last_exec,
+	    args = arguments;	  
+	  function exec() {
+	    last_exec = +new Date();
+	    callback.apply( that, args );
+	  };	  
+	  function clear() {
+	    timeout_id = undefined;
+	  };	  
+	  if ( debounce_mode && !timeout_id ) {
+	    exec();
+	  }	  
+	  timeout_id && clearTimeout( timeout_id );	  
+	  if ( debounce_mode === undefined && elapsed > delay ) {
+	    exec();
+	    
+	  } else if ( no_trailing !== true ) {     
+	    timeout_id = setTimeout( debounce_mode ? clear : exec, debounce_mode === undefined ? delay - elapsed : delay );
+	  }
+	};
+	return wrapper;
+};
+
+/* now the example */
+
+var status1 = paper.text(200, 30, "0");
+var status2 = paper.text(200, 60, "0");
+
+var c1 = paper.circle(100,200,40).attr({fill: "red"});
+
+var c2 = paper.circle(200,200,40).attr({fill: "blue"});
+
+/* install a normal click handler to the red circle */
+var handler1 = function(evt) {
+	status1.attr({text: parseInt(status1.attr("text"))+1});
+};
+c1.click(handler1);
+
+/* install a throttled click handler for blue circle, so it will be called no more than one time in between 1 second */
+var handler2 = function(evt) {
+	status2.attr({text: parseInt(status2.attr("text"))+1});
+};
+c2.click(function_throttle(1000, false, handler2, true));
+
+   </pre> 
+   
+   <p>Try to click both rectangles quickly, and se the results. As you may see, the red rectangle is behaving normal, the counter increments
+   on each click. But the blue rectangle, that has the click handler throttled by 1 second, will only increment its counter a single time in a second. (try to double click it to see what i'm talking about).
+   </p>
+   
+   <p>Now let's fix the previus example of cubic bezier curves using function throttle, 
+   so the drag event won't be called more than once in 300ms and see if it performs better than our original example: </p> 
+   
+   <pre class="code code-run">
+   /* the same function as before but without comments */
+function function_throttle( delay, no_trailing, callback, debounce_mode ) {
+ 	var timeout_id,
+   	last_exec = 0;
+	if ( typeof no_trailing !== 'boolean' ) {
+	  debounce_mode = callback;
+	  callback = no_trailing;
+	  no_trailing = undefined;
+	};
+	function wrapper() {
+	  var that = this,
+	    elapsed = +new Date() - last_exec,
+	    args = arguments;	  
+	  function exec() {
+	    last_exec = +new Date();
+	    callback.apply( that, args );
+	  };	  
+	  function clear() {
+	    timeout_id = undefined;
+	  };	  
+	  if ( debounce_mode && !timeout_id ) {
+	    exec();
+	  }	  
+	  timeout_id && clearTimeout( timeout_id );	  
+	  if ( debounce_mode === undefined && elapsed > delay ) {
+	    exec();
+	    
+	  } else if ( no_trailing !== true ) {     
+	    timeout_id = setTimeout( debounce_mode ? clear : exec, debounce_mode === undefined ? delay - elapsed : delay );
+	  }
+	};
+	return wrapper;
+};
+
+var p1 = {x: 100, y: 100}, p2 = {x: 300, y: 300};
+var cp1 = {x: 150, y: 100}, cp2 = {x: 150, y: 300};
+
+function buildCurve(p1, p2, cp1, cp2) {
+	return "M"+p1.x+","+p1.y + 	/* move to p1 */
+		"C" + 					/* a cubic Bézier curve defined by */
+		cp1.x+","+cp1.y +   	/* first control point cp1	*/
+		","+cp2.x+","+cp2.y +	/* second control point cp2 */
+		","+p2.x+", "+p2.y;
+};
+function updatePath() {
+	path.attr({path: buildCurve(p1, p2, cp1, cp2)});
+	status.attr({text: "p1: "+p1.x+","+p1.y+"\n"+
+		"p2: "+p2.x+","+p2.y+"\n"+
+		"cp1: "+cp1.x+","+cp1.y+"\n"+
+		"cp2: "+cp2.x+","+cp2.y});
+};
+
+var path = paper.path(buildCurve(p1, p2, cp1, cp2));
+var pointRadius = 5;
+
+/* and now draw the p1 and p2 points in blue */
+var p1Shape = paper.circle(p1.x, p1.y, pointRadius).attr({fill: "red"});
+var p2Shape = paper.circle(p2.x, p2.y, pointRadius).attr({fill: "red"});
+
+/* and draw control points in blue */
+var cp1Shape = paper.circle(cp1.x, cp1.y, pointRadius).attr({fill: "blue"});
+var cp2Shape = paper.circle(cp2.x, cp2.y, pointRadius).attr({fill: "blue"});
+
+var status = paper.text(200,10,cp1Shape.attr("cx")+"");
+
+var throttleLapsus = 100;
+
+cp1Shape.drag(
+	function_throttle(throttleLapsus, function(dx, dy){ /*move*/
+		cp1.x=this.ox+dx; 
+		cp1.y=this.oy+dy;
+		this.attr({cx: cp1.x, cy: cp1.y}); /*visual feedback*/
+		updatePath();
+	}),
+	function(x, y){ /*drag start*/
+		this.ox=this.attr("cx"); 
+		this.oy=this.attr("cy");
+	},  function(){ /*ends*/
+	}
+);
+
+cp2Shape.drag(
+	function_throttle(throttleLapsus, function(dx, dy){ /*move*/
+		cp2.x=this.ox+dx; 
+		cp2.y=this.oy+dy;
+		this.attr({cx: cp2.x, cy: cp2.y}); /*visual feedback*/
+		updatePath();
+	}),
+	function(x, y){ /*drag start*/
+		this.ox=this.attr("cx"); 
+		this.oy=this.attr("cy");
+	},  function(){ /*ends*/
+	}
+);
+   </pre>
+   
+   <p>An observed behaviur is that when throttling event handler functions like this, is much less expensive in terms of CPU computations than the normal 
+   event handler functions. </p>
+   
+   
+   
+   
+   
+   
+   <h2 id="sec-events-inbetween">function <b class="index" >inBetween()</b></h2>
+   
+	<p>In last section, with function throttle, we were able to regulate <b class="emph">how much</b>
+	 we want to be notified. This is we can say "hey! notify me when X happens 
+	 <b class="emph">once</b> in a time lapsus of T milliseconds". Now we want kind of the opposite,	  
+	"hey! notify me when X happens <b class="emph">at least</b> N times in a time lapsus of 
+	T milliseconds". </p>
+
+	<p>Think on the problem of being notified when a "<b class="index">tripple click</b>", 
+	"<b class="index">cuadrupple click</b>", and in general "<b class="index">nth-click</b>".  
+	More specifically we need to be notified when three clicks occurs in a lapsus of T 
+	milliseconds. This section try to explay how to do that using the
+	function <b class="code">inBetween()</b>. We will use it similarly as we used 
+	<b class="code">function_throttle</b> in last section. </p>
+
+
+	<p>In the following example we first give the code of function <b class="code">inBetween()</b> 
+	and then we write a small test that show some raphael shapes that listen for double - triple 
+	and cuadrupple clicks that occurs inside 1 second time interval.</p>
+
+   <pre class="code code-run"> 
+/* first the source code of the function inBetween() */
+/**
+ * inBetween resolves the problem of being notified when a function is called N times in 
+ * in between a time lapsus of T ms.
+ * When this state is detected, the internal counter is reseted, so n+1 won't fire the event, only 
+ * when x % n == 0 the listener will be notified.
+ * 
+ * @param n the amount of times.
+ * @param t the time lapsus in ms
+ * @param callback - the function to be called when the returned fcuntion is called at least n times in a lapsus of n ms.
+ * @return a new function - when that function is called n times in a lapsus
+ of t ms, then callback function will be called using the context object as
+ the callback context.
+ */
+function inBetween(n, t, callback, context) {    
+    var sb = [];
+    sb.push("var that = arguments.callee; ")
+    sb.push("var thisTime = new Date().getTime(); ")
+    sb.push("var arr = that['ARR'];");
+    sb.push("if(!arr){");
+    sb.push("    arr = []; ");
+    sb.push("    for(var i = 0; i &lt; that['N']; i++) arr.push(thisTime); ");
+    sb.push("    that['ARR'] = arr;");
+    sb.push("    that['COUNT']=0");
+    sb.push("}");
+    
+    sb.push("that['COUNT']++; ");;
+    sb.push("arr.push(thisTime);");
+    sb.push("var lastTime = arr.shift();");
+        
+    sb.push("if(that['COUNT'] &gt;= that['N']) {");
+    sb.push("    that['COUNT']=1; ");
+    sb.push("    for(var i = 0; i &lt; that['N']; i++) arr[i] = thisTime; ");
+    sb.push("    if(thisTime-lastTime &lt; that['T']) ");          
+    sb.push("        that['CB'].apply(that['CTX'], arguments); ");
+    sb.push("}");
+        
+    var fn = new Function(sb.join(""));    
+    fn['N']=n;
+    fn['T']=t;
+    fn['CB']=callback;
+    fn['CTX']=context;
+    return fn;        
+}; 
+
+/* the test */ 
+
+var rect1 = paper.rect(10,10,80,80).attr({fill:"red", opacity: 0.6}), 
+	text1 = paper.text(40,20, "triple\nclick me");
+var click3Handler = function(evt) {
+	alert("triple click detected inBetween 1 sec. last click x coord : "+evt.screenX+
+		" - the context object says: "+this.attr1);
+}
+
+/* register tripple clicks for both rect1 and text1 */
+var aContextObject = {attr1: "helloWorld"};
+paper.set([rect1, text1]).click(inBetween(3, 1000, click3Handler, aContextObject));
+
+
+/* create a circle with text and register cuadrupple clicks for them */
+paper.setStart();
+paper.circle(200,100,60).attr({fill: "blue", opacity: 0.7}); 
+paper.text(180, 60, "cuadrupple\nclick me"); 
+paper.setFinish().click(inBetween(4, 1000, function(evt){
+	alert("cuadrupple click detected, last click x coords: "+evt.screenX);
+}, aContextObject));
+   </pre>
+   
+   <p>Later in section TODO, we will learn to create raphael extensions for adding new functionality to 
+   raphael API. There is an interesting extension proposal
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    
    
    
@@ -1234,19 +1847,87 @@ rect1.attr({fill: "red", stroke: "blue"});
       
    <p>In Raphaël we say that an animation is a shape state's change, this is, a change in shape's attribute values in time.</p>
    
-   <p>We can define transformations, and control some shape's tranformation starting, pausing or stoping animations.</p>
+   <p>Animating an object from one state to another is like setting its attributes to a new state, but the change is 
+   smooth in a time lapsus defined by the user and so in general the change is more appreciable by the user.</p> 
+       
+   <p>An animated object can be paused, stopped, started and also can be synchronized with another animated element so two or 
+   more animated elements can be transformed in synch. Also raphaël suuport key-frame animations so you can define an animation with multiple stages. 
+   All of this will be discussed in this section. 
+   </p>
    
-   <p>Almost all attributes support baing animated, but not all. They are: "blur", 
+    
+   
+   <p>Almost all attributes support being animated, but not all. They are: "blur", 
    "clip-rect", cx, cy, fill, fill-opacity, font-size, height, opacity, path, r, rx, ry, stroke,
-   "stroke-opacity", "stroke-width", transform, width,x,y. </p>
+   "stroke-opacity", "stroke-width", transform, width,x,y. There are some attributes that cannot be animated, for example, the "text" attribute. </p>
+   
+   
    
    
    <h2>Basic Animation</h2>
    
-   <p>TODO</p>
+   <p>A basic animation consist in </p>
    
+   <ul>
+   <li><p>final shape state, this is an attribute object  in which the animated
+   shape will have when animation finish.</li>
+   
+   <li><p>duration, this is the number of milliseconds that the animation. </p></li>
+   
+   <li><p><b class="index">animation formulae</b> that determines HOW the final state is reached from the initial state.</p></li>
+   
+   </ul>
+   
+   <p>In the following example, we have a red circle that we want to animate to transform to color blue and to scale about 2.0. 
+   This animation must finnish in 1 second, and the animation formulae will be "linear". In the following example we just do that using the 
+   method <a href="Element.animate" class="raphael-ref">animate</a>: </p>
+	
+	<pre class="code code-run">
+var circle1 = paper.circle(100,100,40).attr({fill: "red"}); 
+paper.text(100,100, "CLICKME").attr({"font-size": 22});
+circle1.click(function(evt){
+	circle1.animate({fill: "blue", transform: "s2.0"}, 1000, "linear");
+});
+	</pre>   
+	
+	<p>We animated the circle on click using the following statement: <b class="code">circle1.animate({fill: "blue", transform: "s2.0"}, 1000, "linear")</b>. Notice that
+	the first parameter is the attribute object that we want to reach at the end of the animation, the second parameter, 1000, is the milliseconds that we want
+	our animation to last, and the third parameter, "linear", is the animation formulae that we want the attribute vary in time. </p>
+	
+	<p>Also the <a class="index" href="Element.animate" class="raphael-ref">animate</a> method support a fourth optional parameter for being notified when the 
+	animation finnish. Notice how we pass a function handler as the fourth animate parameter, and the funciton context is the shape being animated: </p>
+   
+   <pre class="code code-run">
+var circle1 = paper.circle(100,100,40).attr({fill: "red"}); 
+paper.text(100,100, "CLICKME").attr({"font-size": 22});
+circle1.click(function(evt){
+	circle1.animate({fill: "blue", transform: "s2.0"}, 1000, "linear", function(){
+		alert("circle1 finished animation its color is "+this.attr("fill"));
+	});
+});
+	</pre>   
+	
+	
+	<h2 class="index">Controlling animations</h2>
+	
+	<p>All shapes accept the methods <a href="Element.pause" class="raphael-ref">pause()</a>, <a href="Element.resume" class="raphael-ref">resume()</a>, <a href="Element.stop" class="raphael-ref">stop()</a> and 
+	<a href="Element.status" class="raphael-ref">status()</a> for controlling and inpecting all animations installed in a shape. </p> 
+	<pre class="code code-run">
+var circle1 = paper.circle(100,100,40).attr({fill: "red"}); 
+paper.text(100,100, "CLICKME").attr({"font-size": 22});
+circle1.click(function(evt){
+	circle1.animate({fill: "blue", transform: "s2.0"}, 3000, "linear", function(){
+		alert("circle1 finished animation its color is "+this.attr("fill"));
+	});
+	setTimeout(function(){circle1.pause(); }, 500);
+	setTimeout(function(){circle1.resume(); }, 1000);  
+});
+	</pre>
+	
+	
    <h2 class="index">Animate with</h2>
-   <p>TODO</p>
+   <p>The method <a class="index" href="Element.animateWith" class="raphael-ref">animateWith</a> serves us to link two or more animated shapes so they animate in synchrony.
+   In the following example we have two shapes, an ellipse and a text and we want to animate both in synchrony: </p>
    
    	<pre class="code code-run">
 var ellipse1 = paper.ellipse(110,80,120,42).
@@ -1272,17 +1953,7 @@ button1.click(function(evt){
 })
 </pre>
 
-   <p>An animation consist in </p>
-   
-   <ul>
-   <li><p>final shape state, this is an attribute object  in which the animated
-   shape will have when animation finish.</li>
-   
-   <li><p>duration, this is the number of milliseconds that the animation. </p></li>
-   
-   <li><p>animation formula that determines HOW the final state is reached from the initial state.</p></li>
-   
-   </ul>
+ 
    
    
    <h2 class="index">Easing Animation Formulaes</h2>
@@ -1368,8 +2039,79 @@ movers[7].click(function () {
    </pre>
    
    
-   <h2>cubic-bezier animation formulmae</h2>
+   <h2 class="index" id="sec-animation-cubic-bezier">cubic-bezier animation formulmae</h2>
+   <p>As we have seen, raphaeljs support a number of predefined easing animation formulaes. But what if 
+   none of those is what we want?After all there are infinte ways of changing a value in a time lapsus...</p>
+   
+   <p>Fortunately, Raphaël support a way of define a custom animation formulae using cubic-bezier curves 
+   for defining HOW a value should change from the initial state to the final state. </p>
+   
+   <p>A detailed description of this kind of curves is given in 
+   <a href="#sec-types-path-curveto">Section Raphael types -> Path -> curve to</a>. </p>
+   
+   
+   <p>idea stolen from http://www.the-art-of-web.com/css/timing-function/</p>
    <p>TODO: document asing type. Accept one of Raphael.easing_formulas or CSS format: cubic‐bezier(XX, XX, XX, XX) </p>
+   
+   <pre class="code code-run">
+function getQB(x1, y1, x2, y2, size, offset) {
+	var pathStr = "M"+offset.x+","+offset.y+"Q"+(x1*size.x+offset.x)+","+(y1*size.y+offset.y)+
+		","+(x2*size.x+offset.x)+","+(y2*size.y+offset.y);
+	return pathStr;
+}; 
+function drawQB(paper, x1, y1, x2, y2, size, offset) {
+	paper.setStart();
+	
+	//transformation for "normal axis"
+	var aux = y1;
+	y1=x1;
+	x1=aux;	
+	aux=y2;
+	y2=x2;
+	x2=aux;
+	
+	var newX2=(x2*size.x+offset.x), 
+		newY2 = (y2*size.y+offset.y), 
+		newX1 = (x1*size.x+offset.x), 
+		newY1 = (y1*size.y+offset.y);
+		
+		
+	var pathStr = "M"+offset.x+","+offset.y+"C"+newX1+","+newY1+","+newX2+","+newY2+","+(size.x+offset.x)+","+(size.y+offset.y);
+	paper.rect(offset.x, offset.y, size.x, size.y);	
+	var path = paper.path(pathStr);
+	
+	paper.path("M"+offset.x+","+offset.y+"L"+offset.x+","+(offset.y+size.y+10)).attr({"arrow-end": "classic-wide-long", stroke: "blue", opacity: 0.8});
+	paper.path("M"+offset.x+","+offset.y+"L"+(offset.x+size.x+10)+","+offset.y).attr({"arrow-end": "classic-wide-long", stroke: "blue", opacity: 0.8});
+	
+	
+	paper.circle(newX1, newY1, 2).attr({fill: "red"});
+	paper.circle(newX2, newY2, 2).attr({fill: "red"});
+	
+	var set = paper.setFinish();
+	set.transform("R270,"+offset.x+","+offset.y+"T0,"+size.y); //transformation for "normal axis"
+	
+	return set;	
+}
+
+var forms = [
+	{points: [0, 0.5, 1, 0.5], size: {x: 100, y: 100}, offset: {x: 100, y: 100}},
+	{points: [0, 1, 1, 0], size: {x: 100, y: 100}, offset: {x: 120, y: 220}}
+];
+
+for(var i = 0; i&lt;forms.length; i++) {	 
+	/*drawQB(paper, 0, 0.5, 1, 0.5, {x: 100, y: 100}, {x: 100, y: 100})*/
+	
+	drawQB(paper, forms[i].points[0], forms[i].points[1], forms[i].points[2], forms[i].points[3], 
+		forms[i].size, forms[i].offset);
+	
+};
+
+/*
+paper.path(getQB(0.25, 0.1, 0.25, 1, {x: 100, y: 100}, {x: 100, y: 100}));
+paper.path(getQB(0, 1, 1, 0, {x: 100, y: 100}, {x: 200, y: 200}));*/
+   </pre>
+   <img src="images/easing-cubic-blezier.png"></img>
+   
    
    
    <h2>Animating text</h2>
@@ -1436,18 +2178,219 @@ text.animate({
    
    
    
-   <h1 class="index">Raphael Types</h1>
+   <h1 class="index" id="sec-types">Raphael Types</h1>
    
    <p>Several attributes values support strings for presenting some type, like colors, gradients, paths, transformations, etc. In this section we will examine 
    these attributes strings formats in detail and individually.</p>
    
    
    
-   <h2 id="sec-types-path">Path</h2>
+   <h2 id="sec-types-path">Path</h2>   
+   
    <p>In <a href="#sec-shape-path">Path Section</a> we described the path shape and saw that it is represented with a string, and that
    this string is a sequence of "path commands". We can imagine a pencil that with each command moves, draw lines, curves, etc.</p>
    
-   <p>Here we will discuss the path string format detailed. </p>
+   <p>Here we will discuss the path string format detailed. It is almost the same as the 
+   <a href="http://www.w3.org/TR/SVG/paths.html#PathData">SVG Path Data</a> so you may want to goe there for a more formal reference.</p>
+   
+   <h3>Path commands</h3>
+      
+   <p>Path string consists of one-letter commands. Each command is followed by comma separated number arguments. 
+   For example, in the path string <b class="code">"M10,20L30,40"</b> we can see two commands: "M", 
+   with arguments (10, 20) and "L" with arguments (30, 40). The "M" command will move the pencil without drawing to the point (10,20), 
+   and the "L" command will draw a straight line from current point (10,20) to specified point (30,40). Let see this in action</p>
+   
+   <pre class="code code-run">
+paper.path("M10,20L30,40");
+   </pre>
+   
+   <p>All commands support both absolute and relative coordinates. Upper case letter means command is absolute, lower case means the given 
+   command arguments are relative to current point. </p>
+   
+   <h4>The M - "moveto" commands</h4>
+   <p>The "moveto" commands (M or m) establish a new current point. The effect is as if the "pen" were lifted and moved to a new location. 
+   A path data segment (if there is one) must begin with a "moveto" command. It accepts two numbers as arguments, the x and y coordinate where to move the pen.</p>
+   
+   
+   <h4>The Z - "closepath" command</h4>
+   
+   <p>Close the current subpath by drawing a straight line from the current point to current subpath's initial point. Since the Z and z commands take no parameters, they have an identical effect.</p>
+   <p>If a "closepath" is followed immediately by a "moveto", then the "moveto" identifies the start point of the next subpath. If a "closepath" is followed immediately by any other command, then the next subpath starts at the same initial point as the current subpath.</p>
+   <p>An example: </p>
+   
+   <pre class="code code-run">
+paper.path("M100,100L300,100L200,300,Z").attr({fill: "red"});
+   </pre>
+   
+   
+   <h4 id="sec-types-path-curveto">The C - "curveto" commands</h4>
+   <p>The C command Draws a cubic Bézier curve from the current point to (x,y) using (x1,y1) as 
+   the control point at the beginning of the curve and (x2,y2) as the control point at the end 
+   of the curve. C (uppercase) indicates that absolute coordinates will follow; c (lowercase) 
+   indicates that relative coordinates will follow. Multiple sets of coordinates may be specified 
+   to draw a polybézier. At the end of the command, the new current point becomes the final (x,y) 
+   coordinate pair used in the polybézier.</p>
+   
+   <p>Now let's see what these control points are, and how they affect the curve. </p>
+   
+   <pre class="code code-run">
+var p1 = {x: 100, y: 100}, p2 = {x: 300, y: 300};
+var cp1 = {x: 150, y: 100}, cp2 = {x: 150, y: 300};
+
+var s = "M"+p1.x+","+p1.y + 	/* begins in p1 */
+		"C" + 					/* a cubic Bézier curve defined by */
+		cp1.x+","+cp1.y +   	/* first control point cp1	*/
+		","+cp2.x+","+cp2.y +	/* second control point cp2 */
+		","+p2.x+", "+p2.y;		/* ends in p2 */
+
+paper.path(s);
+
+//and now draw the p1 and p2 points in blue
+paper.circle(p1.x, p1.y, 3).attr({fill: "red"});
+paper.circle(p2.x, p2.y, 3).attr({fill: "red"});
+
+//and draw control points in blue
+paper.circle(cp1.x, cp1.y, 3).attr({fill: "blue"});
+paper.circle(cp2.x, cp2.y, 3).attr({fill: "blue"});
+   </pre>
+   
+   <p class="tip">The following example is the same as before, but we let you drag the control points (in blue) so you can 
+   better understand how they affects the curve at the begining and at the end respectively. </p>
+   
+      <pre id="ex-type-curve-cubic-bezier" class="code code-run">
+var p1 = {x: 100, y: 100}, p2 = {x: 300, y: 300};
+var cp1 = {x: 150, y: 100}, cp2 = {x: 150, y: 300};
+
+function buildCurve(p1, p2, cp1, cp2) {
+	return "M"+p1.x+","+p1.y + 	/* move to p1 */
+		"C" + 					/* a cubic Bézier curve defined by */
+		cp1.x+","+cp1.y +   	/* first control point cp1	*/
+		","+cp2.x+","+cp2.y +	/* second control point cp2 */
+		","+p2.x+", "+p2.y;
+};
+function updatePath() {
+	path.attr({path: buildCurve(p1, p2, cp1, cp2)});
+	status.attr({text: "p1: "+p1.x+","+p1.y+"\n"+
+		"p2: "+p2.x+","+p2.y+"\n"+
+		"cp1: "+cp1.x+","+cp1.y+"\n"+
+		"cp2: "+cp2.x+","+cp2.y});
+};
+
+var path = paper.path(buildCurve(p1, p2, cp1, cp2));
+var pointRadius = 5;
+
+/* and now draw the p1 and p2 points in blue */
+var p1Shape = paper.circle(p1.x, p1.y, pointRadius).attr({fill: "red"});
+var p2Shape = paper.circle(p2.x, p2.y, pointRadius).attr({fill: "red"});
+
+/* and draw control points in blue */
+var cp1Shape = paper.circle(cp1.x, cp1.y, pointRadius).attr({fill: "blue"});
+var cp2Shape = paper.circle(cp2.x, cp2.y, pointRadius).attr({fill: "blue"});
+
+var status = paper.text(200,10,cp1Shape.attr("cx")+"");
+
+cp1Shape.drag(
+	function(dx, dy){ /*move*/
+		cp1.x=this.ox+dx; 
+		cp1.y=this.oy+dy;
+		this.attr({cx: cp1.x, cy: cp1.y}); /*visual feedback*/
+		updatePath();
+	},
+	function(x, y){ /*drag start*/
+		this.ox=this.attr("cx"); 
+		this.oy=this.attr("cy");
+	},  function(){ /*ends*/
+	}
+);
+
+cp2Shape.drag(
+	function(dx, dy){ /*move*/
+		cp2.x=this.ox+dx; 
+		cp2.y=this.oy+dy;
+		this.attr({cx: cp2.x, cy: cp2.y}); /*visual feedback*/
+		updatePath();
+	},
+	function(x, y){ /*drag start*/
+		this.ox=this.attr("cx"); 
+		this.oy=this.attr("cy");
+	},  function(){ /*ends*/
+	}
+);
+   </pre>
+   
+   <p>It is usefull to understand how these cubic Bézier curves are defined not only for drawing paths, but also, as we will see
+   in <a href="#sec-animation-cubic-bezier">Define Animations with custom formulaes</a>, 
+   custom animations formulaes can be defined using a cubic Bézier that describe how the value of an attribute must change over time. </p>
+   
+   
+<!--    <p>Understanding how this curve works will serve us for understandng how to define custom animation formulaes in -->
+   
+   <h3 id="sec-types-pathObjectType">Path Object Type</h3>
+   
+   <p>Raphael also support working with paths using javascript objects, arrays and numbers and not just strings, 
+   In fact internally paths are operated using this format because it is more efficient than using strings. 
+   The format is very simple in fact, a path is represented as an array of arrays. Each member of the first array are the commands and each command is also represented with an array. So we get an array of commands that conform the path. 
+   For example the path "m8,9l,12,22z" in Object format is </p>
+   
+   <pre>[ ['m', 8, 9], ['l', 12, 22], ['z']]</pre>
+   
+   <p>We can obtain a path Object from a path string using the function 
+   <a href="Raphael.parsePathString" class="raphael-ref-link">Raphael.parsePathString()</a>. </p>
+   
+   <p>In the following example we make use of the path Object format for making some interesting stuff. First 
+   a function that builds a path object of a polygon. Then build and manipulate paths using the object format: </p>
+   
+   <pre id="ex-polygon1" class="code code-run">
+/**
+ * Usage: paper.path(polygonPath([10, 10, 30, 40, 80, 10]))
+ */
+function polygonPath(points) {
+	if(!points||points.length &lt; 2)
+		return []; 
+	var path = []; //will use path object type
+	path.push(['m',points[0], points[1]]);
+	for(var i = 2; i&lt;points.length; i+=2) {		
+		path.push(['l', points[i], points[i+1]]);
+	}
+	path.push(['z']);
+	return path;
+}
+
+var triangle1 = paper.path(polygonPath([10, 10, 30, 40, 80, 10]));
+triangle1.attr({fill: "red", stroke: "brown", "stroke-width": 5}); 
+
+/* create another path using path object type */
+var p1Model = [ ['m', 88, 9], ['l', 12, 122], ['s', 122, 42, 99, 1], ['z'] ]; 
+var p1 = paper.path(p1Model).attr({fill: "blue", opacity: 0.5});
+paper.text(100,20, "CLICK the blue one")
+p1.click(function(ev){
+	/* last one set the path attribute using path object format */
+	p1Model[1][1]=222;p1Model[0][1]=122; //change the model
+	p1.animate({path: p1Model}, 1000);		 //update the view
+	
+});
+
+   </pre>
+   
+   <p>As you may see we were manipulating paths using arrays/objects and not strings at all.
+   we can use object format both for create a path with paper.path and for set a the path attribute. </p>
+   
+   
+   <h3>Path uitities </h3>
+   
+   <p>Raphael comes with nice utilities for working with paths, some of these are: </p>
+   
+   <ul>
+   <li><a href="Raphael.path2curve" class="raphael-ref-link">Raphael.path2curve()</a> - Utility method Converts path to a new path where all segments are cubic bezier curves. </li>
+   <li><a href="Raphael.pathIntersection" class="raphael-ref-link">Raphael.pathIntersection()</a> - Finds intersections of two paths </li>
+   <li><a href="Raphael.pathToRelative" class="raphael-ref-link">Raphael.pathToRelative() - Converts path to relative form </a></li>
+   <li><a href="Raphael.pathBBox" class="raphael-ref-link">Raphael.pathBBox()</a> - Return bounding box of a given path </li>
+   <li><a href="Raphael.parsePathString" class="raphael-ref-link">Raphael.parsePathString()</a> - Parses given path string into an array of arrays of path segments. </li> 
+   <li><a href="Raphael." class="raphael-ref-link">Raphael.()</a></li>
+   <li><a href="Raphael." class="raphael-ref-link">Raphael.()</a></li> 
+   <li><a href="Raphael." class="raphael-ref-link">Raphael.()</a></li>  
+   
+   </ul>
    
    
    
@@ -1457,7 +2400,26 @@ text.animate({
    for colors. exemples of all that. </p>
    
    
-   <h2>Gradient</h2>
+   <h3>Color utilities</h3>
+   <p>Raphael comes with nice color auxiliar functions and types to transform from color spaces and parsing. Some of these are: </p>
+   <ul>
+   <li><a href="Raphael.color" class="raphael-ref-link">Raphael.color()</a></li>
+   <li><a href="Raphael.getRGB" class="raphael-ref-link">Raphael.getRGB()</a></li>
+   <li><a href="Raphael.rgb" class="raphael-ref-link">Raphael.rgb()</a></li>
+   <li><a href="Raphael.rgb2hsb" class="raphael-ref-link">Raphael.rgb2hsb()</a></li>
+   <li><a href="Raphael.rgb2hsl" class="raphael-ref-link">Raphael.rgb2hsl()</a></li>
+   
+   </ul>
+   
+   
+   
+   
+   
+    
+   <a href="">Section </a>
+   
+   
+   <h2 id="sec-types-gradient">Gradient</h2>
    
    <p>TODO: describe gradient format. examples. 
    
@@ -1485,7 +2447,7 @@ rect.click(function(){
 });
    </pre>
    
-   <p>For deleting all transformations of a shepe, we use <b class="code">rect.transform("")</b>. </p>
+   <p>For deleting all transformations of a shape, we use <b class="code">rect.transform("")</b>. </p>
    
    
    <h2 id="sec-types-matrix">Matrix</h2>
@@ -1861,9 +2823,176 @@ aligned_rect.click(function(){
   
   
    
-   <h1 class="index">Extending Raphaël</h1>
+   <h1 class="index" id="sec-extending">Extending Raphaël</h1>
    
-   <h2 class="index">Custom Attributes</h2>
+   <p>Raphaël support many mechanisms for extending its functionalities with user javascript code. 
+   This involves modifying raphael core classes (prototypes) like shapes, paper, set, etc. Also creation
+   of custom attributes types and custom event types. We will discuss all posibilities in this section.</p>
+   
+  
+   <h2 class="index" id="sec-extending-extensions">Making Raphaël extensions</h2>
+   
+   <p>In this section we will study how to add new raphael shapes types and also how to modify 
+   shape types to support new methods and functionalities. </p>
+   
+   <p>Well understanding of JavaScript is required to write this kind of raphael extensions, but do not worry
+   if you are just starting with the language, we will explain well the code here. </p>
+   
+   <p>Raphaël API is object oriented - this is we work with concepts that represent some aspect of 
+   vector drawing, like Paper, Shape, etc. JavaScript is prototype programming language, so we
+   must modify a concept's prototype for modifying the concept itself. </p>
+   
+   <p>Available concept's prototypes are shown in the following table: </p>
+   
+   <table>
+   <tr class="title"><td>Concept Name</td><td>Prototype variable name</td><td>Description</td></tr>
+   <tr><td><b class="index">Paper prototype</b></td><td><b class="code index">Raphael.fn</b></td><td>Modify the paper's prototype for adding new kind of shapes constructors</td></tr>
+   <tr><td><b class="index">Shape prototype</b></td><td><b class="code index">Raphael.el</b></td><td>Modify shape's prototype for adding new functionality to all shapes</td></tr>
+   <tr><td><b class="index">Set prototype</b></td><td><b class="code index">Raphael.st</b></td><td>Modify set's prototype for adding new functionality onbly to set shapes. </td></tr>
+   <tr><td></td><td></td><td></td></tr>
+   </table>
+   
+   <h3>Modifying the <b class="index">Paper's prototype</b></h3>
+   
+   <p>As we said, in Raphaël the Paper concept's prototype is the variable <b class="code">Raphael.fn</b>. Paper's main 
+   responsability is to create new shapes, so if we want paper's be able to 
+   create a new kind of shape, we should add a function to the paper's prototype, this is <b class="code">Raphael.fn</b>. 
+   In the following example we just do that: add a new kind of shape "polygon" - notice that it will work just like any other shape. 
+   Weu use the function polygonPath() sow in <a href="#sec-types-pathObjectType">Section path object type</a>. </p>
+   
+   <pre class="code code-run">
+/* polygon extension - adds a new kind of shape "polygon" */   
+
+(function(){
+
+/**
+ * Usage: paper.path(polygonPath([10, 10, 30, 40, 80, 10]))
+ */
+var polygonPath = function (points) {
+	if(!points||points.length &lt; 2)
+		return []; 
+	var path = []; //will use path object type
+	path.push(['m',points[0], points[1]]);
+	for(var i = 2; i&lt;points.length; i+=2) {		
+		path.push(['l', points[i], points[i+1]]);
+	}
+	path.push(['z']);
+	return path;
+}
+
+/* create a new kind of shape called polygon - adding it to paper's prototype */
+Raphael.fn.polygon = function(points) {
+	/* "this" is the paper and arguments is the array of artuments to this function 
+	 * so we can use varargs inntead array of points - see below how we use this */
+	return this.path(polygonPath(arguments)); 
+};
+
+})();
+
+/* end of polygon extension - now let's use it */
+var poly1 = paper.polygon(0,0, 100, 0, 100, 100, 150, 100, 50, 200, 0, 0);
+poly1.attr({fill: "red", stroke: "blue", "stroke-width": 5});
+   </pre>
+   
+   <p>So we just modified the paper prototype for adding a new kind of shape we call polygon. For building this shape we must call paper.polygon() 
+   function and pass the polygon points as arguments like we did in the previus example. </p>
+   
+   <p class="note">When writing raphael extensions we have surrounded the extension's code with <b class="code">(function(){</b> and
+   <b class="code">})();</b>. We do this for not "polluting" the execution environment with global variables like <b class="code">var polygonPath</b> and others. 
+   It is optional to do this and it has no tangible impact on the program. </p>
+    
+    
+    <h3>Modifying Shape prototype</h3>
+    
+   <p>We will now show how to make an extension that adds a new functionality to all raphael shapes, modifying raphael shape's prototype. 
+   For Example, in <a href="sec-events-inbetween">Section Events - function inBetween</a>
+   we saw the function inBetween that we can use detecting registering triple clicks. 
+   Now we want to use that for extending the Raphaël API so shapes support the method 3click()
+   for registring triple click event listeners.</p>
+   
+   
+      <pre id="ex-tripleclick"class="code code-run"> 
+/* raphael extension 3click - triple click event */	
+
+(function(){
+
+Raphael.el.tripleclick = function(callback) {
+
+	/* "this" is the current shape, we use this.click() for registering for native click 
+	 * events, and pass the "this" shape as a context object for the callback */
+	this.click(rt.inBetween(3, 1200, callback, this));
+	
+}
+
+})();
+
+/* extension code ended - test begins */
+
+var rect1 = paper.rect(10,20,100,120,5).attr({fill: "red"});
+paper.text(170, 20, "TRIPLE CLICK THE RECT");
+rect1.tripleclick(function(evt){
+	alert("tripleclick detected - last click x coord: "+evt.screenX);
+});
+	</pre>
+	
+	<p>In this case we have modified the Shape prototype for adding a new method, <b class="code">tripleclick()</b> to all shapes for registering 
+	a triple click listeners. Notice that this won't work for sets because we haven't added the new method to Set prototype, but this is tribial - just 
+	replace the line <b class="code">Raphael.el.tripleclick = function(callback){</b> to 
+	<b class="code">Raphael.el.tripleclick = Raphael.st.tripleclick = function(callback){</b>. </p>
+	
+	
+	<h3>Modifying Set prototype</h3>
+	
+	<p>The same we have done for shapes we can do for sets using the set protoype, the variable <b class="code">Raphael.st</b>. In the following 
+	example we add two new set operations : <b class="code">contains()</b> for checking if an element is contained by a set and 
+	<b class="code">intersect()</b> for getting the intersection of two sets : </p>
+	
+	<pre class="code code-run">
+(function(){
+
+/**
+ * @returns true if this set contains the shape element el. In other case returns false.
+ */
+Raphael.st.contains = function(el) {
+	for(var i = 0; i &lt; this.length; i++) 
+		if(this[i] === el)
+			return true;		
+	return false;
+};
+	
+/**
+ * @returns a new set that is the intersection of this and the other set param
+ */
+Raphael.st.intersect = function(other) {
+	if(!other)return[];
+	var ret = this.paper.set();
+	for(var i = 0; i &lt; this.length; i++) {
+		if(other.contains(this[i]))
+			ret.push(this[i]);
+	}
+	return ret;
+};
+
+})();
+
+/* test it */
+var t1 = paper.text(10,100,"hello"), 
+	t2 = paper.text(100,100, "world"), 
+	s1 = paper.circle(100,100,40).attr({opacity: 0.5}), 
+	s2 = paper.rect(100,100,20,100,4),
+	set1 = paper.set(t1, t2, s1), 
+	set2 = paper.set(t2, s1, s2);
+	
+/* use the extension for finding set intersection */
+set1.intersect(set2).attr({"font-size": 22, "stroke-width": 3, stroke: "green"});
+	
+	</pre>
+	
+	<p>Notice how inside the <b class="code">Raphael.st.intersect()</b> function we have referenced the "this" sets paper using <b class="code">this.paper</b> for creating an other set. </p>
+   
+   
+   
+   <h2 class="index" id="sec-extending-custom-attrs">Custom Attributes</h2>
    
    <p><b class="emph">Custom attributes</b> let you add new attributes to shapes. As we saw, raphaël support a set of 
    base attributes that defines the shape state. Some attributes like path, fill, transform are very flexible. What if we want to 
@@ -1937,6 +3066,12 @@ p1.attr({"segment": [230,100,180,122,144], fill: "red"});
 p1.animate({"segment": [230,100,180,111,194], fill: "blue"}, 4000, "elastic");
    </pre>
    
+	
+    
+    
+   
+   
+   
    
     <h2>Custom events</h2>
    
@@ -1949,43 +3084,23 @@ p1.animate({"segment": [230,100,180,111,194], fill: "blue"}, 4000, "elastic");
    <pre class="code code-run">
 //(function(){
    
-/* define a new event called raphael.twoclick  - events handlers will be called with 
- * the shape as context and two parameters e1 and e2 (events) */
+/* define a new event called raphael.tripleclick  - events handlers will be called with 
+ * the shape as context and a mouse event parameter */
 
-//window.lastClicks={};
+/* first of all register a global click listener - when triple click is detected, we will
+fire a raphael.event.tripleclick event so listeners for this event will be notified. */
 
-//whatch all shapes
-/*eve.on("raphael.click.*", function(e){
-alert("hell");
-	if(lastClicks[this.id]) {
-		//trigger the twoclick event
-		eve("raphael.twoclick."+this.id, this, lastClicks[this.id], e);
-		lastClicks[this.id]=false;
-	}
-	else {
-		lastClicks[this.id]=e;
-	}
-});
-Raphael.el.twoclick=function(f) {
-	eve.on("raphael.twoclick."+this.id, f);
-};*/
-//})();
+eve.on("raphael.event.click.*", rt.inBetween(3, 1000, function(evt){
+	eve("raphael.event.tripleclick."+this.id, this, evt); 
+}));
 
-//and now usage test
-var r = paper.rect(100,100,120,80).attr({fill: "red"});
-eve.on("raphael.click."+r.id, function(e){
-alert("hell");
-});/*
-r.twoclick(function(e1, e2){
-	alert("je");
-})*/
+
+/* the test */
+var c = paper.circle(100,100,70).attr({fill: "red"});
+eve.on("raphael.event.tripleclick."+c.id, function(evt) {
+	alert("tripple click detected on the circle"); 
+}); 
    </pre>
-   
-  
-   <h2 class="index">Raphaël extensions</h2>
-   <p>Raphaël also support mechanisms for more flexible extensions. For example, 
-   it will let you define you own kind of shapes, or add new methods to them. Common 
-   examples are creating a new... TODO.... type of shape
    
    
    

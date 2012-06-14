@@ -3,7 +3,7 @@
 (function(){
 		
 	window.rt={};
-	rt.raphaelRefUrl="raphael-ref/index.html";//"http://raphaeljs.com/reference.html";
+	rt.raphaelRefUrl="raphael-ref/index.html";// "http://raphaeljs.com/reference.html";
 	
 	
 	
@@ -27,7 +27,7 @@
 	
 	
 	
-	//doc init
+	// doc init
 	$(window).load(function(){
 		
 		raphaeltutCoreRunPaper = Raphael("exampleDialogContent", 500,500);
@@ -38,10 +38,10 @@
 		$(".note").before('<div class="note-icon">!</div>')
 		$(".note").next().css({clear: "both"})
 		
-//		$("#generated-toc>p").hide();
+// $("#generated-toc>p").hide();
 		
 		
-		//code - run -dialog
+		// code - run -dialog
 		
 		$(".code-run").each(function(){
 			$(this).addClass("prettyprint");
@@ -78,7 +78,7 @@
 			$(this).after('<span class="raphael-ref-link" onclick="'+onclick+'">'+$(this).text()+'</span>');
 		});
 				
-		//index
+		// index
 		
 		if($("#generated-index").size()>0) {
 			rt.indexCounter=0;
@@ -112,24 +112,21 @@
 			$("#generated-index").after(sb.join(""));
 		}
 		
-		/* code-method-doc: method signature documentation like javadoc formatting. 
-		 * tags: @return @param @signature, use like this and please respect the order of annotations:
+		/*
+		 * code-method-doc: method signature documentation like javadoc
+		 * formatting. tags: @return @param @signature, use like this and please
+		 * respect the order of annotations:
 		 * 
-		 * <p class="code-method-doc">
-		 * @signature paper.rect(x, y, width, height)
-		 * @param x the x coord (number)
-		 * @param y the y coord (number)
-		 * @return a new rectangle shape
-		 * </p>
+		 * <p class="code-method-doc"> @signature paper.rect(x, y, width,
+		 * height) @param x the x coord (number) @param y the y coord (number)
+		 * @return a new rectangle shape </p>
 		 * 
 		 * will generate
 		 * 
-		 * <p class="code-method-doc">
-		 * <span class="signature">paper.rect(x, y, width, height)</span>
-		 * <span class="param">x - the x cood (number) </span>
-		 * <span class="param">y - the y cood (number) </span>
-		 * <span class="return">a new rectangle shape</span>
-		 * </p>
+		 * <p class="code-method-doc"> <span class="signature">paper.rect(x, y,
+		 * width, height)</span> <span class="param">x - the x cood (number)
+		 * </span> <span class="param">y - the y cood (number) </span> <span
+		 * class="return">a new rectangle shape</span> </p>
 		 */
 		$(".code-method-doc").each(function(){
 			var t = $(this).text(), returnStr="", signatureStr=null, params=[];
@@ -166,16 +163,85 @@
 				sb.push('Returns: <span class="return">'+returnStr+'</span>');
 			
 			var s = sb.join("");
-//			alert(s);
-			$(this).prop("innerHTML", s);//.html(s);
+// alert(s);
+			$(this).prop("innerHTML", s);// .html(s);
 			
 		});
 		
 		prettyPrint();
 		
-		if(window.raphaeltutTimer1)
-			alert("Tutorial loaded in "+(new Date().getTime()-window.raphaeltutTimer1));
+//		if(window.raphaeltutTimer1)
+//			alert("Tutorial loaded in "+(new Date().getTime()-window.raphaeltutTimer1));
 		
 	});
+	
+	
+	// code-run test convenient utils
+	rt.randomNumber = function(minVal,maxVal,floatVal)	{
+	  var randVal = minVal+(Math.random()*(maxVal-minVal));
+	  return typeof floatVal=='undefined'?Math.round(randVal):randVal.toFixed(floatVal);
+	};
+	
+	rt.randomColor = function() {
+		return "rgb("+rt.randomNumber(0,255)+","+rt.randomNumber(0, 255)+", "+rt.randomNumber(0,255)+")";
+	};
+	
+	rt.dump = function(o) {
+		var s = "{";
+		for(var i in o) {
+			s+=i+", ";
+		}
+		return s;
+	};
+	
+	
+	/**
+	 * inBetween resolves the problem of being notified when a function is
+	 * called N times in in between a time lapsus of T ms. When this state is
+	 * detected, the internal counter is reseted, so n+1 won't fire the event,
+	 * only when x % n == 0 the listener will be notified.
+	 * 
+	 * @param n
+	 *            the amount of times.
+	 * @param t
+	 *            the time lapsus in ms
+	 * @param callback -
+	 *            the function to be called when the returned fcuntion is called
+	 *            at least n times in a lapsus of n ms.
+	 * @return a new function - when that function is called n times in a lapsus
+	 *         of t ms, then callback function will be called using the context
+	 *         object as the callback context.
+	 */
+	rt.inBetween = function(n, t, callback, context) {    
+	    var sb = [];
+	    sb.push("var that = arguments.callee; ")
+	    sb.push("var thisTime = new Date().getTime(); ")
+	    sb.push("var arr = that['ARR'];");
+	    sb.push("if(!arr){");
+	    sb.push("    arr = []; ");
+	    sb.push("    for(var i = 0; i < that['N']; i++) arr.push(thisTime); ");
+	    sb.push("    that['ARR'] = arr;");
+	    sb.push("    that['COUNT']=0");
+	    sb.push("}");
+	    
+	    sb.push("that['COUNT']++; ");;
+	    sb.push("arr.push(thisTime);");
+	    sb.push("var lastTime = arr.shift();");
+	        
+	    sb.push("if(that['COUNT'] >= that['N']) {");
+	    sb.push("    that['COUNT']=1; ");
+	    sb.push("    for(var i = 0; i < that['N']; i++) arr[i] = thisTime; ");
+	    sb.push("    if(thisTime-lastTime < that['T']) ");          
+	    sb.push("        that['CB'].apply(that['CTX'] ? that['CTX'] : this, arguments); ");
+	    sb.push("}");
+	        
+	    var fn = new Function(sb.join(""));    
+	    fn['N']=n;
+	    fn['T']=t;
+	    fn['CB']=callback;
+	    fn['CTX']=context;
+	    return fn;        
+	}; 
+
 	
 })();

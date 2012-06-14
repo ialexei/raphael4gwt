@@ -21,13 +21,16 @@ h3 {
 #generated-toc {
 	padding-left: 50px;
 }
-table tr.title {
-	background-color: white;
-	font-size: 1.3em;
+table .title, table .title td {
+	background-color: #a1a1a1;
+	font-size: 18px;
 	font-weight: bold;
+	font-decoration: underline;
 }
 table td {
-	padding: 1.05em;
+	border: 1px solid #a1a1a1;
+	padding: 0;
+	margin: 4px;
 }
 .title {
 	text-align: center;

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html><head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> - jsFiddle demo</title>
+  
+  <script type="text/javascript" src="a_data/jquery.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="a_data/normalize.css">
+  <link rel="stylesheet" type="text/css" href="a_data/result-light.css">
+  
+  <style type="text/css">
+    #click2{
+    background-color: red;
+}
+#click3{
+    background-color: green;
+}
+#click4 {
+    background-color: yellow;
+}
+
+  </style>
+  
+
+
+<script type="text/javascript">//<![CDATA[ 
+$(window).load(function(){
+        
+/**
+ * this function can be the opposite of throttle. callback will be called 
+ * each time this function is called at least as N times in between T ms.
+ * @param n the amount of times. 
+ * @param t the time lapsus in ms
+ * @param callback - the function to be called when the returned fcuntion is called at least n times in a lapsus of n ms.
+ * @return a new function - when that functoin is called n times in a lapsus 
+ of t ms, then callback function will be called using the context object as 
+ the callback context. 
+ */
+function inBetween(n, t, callback, context) {    
+    var sb = [];
+    sb.push("var that = arguments.callee; ")
+    sb.push("var thisTime = new Date().getTime(); ")
+    sb.push("var arr = that['ARR'];"); 
+    sb.push("if(!arr){");
+    sb.push("    arr = []; ");
+    sb.push("    for(var i = 0; i < that['N']; i++) arr.push(thisTime); ");
+    sb.push("    that['ARR'] = arr;");
+    sb.push("    that['COUNT']=0");
+    sb.push("}");
+    
+    sb.push("that['COUNT']++; ");;
+    sb.push("arr.push(thisTime);");
+    sb.push("var lastTime = arr.shift();");
+        
+    sb.push("if(that['COUNT'] >= that['N']) {");
+    sb.push("    that['COUNT']=1; ");
+    sb.push("    for(var i = 0; i < that['N']; i++) arr[i] = thisTime; ");
+    sb.push("    if(thisTime-lastTime < that['T']) ");          
+    sb.push("        that['CB'].apply(that['CTX'], arguments); ");
+    sb.push("}");
+        
+    var fn = new Function(sb.join(""));    
+    fn['N']=n; 
+    fn['T']=t; 
+    fn['CB']=callback;
+    fn['CTX']=context;
+    return fn;        
+}; 
+
+//example code 
+var ms = "1000"; //double-triple-cuad clicks detected in between 800 ms. 
+
+var cb = function(evt) {alert(this.clickCount+" clicks detected. ")};
+$("#click2").click(inBetween(2, 1000, cb, {clickCount: 2}));
+$("#click3").click(inBetween(3, 1000, cb, {clickCount: 3}));
+$("#click4").click(inBetween(4, 1000, cb, {clickCount: 4}));
+
+
+                     
+                                         
+
+});//]]>  
+
+</script>
+
+
+</head>
+<body>
+  <span>This is an example of inBetween() - a function for being notified when other function is called at least as N times in T ms. </span>
+
+<br>
+<span id="click2">doubleclick</span>
+<span id="click3">tripleclick</span>
+<span id="click4">cuad click</span>
+
+
+  
+
+
+
+
+
+</body></html>

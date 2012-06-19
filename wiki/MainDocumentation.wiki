@@ -19,9 +19,49 @@ Based on raphaeljs 2.0. All raphaeljs features supported. Very straightforward j
 
 2) add the .jar to your gwt project's classpath
 
-3) you are ready to use it. The following are 3 GWT Entry point classes that show different ways of creating a raphael paper
+3) you are ready to use it. The following are some GWT Entry point class examples that show different ways of creating a raphael paper
 
-The first way of creating a raphael paper is using gwt.dom.client Classes for creating a html element and creating the raphael's paper using it:
+The first is the most easy and that is creating a Raphael paper from "thin air" not asociated with any particular HTML element: 
+
+{{{
+
+package org.sgx.civ.client;
+
+import org.sgx.raphael4gwt.raphael.Attr;
+import org.sgx.raphael4gwt.raphael.Paper;
+import org.sgx.raphael4gwt.raphael.Raphael;
+import org.sgx.raphael4gwt.raphael.Shape;
+import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
+
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.user.client.Window;
+
+public class Civ implements EntryPoint {
+
+@Override
+public void onModuleLoad() {
+	//create a raphael paper at 0,0 screen coords and size 600x600
+	Paper paper = Raphael.paper(0, 0, 600, 600);
+	
+	//draw a red rounded rectangle
+	Shape rect1 = paper.rect(20,  10, 220, 250, 14).
+			attr(new Attr().fill("red"));
+	
+	//install a click handler in the rectangle 
+	rect1.click(new MouseEventListener() {			
+		@Override
+		public void notifyMouseEvent(NativeEvent e) {
+			Window.alert("ouch at X == "+e.getClientX()); 
+		}
+	}); 
+}
+
+}
+
+}}}
+
+Normally you want to create the raphael paper inside an existing HTML element. For that we pass the element id or the HTML element it self to the Raphael method. In the following example, we create an HTML element and then a Raphael paper inside it. We manipulate the HTML DOM using gwt.dom.client. IMPORTANT: the HTML Element must be attached to the document before creating a Raphael paper on it: 
 
 {{{
 
@@ -62,7 +102,7 @@ public class Raphael4GwtTestAloneNoWidget implements EntryPoint {
 }}}
 
 
-the second way is similar to the first, but using a GWT SimplePanel widget, and creating the raphael paper inside it.
+the second way is similar to the first, but using a GWT SimplePanel widget, and creating the raphael paper inside it. 
 {{{
 package org.sgx.raphael4gwt.test;
 
@@ -97,7 +137,7 @@ public class Raphael4GwtTestAloneSimple implements EntryPoint {
 }
 }}}
 
-or a gwt entry point class showing a raphael paper using PaperWidget, a rudimentary GWT widget that shows a raphael Paper in which you can draw:
+or a gwt entry point class showing a raphael paper using PaperWidget, a rudimentary GWT widget that shows a raphael Paper in which you can draw. It is very easy to use with GWT widgets: 
 
 {{{
 

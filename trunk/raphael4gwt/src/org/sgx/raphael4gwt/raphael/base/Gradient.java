@@ -61,7 +61,7 @@ public static Gradient linear(double angle, String initColor,
 //string builders 
 
 /**
- * it will return empty string in case this gradient object has not enought data or is invalid. 
+ * it will return empty string in case this gradient object has not enought params or is invalid. 
  */
 @Override
 public String toString() {

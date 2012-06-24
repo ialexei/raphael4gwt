@@ -16,6 +16,7 @@ import com.google.gwt.core.client.JsArrayMixed;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.user.client.Window;
 
 /**
  * this is the main entry point to raphael4gwt library. 
@@ -256,9 +257,28 @@ public static native String createUUID()/*-{
 //private static native int _snapTo(JsArrayNumber snapValues, int value, int tolerance)/*-{
 //return $wnd.Raphael.snapTo(snapValues, value, tolerance);
 //}-*/;
-public static native int snapTo(int snapDiff, int value, int tolerance)/*-{
-	return $wnd.Raphael.snapTo(snapDiff, value, tolerance);
+/**
+ * Snaps given value to given grid. 
+ * @param snapDiff given array of values to which to snap to
+ * @param value value to adjust
+ * @param tolerance tolerance for snapping, default is 10
+ * @return adjusted value.
+ */
+public static native int snapTo(double [] snapDiff, double value, double tolerance)/*-{
+	return $wnd.Raphael.snapTo(@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(snapDiff), value, tolerance<0?10:tolerance);
 }-*/;
+
+/**
+ * Snaps given value to given grid. 
+ * @param snapDiff step of the grid in pixels
+ * @param value value to adjust
+ * @param tolerance tolerance for snapping, default is 10
+ * @return adjusted value.
+ */
+public static native int snapTo(double snapDiff, double value, double tolerance)/*-{
+	return $wnd.Raphael.snapTo(snapDiff, value, tolerance<0?10:tolerance);
+}-*/;
+
 /**
  * Transform angle to degrees 
  * @param deg angle in radians
@@ -519,6 +539,14 @@ public static native boolean isVML()/*-{
  */
 public static native String type()/*-{
 	return $wnd.Raphael.type;
+}-*/;
+
+/**
+ * Used when you need to draw in <iframe>. Switched window to the iframe one. 
+ * @param newWindow new window object
+ */
+public static native void setWindow(Window newWindow)/*-{
+	Raphael.setWindow(newWindow);
 }-*/;
 
 

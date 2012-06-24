@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>eve tests the way I would do it.</title>
+<script type="text/javascript" language="javascript" src="../raphael.js"></script>
+</head>
+<div id="foo"></div>
+<div id="bar"></div>
+<body>
+<!-- first test createElement removeElement event.click and raphael.attr -->
+<!-- 
+	 
+	<script type="text/javascript" language="javascript">
+	
+var paper = Raphael('foo');
+
+var rect = paper.rect(50, 40, 50, 50).attr({fill: 'red'});
+
+alert("change a shape color triggering raphael.attr.fill.* event");
+eve("raphael.attr.fill."+rect.id, rect, "fill", "blue");
+
+//creating a shape triggering elementCreate event    
+alert("creating a shape triggering elementCreate event   ");
+paper.setStart();
+eve("raphael.elementCreate.*", {}, paper, "ellipse", {cx: 100, cy: 100, rx: 50, ry: 70, fill: "yellow"});
+var shape1 = paper.setFinish();
+
+//remove a shape triggering elementRemove event
+alert("remove a shape triggering elementRemove event");
+eve("raphael.elementRemove.*", {}, paper, rect.id);
+
+//registering click handlers for clicks events on any shape using raphael.event.click.* event
+eve.on("raphael.event.click.*", function(el, x, y, evt){
+	alert("shape "+this.type+" clicked at coords: "+x+", "+y);
+});
+//trigger an click event programatically to all shapes 
+// eve("raphael.event.click.*", "click", 100, 101);
+
+paper.text(100,100, "click on any shape");
+//register aany attribute change listener for a certain shape
+var circle1 = paper.circle(100,180,100).attr({fill: "brown", opacity: 0.7});
+eve.on("raphael.attr.*."+circle1.id, function(shape, attributeName, newVal){
+	alert("attribute "+attributeName+" of shape "+this.type+" to be changed to value: "+newVal);
+}); 
+alert("attribute change listening");
+circle1.attr({fill: "blue"}); //triggers the above event raphael.attr.*.circle1Id listener
+
+alert("making attribute changes triggeringing raphael.event.*, \nIn this case trigger it for all shapes")
+eve("raphael.attr.fill."+circle1.id, circle1, circle1, "fill", "pink"); //filling a shape triggerint the event raphael.raphael
+	 </script>
+	   -->
+	   
+	   
+	   
+	   
+	  
+	 
+<!-- another test more with mouse events:  
+<script type="text/javascript" language="javascript">
+
+// function dump(o) {
+// 	var s = "{";
+// 	for(var i in o) {
+// 		s+=i+","
+// 	}
+// 	return s+"}";
+// }
+
+var paper = Raphael('foo'), flag = 0;
+
+var rect = paper.rect(50, 40, 50, 50).attr({fill: 'red'});
+
+rect.click(function(){
+	flag++;
+});
+
+// alert(dump(rect.events[0]));
+
+//rect.click(function(evt){alert("notified")})
+//registering click handlers for clicks events on any shape using raphael.event.click.* event
+eve.on("raphael.event.click.*", function(el, x, y, evt){
+	//alert("shape "+this.type+" clicked at coords: "+x+", "+y);
+	flag++;
+});
+//trigger an click event programatically to all shapes 
+eve("raphael.event.click."+rect.id, rect, "click", 100, 101, {});
+
+alert(flag==2 ? "ALL OK" : "ERROR");
+</script>
+
+-->
+
+
+
+
+<!-- another test more with elementCreate / elementRemove:  -->
+<script type="text/javascript" language="javascript">
+var test = {
+	failed: [], 
+	assertTrue: function(b, msg) {
+		if(!b)
+			test.failed.push(msg);
+	}, 
+	clean: function() {
+		test.failed = [];
+	}, 
+	print: function() {
+		if(test.failed.length==0)return "No asserts failed. "; 
+		else {
+			var s = "FAILED: ";
+			for(var i = 0; i<test.failed.length; i++) {
+				s+=test.failed[i]+", ";
+			}
+			return s+". ";
+		}
+	}, 
+	countShapes: function(paper) {
+		var aux = paper.bottom, i = 0; 
+		while(aux) {
+			aux=aux.next; 
+			i++;
+		}
+		return i;
+	}
+};
+
+test.clean();
+
+var paper = Raphael('foo'), flag = 0;
+eve.on("raphael.elementCreate.*", function(e){
+	//alert("element created: "+this.id);
+	flag++;
+});
+
+test.assertTrue(flag==0, "eve1"); 
+
+var rect = paper.rect(0,0,100,100);
+
+alert(test.countShapes(paper));
+
+// test.assertTrue(flag==1, "eve2"); 
+
+//creating a shape triggering elementCreate event    
+//alert("creating a shape triggering elementCreate event   ");
+
+// eve("raphael.elementCreate.ellipse.*", {}, paper, "ellipse", {cx: 100, cy: 100, rx: 50, ry: 70, fill: "yellow"});
+
+// test.assertTrue(flag==2, "eve3: "+flag); 
+
+//creating a set should also trigger raphael.elementCreate
+// paper.set(); 
+// test.assertTrue(flag==3, "eve4: "+flag); 
+
+//register a shape remove listener
+// eve.on("raphael.elementRemove.*", function(e){
+// 	//alert("element removed: "+this.id);
+// 	flag++;
+// });
+
+rect.remove();
+// test.assertTrue(flag==4, "eve5: "+flag); 
+
+
+//paper.setStart();
+//var shape1 = paper.setFinish();// var shape1 = paper.setFinish();
+
+
+//remove a shape triggering elementRemove event
+//eve("raphael.elementRemove."+rect.id, {}, paper, rect.id);
+
+alert(test.print());
+
+</script>
+</body>
+</html>

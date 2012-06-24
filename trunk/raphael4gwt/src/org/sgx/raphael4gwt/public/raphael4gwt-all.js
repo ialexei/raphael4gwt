@@ -18,7 +18,7 @@
  * the only one that support both svg and vml containers are blur() and emboss(). the
  * rest only support SVG, like convolution, color matrix, etc.
  *  
- * @author: sgurin
+ * @author: sgurin and other raphael extension authors
  */
 
 (function() {
@@ -82,9 +82,7 @@
 		return s1==s2;
 	};
 	/**
-	 * 
-	 * @param el
-	 * @returns
+	 * @returns true if this set contains the shape element el. In other case returns false.
 	 */
 	Raphael.st.contains = function(el) {
 		for(var i = 0; i < this.length; i++) 
@@ -108,7 +106,7 @@
 		return ret;
 	};	
 	/**
-	 * @returns this plus other set els added
+	 * @returns this plus other set els added. this set will be modified.
 	 */
 	Raphael.st.add = function(other) {
 		if(!other)return this;
@@ -207,6 +205,7 @@
 	};	
 })();
 
+
 /**WRITE functions - export the paper and shapes to object and json string 
  * as described in Paper.add() 
  * explanation: raphaeljs has paper.add() for importing 
@@ -297,6 +296,68 @@
 })();	 
 
 
+
+/* named set
+ * Usage: 
+ * var ns1 = paper.namedSet();
+ * ns1.put("f1", paper.rect(0,0,1,11));
+ * var s1 = paper.set(); s1.push(paper.circle(0,0,5));
+ * ns1.put("s1", s1);
+ * ...
+ * ns1.get("s1").attr({fill: "red});
+ * ...
+ * ns1.remove("f1");
+ * 
+ *  //iterate the named set
+ *  for(var i in ns1.data) 
+ *  	ns1.get(i).transform(...);
+ *  
+ *  //get the "normal" set from named set:
+ *  ns1.set.forEach(function(){...});
+ *  author: sgurin
+ */
+(function(){
+	function NamedSet(paper) {
+		this.paper = paper;
+		this.set=paper.set();
+		this.data={};
+	};
+	NamedSet.prototype.put = function(name, shape) {		
+		this.set.push(shape);
+		this.data[name]=shape;
+	};
+	NamedSet.prototype.putAll = function(ns) {
+		for(var i in ns.data) {
+			this.put(i, ns.data[i]);
+		}
+	};	
+	NamedSet.prototype.get = function(name) {
+		return this.data[name];
+	};
+	/**
+	 * @return removed object
+	 */
+	NamedSet.prototype.remove = function(name) {
+		var obj = this.data[name];
+		this.set.excludes(obj)	
+		this.data[name]=null;
+		return obj;
+	};
+	/**
+	 * @return an new named set with key-> values of removed shapes
+	 */
+	NamedSet.prototype.removeAll = function(ns) {
+		var a = new NamedSet(this.paper);
+		for(var i in ns.data) {
+			a.put(i, this.remove(i));			
+		}
+		return a;
+	};
+	/**returns a new empty named set */
+	Raphael.fn.namedSet = function() {
+		return new NamedSet(this);
+	};
+})();
 
 
 
@@ -778,8 +839,8 @@ Raphael.el.sobel=function(size, multiplier, divisor, bias) {
     
     
 /*
- * colorMatrix support  for raphael. Only available on svg
- * @author: SebastiÃ¡n Gurin <sgurin @ montevideo  DOT com  DOT uy>
+ * colorMatrix support  for raphael. Only available on svg - http://www.w3.org/TR/SVG/filters.html#feColorMatrixElement
+ * @author: Sebastian Gurin <sgurin @ montevideo  DOT com  DOT uy>
  */
 (function () {
     if (Raphael.vml) {    	
@@ -850,14 +911,33 @@ Raphael.el.sobel=function(size, multiplier, divisor, bias) {
         };
     }
 })();     
+
+/* gray scale - portable - require colorMatrix for svg.*/
+(function () {
+    if (Raphael.vml) { 
+        Raphael.el.toGrayScale = function () {
+    		this.node.style="progid:DXImageTransform.Microsoft.BasicImage(grayScale=1)";
+        };
+    } 
+    else {
+    	var amount = 0.8;
+    	 Raphael.el.toGrayScale=function() {
+         	this.colorMatrix("color1", [amount, amount, amount, 0, 0, amount, amount, amount, 0, 0, amount, amount, amount, 0, 0, amount, amount, amount, 0, 0]);
+         };
+    }
+})();     
+
+
+
+
     
-/* raphael support for http://www.w3.org/TR/SVG/filters.html#feComponentTransfer (SVG ONLY!)
+/* fecomponentTransfer type linear raphael support for http://www.w3.org/TR/SVG/filters.html#feComponentTransfer (SVG ONLY!)
  * in this first version, only type="linear" supported
- * @author: SebastiÃ¡n Gurin <sgurin @ montevideo  DOT com  DOT uy>
+ * @author: Sebastian Gurin <sgurin @ montevideo  DOT com  DOT uy>
  */
 (function () {
     if (Raphael.vml) { 
-		//TODO
+		//TODO - I on't think VML support this.
     } 
     else {
         var $ = function (el, attr) {
@@ -869,27 +949,54 @@ Raphael.el.sobel=function(size, multiplier, divisor, bias) {
                 return document.createElementNS("http://www.w3.org/2000/svg", el);
             }
         };
-			/**use like this:
-				el.componentTransferLinear("myTransf1", {funcR: {slope: 4, intercept: -1}, funcG: {slope: 4, intercept: -1}, funcB: {slope: 4, intercept: -1}})
-			*/
+		/**
+		 * sets a named fecomponentTransfer SVG filter of type linear. fecomponentTransfer objects support attributes slope and intercept. 
+		 * The implementation is very simple, for each shape there will be a <filter>
+		 * element in the paper for this operation (componentTransferLinear). The id will be var filterId = "componentTransfersMainFilter_"+this.id+tName;
+		 * use Raphael.el.componentTransferClear for uninstall 
+		 * 
+		 * @param tName: the filter instance id
+		 * @param funcs: an object like this: 
+		 * 
+		 * {funcR: {slope, intercept, type}, funcG: {slope, intercept, type}, funcB: {slope, intercept, type}}
+		 * 
+		 * where slope and intercept are numbers, and type is "linear" TODO: other values. type is linear by default. 
+		 * 
+		 * usage: 
+			el.componentTransferLinear("myTransf1", {funcR: {slope: 4, intercept: -1}, funcG: {slope: 4, intercept: -1}, funcB: {slope: 4, intercept: -1}})
+		*/
         Raphael.el.componentTransferLinear = function (tName, funcs) {       	
-//        	alert("componentTransferLinear");
+        	
 	     	//if not exists create a main filter element
 	     	if(this.componentTransfersMainFilter==null) {
-	     		alert("***componentTransfersMainFilter created");
-	     		this.componentTransfersMainFilter = $("filter");
-	     		this.componentTransfersMainFilter.id = "componentTransfersMainFilter"
-	             this.paper.defs.appendChild(this.componentTransfersMainFilter);
-	     		$(this.node, {filter: "url(#componentTransfersMainFilter)"});
+	     		var filterId = "componentTransfersMainFilter_"+this.id+tName;
+	     		//search existance - if so do not add the filter again
+	     		var exists=false; 
+	     		if(this.paper.defs) {
+	     			for(var i = 0; i<this.paper.defs.childNodes.length; i++) {
+	     				if(this.paper.defs.childNodes.item(i).id==filterId) {
+	     					exists=true;
+	     					break; 
+	     				}
+	     			}
+	     		}
+	     		if(!exists) { //create
+		     		this.componentTransfersMainFilter = $("filter");
+		     		this.componentTransfersMainFilter.id = filterId; 
+		            this.paper.defs.appendChild(this.componentTransfersMainFilter);
+		     		$(this.node, {filter: "url(#"+filterId+")"});
+	     		}
 	     	}
-        	
             //create or gets the filter primitive element feComponentTransfer with its feFuncX childs:
-            var componentTransferFilter = this._componentTransfers==null?null:this._componentTransfers[tName], 
+            var componentTransferFilter = this._componentTransfers==null ? null : this._componentTransfers[tName], 
 					funcR=null, funcG=null, funcB=null ;
-            if(componentTransferFilter==null){
-//            	debugger;
-//            	alert("*componentTransfersMainFilter created");
+            if(!componentTransferFilter){
+            	//register   
+            	if(!this._componentTransfers)
+            		 this._componentTransfers={};
             	componentTransferFilter = $("feComponentTransfer");
+            	this._componentTransfers[tName]=componentTransferFilter; 
+            	
 				funcR = $("feFuncR");
 				funcG = $("feFuncG");
 				funcB = $("feFuncB");
@@ -903,25 +1010,51 @@ Raphael.el.sobel=function(size, multiplier, divisor, bias) {
             	funcB = componentTransferFilter.childNodes[2];
             }
             //debugger;
-            $(funcR, funcs["funcR"]); funcR.setAttribute("type", "linear");
-            $(funcG, funcs["funcG"]); funcG.setAttribute("type", "linear");
-            $(funcB, funcs["funcB"]); funcB.setAttribute("type", "linear");            
+            $(funcR, funcs["funcR"]); 
+//            if(!funcs["funcR"]["type"])
+            	funcR.setAttribute("type", "linear");
+            
+            $(funcG, funcs["funcG"]); 
+//            if(!funcs["funcR"]["type"])
+            	funcG.setAttribute("type", "linear");
+            
+            $(funcB, funcs["funcB"]); 
+            funcB.setAttribute("type", "linear");            
             this.componentTransfersMainFilter.appendChild(componentTransferFilter);
             
             //register          
-            if(! this._componentTransfers)
-            	 this._componentTransfers={}
-            this._componentTransfers[tName] = componentTransferFilter;
+//            if(! this._componentTransfers)
+//            	 this._componentTransfers={}
+//            this._componentTransfers[tName] = componentTransferFilter;
             
 	        return this;
         };
-        Raphael.st.componentTransferLinear =  function(tname, funcs) {
-        	for ( var i = 0; i < this.items.length; i++) {
-				this.items[i].componentTransferLinear(tname, funcs);
-			}
-        };
-        
-        Raphael.el.componentTransferClear = function (tName) {
+//        /**
+//         * get an object that can be used with other shapes with componentTransferLinearApply and componentTransferLinearUnapply
+//         * usage: 
+//         * aShape.componentTransferLinear("transf1", {...}); 
+//         * var filter1 = aShape.componentTransferLinearGet("transf1"); 
+//         * anOtherShape.aShape.componentTransferLinearApply(filter1); 
+//         */
+//        Raphael.el.componentTransferLinearGet = function(tname) {
+//        	//TODO: 
+//        }; 
+//        Raphael.el.componentTransferLinearGet = function(tname) {
+//        	//TODO: get an object that can be used with other shapes with componentTransferLinearApply and componentTransferLinearUnapply
+//        }; 
+//        Raphael.el.componentTransferLinearGet = function(tname) {
+//        	//TODO: get an object that can be used with other shapes with componentTransferLinearApply and componentTransferLinearUnapply
+//        }; 
+//        
+//        Raphael.st.componentTransferLinear =  function(tname, funcs) {
+//        	for ( var i = 0; i < this.items.length; i++) {
+//				this.items[i].componentTransferLinear(tname, funcs);
+//			}
+//        };
+        /**
+         * uninstall a filter installed with Raphael.el.componentTransferClear
+         */
+        Raphael.el.componentTransferLinearClear = function (tName) {
         	if (this._componentTransfers!=null && this._componentTransfers[tName]!=null &&
         			this.componentTransfersMainFilter!=null) {   
         		try {
@@ -932,7 +1065,7 @@ Raphael.el.sobel=function(size, multiplier, divisor, bias) {
             }  
             return this;
         };
-        Raphael.el.componentTransferClearAll=function() {
+        Raphael.el.componentTransferLinearClearAll = function() {
         	if(this.componentTransfersMainFilter!=null) {
 	        	this.paper.defs.removeChild(this.componentTransfersMainFilter);
 	        	this.componentTransfersMainFilter=null;
@@ -940,9 +1073,162 @@ Raphael.el.sobel=function(size, multiplier, divisor, bias) {
 	        	this.node.removeAttribute("filter");
         	}
         };
-    }
-    
+    }    
 })();
+
+
+
+
+
+///* fecomponentTransfer general raphael support for http://www.w3.org/TR/SVG/filters.html#feComponentTransfer (SVG ONLY!)
+// * in this first version, only type="linear" supported
+// * @author: Sebastian Gurin <sgurin @ montevideo  DOT com  DOT uy>
+// */
+//(function () {
+//    if (Raphael.vml) { 
+//		//TODO - I on't think VML support this.
+//    } 
+//    else {
+//        var $ = function (el, attr) {
+//            if (attr) {
+//                for (var key in attr) if (attr.hasOwnProperty(key)) {
+//                    el.setAttribute(key, attr[key]);
+//                }
+//            } else {
+//                return document.createElementNS("http://www.w3.org/2000/svg", el);
+//            }
+//        };
+//		/**
+//		 * sets a named fecomponentTransfer  SVG filter. the implementation is very simple, for each shape there will be a <filter>
+//		 * element in the paper for this operation (componentTransferLinear). The id will be var filterId = "componentTransfersMainFilter_"+this.id+tName;
+//		 * use Raphael.el.componentTransferClear for uninstall 
+//		 * 
+//		 * @param tName: the filter instance id
+//		 * @param funcs: an object like this: 
+//		 * 
+//		 * {funcR: {slope, intercept, type}, funcG: {slope, intercept, type}, funcB: {slope, intercept, type}}
+//		 * 
+//		 * where slope and intercept are numbers, and type is "linear" TODO: other values. type is linear by default. 
+//		 * 
+//		 * usage: 
+//			el.componentTransferLinear("myTransf1", {funcR: {slope: 4, intercept: -1}, funcG: {slope: 4, intercept: -1}, funcB: {slope: 4, intercept: -1}})
+//		*/
+//        Raphael.el.componentTransfer = function (tName, funcs) {       	
+//        	
+//	     	//if not exists create a main filter element
+//	     	if(this.componentTransfersMainFilter==null) {
+//	     		var filterId = "componentTransfersMainFilter_"+this.id+tName;
+//	     		//search existance - if so do not add the filter again
+//	     		var exists=false; 
+//	     		if(this.paper.defs) {
+//	     			for(var i = 0; i<this.paper.defs.childNodes.length; i++) {
+//	     				if(this.paper.defs.childNodes.item(i).id==filterId) {
+//	     					exists=true;
+//	     					break; 
+//	     				}
+//	     			}
+//	     		}
+//	     		if(!exists) { //create
+//		     		this.componentTransfersMainFilter = $("filter");
+//		     		this.componentTransfersMainFilter.id = filterId; 
+//		            this.paper.defs.appendChild(this.componentTransfersMainFilter);
+//		     		$(this.node, {filter: "url(#"+filterId+")"});
+//	     		}
+//	     	}
+//            //create or gets the filter primitive element feComponentTransfer with its feFuncX childs:
+//            var componentTransferFilter = this._componentTransfers==null ? null : this._componentTransfers[tName], 
+//					funcR=null, funcG=null, funcB=null ;
+//            if(!componentTransferFilter){
+//            	//register   
+//            	if(!this._componentTransfers)
+//            		 this._componentTransfers={};
+//            	componentTransferFilter = $("feComponentTransfer");
+//            	this._componentTransfers[tName]=componentTransferFilter; 
+//            	
+//				funcR = $("feFuncR");
+//				funcG = $("feFuncG");
+//				funcB = $("feFuncB");
+//				componentTransferFilter.appendChild(funcR);
+//				componentTransferFilter.appendChild(funcG);
+//				componentTransferFilter.appendChild(funcB);
+//            }
+//            else {
+//            	funcR = componentTransferFilter.childNodes[0];
+//            	funcG = componentTransferFilter.childNodes[1];
+//            	funcB = componentTransferFilter.childNodes[2];
+//            }
+//            //debugger;
+//            $(funcR, funcs["funcR"]); 
+////            if(!funcs["funcR"]["type"])
+//            	funcR.setAttribute("type", "linear");
+//            
+//            $(funcG, funcs["funcG"]); 
+////            if(!funcs["funcR"]["type"])
+//            	funcG.setAttribute("type", "linear");
+//            
+//            $(funcB, funcs["funcB"]); 
+//            funcB.setAttribute("type", "linear");            
+//            this.componentTransfersMainFilter.appendChild(componentTransferFilter);
+//            
+//            //register          
+////            if(! this._componentTransfers)
+////            	 this._componentTransfers={}
+////            this._componentTransfers[tName] = componentTransferFilter;
+//            
+//	        return this;
+//        };
+////        /**
+////         * get an object that can be used with other shapes with componentTransferLinearApply and componentTransferLinearUnapply
+////         * usage: 
+////         * aShape.componentTransferLinear("transf1", {...}); 
+////         * var filter1 = aShape.componentTransferLinearGet("transf1"); 
+////         * anOtherShape.aShape.componentTransferLinearApply(filter1); 
+////         */
+////        Raphael.el.componentTransferLinearGet = function(tname) {
+////        	//TODO: 
+////        }; 
+////        Raphael.el.componentTransferLinearGet = function(tname) {
+////        	//TODO: get an object that can be used with other shapes with componentTransferLinearApply and componentTransferLinearUnapply
+////        }; 
+////        Raphael.el.componentTransferLinearGet = function(tname) {
+////        	//TODO: get an object that can be used with other shapes with componentTransferLinearApply and componentTransferLinearUnapply
+////        }; 
+////        
+////        Raphael.st.componentTransferLinear =  function(tname, funcs) {
+////        	for ( var i = 0; i < this.items.length; i++) {
+////				this.items[i].componentTransferLinear(tname, funcs);
+////			}
+////        };
+//        /**
+//         * uninstall a filter installed with Raphael.el.componentTransferClear
+//         */
+//        Raphael.el.componentTransferClear = function (tName) {
+//        	if (this._componentTransfers!=null && this._componentTransfers[tName]!=null &&
+//        			this.componentTransfersMainFilter!=null) {   
+//        		try {
+//        			this.componentTransfersMainFilter.removeChild(this._componentTransfers[tName]);
+//        			this._componentTransfers[tName]=null;
+//        		}catch(ex){alert("error removing filter for conv named : "+tName);}
+//        		
+//            }  
+//            return this;
+//        };
+//        Raphael.el.componentTransferClearAll = function() {
+//        	if(this.componentTransfersMainFilter!=null) {
+//	        	this.paper.defs.removeChild(this.componentTransfersMainFilter);
+//	        	this.componentTransfersMainFilter=null;
+//	        	this._componentTransfers=null;
+//	        	this.node.removeAttribute("filter");
+//        	}
+//        };
+//    }    
+//})();
+
+
+
+
+
+
 /*
  *  'feMorphology' support  for raphael. Only available on svg
  *  use shape1.morphology(morphname, operator, radius)
@@ -1024,6 +1310,125 @@ Raphael.el.sobel=function(size, multiplier, divisor, bias) {
 
 
 
+
+
+
+
+
+//CSS extension - sgurin
+/*
+ * a small CSS implementation for Raphael shapes.
+ * the extension add methods set/getCSSClass and get/setCSSId for setting id and class attributes to be usable in CSS
+ * the extension add the method applyCSS to papers and sets. 
+ * The implementation only apply the CSS when you call applyCSS() - shapes added after that call won't be formatted until you call applyCSS() again. So this is not a "live
+ * 
+ * usage
+ * <pre>
+ * var rect1 = paper.rect(10,10,4,5);
+ * rect1.setCSSClass("class1");
+ * 
+ *  //this extension accepts a css string for being applied to a paper. is responsbile of the user to define the supply method (ajax, jquery, gwt, etc). 
+ * var css1 = '.class1: {stroke-width: 12; }', 
+ * 		styleName1 = "style1"; //a "stylesheet name" - optional
+ * paper.applyCSS(css1);
+ * 
+ * </pre>
+ */
+
+/* * * * CSS (after template preproccessing) - tag style * * * */
+
+///**
+// * preprocess al style elements. 
+// */
+//rm._preproccesCSS = function(rdoc) {
+//	/* first parse each <style> element against document. 
+//	 * the DOM will be affected before rendering.*/
+//	rdoc.find("style").each(function(i){
+//		rm._applyCSS(rdoc, $(this).text());
+//	});	
+//	return rdoc;
+//};
+
+///* * * * CSS (before template preproccessing) - tag template-style
+// * (we separate style for template call elements from style for final 
+// * base elements into style and template-style for performance reasons.)
+// * * * * */
+///**
+// * preprocess al template-style elements. 
+// */
+//rm._preproccesTemplateCSS = function(rdoc) {	
+//	rdoc.find("template-style").each(function(i){
+//		rm._applyCSS(rdoc, $(this).text());
+//	});	
+//	return rdoc;
+//};
+///** a private el->{attr->boolean} mapping used for not overwriting
+// * explicit elements attirbutes with css */
+//rm._css_elemAttrs={};
+///**
+// * this apply a css source string in a DOM. very simple version - 
+// * not CSS conformant
+// */
+//rm._applyCSS= function(doc, cssStr) {
+//	
+//	var css = rm._parseCSS(cssStr);
+//	for ( var i = 0; i < css.__order.length; i++) {
+//		var sel = css.__order[i];
+//		doc.find(sel).each(function(){
+//			var id=$(this).attr("id");
+//			if(!rm._css_elemAttrs[id]) {
+//				rm._css_elemAttrs[id]=rm._getAttributes(this);
+//			}
+//			var finalAttrs = rm._objdiff(css[sel], rm._css_elemAttrs[id]);
+//			$(this).attr(finalAttrs);
+//		});
+//	}
+//};
+
+/* simple CSS lke parser - for a mor serius CSS support more sofisticated CSS parsers should be take in consideration like http://www.glazman.org/JSCSSP/ - dom oriented not just parsing */
+
+(function(){
+
+Raphael.fn.applyCSS = function(cssStr) {
+	
+};
+_parseCSS= function(css) {
+    var rules = {};
+    rules.__order=[];
+    css = _removeComments(css);
+    var blocks = css.split('}');
+    blocks.pop();
+    var len = blocks.length;
+    for (var i = 0; i < len; i++) {
+        var pair = blocks[i].split('{');
+        var sel = $.trim(pair[0]);
+    	rules.__order.push(sel);
+        rules[sel] = _parseCSSBlock(pair[1]);
+    }
+    return rules;
+};
+_parseCSSBlock= function(css) { 
+    var rule = {};
+    var declarations = css.split(';');
+    var len = declarations.length;
+    for (var i = 0; i < len; i++) {
+        var loc = declarations[i].indexOf(':');
+        if(loc==-1)
+        	continue;
+        var property = $.trim(declarations[i].substring(0, loc));
+        var value = $.trim(declarations[i].substring(loc + 1));
+
+        if (property != "" && value != "") {
+            rule[property] = value;
+        }
+    }
+    return rule;
+};
+_removeComments= function(css) {
+    return css.replace(/\/\*(\r|\n|.)*\*\//g,"");
+};
+
+})();  
 
 
 
@@ -1570,6 +1975,12 @@ Raphael.fn.importSVG = function (svgXML) {
   return m_myNewSet;
   
 };
+
+
+
+
+
+
 /* raphael.free_transform */
 /*
  * Licensed under the MIT license:

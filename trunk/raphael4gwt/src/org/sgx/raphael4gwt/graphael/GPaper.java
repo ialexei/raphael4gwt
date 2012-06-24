@@ -78,7 +78,7 @@ public final native DotChart dotchart(double x, double y, double w,
 	return this.dotchart(x, y, w, h, 
 		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(xs),
 		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(ys),
-		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(data),
+		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(params),
 		opts.@org.sgx.raphael4gwt.graphael.dot.DotOpts::toNative()()
 		);
 }-*/;

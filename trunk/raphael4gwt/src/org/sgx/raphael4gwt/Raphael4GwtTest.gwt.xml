@@ -16,6 +16,8 @@
 	<script src="test/Phorssa_400.font.js"></script>
 <!-- 	<css src="test/raphael4gwtGallery.css"></css> -->
 
-	<entry-point class="org.sgx.raphael4gwt.test.Raphael4GwtTest" />
+	<entry-point class="org.sgx.raphael4gwt.test.Raphael4GwtTest" />	
+<!-- 	<entry-point class="org.sgx.raphael4gwt.test.Raphael4GwtTestAloneVerySimple" /> -->
+	
 	<source path="test" />
 </module>

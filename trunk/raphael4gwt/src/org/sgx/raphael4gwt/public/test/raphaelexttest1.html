@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>raphael4gwt ext test</title>
+<script type="text/javascript" language="javascript" src="../raphael.js"></script>
+<script type="text/javascript" language="javascript" src="../raphael-ext.js"></script>
+</head>
+
+<body>
+	<script type="text/javascript" language="javascript">
+	var img1Url = "../../test/image/smallLion.png"; 
+	var paper = Raphael(0,0,600,600); 
+
+	var img1 = paper.image(img1Url, 10, 10, 200, 200);
+	img1.componentTransferLinear("myTransf1", {funcR: {slope: 4, intercept: -1}, funcG: {slope: 4, intercept: -1}, funcB: {slope: 4, intercept: -1}}); 
+	
+	var img2 = paper.image(img1Url, 210, 10, 200, 200);
+	img2.componentTransferLinear("myTransf2", {funcR: {slope: 1.5, intercept: 0}, funcG: {slope: 1.5, intercept: 0}, funcB: {slope: 4, intercept: -1}});
+	
+	
+    </script>
+
+</body>
+</html>

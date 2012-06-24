@@ -2519,7 +2519,7 @@ Raphael.fn.sunburst = function(cx, cy, values, opts) {
                     //start:    {x: sx, y: sy},
                     //end:      {x: ex, y: ey},
                     path:       ["M", cx, cy, "L", x, y].join(','),
-                    rest:       ["M", x, y, "L", ex, ey].join(','),
+                    rest:       ["M", x, y, "L", ex, ey].join(',')
                 };
             return res;
         }

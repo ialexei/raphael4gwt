@@ -98,7 +98,13 @@ public static String quotePath(String path) {
 		if(!b)
 			assertsFailed.add(assertMsg);
 	}
-	
+	public static void assertEquals(Object spected, Object actual, String assertMsg) {
+		spected = spected==null ? "null" : spected;
+		actual = actual==null ? "null" : actual;
+		//TODO: error null == "null"
+		if(!spected.equals(actual))
+			assertsFailed.add(assertMsg+" - +spected: "+spected+", actual: "+actual);
+	}
 	
 //	//test
 //	public static void main(String[] args) {

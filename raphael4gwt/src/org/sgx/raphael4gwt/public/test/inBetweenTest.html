@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>inBetween test</title>
+</head>
+<body>
+	<script type="text/javascript" language="javascript">
+	
+(function(){
+	
+/**
+ * this function can be the opposite of throttle. callback will be called 
+ * each time this function is called at least as N times in between T ms.
+ */
+function inBetween(n, t, callback, context) {
+	
+	var sb = [];
+	sb.push("var that = arguments.callee; ")
+	sb.push("var arr = that['ARR'];"); 
+	sb.push("if(!arr){");
+	sb.push("	arr = []; ");
+	sb.push("	for(var i = 0; i < that['N']; i++) arr.push(0); ");
+	sb.push("	that['ARR'] = arr;");
+	sb.push("	that['COUNT']=0");
+	sb.push("}");
+	
+	sb.push("that['COUNT']++; ");
+	sb.push("var thisTime = new Date().getTime(); ");
+	sb.push("arr.push(thisTime);");
+	sb.push("var lastTime = arr.shift(); ");
+	
+	
+	sb.push("if(that['COUNT'] >= that['N'] && thisTime-lastTime < that['T']) {");
+	sb.push("	that['COUNT']=0; ");
+	sb.push("	that['CB'].apply(that['CTX'], arguments); ");
+	sb.push("}");
+	
+	
+	var fn = new Function(sb.join(""));	
+	fn['N']=n; 
+	fn['T']=t; 
+	fn['CB']=callback;
+	fn['CTX']=context;
+	return fn;
+		
+}; 
+
+})();
+
+var ctx1 = {attr1: "hello"};
+var ib1 = inBetween(3, 1000, function(e){alert("3 detected: "+this.attr1)}, ctx1);
+// alert(ib1);
+ib1(); ib1();
+ib1(); ib1(); 
+
+    </script>
+
+</body>
+</html>

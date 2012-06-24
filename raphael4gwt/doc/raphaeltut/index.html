@@ -75,6 +75,13 @@
     raphael4gwt project page</a>. So contact with that project if you have 
     comments or suggestiongs about this tutorial. </p>
     
+  <p>The tutorial was written entirely in HTML and contain a lot of live links to <a href="http://raphaeljs.com/reference.html">Raphaël reference page</a>
+  containing the exact reference definition., These links will open in a popup and show a certain function like <a href="Element.attr" class="raphael-ref">Element.attr()</a> 
+  
+  <p>It also contain many inline examples that can be executed inside the same tutorial, so it is easy to see the code output result. 
+  Just click in the run button. For example, just click the "Run" button after the source code for running it.  </p>
+  
+  <a class="code code-run" href="ex-color1"></a>
   
   
   
@@ -116,6 +123,8 @@
    features like animations, event handling and Raphaël extensions development.</p>
    
    </div>
+
+	<h2>Vector versus Bitmap Web Drawing Technologies</h2>
 
 	<p>From this definition it is important to notice the following. There are two "main types" of 
 	technologies for drawing in web pages: vector based and bitmap based. </p>
@@ -387,15 +396,19 @@ paper.rect(240,100,200,90,20).attr({
       
    <h2 id="sec-shape-path" class="index">Path</h2>
    
-   <p>Paths are the most advanced kind of shapes. With paths we can 
-   draw almost any kind of shape, including all the basic shapes mentioned earlier, 
-   but also arbitrary polygons and curves. As we <a href="#sec-shape-print">will see</a>,
-   Raphaël uses paths for printing text of any font. </p>
+   <p>Paths are the most advanced kind of shapes. Paths are the most general and flexible kind of shape, 
+   not only other shapes like circles, rectangles, ellipses can be drawn using paths but also we can 
+   draw almost anything using paths. For example, as we <a href="#sec-shape-print">will see</a>,
+   Raphaël uses paths internally for printing text of any font. </p>
    
-    <p>We use the <a href="Paper.path"  class="code raphael-ref index">Paper.path()</a> method for crating a path. 
+   <p>Raphael uses the same <a href="http://www.w3.org/TR/SVG/paths.html#PathData" class="index">
+   SVG path format</a> and this is fully covered on the separate <a href="#sec-types-path" class="index">
+   Path Raphael Type Section</a>. Here we will only explain general aspects of path shapes. </p>
+   
+    <p>We use the <a href="Paper.path"  class="code raphael-ref index">Paper.path()</a> method for creating a path. 
     The path method accept a string that define the path. In this section we will learn the basics of drawing a Path shape. </p> 
    
-   <p>As we said a shape is represented with a string. This string contains what we can call a sequence of path commands. A path command is a letter followed by 
+   <p>As we said a shape is what we can call "a sequence of <b class="index">path commands</b>". A path command is a letter followed by 
    some numbers comma or space separated.In the following example we draw a path that taht is a triangle and that consists on four commands: 
    Move to 50,100 then draw a Line to 120,120, then draw a Line to 120,40 and then close the path (Z): 
    
@@ -1323,6 +1336,7 @@ alert(flag==4 ? "ALL OK" : "ERROR");
    
    
    <h3>elementCreate and elementRemove events</h3>
+   
    <p>Raphael also manage events types elementCreate and elementRemove with eve. These events indicate a shape creation or a 
    shape removal from a paper, respectively In the following example we will register for shape creation and shape removal and also
    will trigger shape creation and shape removals programatically using eve. </p>
@@ -1371,6 +1385,16 @@ alert(flag==3 ? "ALL OK" : "ERROR");
 <!--    You should see some alerts dialogs showing those passed messages. </p> -->
    
 
+
+	<h4>Synchronizing papers using eve events elementCreate/elementRemove</h4>
+	
+	<p>An interesting usecase of eve events elementCreate and elementRemove is being able to automatically synchronize 2 papers. 
+	This for example in the problem of an strategy games like civilization, warcraft, etc in which you have 
+	a main paper view with your game units and cities / buildings and another small minimap paper that contains the same information. 
+	The minimap is small and when you click on it it will change your current position in the main game paper. This in practice can be done with two 
+	raphael papers with the same content but with diferent sizes and viewboxes (see paper.setViewbox()). It would save us a lot of work if
+	we can synchronize the two papers so changes made in one reflect in the oher automatically. Changes here means adding or removing shapes and changing shapes attributes.
+	</p>  
 
 
 	<h3>A gallery of usecase examples</h3>
@@ -2113,6 +2137,18 @@ paper.path(getQB(0, 1, 1, 0, {x: 100, y: 100}, {x: 200, y: 200}));*/
    <img src="images/easing-cubic-blezier.png"></img>
    
    
+   <h2 id="sec-animation-animating-paths">Animating paths</h2>
+   <p>You can animate the 'path' attribute. This basically means we can animate any shape to morph into another in time. </p>
+   
+   <pre class="code code-run">
+var pathStr1 = "M118,43L39,173L148,205L248,78L168,113L111,130L156,40L112,87L118,64L145,32L145,32Z", 
+	pathStr2 = 	"M154,49T83,74T40,111T36,155T56,173T90,176T121,177T162,166T191,160T239,164T266,182T308,174T324,143T328,112T312,101T280,105T268,120T284,138T304,145T279,161T246,147T199,129T133,103T95,116T65,94T65,94Z"; 
+
+var path = paper.path(pathStr1).attr({fill: "red", "stroke-width": 5}); 
+
+setTimeout(function(){path.animate({path: pathStr2}, 3000, "linear");}, 1000);  
+
+	   </pre>
    
    <h2>Animating text</h2>
    <p>It would be nice if we can use animations for transforming a string like "hello" in another string like "world", or transfrmate some letters into others like text morphing. This is possible with raphel and we will explain here in this section how.</p>
@@ -2415,10 +2451,6 @@ p1.click(function(ev){
    
    
    
-    
-   <a href="">Section </a>
-   
-   
    <h2 id="sec-types-gradient">Gradient</h2>
    
    <p>TODO: describe gradient format. examples. 
@@ -2428,7 +2460,7 @@ p1.click(function(ev){
    <h2 id="sec-types-transform">Transform</h2>
    
    <p>As we said, <b class="code">transform</b> is an attribute that can be applied t any shape for making linear transformation, that is 
-   rotations, ,translations and scaling. TODO: describe and exemples of transform attribute format.</p>
+   rotations, translations, scaling and skewing, or an operation that is a composite of these. TODO: describe and exemples of transform attribute format.</p>
    
    <p>It is important to notice the following. Transform will not transform the element it self, but it will transform the element's coordinate system. 
    For understanding this let's make an example. As you know, we can chenge the X and Y coordinate of a rectangle using attributes X and Y. Normally, 
@@ -2449,11 +2481,52 @@ rect.click(function(){
    
    <p>For deleting all transformations of a shape, we use <b class="code">rect.transform("")</b>. </p>
    
+   <p>As we said before, changing the transform attribute won't change the shape dimensions or position, 
+   but it will change the shape's coordinate system. A common problem to solve then is to get the "visible bounds" of a shape
+   after it is transformed. For example, in the following example, we will transform a rectangle when the user clicks it, transporting and scaling it. 
+   After we transform it nevertheless, the shape's attributes x, y, width and height will remain the same. And this is ok, because we have't changed it
+   but we have changed only the shape's coordinate system. But, how we can know the new "visible" x, y, height and width attributes? </p>
+   
+   <pre class="code code-run">
+var r = paper.rect(100,130,120,70, 6).attr({fill: "red"});
+alert("rectangle width: "+r.attr("width")+", X: "+r.attr("x")); 
+paper.text(200,100,"Click the rect to transform it...").attr({"font-size": 19}); 
+r.click(function(e){
+	r.attr({transform: "s1.2t-30,-20"});
+	alert("rectangle width: "+r.attr("width")+", X: "+r.attr("x")); 
+}); 
+   </pre>
+   
+   <p>For knowing the "visual" bounds of a transformed shape like the previus example, we use the <a href="Element.matrix" class="raphael-ref">matrix property</a>
+   and the operations <a href="Matrix.x" class="raphael-ref">Matrix.x()</a> and <a href="Matrix.y" class="raphael-ref">Matrix.y()</a>. The matrix property is a raphael datatype taht stores 
+   the current transformation matrix of a shape, and it will be described detailed in the next section. A matrix object support some utility methods,
+   and here we will use x() and y() for getting a points final coordinates after applying the matrix transformation to it. So in the next example, we 
+   show how to get the "visual bounds" of the transformed rectangle: </p>  
+   
+      <pre class="code code-run">
+var r = paper.rect(100,130,120,70, 6).attr({fill: "red"});
+alert("rectangle X: "+r.attr("x")); 
+paper.text(200,100,"Click the rect to transform it...").attr({"font-size": 19}); 
+r.click(function(e){
+	r.attr({transform: "s1.2t-30,-20"});
+	/* realX is the rectangle's X coordinate after applying current rect transformation matrix. */
+	var realX = r.matrix.x(r.attr("x"),r.attr("y")); 
+	alert("rectangle X: "+realX); 
+}); 
+   </pre>
+   
+   <p>As you can see we get the "real" x coordinate of the transformed rectangle using the rectangle's matrix property. </p>
+   
+   
+   
    
    <h2 id="sec-types-matrix">Matrix</h2>
-  
+   
+   <p>In previus section we take a look at the transform attribute and how to use it for changing the coordinate system of a shape. The current transformation of
+   a shape is stored in shape's <a href="Element.matrix" class="raphael-ref">matrix property</a> and we will describe it in this section. </p>
+   
 	<h3>Introduction to transformation matrix</h3>
-	<p>Mathematically, all transformations can be represented as 3x3 transformation matrices of the following form:</p>
+	<p>Mathematically, all linear transformations can be represented as 3x3 transformation matrices of the following form:</p>
    
    <img src="images/Matrix.png"></img>
    

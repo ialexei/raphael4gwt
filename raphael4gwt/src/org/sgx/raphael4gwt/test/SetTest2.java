@@ -82,7 +82,7 @@ public class SetTest2 extends Test {
 		return first;
 	}
 
-	//test data:
+	//test params:
 	public String[] getTags() {
 		return new String[]{GalleryUtil.TAG_SET, GalleryUtil.TAG_EXTENSION};
 	}

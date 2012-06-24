@@ -2,8 +2,8 @@ package org.sgx.raphael4gwt.test;
 
 import org.sgx.raphael4gwt.raphael.*;
 import org.sgx.raphael4gwt.raphael.base.*;
-import org.sgx.raphael4gwt.raphael.eve.AttributeChangeEvent;
-import org.sgx.raphael4gwt.raphael.eve.AttributeListener;
+import org.sgx.raphael4gwt.raphael.eve.AttrChangeEvent;
+import org.sgx.raphael4gwt.raphael.eve.AttrChangeListener;
 import org.sgx.raphael4gwt.raphael.eve.Eve;
 import org.sgx.raphael4gwt.raphael.eve.EveEvent;
 import org.sgx.raphael4gwt.raphael.eve.EveListener;
@@ -29,24 +29,21 @@ public class EveAttrChangeTest1 extends Test {
 		rect = paper.rect(80,80,200,300).attr(
 			Attrs.create().fill("yellow")
 		);
-		Eve.on("raphael.attr.fill."+rect.getId(), new AttributeListener() {			
+		Eve.on("raphael.attr.fill."+rect.getId(), new AttrChangeListener() {			
 			@Override
-			public Object call(AttributeChangeEvent e) {
-				if(e instanceof AttributeChangeEvent) {
-					AttributeChangeEvent ace = (AttributeChangeEvent)e;
-					flag = ace.getNewValue()+"";
-//					Window.alert("attribute change: "+ace.getAttributeName()+
-//						" - new val : "+ace.getNewValue());
-				}
+			public Object call(AttrChangeEvent e) {
+//				Window.alert(e+" - "+JsUtil.print(e.getData()));
+				flag = e.getNewValue()+"";
 				return "listener 1";
 			}
 		});
 		
 		rect.attr(Attrs.create().fill("red"));
-		Util.assertTrue(flag.equals("red"), "eve attr event 1");
+		Util.assertEquals("red", flag, "eve attr event 1");
+		Util.assertTrue(flag.equals("red"), "eve attr event 1.1");
 		
 		//now change an attribute by triggering the event raphael.attr.fill
-		JsArrayMixed ret = Eve.trigger(new AttributeChangeEvent("fill", "blue", rect));
+		JsArrayMixed ret = Eve.trigger(new AttrChangeEvent(rect, "fill", "blue"));
 		
 		Util.assertTrue(JsUtil.arrayContains(ret, "listener 1"), "eve attr event 2");
 		

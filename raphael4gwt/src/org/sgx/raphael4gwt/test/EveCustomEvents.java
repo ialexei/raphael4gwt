@@ -1,7 +1,8 @@
 package org.sgx.raphael4gwt.test;
 
 import org.sgx.raphael4gwt.raphael.Paper;
-import org.sgx.raphael4gwt.raphael.eve.AbstractEvent;
+import org.sgx.raphael4gwt.raphael.Shape;
+import org.sgx.raphael4gwt.raphael.eve.AbstractEveEvent;
 import org.sgx.raphael4gwt.raphael.eve.Eve;
 import org.sgx.raphael4gwt.raphael.eve.EveEvent;
 import org.sgx.raphael4gwt.raphael.eve.EveEventInstantiator;
@@ -10,67 +11,17 @@ import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 import org.sgx.raphael4gwt.raphael.util.Util;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayMixed;
 import com.google.gwt.user.client.Window;
 
 /**
- * int this example we show how to create a custom event type and event listeners class, 
+ * in this example we show how to create a custom event type and event listeners class, 
  * like the ones created for raphael predefined events like raphael.attr, raphael.event, etc
  * @author sg
  *
  */
 public class EveCustomEvents extends Test {
-
-/**
- * MyEveEvent1 is an custom event definition example. It has the event name prefix "foo.bar.click",
- * and has 1 attribute param1 (eve event parameter).The complete event name is foo.bar.click.(param1||*); 
- * @author sebastian
- *
- */
-class MyEveEvent1 extends AbstractEvent {
-	int param1;
-	public MyEveEvent1(){
-		super();
-	}
-	
-	public MyEveEvent1(int param1) {
-		super();
-		this.param1 = param1;
-	}
-	public int getParam1() {
-		return param1;
-	}
-	public void setParam1(int param1) {
-		this.param1 = param1;
-	}
-	@Override
-	public String getName() {
-		return "foo.bar.click."+(param1<0?"*":param1);
-	}	
-	//the folowing to methods are neccesary to be implemented for comunication with native eve,
-	@Override
-	public void fromJsArray(JsArrayMixed jsa) {
-		setParam1((int) jsa.getNumber(0));
-	}
-	@Override
-	public JsArrayMixed toJsArray() {
-		JsArrayMixed jsa = JsArrayMixed.createArray().<JsArrayMixed>cast();
-		jsa.push(param1);
-		return jsa;
-	}		
-}
-
-abstract class MyEveEvent1Listener extends EveListener<MyEveEvent1> {
-	@Override
-	public EveEventInstantiator<MyEveEvent1> getEventInstantiator() {
-		return new EveEventInstantiator<EveCustomEvents.MyEveEvent1>() {
-			@Override
-			public EveEvent instantiate() {
-				return new MyEveEvent1();
-			}				
-		};
-	}		
-}
 
 @Override
 public void test() {
@@ -104,6 +55,68 @@ public void test() {
 	
 	Window.alert(Util.printAssertsFailed());
 }
+
+
+
+/**
+ * MyEveEvent1 is an custom event definition example. It has the event name prefix "foo.bar.click",
+ * and has 1 attribute param1 (eve event parameter).The complete event name is foo.bar.click.(param1||*); 
+ * @author sebastian
+ *
+ */
+class MyEveEvent1 extends AbstractEveEvent {
+	int param1;
+	public MyEveEvent1(){
+		super();
+	}
+	
+	public MyEveEvent1(int param1) {
+		super();
+		this.param1 = param1;
+	}
+	public int getParam1() {
+		return param1;
+	}
+	public void setParam1(int param1) {
+		this.param1 = param1;
+	}
+	@Override
+	public String getName() {
+		return "foo.bar.click."+(param1<0?"*":param1);
+	}	
+
+	@Override
+	public Shape getShape() {
+		return null;		//this is not a shape related event
+	}
+	
+	//the folowing to methods define the event content, custom event must implement it. ,
+	@Override
+	public void load(JsArrayMixed jsa, JavaScriptObject context) {
+		setParam1((int) jsa.getNumber(0));
+	}
+	@Override
+	public JsArrayMixed getNativeParams() {
+		JsArrayMixed jsa = JsArrayMixed.createArray().<JsArrayMixed>cast();
+		jsa.push(param1);
+		return jsa;
+	}		
+
+}
+
+abstract class MyEveEvent1Listener extends EveListener<MyEveEvent1> {
+	@Override
+	public EveEventInstantiator<MyEveEvent1> getEventInstantiator() {
+		return new EveEventInstantiator<EveCustomEvents.MyEveEvent1>() {
+			@Override
+			public EveEvent instantiate() {
+				return new MyEveEvent1();
+			}				
+		};
+	}		
+}
+
+
 
 //test stuff
 

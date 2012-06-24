@@ -1,6 +1,8 @@
 /* sgurin modifications: there are many small modifications for fixing small bugs, commented all with //sgurin comment
 * fix for bug https://github.com/DmitryBaranovskiy/raphael/issues/564
 * fix for sets added paper and type=="set" properties for sets. - https://groups.google.com/forum/#!topic/raphaeljs/Sd6ru6_ct_g
+* 
+* TODO: this file was autoformatted at some point - put the sgurin changes again in a clean copy of raphael.js
 */
 // ┌────────────────────────────────────────────────────────────────────┐ \\
 // │ Raphaël 2.1.0 - JavaScript Vector Library                          │ \\
@@ -475,28 +477,93 @@
 	// sgurin - mouse event eve enable
 	var softEvents = ["click", "dblclick", "mousedown", "mouseout", "mouseup"], 
 		eveEventsCallbacks = {}, 
-		eveEventsCallback = function(type, element, x, y, e) {
-			eve("raphael.event." + type + "." + element.id, element, type, x, y, e, element);
+		eveEventsCallback = function(type, element, x, y, e, isReal) {
+			if(isReal)
+				eve("raphael.event." + type + "." + element.id, element, type, x, y, e, element, true);
 		}, 
 		eveEventsInstallAll=function(el) {
 			var dummyCallback = function(){};
 			for ( var i = 0; i < softEvents.length; i++) {
 				el[softEvents[i]].apply(el, [dummyCallback]);
 			}
-		};
+			//sgurin elementCreate event. - launched from here because this function is calle don every new shape created
+//			if(el.paper)
+//				el.paper["__raphaelElementCreate"]=true;
+			if(el.paper && !el.paper["__raphaelElementCreate"]) {
+				el.paper["__raphaelElementCreate2"]=true; 
+				eve("raphael.elementCreate."+el.type+"."+el.id, el, el.paper, el.type, el.attr());
+				el.paper["__raphaelElementCreate2"]=false; 
+			}
+//			if(el.paper)
+//				el.paper["__raphaelElementCreate"]=false;
+	};
 	for ( var i = 0; i < softEvents.length; i++) {
 		eveEventsCallbacks[softEvents[i]]=eveEventsCallback;
 	}
-//	eveEventsCallbacks.click = eveEventsCallbacks.dblclick = eveEventsCallbacks.mousedown = 
-//		eveEventsCallbacks.mouseout = eveEventsCallbacks.mouseup = ;
-	
 	//sgurin - eve triggering raphael.attr.* sould call attr(*,val)
-	eve.on("raphael.attr.*", function(newVal, attrName){
-		this["__raphaelAttr"]=true;
-		this.attr(attrName ,newVal)
-		this["__raphaelAttr"]=false;
-	})
+	eve.on("raphael.attr.*", function(shape, attrName, attrValue){
+		
+		if(!this && shape && shape.getById) { //they called with asterisc to trigger to all shapes. 
+			var paper = shape, aux = paper.bottom;
+			while(aux) {
+				aux["__raphaelAttr"]=true;
+				aux.attr(attrName ,attrValue);
+				aux["__raphaelAttr"]=false;
+				aux=aux.next;
+			}
+		}
+		else {
+			this["__raphaelAttr"]=true;
+			this.attr(attrName ,attrValue);
+			this["__raphaelAttr"]=false;
+		}
+	});
 	
+	//sgurin elementCreate event - triggering the elementCreate event should create a new shape.
+	eve.on("raphael.elementCreate.*", function(paper, elType, elAttrs) {
+//		if(!paper["__raphaelElementCreate"]) {
+		if(!paper["__raphaelElementCreate2"]) {
+			paper["__raphaelElementCreate"]=true;
+			var s = null;
+			if(!elType || !paper) 
+				return;
+			if(elType=="rect")
+				s=paper.rect(0,0,0,0);
+			else if(elType=="circle")
+				s=paper.circle(0,0,0);
+			else if(elType=="ellipse")
+				s=paper.ellipse(0,0,0, 0);
+			else if(elType=="path")
+				s=paper.path("M0,0");
+			else if(elType=="text")
+				s=paper.text(".");
+			if(s)
+				s.attr(elAttrs);
+			paper["__raphaelElementCreate"]=false;
+		}
+	});
+	
+	//sgurin elementRemove event
+	eve.on("raphael.elementRemove.*.*", function(paper, elId) {
+		if(!paper)return;
+//		alert(this);
+//		var el = paper.getById(elId);
+		if(this && !this["__raphaelElementRemove2"]) {
+			el["__raphaelElementRemove"]=true;
+			this.remove();
+			el["__raphaelElementRemove"]=false;
+		}		
+	});
+	
+	//sgurin raphael.event.type event - triggering a raphael.event.click event on a shape should call event listeners registered with click();
+	eve.on("raphael.event.*", function(type, x, y, evt, isReal) {
+		if(!isReal) { /* this is an artificially triggered event - we must call the listeners shape.events*/
+			for(var i = 0; i<this.events.length; i++) {
+				if(this.events[i].name==type)
+					this.events[i].f(evt);
+			}
+		}	
+	});
 	
 	function clone(obj) {
 		if (Object(obj) !== obj) {
@@ -2333,7 +2400,7 @@
 					// call eve() for firing events
 					var eveHandler = eveEventsCallbacks[type];
 					if (eveHandler)
-						eveHandler(type, element, x, y, e);
+						eveHandler(type, element, x, y, e, true);
 
 					return fn.call(element, e, x, y);
 				};
@@ -3536,6 +3603,15 @@
 			})(method);
 		}
 	setproto.glow = elproto.glow;// sgurin - fix for set
+	setproto.isPointInside = function(x, y) {  //sgurin - fix for issu https://github.com/DmitryBaranovskiy/raphael/issues/587#issuecomment-6179760
+		var ipi = false;
+		this.forEach(function(el) {
+			if (!ipi && el.isPointInside(x, y)) {
+				ipi = true;
+			}
+		});
+		return ipi;
+	};
 	setproto.attr = function(name, value) {
 		if (name && R.is(name, array) && R.is(name[0], "object")) {
 			for ( var j = 0, jj = name.length; j < jj; j++) {
@@ -4698,6 +4774,11 @@ window.Raphael.svg
 				if (this.removed || !this.node.parentNode) {
 					return;
 				}
+				//sgurin raphael.elementRemove
+				this["__raphaelElementRemove2"]=true;
+				eve("raphael.elementRemove."+this.type+"."+this.id, this, paper, this.id);
+				this["__raphaelElementRemove2"]=false;
+				
 				var paper = this.paper;
 				paper.__set__ && paper.__set__.exclude(this);
 				eve.unbind("raphael.*.*." + this.id);
@@ -4785,11 +4866,13 @@ window.Raphael.svg
 					params = name;
 				}
 				
-				if(!this["__raphaelAttr"]) //sgurin - eve triggering raphael.attr.* sould call attr(*,val)
+				if(!this["__raphaelAttr"]) {//sgurin - eve triggering a raphael.attr.* event should call attr(*,val)
 					for ( var key in params) {
 						eve("raphael.attr." + key + "." + this.id, this,
-								params[key], key); //sgurin - added key param in raphael.attr 
+								this, key, params[key]);  
 					}
+				}
+				
 				for (key in this.paper.customAttributes)
 					if (this.paper.customAttributes[has](key)
 							&& params[has](key)
@@ -5797,11 +5880,12 @@ window.Raphael.vml
 					params[name] = value;
 				}
 				value == null && R.is(name, "object") && (params = name);
-				if(!this["__raphaelAttr"]) //sgurin - eve triggering raphael.attr.* sould call attr(*,val)
+				if(!this["__raphaelAttr"]) {//sgurin - eve triggering raphael.attr.* sould call attr(*,val)
 					for ( var key in params) {
 						eve("raphael.attr." + key + "." + this.id, this,
-								params[key], key); //sgurin - added key param in raphael.attr 
+								this, key, params[key]);  
 					}
+				}
 				if (params) {
 					for (key in this.paper.customAttributes)
 						if (this.paper.customAttributes[has](key)

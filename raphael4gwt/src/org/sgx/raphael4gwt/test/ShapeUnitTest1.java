@@ -55,7 +55,7 @@ public class ShapeUnitTest1 extends Test {
 	}
 	
 	
-	//test data:
+	//test params:
 	public String[] getTags() {
 		return new String[]{GalleryUtil.TAG_SHAPE};
 	}

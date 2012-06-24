@@ -26,7 +26,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class PathCmdsTest1 extends Test {
 
-	private Path lp1;
 
 	@Override
 	public void test() {
@@ -58,7 +57,7 @@ public class PathCmdsTest1 extends Test {
 		//now build a pathcmd from path string
 		getPaper().text(80,20,"PathCmd builded \nfrom path string");		
 		PathCmd cmd4 = new PathCmd("M20,20L40,40L70,90L20,50L10,10Z");
-		lp1 = getPaper().path(cmd4.toPathString());
+		Path lp1 = getPaper().path(cmd4.toPathString());
 		
 		//another more documented path for docs:		
 		/* create a path command. The first command is always a 
@@ -68,6 +67,11 @@ public class PathCmdsTest1 extends Test {
 		pc.L(20, 20).M(10,180).L(0,0).T(10,100).T(100,10).Z();
 		getPaper().path(pc) //make sure pc references the FIRST command
 			.attr(Attrs.create().fill("red").transform("t80,400"));
+		
+		/* an elliptical path */
+		PathCmd pc4 = new PathCmd(200,20);
+		pc4.ellipticalArc(80, 40, 80, 1, 1, 170, 110).Z(); 
+		getPaper().path(pc4).attr(Attrs.create().fill("red").transform("t80,400"));
 	}
 	
 	//test stuff

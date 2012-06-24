@@ -12,6 +12,8 @@ import org.sgx.raphael4gwt.test.AllMouseEvents;
 import org.sgx.raphael4gwt.test.AllPathIcons;
 import org.sgx.raphael4gwt.test.AnimKeyframesTest1;
 import org.sgx.raphael4gwt.test.AnimTransformAndPathTest1;
+import org.sgx.raphael4gwt.test.AttributesTest1;
+import org.sgx.raphael4gwt.test.ComponentTransferLinearTest1;
 import org.sgx.raphael4gwt.test.EveAttrChangeTest1;
 import org.sgx.raphael4gwt.test.BlurAndEmbossTest1;
 import org.sgx.raphael4gwt.test.CircleGlowingAndDraggin;
@@ -19,6 +21,8 @@ import org.sgx.raphael4gwt.test.DragAndSnap;
 import org.sgx.raphael4gwt.test.DragTest1;
 import org.sgx.raphael4gwt.test.DrawAndClick;
 import org.sgx.raphael4gwt.test.EveCustomEvents;
+import org.sgx.raphael4gwt.test.EveEventsTest1;
+import org.sgx.raphael4gwt.test.EveShapeCreateRemoveTest1;
 import org.sgx.raphael4gwt.test.EventRegisterAndUnregister;
 import org.sgx.raphael4gwt.test.FillTest1;
 import org.sgx.raphael4gwt.test.FontTest1;
@@ -277,12 +281,20 @@ public class GalleryUtil {
 		t = new AnimKeyframesTest1(paper, w, h);
 		tests.put(t.getName(), t);
 		
+		
 		t = new EveCustomEvents(paper, w, h);
 		tests.put(t.getName(), t);
 		
 		t = new EveAttrChangeTest1(paper, w, h);
 		tests.put(t.getName(), t);		
 		
+		t = new EveEventsTest1(paper, w, h);
+		tests.put(t.getName(), t);	
+		
+		t = new EveShapeCreateRemoveTest1(paper, w, h);
+		tests.put(t.getName(), t);	
+		
+				
 		t = new TextSelectionPreventTest(paper, w, h);
 		tests.put(t.getName(), t);
 		
@@ -294,6 +306,14 @@ public class GalleryUtil {
 		
 		t = new SVGExportTest1(paper, w, h);
 		tests.put(t.getName(), t);
+		
+		t = new AttributesTest1(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		t = new ComponentTransferLinearTest1(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		
 	}
 
 	Map<String, List<Test>> getTestsByTag() {

@@ -5,6 +5,7 @@ import org.sgx.raphael4gwt.raphael.util.Util;
 
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayMixed;
+import com.google.gwt.user.client.Window;
 
 /**
  * an java tool for creating pths programatically. this is not part of 
@@ -156,7 +157,9 @@ public class PathCmd {
 	public String toPathString() {
 		StringBuffer sb = new StringBuffer();
 		toPathString(sb);
-		return sb.toString();
+		String ret = sb.toString();
+//		Window.alert(ret);
+		return ret;
 	}
 	public static void removeLast(PathCmd c) {
 		PathCmd a = c, prev=null;
@@ -532,10 +535,15 @@ public class PathCmd {
 	 */
 	public PathCmd ellipticalArc(double[][]p) {
 		PathCmd pathCmd2 = new PathCmd();
-		PCPoint [][] points2 = new PCPoint[p.length][1];
+		PCPoint [][] points2 = new PCPoint[p.length][4];
 		for (int i = 0; i < p.length; i++) {
 			points2[i][0] = new PCPoint(p[i][0], p[i][1]);
+			points2[i][1] = new PCPoint(p[i][2], p[i][3]);
+			points2[i][2] = new PCPoint(p[i][4], p[i][5]);
+			points2[i][3] = new PCPoint(p[i][6], p[i][7]);
+			
 		}
+		pathCmd2.setPoints(points2);
 		pathCmd2.setType(Raphael.PATH_ELLIPTICAL_ARC);
 		this.setNext(pathCmd2);
 		return pathCmd2;
@@ -555,8 +563,10 @@ public class PathCmd {
 	 */
 	public PathCmd ellipticalArc(double rx, double ry, double xAxisRotation, 
 			double largeArcFlag, double sweepFlag, double x, double y) {
-		return ellipticalArc(new double[][]{{rx, ry, xAxisRotation, 
-			largeArcFlag, sweepFlag, x, y}});
+		return ellipticalArc(new double[][]{{rx, ry, 
+			xAxisRotation, largeArcFlag, sweepFlag, x, y, 0}});
+//		return ellipticalArc(new double[][]{{rx, ry}, {xAxisRotation, 
+//			largeArcFlag}, {sweepFlag, x}, {y,0}});
 	}
 	/**
 	 * adds an elliptical arc command, append it to the chain and return it. @see http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands

@@ -4,29 +4,71 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>raphael4gwt test</title>
 <script type="text/javascript" language="javascript" src="../raphael.js"></script>
-<script type="text/javascript" language="javascript" src="../raphael-ext.js"></script>
+<!-- <script type="text/javascript" language="javascript" src="../raphael-ext.js"></script> -->
 </head>
 <div id="foo"></div>
 <div id="bar"></div>
 <body>
 	<script type="text/javascript" language="javascript">
 	
-	var paper = Raphael('foo');
+// 	var paper = Raphael('foo');
+//     var rect = paper
+//         .rect(50, 40, 50, 50)
+//         .attr('fill', '#f00')
+//         .transform('S2')
+//         .rotate(10)
+//         ;
 
-    var rect = paper
-        .rect(50, 40, 50, 50)
-        .attr('fill', '#f00')
-        .transform('S2')
-        .rotate(10)
-        ;
-
-    var svg = paper.toSVG();
-
-    alert(svg);
+//     var img1 = paper.image("http://cdn.planetminecraft.com/files/resource_media/screenshot/1218/Tree_2166149.jpg", 100,100,100,100);
     
-    //if you want to inject the svg directly for showing it in some html element:
-    document.getElementById('bar').innerHTML = svg;
-	 </script>
+//     img1.colorMatrix("color1", [.33, .33, .33, 0, 0, .33, .33, .33, 0, 0, .33, .33, .33, 0, 0, .33, .33, .33, 0, 0])
+
+
+	
+/**
+ * this function can be the opposite of throttle. callback will be called 
+ * each time this function is called at least as N times in between T ms.
+ */
+function inBetween(n, t, callback, context) {
+	
+	var sb = [];
+	sb.push("var that = arguments.callee; ")
+	sb.push("var arr = that['ARR'];"); 
+	sb.push("if(!arr){");
+	sb.push("	arr = []; ");
+	sb.push("	for(var i = 0; i < that['N']; i++) arr.push(0); ");
+	sb.push("	that['ARR'] = arr;");
+	sb.push("	that['COUNT']=0");
+	sb.push("}");
+	
+	sb.push("that['COUNT']++; ");
+	sb.push("var thisTime = new Date().getTime(); ");
+	sb.push("arr.push(thisTime);");
+	sb.push("var lastTime = arr.shift(); ");
+	
+	
+	sb.push("if(that['COUNT'] >= that['N'] && thisTime-lastTime < that['T']) {");
+	sb.push("	that['COUNT']=0; ");
+	sb.push("	that['CB'].apply(that['CTX'], arguments); ");
+	sb.push("}");
+	
+	
+	var fn = new Function(sb.join(""));	
+	fn['N']=n; 
+	fn['T']=t; 
+	fn['CB']=callback;
+	fn['CTX']=context;
+	return fn;
+		
+}; 
+
+var ctx1 = {attr1: "hello"};
+var ib1 = inBetween(3, 1000, function(e){alert("3 detected: "+this.attr1)}, ctx1);
+// alert(ib1);
+ib1(); ib1();
+ib1(); ib1(); 
+
+    </script>
 
 </body>
 </html>

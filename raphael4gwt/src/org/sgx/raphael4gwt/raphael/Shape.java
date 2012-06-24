@@ -11,12 +11,14 @@ import org.sgx.raphael4gwt.raphael.event.DDListener;
 import org.sgx.raphael4gwt.raphael.event.DragOverListener;
 import org.sgx.raphael4gwt.raphael.event.HoverListener;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
+import org.sgx.raphael4gwt.raphael.svg.FEComponentTransfer;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.dom.client.Element;
 /**
  * this correspond to Element object in raphaeljs ref.
+ * Shapes are created using the Paper object. Shapes base types are: path, rectangle, circle, ellipse, text and set (a logical container of shapes)
  * @author sg
  *
  */
@@ -731,7 +733,7 @@ Note: Glow is not connected to the element. If you change element attributes it 
 	
 	/**
 	 * Adds given value asociated with given key	
-	 * @param key key to store data
+	 * @param key key to store params
 	 * @param value value to store
 	 */
 	public final native void setData(String key, Object value)/*-{
@@ -758,7 +760,7 @@ Note: Glow is not connected to the element. If you change element attributes it 
 		this.id=id;
 	}-*/;
 	/**
-	 *  removes all the data of the element. 
+	 *  removes all the params of the element. 
 	 */
 	public final native Shape removeData()/*-{
 		return this.removeData();
@@ -872,6 +874,14 @@ Note: Glow is not connected to the element. If you change element attributes it 
 		this.sobel(size, multiplier);
 		return this;
 	}-*/;
+	
+	public final native Shape componentTransferLinear(String id, FEComponentTransfer data)/*-{
+		this.componentTransferLinear(id, data); 
+		return this; 
+	}-*/;
+
+	
+	
 	/**
 	 * extension 
 	 * @return a json object just like espected by paper.add. the returned Attrs object has a type property loaded

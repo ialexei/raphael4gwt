@@ -66,19 +66,19 @@ public class BarChartDynamicUpdate extends Test {
 			}
 		});		
 		
-		bars.tag(50,50,"data 1", 0).click(new MouseEventListener() {			
+		bars.tag(50,50,"params 1", 0).click(new MouseEventListener() {			
 			@Override
 			public void notifyMouseEvent(NativeEvent e) {
 				doChangeVals(b1data);
 			}
 		});
-		bars.tag(50,100,"data 2", 0).click(new MouseEventListener() {			
+		bars.tag(50,100,"params 2", 0).click(new MouseEventListener() {			
 			@Override
 			public void notifyMouseEvent(NativeEvent e) {
 				doChangeVals(b2data);
 			}
 		});
-		bars.tag(50,150,"data 3", 0).click(new MouseEventListener() {			
+		bars.tag(50,150,"params 3", 0).click(new MouseEventListener() {			
 			@Override
 			public void notifyMouseEvent(NativeEvent e) {
 				doChangeVals(b3data);

@@ -59,9 +59,9 @@
 //		//define a new custom attr (valid for paths only) that will add an ark at the end of a path
 //		Raphael.addCustomAttribute(paper, "hue", new CustomAttribute() {
 //			@Override
-//			public Attrs make(Shape context, Object data) {
-//				if(data instanceof Hue) {
-//					String s = "hsb("+((Hue)data).val+", 0.75, 1)";
+//			public Attrs make(Shape context, Object params) {
+//				if(params instanceof Hue) {
+//					String s = "hsb("+((Hue)params).val+", 0.75, 1)";
 //					return Attrs.create().fill(s);
 //				}
 //				else return Attrs.create();

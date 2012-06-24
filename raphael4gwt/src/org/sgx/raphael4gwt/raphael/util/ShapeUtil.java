@@ -22,6 +22,10 @@ public class ShapeUtil {
 		sb.append("}");
 		return sb.toString();
 	}
+	public static String print(Shape shape) {
+		return shape.getType()+" id: "+shape.getId();
+	}
+	
 //	/**
 //	 * recurses a set till a normal shape is found and returned.
 //	 * @param s
@@ -50,4 +54,5 @@ public class ShapeUtil {
 //		});
 //		return sh;
 //	}
+	
 }

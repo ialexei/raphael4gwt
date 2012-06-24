@@ -9,6 +9,7 @@ import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayMixed;
 import com.google.gwt.core.client.JsArrayNumber;
 import com.google.gwt.core.client.JsArrayString;
+import com.google.gwt.dom.client.NativeEvent;
 /**
  * javascript related utilities
  * @author sg
@@ -198,6 +199,18 @@ public class JsUtil {
 	public static native JavaScriptObject evalObject(String s)/*-{
 		return $wnd.eval("("+s+")");
 	}-*/;
+
+	public static String print(JsArrayMixed a) {
+		String s = "JSArray[";
+		for(int i = 0; i<a.length(); i++) {
+			s+=a.getString(i)+", ";
+		}
+		return s+"]";
+	}
+
+	public static String print(NativeEvent e) {
+		return "Event "+e.getType()+"("+e.getScreenX()+", "+e.getScreenY()+")"; 
+	}
 
 
 

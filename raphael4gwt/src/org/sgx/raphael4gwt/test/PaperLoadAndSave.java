@@ -8,7 +8,7 @@ import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.user.client.Window;
 /**
- * this example shows how to shapes from json json data to a paper, 
+ * this example shows how to shapes from json json params to a paper, 
  * and viceversa how to export a paper state to json, using shape and peper add and toJSON methods.
  * @author sg
  *
@@ -40,7 +40,7 @@ public class PaperLoadAndSave extends Test{
 	public PaperLoadAndSave(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
 		this.name="PaperLoadAndSave";
-		this.description="this example shows how to shapes from json json data " +
+		this.description="this example shows how to shapes from json json params " +
 			"to a paper, \nand viceversa how to export a paper state to json, " +
 			"using shape and peper add and toJSON methods.";
 	}

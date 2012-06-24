@@ -23,13 +23,13 @@ public class Eve {
 	
 
 /**
- * Fires the given named event. put the data you want to send to listeners as fields on your EveEvent implementation. 
+ * Fires the given named event. put the params you want to send to listeners as fields on your EveEvent implementation. 
  * @param e the event to be fired.
  * @return array of returned values from the listeners
  */
 public static native JsArrayMixed trigger(EveEvent e)/*-{
 	//I pass the event name and the event objects as the only event parameter 	
-	var jsa = e.@org.sgx.raphael4gwt.raphael.eve.EveEvent::toJsArray()();	
+	var jsa = e.@org.sgx.raphael4gwt.raphael.eve.EveEvent::getNativeParams()();	
 	var args = [e.@org.sgx.raphael4gwt.raphael.eve.EveEvent::getName()(), 
 		e.@org.sgx.raphael4gwt.raphael.eve.EveEvent::getShape()()].
 		concat(jsa);
@@ -62,7 +62,7 @@ public static native void on(String name, EveListener l, int zIndex)/*-{
 //			s+=", "+arguments[i];
 //		$wnd.alert(s);
 
-		return l.@org.sgx.raphael4gwt.raphael.eve.EveListener::callNative(Lcom/google/gwt/core/client/JsArrayMixed;)(arguments);
+		return l.@org.sgx.raphael4gwt.raphael.eve.EveListener::callNative(Lcom/google/gwt/core/client/JsArrayMixed;Lcom/google/gwt/core/client/JavaScriptObject;)(arguments, this);
 	});
 	@org.sgx.raphael4gwt.raphael.event.EventHelper::putEveListener(Lorg/sgx/raphael4gwt/raphael/eve/EveListener;Lcom/google/gwt/core/client/JavaScriptObject;Lcom/google/gwt/core/client/JavaScriptObject;)(l,f);
 	
@@ -125,14 +125,14 @@ public static final native String getVersion()/*-{
  * register a listener that will be notified when any attribute changes on any shape.
  * @param l
  */
-public static void onAttributeChange(AttributeListener l, int zIndex) {
+public static void onAttributeChange(AttrChangeListener l, int zIndex) {
 	onAttributeChange(null, null, l, false, zIndex);
 }
 /**
  * register a listener when given attribute changes on ANY shape.
  * @param attributeName
  */
-public static void onAttributeChange(String attributeName, AttributeListener l, int zIndex) {
+public static void onAttributeChange(String attributeName, AttrChangeListener l, int zIndex) {
 	onAttributeChange(null, attributeName, l, false, zIndex);
 }
 /**
@@ -143,7 +143,7 @@ public static void onAttributeChange(String attributeName, AttributeListener l, 
  * @param once - if true it will use once() so listeners will be notified nly once.
  */
 public static void onAttributeChange(Shape shape, String attributeName, 
-		AttributeListener l, boolean once, int zIndex) {
+		AttrChangeListener l, boolean once, int zIndex) {
 	String id = "*", attrName = "*";
 	if(shape!=null)
 		id=shape.getId()+"";
@@ -153,7 +153,7 @@ public static void onAttributeChange(Shape shape, String attributeName,
 }
 
 //public static final native void onAttributeChange(Shape shape, String attributeName, 
-//		AttributeListener l, boolean once, int zIndex)/*-{
+//		AttrChangeListener l, boolean once, int zIndex)/*-{
 //			
 //}-*/;
 

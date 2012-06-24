@@ -13,7 +13,7 @@ import com.google.gwt.resources.client.ImageResource;
  * ImageResource for referencing the images in the gwt project.<br/>
  * 
  * Important: for creating an raphael image, raphaeljs internally 
- * needs a "normal url" (not an inline image data: url). So, if working with
+ * needs a "normal url" (not an inline image params: url). So, if working with
  * GWT ClientBundle, make sure to use <pre>@ImageOptions(preventInlining=true)</pre>
  *  in your resources definitions like:
  * 

@@ -54,7 +54,7 @@ public class SetSimpleTest1 extends Test {
 		t.schedule(1000);
 	}
 
-	//test data:
+	//test params:
 	
 	public String[] getTags() {
 		return new String[]{GalleryUtil.TAG_SET};

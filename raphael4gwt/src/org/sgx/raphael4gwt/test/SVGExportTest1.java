@@ -53,7 +53,7 @@ public void test() {
 	
 }
 
-//test data
+//test params
 public String[] getTags() {
 	return new String[]{GalleryUtil.TAG_SVG};
 }

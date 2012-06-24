@@ -116,4 +116,16 @@ public interface TestResources extends ClientBundle {
 	  @Source("SVGExportTest1.java")
 	  public TextResource SVGExportTest1();
 	  
+	  @Source("AttributesTest1.java")
+	  public TextResource AttributesTest1();
+	  
+	  @Source("EveEventsTest1.java")
+	  public TextResource EveEventsTest1();
+
+	  @Source("EveShapeCreateRemoveTest1.java")
+	  public TextResource EveShapeCreateRemoveTest1();
+	  
+	  @Source("ComponentTransferLinearTest1.java")
+	  public TextResource ComponentTransferLinearTest1();
+	  
 }

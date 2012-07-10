@@ -1,11 +1,12 @@
 package org.sgx.raphael4gwt.test;
 
 import org.sgx.raphael4gwt.raphael.Paper;
-import org.sgx.raphael4gwt.raphael.PathCmd;
+//import org.sgx.raphael4gwt.raphael.PathCmd;
 import org.sgx.raphael4gwt.raphael.Raphael;
 import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.event.Callback;
+import org.sgx.raphael4gwt.raphael.pathobj.PathObject;
 import org.sgx.raphael4gwt.raphael.util.Util;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 /**
@@ -27,12 +28,12 @@ public void test() {
 	
 	//and now a random path
 	getPaper().text(400, 400, "a very strange thing");
-	PathCmd pc3 = new PathCmd(400,400), aux = pc3;
+	PathObject pathObj1 = PathObject.create(400,400); 
 	for (int i = 0; i < 24; i++) {
-		aux=aux.T(Util.randomBetween(370, 400), Util.randomBetween(370, 400));
+		pathObj1.T(Util.randomBetween(370, 400), Util.randomBetween(370, 400));
 	}
-	aux.close();
-	lp1 = getPaper().path(pc3.toPathString()).attr(attrs.strokeWidth(2));
+	pathObj1.z(); 
+	lp1 = getPaper().path(pathObj1).attr(attrs.strokeWidth(2));
 	
 	call(lp1);
 }
@@ -48,13 +49,13 @@ public void call(Shape src) {
 	pointCount=Util.randomBetween(3, 33);
 	ms =  Util.randomBetween(1000,3000);
 	
-	PathCmd pc3 = new PathCmd(x,y), aux = pc3;
+	PathObject p = PathObject.create(x,  y);
 	for (int i = 0; i < pointCount; i++) {
-		aux=aux.T(Util.randomBetween(x,y), Util.randomBetween(x,y));
+		p.T(Util.randomBetween(x,y), Util.randomBetween(x,y));
 	}
 		
 	Attrs attrs = Attrs.create().
-		path(pc3.toPathString()).
+		path(p).
 		strokeWidth(Util.randomBetween(2, 12)).
 		stroke(randomColor()).
 		fill(randomColor());

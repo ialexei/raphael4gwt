@@ -384,44 +384,44 @@ public final Shape removeData(String key) {
 	return shape.removeData(key);
 }
 
-public final Shape blur(double blurSize) {
-	return shape.blur(blurSize);
-}
-
-public final Shape emboss(double bias) {
-	return shape.emboss(bias);
-}
-
-public final Shape convolve(String convolutionName, int kernelXSize,
-		double[] kernel, double divisor, double bias) {
-	return shape.convolve(convolutionName, kernelXSize, kernel, divisor, bias);
-}
-
-public final Shape convolveClear(String convolutionName) {
-	return shape.convolveClear(convolutionName);
-}
-
-public final Shape convolveClearAll() {
-	return shape.convolveClearAll();
-}
-
-public final Shape emboss2(double factor, String orientation, double divisor,
-		double bias) {
-	return shape.emboss2(factor, orientation, divisor, bias);
-}
-
-public final Shape emboss2(double factor, String orientation) {
-	return shape.emboss2(factor, orientation);
-}
-
-public final Shape convolveSobel(double size, double multiplier,
-		double divisor, double bias) {
-	return shape.convolveSobel(size, multiplier, divisor, bias);
-}
-
-public final Shape convolveSobel(double size, double multiplier) {
-	return shape.convolveSobel(size, multiplier);
-}
+//public final Shape blur(double blurSize) {
+//	return shape.blur(blurSize);
+//}
+//
+//public final Shape emboss(double bias) {
+//	return shape.emboss(bias);
+//}
+//
+//public final Shape convolve(String convolutionName, int kernelXSize,
+//		double[] kernel, double divisor, double bias) {
+//	return shape.convolve(convolutionName, kernelXSize, kernel, divisor, bias);
+//}
+//
+//public final Shape convolveClear(String convolutionName) {
+//	return shape.convolveClear(convolutionName);
+//}
+//
+//public final Shape convolveClearAll() {
+//	return shape.convolveClearAll();
+//}
+//
+//public final Shape emboss2(double factor, String orientation, double divisor,
+//		double bias) {
+//	return shape.emboss2(factor, orientation, divisor, bias);
+//}
+//
+//public final Shape emboss2(double factor, String orientation) {
+//	return shape.emboss2(factor, orientation);
+//}
+//
+//public final Shape convolveSobel(double size, double multiplier,
+//		double divisor, double bias) {
+//	return shape.convolveSobel(size, multiplier, divisor, bias);
+//}
+//
+//public final Shape convolveSobel(double size, double multiplier) {
+//	return shape.convolveSobel(size, multiplier);
+//}
 
 public final JsArray<Attrs> writeToObject() {
 	return shape.writeToObject();

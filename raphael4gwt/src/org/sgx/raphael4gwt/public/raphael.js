@@ -5385,6 +5385,7 @@ window.Raphael.vml
 							round((cx - rx) * zoom), round((cy - ry) * zoom),
 							round((cx + rx) * zoom), round((cy + ry) * zoom),
 							round(cx * zoom));
+		            o._.dirty = 1;// sgurin - dirty flag should be reset - https://github.com/DmitryBaranovskiy/raphael/issues/319
 				}
 				if ("clip-rect" in params) {
 					var rect = Str(params["clip-rect"]).split(separator);

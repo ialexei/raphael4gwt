@@ -1,7 +1,6 @@
 package org.sgx.raphael4gwt.test;
 
 import org.sgx.raphael4gwt.raphael.Paper;
-import org.sgx.raphael4gwt.raphael.Path;
 import org.sgx.raphael4gwt.raphael.PathCmd;
 import org.sgx.raphael4gwt.raphael.Raphael;
 import org.sgx.raphael4gwt.raphael.Shape;

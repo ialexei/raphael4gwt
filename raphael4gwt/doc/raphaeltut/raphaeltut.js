@@ -181,7 +181,21 @@
 	  var randVal = minVal+(Math.random()*(maxVal-minVal));
 	  return typeof floatVal=='undefined'?Math.round(randVal):randVal.toFixed(floatVal);
 	};
-	
+	rt.dumpPathObj = function(po) {
+		var sb = ["Path{"]; 
+		if(po && po.length) for ( var i = 0; i < po.length; i++) {
+			sb.push("["); 
+			rt.dumpPathCmdObj(sb, po[i])
+			sb.push("]");  
+		}
+		sb.push("}"); 
+		return sb.join(""); 
+	}; 
+	rt.dumpPathCmdObj = function(sb, pco) {
+		if(pco && pco.length) for ( var i = 0; i < pco.length; i++) {
+			sb.push(pco[i]+" ");
+		}		
+	}
 	rt.randomColor = function() {
 		return "rgb("+rt.randomNumber(0,255)+","+rt.randomNumber(0, 255)+", "+rt.randomNumber(0,255)+")";
 	};
@@ -191,7 +205,7 @@
 		for(var i in o) {
 			s+=i+", ";
 		}
-		return s;
+		return s+"}";
 	};
 	
 	

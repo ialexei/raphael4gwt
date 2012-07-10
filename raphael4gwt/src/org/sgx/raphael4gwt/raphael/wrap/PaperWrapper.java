@@ -5,7 +5,6 @@ import org.sgx.raphael4gwt.raphael.Ellipse;
 import org.sgx.raphael4gwt.raphael.Image;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Path;
-import org.sgx.raphael4gwt.raphael.PathCmd;
 import org.sgx.raphael4gwt.raphael.Rect;
 import org.sgx.raphael4gwt.raphael.Set;
 import org.sgx.raphael4gwt.raphael.Shape;
@@ -20,7 +19,6 @@ import org.sgx.raphael4gwt.raphael.ft.FTCallback;
 import org.sgx.raphael4gwt.raphael.ft.FTOptions;
 import org.sgx.raphael4gwt.raphael.ft.FreeTransform;
 
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.resources.client.ImageResource;
@@ -178,9 +176,9 @@ public final Path path(String pathString) {
 	return paper.path(pathString);
 }
 
-public final Path path(PathCmd cmd) {
-	return paper.path(cmd);
-}
+//public final Path path(PathCmd cmd) {
+//	return paper.path(cmd);
+//}
 
 public final Font getFont(String fontFamily) {
 	return paper.getFont(fontFamily);

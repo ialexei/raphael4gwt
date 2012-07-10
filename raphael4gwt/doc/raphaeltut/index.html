@@ -386,12 +386,19 @@ paper.rect(240,100,200,90,20).attr({
    
    <h2 id="sec-shape-image" class="index">Image</h2>   
    
-   <p>Images are created using the paper's <a href="Paper.image"  class="code raphael-ref">Paper.image() method</a>.</p>
+   <p>Images are created using the paper's <a href="Paper.image"  class="code raphael-ref">Paper.image() method</a>.
+   The following information is required to create the image shape: image source, width, height, x and y coords: </p>
    
    
+   <pre class="code code-run">   
+paper.rect(20,20,320, 200, 20); 
+var img1 = paper.image("images/tiled1.png", 200,100, 200, 100);
+var img3 = paper.image("images/aminGif1.gif", 100,200, 200, 100);
+var img2 = paper.image("images/tiled1.jpg", 100,100, 100, 110);  
+   </pre>
    
-   
-   
+   <p>As the above example shows, PNG, JPG and GIF format are supported and in the case of GIF, animatimated
+   gifs will work nicely (animated gifs shapes!). </p>
    
       
    <h2 id="sec-shape-path" class="index">Path</h2>
@@ -925,9 +932,9 @@ e.attr({"stroke": "brown", "stroke-width": 3, "clip-rect":"20,30,120,60"});
 	<p>The fill attribute can be a color and many color formats are supported: </p>
 	
 	<pre id="ex-color1" class="code code-run">
-paper.ellipse(100,100,90,40).attr({fill: "yellow"})
-paper.rect(200,100,90,40).attr({fill: "#4422ff"})
-paper.path("m200,200l280,200l290,290z").attr({fill: "rgb(213,111,5)"})
+paper.ellipse(100,100,90,40).attr({fill: "yellow"}); 
+paper.rect(200,100,90,40).attr({fill: "#4422ff"}); 
+paper.path("m200,200l280,200l290,290z").attr({fill: "rgb(213,111,5)"}); 
 paper.ellipse(340,100,90,40).attr({fill: "hsb(0.5,0.9,0.9)"});
 	</pre>
 	
@@ -2242,12 +2249,22 @@ paper.path("M10,20L30,40");
    
    <p>All commands support both absolute and relative coordinates. Upper case letter means command is absolute, lower case means the given 
    command arguments are relative to current point. </p>
-   
+   l
    <h4>The M - "moveto" commands</h4>
    <p>The "moveto" commands (M or m) establish a new current point. The effect is as if the "pen" were lifted and moved to a new location. 
    A path data segment (if there is one) must begin with a "moveto" command. It accepts two numbers as arguments, the x and y coordinate where to move the pen.</p>
    
+   <h4 id="sec-types-path-curveto">The L - "lineto" commands</h4>
    
+   <p>The L (lineto) path command serves to draw straight lines. Just pass a point as a parameter to where you wan to draw a starght line to from current point. 
+   In the following example we draw a path consisting on straight lines, in this case a polygon: </p>
+   <pre class="code code-run">
+paper.path("M86,17L28,69L26,111L83,101L54,81L94,74L67,65Z").attr({fill: "red"}); 
+    </pre>
+    
+    <p>As you can see...TODO</p>
+    
+    
    <h4>The Z - "closepath" command</h4>
    
    <p>Close the current subpath by drawing a straight line from the current point to current subpath's initial point. Since the Z and z commands take no parameters, they have an identical effect.</p>
@@ -2358,8 +2375,25 @@ cp2Shape.drag(
    in <a href="#sec-animation-cubic-bezier">Define Animations with custom formulaes</a>, 
    custom animations formulaes can be defined using a cubic Bézier that describe how the value of an attribute must change over time. </p>
    
+   <h4></h4>
+   
    
 <!--    <p>Understanding how this curve works will serve us for understandng how to define custom animation formulaes in -->
+   
+   <h3 id="sec-types-path-relative-vs-absolute">Relative and absolute path commands coords</h3>
+   
+   <p>As we said, path commands can be relative or absolute. Absolute commands are specified with capital command letter, 
+   like "L120,90" and take numeric parameters as absolute coordenates (relative to the paper). Absolute coordenates should be always
+   positive. </p>
+   
+   <p>Relative path commands are specified using lower case command letter, like "l30,-40" and the numeric parameters are interpreted 
+   as relative coordinates, this is coordinates relative to the last command point. Relative coordinates can take negative values. </p>
+   
+   <p>The raphael global utility method <a href="Raphael.pathToRelative" class="raphael-ref">Raphael.pathToRelative(pathString)</a>
+   can be used to transform a path to an equivalent path that uses only relative path commands.</p>  
+   
+   
+   
    
    <h3 id="sec-types-pathObjectType">Path Object Type</h3>
    
@@ -2408,9 +2442,52 @@ p1.click(function(ev){
 
    </pre>
    
+   <!-- 
+   <pre class="code code-run">
+   var p1 = "M112,16L15,92L65,106L113,68L149,41L94,56L94,56Z";
+   var pathObj1 = Raphael.parsePathString(p1);
+   alert(rt.dumpPathObj(pathObj1)); 
+   
+   var p1 = "M112,16L15,92,65,106,113,68,149,41,94,56,94,56Z";
+   var pathObj1 = Raphael.parsePathString(p1);
+   alert(rt.dumpPathObj(pathObj1)); 
+   /*var path1 = paper.path(p);*/
+   </pre>
+   -->
    <p>As you may see we were manipulating paths using arrays/objects and not strings at all.
    we can use object format both for create a path with paper.path and for set a the path attribute. </p>
    
+   
+   
+   
+   <h3 id="sec-types-path-moving">Moving a path</h3>
+   
+   <p>As we have seen, we can move circles and ellipsis by changing its cx and cy attributes. The same with rectangles and text changing its x and y attributes. In these cases we are not changing the shape's coordinates system
+   but moving the shape itself changin its position attributes. In this section we will detail how the same can be done 
+   for paths, this is how to change the position of a path without changing its transform attribute (without using scale(), translate() or transform attribute). </p>
+   
+   <p>We will work with the Raphael Matrix objects for specifying the desired transformation only, and then 
+   we will use <b href="Raphael.mapPath" class="raphael-ref">Raphael.mapPath()</b> for changing our path's "path" attribute" according with the transformation. </p>
+   
+   <pre class="code code-run">
+var pathStr = "M134,58L240,145L110,174L174,145L125,124L184,119Z"; 
+var path = paper.path(pathStr).attr({"stroke-width": 3, fill: "yellow"});
+paper.text( 100,100, "CLICK THE PATH").toFront(); 
+path.click(function(){
+	var m = Raphael.matrix(1, 0, 0, 1, 0, 0); /* the identity matrix */
+	m.translate(-60, -40);
+	m.scale(0.6); 
+	var newPath = Raphael.mapPath(path.attr("path"), m);
+	path.animate({"path": newPath}, 1000, "linear", function(){
+		alert("the path itself was changed - its coordinate system remains "+path.matrix+" (identity)");
+	});
+}); 
+   </pre>  
+   
+   <p>So using this technic we can translate, scale and rotate a path itself without changing its coordinate system. </p>
+   
+   
+    
    
    <h3>Path uitities </h3>
    
@@ -2451,9 +2528,11 @@ p1.click(function(ev){
    
    
    
-   <h2 id="sec-types-gradient">Gradient</h2>
+<!--    <h2 id="sec-types-gradient">Gradient</h2> -->
    
-   <p>TODO: describe gradient format. examples. 
+<!--    <p>TODO: describe gradient format. examples.  -->
+   
+   
    
    
    
@@ -2522,11 +2601,16 @@ r.click(function(e){
    
    <h2 id="sec-types-matrix">Matrix</h2>
    
-   <p>In previus section we take a look at the transform attribute and how to use it for changing the coordinate system of a shape. The current transformation of
-   a shape is stored in shape's <a href="Element.matrix" class="raphael-ref">matrix property</a> and we will describe it in this section. </p>
+   <p>In previus section we take a look at the transform attribute and how to use it for changing 
+   the coordinate system of a shape. The current transformation of
+   a shape is stored in shape's <a href="Element.matrix" class="raphael-ref">matrix property</a> 
+   and we will describe it in this section. </p>
+   
    
 	<h3>Introduction to transformation matrix</h3>
-	<p>Mathematically, all linear transformations can be represented as 3x3 transformation matrices of the following form:</p>
+	
+	<p>In this section we will discuss what is a linear transformation. Mathematically, all linear transformations 
+	can be represented as 3x3 transformation matrices of the following form:</p>
    
    <img src="images/Matrix.png"></img>
    
@@ -2552,7 +2636,8 @@ r.click(function(e){
     
     <img src="images/MatrixScale.png"></img>  
     
-    <p>or <b class="code">[sx 0 0 sy 0 0]</b>. One unit in the X and Y directions in the new coordinate system equals sx and sy units in the previous coordinate system, respectively.</p>
+    <p>or <b class="code">[sx 0 0 sy 0 0]</b>. One unit in the X and Y directions in the new coordinate system 
+    equals sx and sy units in the previous coordinate system, respectively.</p>
     
     
     <h4>Rotation</h4>
@@ -2583,12 +2668,14 @@ r.click(function(e){
    <p>The <a href="Matrix" class="raphael-ref code">matrix property</a> is a JavaScript object which specifies a transformation in 
    the form of a transformation matrix of six values. matrix(a,b,c,d,e,f) is equivalent to applying the transformation matrix [a b c d e f].
    For example, the Identity transformation, that is, a transformation that do nothing, is [0 0 1 0 1 0]. More details about matrix transformation
-   can be read in the <a href="http://www.w3.org/TR/SVG/coords.html#TransformAttribute">SVG Spec - Section 7 Coordinate Systems, Transformations and Units</a></p>
+   can be read in the <a href="http://www.w3.org/TR/SVG/coords.html#TransformAttribute">
+   SVG Spec - Section 7 Coordinate Systems, Transformations and Units</a></p>
    
    
    <p>So we can access a shape's transformation both using shape's <b class="code">attr("transform")</b> using strings and also using the
    <a href="Matrix" class="raphael-ref code">matrix property</a>, using a rich matrix type with which we can work numerically. 
-   In general, working with strings can be easier, but working with the <a href="Matrix" class="raphael-ref code">matrix property</a> is efficient. </p>
+   In general, working with strings can be easier, but working with the 
+   <a href="Matrix" class="raphael-ref code">matrix property</a> is efficient. </p>
    
    
    
@@ -2600,7 +2687,7 @@ r.click(function(e){
    
    <pre class="code code-run">
 var rect = paper.rect(150,150,100,60).attr({fill: "red"});
-/* at this point ellipse.matrix == Identity matrix == [1 0 0 0 1 0] */
+/* at this point ellipse.matrix == Identity matrix == [1 0 0 1 0 0] */
 
 /* now let's do skewx with an angle of pi/8 deg. this would be [1 0 tan(pi/8) 1 0 0] */
 rect.matrix.add(1, 0, Math.tan(Math.PI/8), 1, 0, 0);
@@ -2616,28 +2703,79 @@ rect.attr({transform: rect.matrix.toTransformString()});
    
    <p>For deleting all transformations of a shepe, we use <b class="code">rect.transform("")</b>. </p>
    
+   <h4>Inverting the matrix</h4>
+   <p>The matrix object suuuport invert operator, so we can "undo" a transformation. In the following example, we first apply a skew transformation 
+   and then undo it using matrix.invert(). </p>
    
+   <pre class="code code-run" id="ex-types-matrix-invert">
+var rect = paper.rect(150,150,100,60).attr({fill: "red"});
+/* at this point ellipse.matrix == Identity matrix == [1 0 0 1 0 0] */
+
+/* now let's do skewx with an angle of pi/8 deg. this would be [1 0 tan(pi/8) 1 0 0] */
+rect.matrix.add(1, 0, Math.tan(Math.PI/8), 1, 0, 0);
+
+/* and now let's apply the "skewed" matrix */
+rect.attr({transform: rect.matrix.toTransformString()});
+
+/* now we want to undo the skew operation - use matrix.invert() */
+setTimeout(function(){
+	rect.animate({transform: rect.matrix.invert().toTransformString(), fill: "blue"}, 1000); 
+}, 1000); 
+   </pre>
    
    
    <h2 id="sec-types-gradient">Gradients</h2>
-   <p>We can use the fill attribute to fill a shape with a color gradient. </p>
+   
+   <p>We can use the fill attribute to fill a shape with a color gradient. Raphael support two kind of gradients, linear and radial. 
+   In the following example we show a simple example of both : </p>
+   
    <pre class="code code-run">
-paper.rect(50,150,200,180).attr({fill: "90-#fff-#000", "stroke-width": 20, stroke: "red"});
-paper.circle(250,150,100).attr({fill: "0-#fff-#f00:20-#000", "stroke-width": 10, stroke: "blue"});
+/* a rectangle with a linear gradient from white via red (at 20%) to black */
+paper.rect(50,150,200,180).attr({fill: "0-#fff-#f00:20-#000", "stroke-width": 20, stroke: "red"});
+
+/* a circle with a radial gradient from white to black with focus point at 0.25, 0.75. Focus point coordinates are in 0..1 range */
+paper.circle(250,150,100).attr({fill: "r(0.25, 0.75)#fff-#000", "stroke-width": 10, stroke: "blue"});
    </pre>
    
-   <h2>Linear gradient</h2>
-   
-   <h2>Radial gradient</h2>
-   
-   
-   <p>Linear gradient format: “‹angle›-‹colour›[-‹colour›[:‹offset›]]*-‹colour›”, 
+   <h3>Linear gradient</h3>
+    <p>Linear gradient format: “‹angle›-‹colour›[-‹colour›[:‹offset›]]*-‹colour›”, 
    example: “90-#fff-#000” – 90° gradient from white to black or 
    “0-#fff-#f00:20-#000” – 0° gradient from white via red (at 20%) to black.</p>
-	
-<p>radial gradient: “r[(‹fx›, ‹fy›)]‹colour›[-‹colour›[:‹offset›]]*-‹colour›”, example: “r#fff-#000” – gradient from white to black or “r(0.25, 0.75)#fff-#000” – gradient from white to black with focus point at 0.25, 0.75. Focus point coordinates are in 0..1 range. Radial gradients can only be applied to circles and ellipses.</p> 
    
-   <p></p>
+   <h3>Radial gradient</h3>  
+   
+<p>Radial gradients can only be applied to circles and ellipses. Its format is: 
+“r[(‹fx›, ‹fy›)]‹colour›[-‹colour›[:‹offset›]]*-‹colour›”. For example, “r#fff-#000” – 
+gradient from white to black or “r(0.25, 0.75)#fff-#000” – gradient from white to black with focus point 
+at 0.25, 0.75. Focus point coordinates are in 0..1 range. </p> 
+
+<p>You can put more than one gradient partition, and use any raphael supported color format, like in the following example: </p>
+
+ <pre class="code code-run">
+var 
+	/* a 2 partition radial gradient using 3 types of color formats: hex, rgb, hsb */
+	g1 = "r(0.25, 0.75)#fff-rgb(22,233,133)-"+
+		"r(0.55, 0.25)rgb(12,233,33)-"+Raphael.hsb(22,22,21),
+		
+	/* a gradient filled ellipse */
+	e1 = paper.ellipse(200,200,120,160).attr({fill: g1}), 
+	
+	/* the future state */
+	
+	g2 = "r(0.35, 0.55)#ed2378-rgb(222,233,13)-"+
+		"r(0.45, 0.75)rgb(112,233,33)-#ede318"
+	; 	
+	
+alert(g2); 
+e1.animate({"fill": g2}, 2000, "linear"); 
+	
+ </pre>
+   
+   <p>In the following example, we perform some animation on the </p>
+   
+   
+   
+   
    
    <h2>Images</h2>
    <p>We reference images when creating an image shape or when filling a shape with an image. In the following example
@@ -3183,7 +3321,10 @@ eve.on("raphael.event.tripleclick."+c.id, function(evt) {
    
    
    
+   
+   
    <h1>Useful <b class="index">Raphaël Extensions</b></h1>
+   
    <p>In this section we will describe how to use several Raphaël Js extensions made by users, that the author of this tutorial consider useful. </p>
    
    <h2 class="index">Color Picker</h2>
@@ -3206,6 +3347,8 @@ eve.on("raphael.event.tripleclick."+c.id, function(evt) {
   Cross-browser solution to export Raphaël elements to <a class="index" href="http://www.w3.org/Graphics/SVG/">SVG</a>, works in Internet Explorer 6, 7 and 8. 
   Can be used to convert Raphaël drawings to PNG or PDF server-side using <a href="http://www.imagemagick.org/">ImageMagick</a> 
   or&nbsp;<a href="http://xmlgraphics.apache.org/batik/" title="Batik SVG Toolkit">Batik</a>. </div>
+
+
 
 
 

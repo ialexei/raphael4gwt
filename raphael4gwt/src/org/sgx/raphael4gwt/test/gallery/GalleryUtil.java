@@ -13,6 +13,7 @@ import org.sgx.raphael4gwt.test.AllPathIcons;
 import org.sgx.raphael4gwt.test.AnimKeyframesTest1;
 import org.sgx.raphael4gwt.test.AnimTransformAndPathTest1;
 import org.sgx.raphael4gwt.test.AttributesTest1;
+import org.sgx.raphael4gwt.test.CSSTest1;
 import org.sgx.raphael4gwt.test.ComponentTransferLinearTest1;
 import org.sgx.raphael4gwt.test.EveAttrChangeTest1;
 import org.sgx.raphael4gwt.test.BlurAndEmbossTest1;
@@ -37,8 +38,10 @@ import org.sgx.raphael4gwt.test.MouseRelativeCoordsTest;
 import org.sgx.raphael4gwt.test.PaperLoadAndSave;
 import org.sgx.raphael4gwt.test.PaperLoadAndSaveUnit1;
 import org.sgx.raphael4gwt.test.PaperViewBoxTest1;
-import org.sgx.raphael4gwt.test.PathCmdsTest1;
-import org.sgx.raphael4gwt.test.PathEditorTest1;
+import org.sgx.raphael4gwt.test.SvgFiltersTest1;
+//import org.sgx.raphael4gwt.test.PathCmdsTest1;
+//import org.sgx.raphael4gwt.test.PathEditorTest1;
+import org.sgx.raphael4gwt.test.PathObjectTest1;
 import org.sgx.raphael4gwt.test.PrintLettersOnPath;
 import org.sgx.raphael4gwt.test.SVGExportTest1;
 import org.sgx.raphael4gwt.test.SVGImportTest1;
@@ -233,8 +236,8 @@ public class GalleryUtil {
 		t = new AllMouseEvents(paper, w, h);
 		tests.put(t.getName(), t);		
 
-		t = new PathEditorTest1(paper, w, h);
-		tests.put(t.getName(), t);
+//		t = new PathEditorTest1(paper, w, h);
+//		tests.put(t.getName(), t);
 		
 		t = new PrintLettersOnPath(paper, w, h);
 		tests.put(t.getName(), t);
@@ -263,8 +266,8 @@ public class GalleryUtil {
 		t = new ShapeUnitTest1(paper, w, h);
 		tests.put(t.getName(), t);
 
-		t = new PathCmdsTest1(paper, w, h);
-		tests.put(t.getName(), t);
+//		t = new PathCmdsTest1(paper, w, h);
+//		tests.put(t.getName(), t);
 		
 		t = new LivePathTest(paper, w, h);
 		tests.put(t.getName(), t);
@@ -313,7 +316,16 @@ public class GalleryUtil {
 		t = new ComponentTransferLinearTest1(paper, w, h);
 		tests.put(t.getName(), t);
 		
+		t = new PathObjectTest1(paper, w, h);
+		tests.put(t.getName(), t);
 		
+		t = new SvgFiltersTest1(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		t = new CSSTest1(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		  
 	}
 
 	Map<String, List<Test>> getTestsByTag() {

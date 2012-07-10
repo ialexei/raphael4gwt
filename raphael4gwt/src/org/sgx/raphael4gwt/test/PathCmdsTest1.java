@@ -3,21 +3,9 @@ package org.sgx.raphael4gwt.test;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Path;
 import org.sgx.raphael4gwt.raphael.PathCmd;
-import org.sgx.raphael4gwt.raphael.Set;
-import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
-import org.sgx.raphael4gwt.raphael.base.Font;
-import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
 import org.sgx.raphael4gwt.raphael.util.Util;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
-
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 /**
  * show different types of using the artificial type PathCmd for 
  * programatically create a path in java (using pbjects not string based api)

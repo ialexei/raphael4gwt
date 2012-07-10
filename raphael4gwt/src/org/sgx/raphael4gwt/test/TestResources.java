@@ -127,5 +127,15 @@ public interface TestResources extends ClientBundle {
 	  
 	  @Source("ComponentTransferLinearTest1.java")
 	  public TextResource ComponentTransferLinearTest1();
+
+	  @Source("PathObjectTest1.java")
+	  public TextResource PathObjectTest1();
+
+	  @Source("SvgFiltersTest1.java")
+	  public TextResource SvgFiltersTest1();
+	  
+	  @Source("CSSTest1.java")
+	  public TextResource CSSTest1();
+	  
 	  
 }

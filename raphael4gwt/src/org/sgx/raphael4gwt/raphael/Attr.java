@@ -3,6 +3,7 @@ package org.sgx.raphael4gwt.raphael;
 import org.sgx.raphael4gwt.raphael.base.Arrow;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Gradient;
+import org.sgx.raphael4gwt.raphael.pathobj.PathObject;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.resources.client.ImageResource;
@@ -344,6 +345,9 @@ public class Attr {
 		data.setPath(val);
 	}
 	public final Attrs path(String val) {
+		return data.path(val);
+	}
+	public final Attrs path(PathObject val) {
 		return data.path(val);
 	}
 	public final int getRadius() {

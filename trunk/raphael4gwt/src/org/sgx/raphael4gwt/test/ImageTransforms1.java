@@ -46,7 +46,7 @@ public class ImageTransforms1 extends Test {
 		image1.click(new MouseEventListener() {			
 			@Override
 			public void notifyMouseEvent(NativeEvent e) {
-				image1.convolveSobel(1, 1.5);
+//				image1.convolveSobel(1, 1.5);
 			}
 		});
 	}

@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>eve tests the way I would do it.</title>
+<script type="text/javascript" language="javascript" src="../raphael.js"></script>
+<script type="text/javascript" language="javascript" src="../raphael-svg-filter.js"></script>
+</head>
+<body>
+<script type="text/javascript" language="javascript">
+var img1Url = "../../test/image/smallLion.png"; 
+var paper = Raphael(0,0,800,800); 
+
+var filter1 = paper.filterCreate("filter1"); 
+var filterOp1 = Raphael.filterOps.feGaussianBlur(2);
+filter1.appendOperation(filterOp1); 
+
+var img = paper.image(img1Url, 10,10,200,200);
+alert("2"); 
+img.installFilter(filter1); 
+
+</script>
+</body>
+</html>

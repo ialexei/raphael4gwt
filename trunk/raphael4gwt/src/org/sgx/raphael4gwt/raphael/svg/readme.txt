@@ -1,1 +1,0 @@
-java API for svg API extensions done in raphael-ext.js

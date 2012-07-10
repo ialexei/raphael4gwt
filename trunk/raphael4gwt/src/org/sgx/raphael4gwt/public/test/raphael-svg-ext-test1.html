@@ -12,11 +12,58 @@ var img1Url = "../../test/image/smallLion.png";
 var paper = Raphael(0,0,800,800); 
 
 var filter1 = paper.filterCreate("filter1"); 
-var filterOp1 = Raphael.filterOps.feGaussianBlur(0.4);
+
+
+
+
+
+
+/* conveolveMatrix op example: 3 steps: 
+	1) create a convolveMatrix filter operation data object: order, kernelMatrix and bias are
+	attributes of feConvolveMatrix while x and y are common attributes. 
+	2) create the convolveMatrix filter operation using the data object 
+	3) append the filter operation to the filter. 
+*/
+	
+
+
+/*gaussian blur filter op*/
+var filterOp1 = Raphael.filterOps.feGaussianBlur({stdDeviation: 2, x: 100, y: 100, width: 100, height: 100});
 filter1.appendOperation(filterOp1); 
 
-var img = paper.image(img1Url, 10,10,200,200);
-img.installFilter(filter1); 
+
+var cmop1 = {order: 3, kernelMatrix: [0, 1, 1, -1, 0, 1, -1, -1, 0].join(" "), bias: 1}, 
+	cm1 = Raphael.filterOps.feConvolveMatrix(cmop1); 
+filter1.appendOperation(cm1);
+
+/* color feComponentTransfer op */
+var ct1 = Raphael.filterOps.feComponentTransfer({
+	feFuncR: {type: "linear", slope: 1.01},
+	feFuncG: {type: "linear", intercept: 0.1}, 
+	feFuncB: {type: "linear", slope: 1.11, intercept: 0.112}	
+}); 
+filter1.appendOperation(ct1);
+
+
+
+
+
+//using general filter operation creator ables to pass filter common attrs x, y, w, h:
+// var filterOp2 = Raphael.filterOps.svgFilter("feGaussianBlur", 
+// 	{"stdDeviation": 1.2, x: 20, y: 20, width: 177, height: 266, result: "blur1"}); 
+// filter1.appendOperation(filterOp2);
+// var blend1 = Raphael.filterOps.feBlend("normal", "SourceGraphic", "BackgroundImage"); 
+// filter1.appendOperation(blend1);
+// var rect2 = paper.rect(10,10,300,300).attr({fill: "90-#fff-#000"}); 
+
+var img = paper.image(img1Url, 10,10,300,300);
+
+img.filterInstall(filter1); 
+
+img.click(function(){
+	// 	filter1.removeOperation(ct1); 
+	//  img.filterUninstall(filter1);  
+}); 
 
 </script>
 </body>

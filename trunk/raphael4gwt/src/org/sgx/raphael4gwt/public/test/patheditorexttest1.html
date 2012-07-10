@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>raphael4gwt ext test</title>
+<script type="text/javascript" language="javascript" src="../raphael.js"></script>
+<script type="text/javascript" language="javascript" src="../raphael-ext.js"></script>
+</head>
+
+<body>
+	<script type="text/javascript" language="javascript">
+
+	var paper = Raphael(0,0,800,800);
+	
+	str = "M126,10T125,30T110,60T60,50T58,12L25,18L9,66M47,99V77L82,100Q109,84,134,102L142,50H241L236,115C207,131,198,169,181,269S141,262,160,229M95,133L61,114C32.166666666666664,112.16666666666666,15.333333333333332,116.5,13,141C25.666666666666668,139.5,48.5,143.66666666666666,39,164C11.833333333333332,191.83333333333334,16.166666666666668,207.33333333333334,34,219C67.83333333333333,214.66666666666666,88,218.16666666666666,100,176Z"; 
+	var path = paper.path(str);  
+	
+	
+	var pathEd = path.installPathEditor(); 
+	pathEd.legend.transform("t260,0").toBack();  
+	
+    </script>
+
+</body>
+</html>

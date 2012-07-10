@@ -59,25 +59,25 @@ public class BlurAndEmbossTest1 extends Test {
 			fill(TestImageResources.INSTANCE.smallLion()).
 			transform("s3.0t70,50")
 		);
-		blurPath.click(new MouseEventListener() {			
-			@Override
-			public void notifyMouseEvent(NativeEvent e) {
-				blurPath.blur(0);
-				blurPath.blur(Integer.parseInt(blurText.getText()));
-			}
-		});
+//		blurPath.click(new MouseEventListener() {			
+//			@Override
+//			public void notifyMouseEvent(NativeEvent e) {
+//				blurPath.blur(0);
+//				blurPath.blur(Integer.parseInt(blurText.getText()));
+//			}
+//		});
 		
 		embossPath = paper.path(IconPaths.question).attr( Attrs.create().
 			fill(TestImageResources.INSTANCE.smallLion()).
 			transform("s3.0t140,50")
 		);
-		embossPath.click(new MouseEventListener() {			
-			@Override
-			public void notifyMouseEvent(NativeEvent e) {
-				embossPath.emboss(0);
-				embossPath.emboss(Float.parseFloat(embossText.getText()));
-			}
-		});
+//		embossPath.click(new MouseEventListener() {			
+//			@Override
+//			public void notifyMouseEvent(NativeEvent e) {
+//				embossPath.emboss(0);
+//				embossPath.emboss(Float.parseFloat(embossText.getText()));
+//			}
+//		});
 		
 		emboss2Path = paper.path(IconPaths.question).attr( Attrs.create().
 			fill(TestImageResources.INSTANCE.smallLion()).
@@ -91,7 +91,7 @@ public class BlurAndEmbossTest1 extends Test {
 //						0.5, 0, 0, 
 //						0, 1, 0, 
 //						0, 0, -0.5}, 1.0, 0.5);
-				emboss2Path.emboss2(2.5, "south", 1.0, 1);
+//				emboss2Path.emboss2(2.5, "south", 1.0, 1);
 //				embossPath.emboss(Float.parseFloat(embossText.getText()));
 			}
 		});	

@@ -7,9 +7,9 @@
 
 window.r4g = {
 	
-_firebug : function() {
-	debugger;
-},		
+//_firebug : function() {
+//	debugger;
+//},		
 _castToBoolean : function(o) {
 	if(typeof(o)=="object")
 		return (o+"")=="true";

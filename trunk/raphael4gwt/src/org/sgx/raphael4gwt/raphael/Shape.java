@@ -11,7 +11,8 @@ import org.sgx.raphael4gwt.raphael.event.DDListener;
 import org.sgx.raphael4gwt.raphael.event.DragOverListener;
 import org.sgx.raphael4gwt.raphael.event.HoverListener;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
-import org.sgx.raphael4gwt.raphael.svg.FEComponentTransfer;
+//import org.sgx.raphael4gwt.raphael.svg.FEComponentTransfer;
+import org.sgx.raphael4gwt.raphael.svg.filter.Filter;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
@@ -741,11 +742,28 @@ Note: Glow is not connected to the element. If you change element attributes it 
 	}-*/;
 	
 	/**
+	 * Adds given value asociated with given key	
+	 * @param key key to store params
+	 * @param value value to store
+	 */
+	public final native void data(String key, Object value)/*-{
+		this.data(key, value);
+	}-*/;
+	
+	/**
 	 * retrieves given value asociated with given key	
 	 * @param key
 	 * @return
 	 */
 	public final native  Object getData(String key)/*-{
+		return this.data(key);
+	}-*/;
+	/**
+	 * retrieves given value asociated with given key	
+	 * @param key
+	 * @return
+	 */
+	public final native  Object data(String key)/*-{
 		return this.data(key);
 	}-*/;
 	
@@ -785,101 +803,108 @@ Note: Glow is not connected to the element. If you change element attributes it 
 //	}-*/;
 	
 	
-	/**
-	 * blur plugin. supportes both svg and vml based browsers.
-	 * use blur(0) for deleting blur
-	 * @param blurSize - a number > 1, the larger the blurer
-	 * @return
-	 */
-	public final native Shape blur(double blurSize)/*-{
-		this.blur(blurSize);
-		return this;
-	}-*/;
-	/**
-	 * emboss plugin - support both svl and svg based browsers.
-	 * Use emboss(0) for deleting the embossing.
-	 * @param bias a number between 0 and 1
-	 * @return
-	 */
-	public final native Shape emboss(double bias)/*-{
-		this.emboss(bias);
-		return this;
-	}-*/;
-	
-	/**
-	 * pixel convolution tranformation (only svg). only squeare kernels allowed.
-	 * you can add many convolutions. Their name must be a valid html id. For example:
-	 * image.convolve("emboss1", 3, 3, [0.4,0,0,0,1,0,0,0,0.5])
-	 * image.convolve("conv2", 2,2,[1,2,2,3])
-	 * image.convolveClear("emboss1")
-	 */
+	//filters - obsolete - now use raphael.svg. package. see filterInstall()
+//	/**
+//	 * blur plugin. supportes both svg and vml based browsers.
+//	 * use blur(0) for deleting blur
+//	 * @param blurSize - a number > 1, the larger the blurer
+//	 * @return
+//	 */
+//	public final native Shape blur(double blurSize)/*-{
+//		this.blur(blurSize);
+//		return this;
+//	}-*/;
+//	/**
+//	 * emboss plugin - support both svl and svg based browsers.
+//	 * Use emboss(0) for deleting the embossing.
+//	 * @param bias a number between 0 and 1
+//	 * @return
+//	 */
+//	public final native Shape emboss(double bias)/*-{
+//		this.emboss(bias);
+//		return this;
+//	}-*/;
+//	
+//	/**
+//	 * pixel convolution tranformation (only svg). only squeare kernels allowed.
+//	 * you can add many convolutions. Their name must be a valid html id. For example:
+//	 * image.convolve("emboss1", 3, 3, [0.4,0,0,0,1,0,0,0,0.5])
+//	 * image.convolve("conv2", 2,2,[1,2,2,3])
+//	 * image.convolveClear("emboss1")
+//	 */
+////	public final native Shape convolve(String convolutionName, 
+////			int kernelXSize, double[] kernel, 
+////			double divisor, double bias, boolean preserveAlpha)/*-{
+////		this.convolve(convolutionName, kernelXSize, kernel, 
+////        		divisor, bias,  preserveAlpha);
+////		return this;
+////	}-*/;
 //	public final native Shape convolve(String convolutionName, 
 //			int kernelXSize, double[] kernel, 
-//			double divisor, double bias, boolean preserveAlpha)/*-{
+//			double divisor, double bias)/*-{
 //		this.convolve(convolutionName, kernelXSize, kernel, 
-//        		divisor, bias,  preserveAlpha);
+//        		divisor, bias);
 //		return this;
 //	}-*/;
-	public final native Shape convolve(String convolutionName, 
-			int kernelXSize, double[] kernel, 
-			double divisor, double bias)/*-{
-		this.convolve(convolutionName, kernelXSize, kernel, 
-        		divisor, bias);
-		return this;
-	}-*/;
-//	public final native Shape convolve(String convolutionName, 
-//			int kernelXSize, double[] kernel)/*-{
-//		this.convolve(convolutionName, kernelXSize, kernel);
+////	public final native Shape convolve(String convolutionName, 
+////			int kernelXSize, double[] kernel)/*-{
+////		this.convolve(convolutionName, kernelXSize, kernel);
+////		return this;
+////	}-*/;
+//	/**
+//	 * delete a registered convolution by name.
+//	 * @param convolutionName
+//	 * @return
+//	 */
+//	public final native Shape convolveClear(String convolutionName)/*-{
+//		this.convolveClear(convolutionName);
 //		return this;
 //	}-*/;
-	/**
-	 * delete a registered convolution by name.
-	 * @param convolutionName
-	 * @return
-	 */
-	public final native Shape convolveClear(String convolutionName)/*-{
-		this.convolveClear(convolutionName);
-		return this;
-	}-*/;
-	/**
-	 * delete all registered convolutions
-	 * @return
-	 */
-	public final native Shape convolveClearAll()/*-{
-		this.convolveClearAll();
-		return this;
-	}-*/;
+//	/**
+//	 * delete all registered convolutions
+//	 * @return
+//	 */
+//	public final native Shape convolveClearAll()/*-{
+//		this.convolveClearAll();
+//		return this;
+//	}-*/;
+//	
+//	public final native Shape emboss2(double factor, String orientation, 
+//			double divisor, double bias)/*-{
+//		this.emboss2(factor, orientation, divisor, bias);
+//		return this;
+//	}-*/;
+//	public final native Shape emboss2(double factor, String orientation)/*-{
+//		this.emboss2(factor, orientation);
+//		return this;
+//	}-*/;
+//	/**
+//	 * edge detection using sobel convolution 
+//	 * @param factor
+//	 * @param orientation
+//	 * @return
+//	 */
+//	public final native Shape convolveSobel(double size, double multiplier, 
+//			double divisor, double bias)/*-{
+//		this.sobel(size, multiplier, divisor, bias);
+//		return this;
+//	}-*/;
+//	public final native Shape convolveSobel(double size, double multiplier)/*-{
+//		this.sobel(size, multiplier);
+//		return this;
+//	}-*/;
+//	
+//	public final native Shape componentTransferLinear(String id, FEComponentTransfer data)/*-{
+//		this.componentTransferLinear(id, data); 
+//		return this; 
+//	}-*/;
+
 	
-	public final native Shape emboss2(double factor, String orientation, 
-			double divisor, double bias)/*-{
-		this.emboss2(factor, orientation, divisor, bias);
-		return this;
-	}-*/;
-	public final native Shape emboss2(double factor, String orientation)/*-{
-		this.emboss2(factor, orientation);
-		return this;
-	}-*/;
-	/**
-	 * edge detection using sobel convolution 
-	 * @param factor
-	 * @param orientation
-	 * @return
-	 */
-	public final native Shape convolveSobel(double size, double multiplier, 
-			double divisor, double bias)/*-{
-		this.sobel(size, multiplier, divisor, bias);
-		return this;
-	}-*/;
-	public final native Shape convolveSobel(double size, double multiplier)/*-{
-		this.sobel(size, multiplier);
-		return this;
-	}-*/;
-	
-	public final native Shape componentTransferLinear(String id, FEComponentTransfer data)/*-{
-		this.componentTransferLinear(id, data); 
+	public final native Shape filterInstall(Filter filter)/*-{
+		this.filterInstall(filter);
+//		this.componentTransferLinear(id, data); 
 		return this; 
 	}-*/;
-
 	
 	
 	/**

@@ -2,6 +2,7 @@ package org.sgx.raphael4gwt.raphael.jsutil;
 
 import java.util.Map;
 
+import org.sgx.raphael4gwt.raphael.base.CSSRule;
 import org.sgx.raphael4gwt.raphael.util.Util;
 
 import com.google.gwt.core.client.JavaScriptObject;
@@ -211,6 +212,11 @@ public class JsUtil {
 	public static String print(NativeEvent e) {
 		return "Event "+e.getType()+"("+e.getScreenX()+", "+e.getScreenY()+")"; 
 	}
+
+	public static native final void arrayRemoveItem(JsArray<?> a, int i)/*-{
+		a.splice(i, 1)
+	}-*/;
+
 
 
 

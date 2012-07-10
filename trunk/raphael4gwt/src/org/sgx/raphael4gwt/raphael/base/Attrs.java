@@ -1,4 +1,6 @@
 package org.sgx.raphael4gwt.raphael.base;
+import org.sgx.raphael4gwt.raphael.pathobj.PathObject;
+
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.resources.client.ImageResource;
 
@@ -682,7 +684,14 @@ public class Attrs extends JavaScriptObject {
 	public final native void setPath(String val)/*-{
 		this["path"]=val;
 	}-*/;
+	public final native void setPath(PathObject val)/*-{
+		this["path"]=val;
+	}-*/;
 	public final native Attrs path(String val)/*-{
+		this["path"]=val;
+		return this;
+	}-*/;
+	public final native Attrs path(PathObject val)/*-{
 		this["path"]=val;
 		return this;
 	}-*/;

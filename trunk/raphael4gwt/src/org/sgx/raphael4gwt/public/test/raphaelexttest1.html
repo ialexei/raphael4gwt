@@ -9,16 +9,46 @@
 
 <body>
 	<script type="text/javascript" language="javascript">
-	var img1Url = "../../test/image/smallLion.png"; 
-	var paper = Raphael(0,0,600,600); 
+	//componentTransferLinear
+// 	var img1Url = "../../test/image/smallLion.png"; 
+// 	var paper = Raphael(0,0,600,600); 
+// 	var img1 = paper.image(img1Url, 10, 10, 200, 200);
+// 	img1.componentTransferLinear("myTransf1", {funcR: {slope: 4, intercept: -1}, funcG: {slope: 4, intercept: -1}, funcB: {slope: 4, intercept: -1}}); 
+// 	var img2 = paper.image(img1Url, 210, 10, 200, 200);
+// 	img2.componentTransferLinear("myTransf2", {funcR: {slope: 1.5, intercept: 0}, funcG: {slope: 1.5, intercept: 0}, funcB: {slope: 4, intercept: -1}});
+	
+	
+	//path editor test
+// 	var paper = Raphael(0,0,600,600); 
+// 	var path = paper.path("M382,52L252,27L302,94M34,158V76L188,94L105,146H238L361,185C341,249,178,199,181,269S100,100,140,180Z"); 
+// 	var pathEd = path.installPathEditor({}); 
 
-	var img1 = paper.image(img1Url, 10, 10, 200, 200);
-	img1.componentTransferLinear("myTransf1", {funcR: {slope: 4, intercept: -1}, funcG: {slope: 4, intercept: -1}, funcB: {slope: 4, intercept: -1}}); 
-	
-	var img2 = paper.image(img1Url, 210, 10, 200, 200);
-	img2.componentTransferLinear("myTransf2", {funcR: {slope: 1.5, intercept: 0}, funcG: {slope: 1.5, intercept: 0}, funcB: {slope: 4, intercept: -1}});
-	
-	
+
+// - nt_scale / nt_translate extensions
+// var paper = Raphael(0,0,1600,1600); 
+// var img1Url = "../../test/image/smallLion.png"; 
+// paper.setStart(); 
+// paper.circle(100,40, 40).attr({fill: "blue"});
+// paper.ellipse(150,140, 40, 20).attr({fill: "yellow"}); 
+// paper.path("M100,100L170,100L150,150H70Z").attr({fill: "red"}).click(); 
+// paper.image(img1Url, 10,10, 50,50); 
+// paper.text(100,200,"HELLO WORLDDDDDD"); 
+// var set1 = paper.setFinish(); 
+
+// var clickHandler = function(e){
+// // 	alert()
+// 	set1.nt_translate(60,20);
+// 	set1.nt_scale(1.5,1.2); 
+// }; 
+// set1.click(clickHandler); 
+
+
+
+//css tests
+var paper = Raphael(0,0,1600,1600); 
+var rect1 = 
+
+
     </script>
 
 </body>

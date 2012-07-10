@@ -1,6 +1,7 @@
 package org.sgx.raphael4gwt.raphael;
 
 import org.sgx.raphael4gwt.raphael.base.Attrs;
+import org.sgx.raphael4gwt.raphael.base.CSSRule;
 import org.sgx.raphael4gwt.raphael.base.Font;
 import org.sgx.raphael4gwt.raphael.base.NativeFont;
 import org.sgx.raphael4gwt.raphael.base.Point;
@@ -9,12 +10,13 @@ import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
 import org.sgx.raphael4gwt.raphael.ft.FTCallback;
 import org.sgx.raphael4gwt.raphael.ft.FTOptions;
 import org.sgx.raphael4gwt.raphael.ft.FreeTransform;
+import org.sgx.raphael4gwt.raphael.pathobj.PathObject;
+import org.sgx.raphael4gwt.raphael.svg.filter.Filter;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.xml.client.Document;
 /**
  * Shapes are drawn in a paper, that is, a canvas element in the HTML document, where all shapes will live. It can be any number of papers in an HTML document and a shape belong to one paper.
  * Internally two implementations of paper exists SVG based and VML based (for IE<9). 
@@ -262,6 +264,14 @@ var c = paper.path("M10 10L90 90");
 	 */
 	public native final Path path(String pathString)/*-{
 		return this.path(pathString);
+	}-*/;
+	/**
+	 * builds a path from a path object (raphael path object format)
+	 * @param pathObject an object like [["M", 10, 10], ["L", 50,20]]
+	 * @return a new path shape
+	 */
+	public native final Path path(PathObject pathObject)/*-{
+		return this.path(pathObject);
 	}-*/;
 	/**
 	 * builds a path object using a path commands. 
@@ -720,5 +730,45 @@ txt[0].attr({fill: "#f00"});
 	public final native NamedSet namedSet()/*-{
 		return this.namedSet();
 	}-*/;
+	
+	
+	//svg filters
+	/**
+	 * creates a new Filter with given name
+	 * @param filterName
+	 * @return new Filter with given name
+	 */
+	public final native Filter filterCreate(String filterName)/*-{
+		return this.filterCreate(filterName); 
+	}-*/;
 
+
+	
+	
+	
+	
+	//CSS extension
+	/**
+	 * add a new named stylesheet from css code 
+	 * @param styleName the new stylesheet name
+	 * @param styleCode valid css string code (can contain comments)
+	 * @param apply - apply the new stylesheet to all paper shapes 
+	 */
+	public final native void styleAdd(String styleName, String css, boolean apply)/*-{
+		this.styleAdd(styleName, css, apply); 
+	}-*/;
+	public final native void styleApply(String styleName, JsArray<Shape> shapes)/*-{
+		this.styleApply(styleName, shapes); 
+	}-*/;
+	public final native void styleApply(String styleName)/*-{
+		this.styleApply(styleName); 
+	}-*/;
+	/**
+	 * @param styleName
+	 * @return the stylesheet previously registered with styleAdd()- User can modify retrned object and the call styleAplly() for reflect those changes. 
+	 */
+	public final native JsArray<CSSRule> styleGet(String styleName)/*-{
+		return this.styleGet(styleName); 
+	}-*/;
 }
+

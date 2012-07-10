@@ -1,0 +1,297 @@
+<!doctype html>
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <title>Raphaël4GWT Tutorial</title>
+    
+    <script type="text/javascript">window.raphaeltutTimer1=new Date().getTime();</script>
+    
+    <link type="text/css" rel="stylesheet" href="raphaeltut.css"/>
+    <link type="text/css" rel="stylesheet" href="prettify.css"/>    
+    
+    <script type="text/javascript" src="raphael-min.js"></script>
+<!--     <script type="text/javascript" src="jquery-1.7.2.min.js"></script> -->
+    <script type="text/javascript" src="raphaeltut.js"></script>    
+    <script type="text/javascript" src="generated_toc.js"></script>
+<!--     <script type="text/javascript" src="jquery.mousewheel.min.js"></script> -->
+<!--     <script type="text/javascript" src="prettify.js"></script> -->
+    
+	<!-- some cufon fonts used in this tutorial -->
+<!--     <script type="text/javascript" src="Phorssa_400.font.js"></script> -->
+<!--     <script type="text/javascript" src="Anchor_Steam_NF_400.font.js"></script> -->
+<!--     <script type="text/javascript" src="samarkan.cufonfonts.js"></script>     -->
+    
+    
+    
+  </head>
+
+  <body>
+
+	<div id="refererenceDialog">
+		<div id="refererenceDialogClose" onclick="$('#refererenceDialog').hide();">Close Reference</div>
+		<div id="refererenceDialogTitle"></div>
+		<div id="refererenceDialogContent">
+		</div>
+	</div>
+
+	<div id="exampleDialog">
+		<div id="exampleDialogClose" onclick="$('#exampleDialog').hide();">Close Example</div>
+		<div id="exampleDialogTitle"></div>
+		<div id="exampleDialogContent"></div>
+	</div>
+
+   <div id="wrapper">
+   
+   <div class="title">RaphaëlJs Tutorial</div>
+   
+   <p class="author">Author: <a href="http://code.google.com/p/raphael4gwt/">
+   	Sebastián Gurin</a>
+   
+   
+   
+   <h1>Table Of Contents</h1>
+   <div id="generated-toc"></div>
+   
+   
+   <button onclick="window.opener.r4gtutGWT.sayHello(); ">PREEEEESSSSS me </button>
+   <h1>About this document</h1>
+   
+   <p>This is a <a href="http://raphaeljs.com">Raphaël Js</a> tutorial, a tutorial about easy drawing in web pages using the great 
+   JavaScript library <a href="http://raphaeljs.com">Raphaël Js</a>.  
+      
+   <p>Since this is a JavaScript library tutorial, users should know the basics 
+   of JavaScript programming language. This document
+   nevertheless, will try to be very detailed in advanced examples code.</p>
+   
+   <p>Raphaël comes with an nice <a href="http://raphaeljs.com/reference.html#Raphael">Reference</a> where all its features are 
+   described with examples. Nevertheless, some features are not easy to understand to those not familiar with technologies 
+   like SVG or JavaScript and it is there where this tutorial wants to contribute.</p>
+   
+   <p>The author of this tutorial is also the author of  <a href="http://code.google.com/p/raphael4gwt/">raphael4gwt</a>
+    a Raphaël porting to GWT (Java). The sources of this tutorial are currently being mantained at 
+    <a href="http://code.google.com/p/raphael4gwt/source/browse/#svn%2Ftrunk%2Fraphael4gwt%2Fdoc%2Fraphaeltut">
+    raphael4gwt project page</a>. So contact with that project if you have 
+    comments or suggestiongs about this tutorial. </p>
+    
+  <p>The tutorial was written entirely in HTML and contain a lot of live links to <a href="http://raphaeljs.com/reference.html">Raphaël reference page</a>
+  containing the exact reference definition., These links will open in a popup and show a certain function like <a href="Element.attr" class="raphael-ref">Element.attr()</a> 
+  
+  <p>It also contain many inline examples that can be executed inside the same tutorial, so it is easy to see the code output result. 
+  Just click in the run button. For example, just click the "Run" button after the source code for running it.  </p>
+  
+  <a class="code code-run" href="ex-color1"></a>
+  
+  
+  
+   <h1>Acknowledgments</h1>
+   
+   <p>First of all to the author of Raphaël Js, Dmitry Baranovskiy, for this great javascript 
+   library easy to use even for those not familiar with design or drawing.</p>
+   
+   <p>Second I would like to thanks Charles Thomas, owner of the site 
+   <a href="http://www.irunmywebsite.com">http://www.irunmywebsite.com</a>, a great place dedicated to raphaeljs, 
+   with pages made of graphics created with raphaeljs and with a lot of documentation, links and examples. Many examples 
+   of this tutorial were taken from there. I recommend readers to take a visit when searching to alternative material or documentation related to raphaeljs.</p> 
+   
+   
+   
+   
+   <h1>Introduction</h1>
+   
+   <p>Formally, from its web site,</p>
+   
+   <div class="quote">
+   
+   <p> <a href="http://raphaeljs.com">Raphaël Js</a>
+    Raphaël is a small JavaScript library by Dmitry Baranovskiy that should simplify your work 
+    with vector graphics on the web. If you want to create your own specific 
+    chart or image crop and rotate widget, for example, you can achieve it 
+    simply and easily with this library.</p>
+    
+   	<p>Raphaël ['ræfeɪəl] uses the <b class="index">SVG</b> W3C Recommendation and 
+   	<b class="index">VML</b> as a base 
+	for creating graphics. This means every graphical object you create is 
+	also a DOM object, so you can attach JavaScript event handlers or modify 
+	them later. Raphaël’s goal is to provide an adapter that will make drawing 
+	vector art compatible cross-browser and easy.</p>
+   
+   <p>While Raphaël Js is well documented on its <a href="">reference</a>, 
+   this document is a guide to drawing web pages with Raphaël Js for those users
+   new to vector graphics, starting with easy examples through the advanced Raphaël  
+   features like animations, event handling and Raphaël extensions development.</p>
+   
+   </div>
+
+	<h2>Vector versus Bitmap Web Drawing Technologies</h2>
+
+	<p>From this definition it is important to notice the following. There are two "main types" of 
+	technologies for drawing in web pages: vector based and bitmap based. </p>
+	
+	<p>In vector based drawing, you draw <b class="emph">shape elements</b> inside a <b class="emph">document</b>, 
+	just like in html you have html elements inside an html document. Elements have parents and children 
+	and attributes that define them. Drawing technologies like Raphaël, <a href="SVG" class="index">SVG</a> and 
+	<a class="index" href="VML">VML</a> are vector based technologies.</p> 
+	
+	<p>On the other side, in bitmap based drawing we paint an array (matrix) of points with some color. 
+	There is no document or shape elements or attributes here, only a rectangle of NxM points each one with a color.
+	<a href="http://en.wikipedia.org/wiki/Canvas_element">HTML Canvas</a> is a bitmap based drawing technology.</p>
+    
+    <p>In the desktop, we can see the same vector vs. bitmap drawing technology duality, comparing vector oriented software like 
+    Corel Draw or Inskape with bitmap oriented software like photoshop or Gimp.</p>
+    
+    <p>Each technology has its pros and cons. In practice, you wouldn't make a 3D game like DOOM or an image manipulation program in a vector 
+    based technology. On the other hand, it is much more simpler to draw presentations, documents, charts, and that kind of document on a vector based technology.</p>
+    
+<!--     end of introduction -->
+   
+   
+   
+   
+   
+   
+   
+   <h1 id="sec-getting-started">Getting Started</h1>
+   
+ 	<p>Raphaël is a JavaScript library for drawing on web pages. Basically one 
+ 	draw shapes of different types, likes circles, text, rectangles, images. Shapes support a large number of 
+ 	attributes that give the shape's form, like colors, transformations, content, borders, animations, (and many more). 
+ 	</p>
+ 	
+ 	<p>Shapes are drawn in a <b>paper</b>, that is, a canvas element in the HTML document, 
+ 	where all shapes will live. It can be any number of papers in an HTML document and a
+	shape <b>belong</b> to one paper.</p>
+	
+	<p>In this section we will discuss how to create a paper for drawing. </p>
+	
+	<h2>Include <b class="code">raphael.js</b></h2>
+	
+	<p>The first requeriment for creating a <b class="index">paper</b> is to load the file 
+	<b class="code">raphael.js</b> in your html document like the following example. 
+	You can download the file <b class="code">raphael-min.js</b> from 
+	<a href="http://raphaeljs.com/">http://raphaeljs.com/</a>
+	and put it in the same folder of your HTML file: </p>
+	
+	<pre class="code">
+&lt;script type="text/javascript" src="raphael-min.js"&gt;&lt;/script&gt;
+	</pre>
+	
+	<div class="note">Note, you can download and work with the non minified version of raphael.js when you are developing.
+ 	 It will be easier for debugging and to read its source code for learning how some stuff is accomplished by the library. 
+ 	 Also, if you are "feeling cloudy" you can load the latest version of  <b class="code">raphael.js</b> from 
+    <a href="http://github.com">github</a>, link to this URLs directly:  
+    <a href="http://github.com/DmitryBaranovskiy/raphael/raw/master/raphael-min.js">raphael-min.js</a> and 
+    <a href="http://github.com/DmitryBaranovskiy/raphael/raw/master/raphael.js">raphael.js</a>, like the following example: </div>
+    <pre class="code">
+&lt;script type="text/javascript" src="http://github.com/DmitryBaranovskiy/raphael/raw/master/raphael-min.js"&gt;&lt;/script&gt;
+	</pre>
+	
+	
+	<h2 id="sec-creating-a-paper">Creating a paper</h2>
+	
+	<p>Once we have included raphael.js script in our web page we can proceed to create a raphaël 
+	paper and draw on it. Creating a paper in raphael is accomplished by calling 
+	<b class="code">Raphael(...)</b> functon as described in <a href="http://raphaeljs.com/reference.html#Raphael">the reference</a>. 
+	</p>
+	
+	<p>
+	The more flexible way of creating a paper, 
+	is to create it inside some HTML element of our web page. In the following example we show a 
+	complete HTML document that inserts raphael.js, has an HTML element with id "paper1" 
+	and last, creates a paper inside that element and draw a rectangle: </p>
+	
+	<pre class="code">&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta http-equiv="content-type" content="text/html; charset=UTF-8"&gt;
+    &lt;title&gt;Raphaël tutorial - Getting Started - Example 1&lt;/title&gt;    
+    &lt;script type="text/javascript" src="../raphael-min.js"&gt;&lt;/script&gt;    
+  &lt;/head&gt;
+  &lt;body&gt;
+  
+	&lt;!-- the html element where to put the paper --&gt;
+	&lt;div id="paper1"&gt;&lt;/div&gt;
+	
+	&lt;!-- a script that create's a paper and a rectangle --&gt;
+	&lt;script type="text/javascript"&gt;
+	var paper = Raphael("paper1", 500,500);
+	var rect1 = paper.rect(20,30,100,12).attr({fill: "orange"});
+	&lt;/script&gt;
+	
+  &lt;/body&gt;
+&lt;/html&gt;</pre>	
+	
+	<p>As you can see, once we include <b class="code">raphael.js</b>, we have ceated a raphael paper and drawed a rectangle on it with JavaScript. 
+	You can <a href="examples/example1.html">run this individual example</a> and checkout the source code in your browser for better understanding. </p>
+	
+	<p>We will examine paper more in deep in <a href="#sec-shape-paper">Section "Paper"</a>. </p>
+	
+	
+	<h2>Simple example</h2>
+	<p>Now that we know how to create a paper, let's make our first drawing, commenting the code with explanations. Don't feel bad 
+	if you don't catch anything, all will be explained detailed in this toturial. Notice that after the example source code there 
+	is a "Run" button that you can use for running the example without having to leave the tutorial. 
+	You can run almost all example code of this tutorial this way. </p>
+	
+<pre class="code code-run">/* create a paper - commented for Run */
+/* var paper = Raphael("paper1", 400, 400); */
+
+/* create an ellipse called ellipse1 */
+var ellipse1 = paper.ellipse(110,80,120,42);
+
+/* fill the rectangle with orange */
+ellipse1.attr({"fill": "blue", "stroke": "yellow"});
+
+/* create a text */
+var text1 = paper.text(100,90, "Click me");
+
+/* sets text font family and size */
+text1.attr({"font-family": "fantasy", "font-size": 24});
+
+/* group both the ellipse and the text in a single Set shape */
+var button1 = paper.set([ellipse1, text1]);
+button1.attr({cursor: "pointer"});
+
+/* add a click handler */
+button1.click(function(evt){
+
+	/* animate the ellipse - in two seconds its fill color and its stroke 
+	 * width will grow "bouncing". */
+	ellipse1.animate({fill:"red", "stroke-width": 20}, 2000, "bounce");
+	
+	/* also animate the text - syncronized with the eliipse animation the 
+	 * text will grow "bouncing too" */
+	text1.animateWith(ellipse1, null, {"font-size": 60}, 2000, "bounce");
+	
+}); </pre>
+
+
+	
+	<p>Now that we know how to create a raphaël's paper, in the following sections we will proceed to describe each of raphaël's supported 
+	shapes and shape's attributes. After that we will discuss more advanced topics like event handling and animations. </p>
+	
+	<p class="note">Note that, later, in all the examples code in this tutorial, for the sake of simplicity,
+	we omit the paper creation and draw directly in a paper object. We assume you already 
+	have that object paper created like described here and go to the drawing directly.</p>
+	
+	
+ 
+    
+    
+<!--    end of getting started -->
+
+
+
+   
+      
+   
+   <h1>Index</h1>
+   <div id="generated-index"></div>
+   
+   
+   
+</div>
+   
+  </body>
+</html>

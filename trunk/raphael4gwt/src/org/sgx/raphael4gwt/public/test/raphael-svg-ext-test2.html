@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>eve tests the way I would do it.</title>
+<script type="text/javascript" language="javascript" src="../raphael.js"></script>
+<script type="text/javascript" language="javascript" src="../raphael-svg-filter.js"></script>
+
+
+<style>
+.opbox>* {
+display: block; 
+}
+</style>
+</head>
+<body>
+<table>
+
+<tr>
+
+<td class="opbox"> 
+<button onclick="applyGauss1()">applyGauss1()</button>
+<button onclick="removeGauss1()">removeGauss1()</button>
+<textarea id="gaussian">
+{stdDeviation: 2, x: 10, y: 30, width: 210, height: 220}
+</textarea>
+</td>
+
+<td class="opbox">
+<button onclick="applyConvolve1()">applyConvolve1()</button>
+<button onclick="removeConvolve1()">removeConvolve1()</button>
+<textarea id="convolve1">
+{order: 3, kernelMatrix: [0, 1, 1, -1, 0, 1, -1, -1, 0].join(" "), bias: 1}
+</textarea>
+</td>
+
+
+<td class="opbox">
+<button onclick="applyComponentTransfer1()">applyComponentTransfer1()</button>
+<button onclick="removeComponentTransfer1()">removeComponentTransfer1()</button>
+<textarea id="componentTransfer1">
+{
+feFuncR: {type: "linear", slope: 1.01},
+feFuncG: {type: "linear", intercept: 0.1}, 
+feFuncB: {type: "linear", slope: 1.11, intercept: 0.112}	
+}
+</textarea>
+</td>
+
+</tr>
+
+<tr><td colspan="2"><div id="paper1"></div>
+</td></tr>
+
+
+</table>
+
+<script type="text/javascript" language="javascript">
+var filter1 = null, gaussianBlur1 = null, convolve1 = null, componentTransfer1=null; 
+
+function initFilters () {
+	if(!filter1) { 
+		filter1 = paper.filterCreate("filter1");
+		img.filterInstall(filter1); 
+	}
+}
+
+
+function removeGauss1() {
+	filter1.removeOperation(gaussianBlur1);
+}
+function applyGauss1() {	
+	initFilters(); 
+	gaussianBlur1 = Raphael.filterOps.feGaussianBlur(eval("("+document.getElementById("gaussian").innerHTML+")"));
+	filter1.appendOperation(gaussianBlur1); 
+}
+
+
+function removeConvolve1() {
+	filter1.removeOperation(convolve1);
+}
+function applyConvolve1() {
+	initFilters(); 
+	convolve1 = Raphael.filterOps.feConvolveMatrix(eval("("+document.getElementById("convolve1").innerHTML+")"));
+	filter1.appendOperation(convolve1); 
+}
+
+
+function removeComponentTransfer1() {
+	filter1.removeOperation(componentTransfer1);
+}
+function applyComponentTransfer1() {
+	initFilters(); 
+	componentTransfer1 = Raphael.filterOps.feComponentTransfer(eval("("+document.getElementById("componentTransfer1").innerHTML+")"));
+	filter1.appendOperation(componentTransfer1); 
+}
+
+
+
+var img1Url = "../../test/image/smallLion.png"; 
+var paper = Raphael("paper1",800,800); 
+var img = paper.image(img1Url, 10,10,300,300);
+
+
+</script>
+</body>
+</html>

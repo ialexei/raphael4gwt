@@ -3154,25 +3154,67 @@ Raphael.fn.importSVG = function(svgXML) {
 	 *            specified, then the effect is as if a value of false were
 	 *            specified.
 	 */
-	Raphael.filterOps.feConvolveMatrix = function(params) {		
-		
-//		order, kernelMatrix, divisor,bias, targetX, targetY, edgeMode, kernelUnitLength, preserveAlpha
-		
-//		return Raphael.filterOps.svgFilter("feConvolveMatrix", {
-//			"order" : params.order,
-//			"kernelMatrix" : params.kernelMatrix.join(" "),
-//			"divisor" : params.divisor,
-//			"bias" : params.bias,
-//			"targetX" : params.targetX,
-//			"targetY" : params.targetY,
-//			"edgeMode" : params.edgeMode,
-//			"kernelUnitLength" : params.kernelUnitLength.join(" "),
-//			"preserveAlpha" : params.preserveAlpha
-//		});
-		
+	Raphael.filterOps.feConvolveMatrix = function(params) {				
 		return Raphael.filterOps.svgFilter("feConvolveMatrix", params);
 	};
+	
+	/**
+	 * This filter primitive performs "fattening" or "thinning" of artwork. It is particularly useful for fattening or thinning an alpha channel.
 
+The dilation (or erosion) kernel is a rectangle with a width of 2*x-radius and a height of 2*y-radius. In dilation, the output pixel is the individual component-wise maximum of the corresponding R,G,B,A values in the input image's kernel rectangle. In erosion, the output pixel is the individual component-wise minimum of the corresponding R,G,B,A values in the input image's kernel rectangle.
+
+Frequently this operation will take place on alpha-only images, such as that produced by the built-in input, SourceAlpha. In that case, the implementation might want to optimize the single channel case.
+
+If the input has infinite extent and is constant (e.g FillPaint where the fill is a solid color), this operation has no effect. If the input has infinite extent and the filter result is the input to an ‘feTile’, the filter is evaluated with periodic boundary conditions.
+
+Because ‘feMorphology’ operates on premultipied color values, it will always result in color values less than or equal to the alpha channel.
+
+@param operator = "erode | dilate"
+A keyword indicating whether to erode (i.e., thin) or dilate (fatten) the source graphic. If attribute ‘operator’ is not specified, then the effect is as if a value of erode were specified. 
+
+@param radius = "<number-optional-number>"
+The radius (or radii) for the operation. If two <number>s are provided, the first number represents a x-radius and the second value represents a y-radius. If one number is provided, then that value is used for both X and Y. The values are in the coordinate system established by attribute ‘primitiveUnits’ on the ‘filter’ element.
+A negative value is an error (see Error processing). A value of zero disables the effect of the given filter primitive (i.e., the result is a transparent black image).
+If the attribute is not specified, then the effect is as if a value of 0 were specified.
+	 */
+	Raphael.filterOps.feMorphology = function(params) {
+		return Raphael.filterOps.svgFilter("feMorphology", params);
+	};
+	
+	
+	/**
+	 * 
+	 */
+	Raphael.filterOps.feTurbulence = function(params) {
+		return Raphael.filterOps.svgFilter("feTurbulence", params);
+	};
+	
+	/**
+	 * 
+	 */
+	Raphael.filterOps.feOffset = function(params) {
+		return Raphael.filterOps.svgFilter("feOffset", params);
+	};
+	
+
+	/**
+	 * 
+	 */
+	Raphael.filterOps.feMerge = function(params) {
+		return {
+			"params" : params,
+			appendToFilterEl : function(filterEl) {
+				var filterOpEl = $("feMerge");
+				for ( var i = 0; i < this.params.length; i++) {
+					var node =  $("feMergeNode"); 
+					node.setAttribute("in", this.params[i]);
+					filterOpEl.appendChild(node); 
+				}				
+				filterEl.appendChild(filterOpEl);
+				return filterOpEl;
+			}
+		};
+	};
 	// /**
 	// * feBlend http://www.w3.org/TR/SVG/filters.html#feBlendElement
 	// *

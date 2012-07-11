@@ -22,6 +22,8 @@ Path p1 = getPaper().path(pc.toPathString());
  * 
  * 
  * TODO: parse a path attr string and build a chain of commands
+ * 
+ * @obsolete please use raphael.pathobj
  * @author sg
  *
  */

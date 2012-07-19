@@ -3,6 +3,7 @@ package org.sgx.raphael4gwt.test;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Path;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
+import org.sgx.raphael4gwt.raphael.ft.FTAttrs;
 import org.sgx.raphael4gwt.raphael.ft.FTCallback;
 import org.sgx.raphael4gwt.raphael.ft.FTOptions;
 import org.sgx.raphael4gwt.raphael.ft.FTSubject;
@@ -54,7 +55,7 @@ public class FreeTransformTest1 extends Test {
 			
 			final FTOptions ftOpts = FTOptions.create();
 			ftOpts.setRotate(true);
-			ftOpts.setAttrs(Attrs.create().fill("red").strokeWidth(4).stroke("blue"));
+			ftOpts.setAttrs(FTAttrs.create().fill("red").strokeWidth(4).stroke("blue"));
 			final FTCallback callback = new FTCallback() {				
 				@Override
 				public void call(FTSubject s, JsArrayString events) {

@@ -9,6 +9,10 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 public class Point extends JavaScriptObject {
 	protected Point(){}
+	public static native final Point create(double x, double y)/*-{
+		return {"x": x, "y": y}; 
+	}-*/;
+
 	public native final double getX()/*-{
 		return this.x;
 	}-*/;

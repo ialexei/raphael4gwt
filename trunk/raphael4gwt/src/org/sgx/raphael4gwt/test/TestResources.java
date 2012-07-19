@@ -50,6 +50,10 @@ public interface TestResources extends ClientBundle {
 	  @Source("FreeTransformTest1.java")
 	  public TextResource FreeTransformTest1();
 	  
+	  @Source("FreeTransformTest2.java")
+	  public TextResource FreeTransformTest2();
+	  
+	  
 	  @Source("AllMouseEvents.java")
 	  public TextResource AllMouseEvents();
 	  
@@ -133,6 +137,9 @@ public interface TestResources extends ClientBundle {
 
 	  @Source("SvgFiltersTest1.java")
 	  public TextResource SvgFiltersTest1();
+	  
+	  @Source("SvgFiltersTest2.java")
+	  public TextResource SvgFiltersTest2();	  
 	  
 	  @Source("CSSTest1.java")
 	  public TextResource CSSTest1();

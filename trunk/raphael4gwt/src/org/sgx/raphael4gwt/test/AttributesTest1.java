@@ -19,6 +19,11 @@ public class AttributesTest1 extends Test {
 	public void test() {
 		Rect r1 = paper.rect(10,10,200,100,20); 
 		
+		//use a java varargs for js literal objects
+		r1.attr(
+			"stroke-width", 22
+		); 
+				
 		//0 overhead - user Attrs.create().fill();
 		r1.attr(Attrs.create().fill("red").stroke("blue"));
 		
@@ -27,7 +32,7 @@ public class AttributesTest1 extends Test {
 			strokeDashArray(Raphael.STROKE_DASHARRAY_DASH_DASH_POINT));
 		
 		//evaluate a valid json string: 
-		r1.attr(JsonUtils.safeEval("{transform: 'r55'}").<Attrs>cast());
+		r1.attr(JsonUtils.safeEval("{\"transform\": \"r55\"}").<Attrs>cast());
 		
 	}
 

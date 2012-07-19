@@ -1,38 +1,29 @@
 package org.sgx.raphael4gwt.test;
 
-import org.sgx.raphael4gwt.raphael.Ellipse;
-import org.sgx.raphael4gwt.raphael.Image;
 import org.sgx.raphael4gwt.raphael.Paper;
-import org.sgx.raphael4gwt.raphael.Path;
 import org.sgx.raphael4gwt.raphael.Raphael;
 import org.sgx.raphael4gwt.raphael.Set;
 import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Point;
 import org.sgx.raphael4gwt.raphael.event.DDListener;
-import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
-import org.sgx.raphael4gwt.raphael.event.HoverListener;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
+import org.sgx.raphael4gwt.raphael.ft.FTAttrs;
 import org.sgx.raphael4gwt.raphael.ft.FTCallback;
 import org.sgx.raphael4gwt.raphael.ft.FTOptions;
 import org.sgx.raphael4gwt.raphael.ft.FTSubject;
 import org.sgx.raphael4gwt.raphael.ft.FreeTransform;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
-import org.sgx.raphael4gwt.test.image.IconPaths;
-import org.sgx.raphael4gwt.test.image.TestImageResources;
 
+import com.google.gwt.core.client.JsArrayString;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
-import com.google.gwt.core.client.JsArrayString;
 /**
  * @author sg
  *
@@ -189,7 +180,7 @@ public class ShapeEditor1 extends Test {
 				mask.remove();
 				final FTOptions ftOpts = FTOptions.create();
 				ftOpts.setRotate(true);
-				ftOpts.setAttrs(Attrs.create().fill("red").strokeWidth(4).stroke("blue"));
+				ftOpts.setAttrs(FTAttrs.create().fill("red").strokeWidth(4).stroke("blue"));
 				final FTCallback callback = new FTCallback() {				
 					@Override
 					public void call(FTSubject s, JsArrayString events) {

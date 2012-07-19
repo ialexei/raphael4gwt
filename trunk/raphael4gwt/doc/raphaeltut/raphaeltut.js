@@ -256,6 +256,100 @@
 	    fn['CTX']=context;
 	    return fn;        
 	}; 
-
+	
 	
 })();
+
+
+
+
+
+
+//small raphael extensions by the author
+
+
+(function() {
+	/**
+	 * internal - 
+	 */
+	var _printLetterOnItsPath = function(letter) {
+		var parent = letter._printOnPathParent, p = parent._rm_topathPath; 
+		var bb = letter.getBBox();
+		var newP = p.getPointAtLength(bb.x);
+		var newTransformation = letter.transform() + "T"
+				+ (newP.x - bb.x) + ","
+				+ (newP.y - bb.y - bb.height);
+		// also rotate the letter to correspond the path angle of derivative
+//		newTransformation += "R"+newP.alpha; 
+//				+ (newP.alpha < 360 ? 180 + newP.alpha : newP.alpha);
+		letter.transform(newTransformation);
+	}
+	/**
+	 * internal - do the job of putting all letters in a set returned bu printLetters in a
+	 * path. 
+	 * 
+	 * @param text - a set of shapes 
+	 * @param p -
+	 *            can be a rpahael path obejct or string
+	 */
+	var _printOnPath = function(aSet, paper, p) {
+		if (typeof (p) == "string")
+			p = paper.path(p).attr({
+				stroke : "none"
+			});
+		aSet._rm_topathPath = p;
+		aSet.forEach(function(letter, letterIndex){
+			if(!letter._printOnPathParent) {
+				letter._printOnPathParent=aSet;
+			}
+			letter.transform(null); 
+			_printLetterOnItsPath(letter); 
+			
+		}); 
+	};
+
+	/**
+	 * print letter by letter, and return the set of letters (paths), just like
+	 * the old raphael print() method did.
+	 */
+	Raphael.fn.printLetters = function(x, y, str, font, size, letter_spacing,
+			line_height, onpath) {
+		if(!this.customAttributes.printOnPath) {
+			this.customAttributes.printOnPath = function(p) {
+				
+				var parent = this._printOnPathParent; 
+				if(parent &&  parent.paper) {
+					alert(p);
+//					alert(this+" - "+this.type+" - "+p+" - "+parent.paper);
+					if (typeof (p) == "string")
+						p = parent.paper.path(p).attr({
+							stroke : "none"
+						});
+					parent._rm_topathPath = p;
+					_printLetterOnItsPath(this);
+				}
+			}
+		}
+		letter_spacing = letter_spacing || size / 1.5;
+		line_height = line_height || size;
+		this.setStart();
+		var x_ = x, y_ = y;
+		for ( var i = 0; i < str.length; i++) {
+			if (str.charAt(i) != '\n') {
+				var letter = this.print(x_, y_, str.charAt(i), font, size);
+				x_ += letter_spacing;
+			} else {
+				x_ = x;
+				y_ += line_height;
+			}
+		}
+		var set = this.setFinish();
+		if (onpath) {
+			_printOnPath(set, this, onpath);
+		}
+		if(!set.paper)set.paper=this; 
+		return set;
+	};
+
+})();
+

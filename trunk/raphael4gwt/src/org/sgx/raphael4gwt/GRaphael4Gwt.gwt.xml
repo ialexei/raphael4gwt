@@ -17,4 +17,6 @@
 <!-- 	<script src="graphael/g.radar.js"></script> -->
 
 	<source path="graphael" />
+	
+	<public path="public-graphael"></public>
 </module>

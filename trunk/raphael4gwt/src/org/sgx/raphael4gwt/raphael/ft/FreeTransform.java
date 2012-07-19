@@ -1,6 +1,7 @@
 package org.sgx.raphael4gwt.raphael.ft;
 
 import org.sgx.raphael4gwt.raphael.Shape;
+import org.sgx.raphael4gwt.raphael.base.Attrs;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
@@ -25,6 +26,9 @@ public class FreeTransform extends JavaScriptObject {
 			EVENT_DRAG_START="drag start",
 			EVENT_DRAG_END="drag end";
 	
+	public final native void setRotate(double r)/*-{
+		this.attrs.rotate=r; 
+	}-*/;
 	
 ///**
 // * Update options and callback.

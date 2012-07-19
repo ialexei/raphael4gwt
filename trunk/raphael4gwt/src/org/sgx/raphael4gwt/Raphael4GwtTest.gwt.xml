@@ -20,4 +20,6 @@
 <!-- 	<entry-point class="org.sgx.raphael4gwt.test.Raphael4GwtTestAloneVerySimple" /> -->
 	
 	<source path="test" />
+	
+	<public path="public-raphael-test"></public>
 </module>

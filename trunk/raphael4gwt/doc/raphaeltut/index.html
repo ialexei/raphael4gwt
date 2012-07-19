@@ -13,7 +13,8 @@
     
     <script type="text/javascript" src="raphael-min.js"></script>
     <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="raphaeltut.js"></script>    
+    <script type="text/javascript" src="raphaeltut.js"></script>
+    <script type="text/javascript" src="raphael-svg-filter-min.js"></script>    
     <script type="text/javascript" src="generated_toc.js"></script>
     <script type="text/javascript" src="jquery.mousewheel.min.js"></script>
     <script type="text/javascript" src="prettify.js"></script>
@@ -249,8 +250,10 @@ var text1 = paper.text(100,90, "Click me");
 /* sets text font family and size */
 text1.attr({"font-family": "fantasy", "font-size": 24});
 
-/* group both the ellipse and the text in a single Set shape */
-var button1 = paper.set([ellipse1, text1]);
+/* group both the ellipse and the text in a single Set shape we call button1 */
+var button1 = paper.set(); 
+button1.push(ellipse1); 
+button1.push(text1);
 button1.attr({cursor: "pointer"});
 
 /* add a click handler */
@@ -623,12 +626,25 @@ face1.attr({"stroke-width": 4, "transform": "S0.8"});
 /* clone the entire shape */
 var face2 = face1.clone()
 face2.data("name", "face2");
-face2.attr({"transform": "t200,100R40,200,200"})
+face2.attr({"transform": "t200,100R40,200,200"}); 
+
+/* now iterate over each set's shape using foreach and animate each of them... */
+var action1 = function(){
+	face2.forEach(function(shape, index){
+		shape.animate({"transform": "..r-120, 200,200"}, 5000, "bounce"); 
+	})
+}; 
+setTimeout(action1, 500); 
    </pre>
    
-   <p>For iterating though all shaps contained by a set we use forEach() TODO example</p>
-   
-     
+   <p class="note">So a set is a logical container for shapes. setting attributes or register event listeners in a shape will 
+   result on that action being executed on each of the contained shapes. However be aware of the following consequence. 
+   Because a set is only a logical shape container, it has no attributes itself, so asking a set for its "fill" attribute value
+   like <b class="code">aSet.attr("fill")</b> is undefined and the previus will return undefined. </p>
+        
+   <p>Also notice that in the previous example we iterated though all shaps contained by a set using <b class="code">forEach()</b> method. 
+   We passed a function <b class="code">function(shape, index){...}</b> and inside we perform some action over the set's shape being iterated. The <b class="code">index</b>
+   parameter correspond to the iterated shape's index in that set. </p>
    
    
    
@@ -3033,6 +3049,29 @@ aligned_rect.click(function(){
 
   
   
+   <h1 class="index">Integration</h1>
+   <h2><span class="index">GWT</span> integration</h2>
+   <p>Currently there are two independent project bringing raphaeljs API to GWT Java: </p>
+   
+   <ul>
+   <li><a href="http://code.google.com/p/raphael4gwt/">raphael4gwt</a></li>
+   <li><a href="http://code.google.com/p/raphaelgwt/">raphaelgwt</a></li>
+   </ul>
+   
+   <p>It is not the job of this tutorial to document any of these two GWT libraries. 
+   In any case a few comments about both. </p>
+   
+   <p><a class="index" href="http://code.google.com/p/raphaelgwt/">raphaelgwt</a> is older and it is based on raphael.js version 1. Also it designed to be well integrated with 
+   GWT widgets, for treating shapes as if they were GWT Widgets using widgets event system and structure with raphael shapes. </p>
+   
+   <p><a class="index" href="http://code.google.com/p/raphael4gwt/">raphael4gwt</a> on the other hand, is a newer project, authored by the same author of this tutorial, 
+   focused on supporting a 100% GWT Java API of raphaeljs 2.1. Uses GWT overlay types on all its API for a zero overhead on java/javascript translation.
+   It is designed to be totally independeng on GWT widgets. It only depends on GWT dom objects for interacting with HTML dom. 
+   It contains some facilities like PaperWidget for puting papers inside widgets butnothing more. </p>
+   
+   
+   
+   
    
    <h1 class="index" id="sec-extending">Extending Raphaël</h1>
    
@@ -3209,9 +3248,7 @@ set1.intersect(set2).attr({"font-size": 22, "stroke-width": 3, stroke: "green"})
    base attributes that defines the shape state. Some attributes like path, fill, transform are very flexible. What if we want to 
    define a new semantic for a new functionality based on a combination of one or more base attributes? This is exactly what
    raphael custom attributes allow you to do: define new shape's attributes which are based on a combination of base attribute values.  </p>
-   
-   
-   
+      
    <p>For example, we have the fill color attribute. This fill color can even be animated from one color to other 
    using raphael animations. Let's say that is convenient to define a new attribute for setting a shape color's "hue" component, 
    as in hsv(hue, saturation, brightness) (). But what about if we are interesting on representing 
@@ -3250,8 +3287,44 @@ c.attr({hsb: [0.5, .8, 1]});
 c.animate({hsb: [1, 0, 0.5]}, 1e3);
 </pre>
    
-   <p>Another...</p>
    
+  <p>Also we can perform some operation on the shape itself not only return our custom attributes. In the following example we add the custom attribute "onclick"
+  so a click handlers can be registered and unregistered using the raphael attributes API. Notice that in our implementation we access the target shape with the 
+  this keyword and register the click handlers using the raphael event API this.click() and this.unclick().   </p>
+   
+   
+     <pre class="code code-run">
+/* onclick custom attribute - let you define mouse event click handlers using raphaeljs attributes api */
+
+/* raphael extension code */
+paper.customAttributes.onclick = function (clickHandler) {
+	
+	if(clickHandler)  {
+		this._onclickcahandler = clickHandler
+		this.click(clickHandler);
+	}
+	else if(this._onclickcahandler){
+		this.unclick(this._onclickcahandler); 
+	}	 
+	//return a fill color if not for the click to work in the shape's area.
+    return {"fill": this.attr("fill") || "#ffffff"}; 
+};
+
+/* example test */
+var c = paper.circle(100, 100, 80).attr({ 
+	fill: "red", 
+	onclick: function(evt){
+		alert("clicked at: "+evt.clientX+" - now unregistering click handler ");
+		this.attr({"onclick": false});  //uninstall
+	}
+});
+   </pre>
+   
+   
+   
+   
+   <p>Another...</p>
+   <!-- 
    <pre class="code code-run">
 paper.customAttributes.X = function(x) {
 	if(this.type=="path") {
@@ -3260,6 +3333,7 @@ paper.customAttributes.X = function(x) {
 	}
 };
    </pre>
+    -->
    
    <pre class="code code-run">
 paper.customAttributes.segment = function (x, y, r, a1, a2) {
@@ -3278,13 +3352,21 @@ p1.animate({"segment": [230,100,180,111,194], fill: "blue"}, 4000, "elastic");
    </pre>
    
 	
+	
+	<h3>Custom attributes and animations</h3>
+	
+    <p>We have seen two different kinds of custom atrtibutes definitions, one that return a
+    custom attribute object and other that only perform some action on the target shape, calling its methods.      
+    </p>
+   
+   <p>The first kind of custom attributes, the ones that define itself by returning a custom attribute object, like previous examples' "hue", "segment", etc.
+   are succeptible of being animated (see previous examples). The other kind of custom attributes, thje ones that are defined by calling methods on the target shape only, 
     
-    
+   </p>
    
    
    
-   
-    <h2>Custom events</h2>
+    <h2 class="index">Custom events</h2>
    
    <p>Shapes are not only attributes, they also respond to user events. As we will se in <a href="#sec-custom-attributes">Section Custom Attributes</a>
    we have a simple mechanism for defining new attributes based on raphaël standar attributes. In this section we will describe how to define new 
@@ -3323,7 +3405,7 @@ eve.on("raphael.event.tripleclick."+c.id, function(evt) {
    
    
    
-   <h1>Useful <b class="index">Raphaël Extensions</b></h1>
+   <h1>Useful <b class="index">Raphaël Usefull Extensions</b></h1>
    
    <p>In this section we will describe how to use several Raphaël Js extensions made by users, that the author of this tutorial consider useful. </p>
    
@@ -3339,7 +3421,7 @@ eve.on("raphael.event.tripleclick."+c.id, function(evt) {
    can make transformation by dragging these handles. Check the nice <a href="http://elbertf.com/raphael/free_transform/">Free transform test page</a> 
    for better understanding. </p>   
    
-   <h2 class="index">Export to SVG</h2>
+   <h2 class="index">Export to <span class="index">SVG</span></h2>
    
    <p><a href="https://github.com/ElbertF/Raphael.Export">Raphaël Export</a> is another Raphaël extension by ElbertF, in this case a </p>
    
@@ -3349,7 +3431,142 @@ eve.on("raphael.event.tripleclick."+c.id, function(evt) {
   or&nbsp;<a href="http://xmlgraphics.apache.org/batik/" title="Batik SVG Toolkit">Batik</a>. </div>
 
 
-	<h2>SVG filters</h2>
+
+<h2 id="sec-extensions-printOnPath">printOnPath</h2>
+
+<p>Sebastián Gurin's printOnPath is a small raphael extension that let compose text printed 
+with print() with the hability to be vertically aligned with a path.</p>
+
+<pre class="code code-run">
+
+var path1 = paper.path("m10,10l100,100l,200,100,l300,200,400,60"); 
+var font1 = paper.getFont("samarkan normal");
+
+var text1 = paper.printLetters(10, 100, "click the blue rect", font1, 44, 0, 0, path1).attr({fill: "red"}); 
+var rect1 = paper.rect().attr(text1.getBBox()).attr({"fill": "blue", opacity: 0.2});
+ 
+ /* we can iterate letter by letter */
+text1.forEach(function(letter, idx){
+	letter.attr({fill: rt.randomColor(), stroke: 5, "stroke-width": 3, opacity: 0.7})
+}); 
+
+rect1.click(function(){
+	var pathStr = "m10,210l100,10l,200,200,l300,20,l400,160"; 
+	path1.attr({"path": pathStr}); 
+	/* changing the custom attribute printOnPath will auto realign the text with new path */
+	//text1.attr({"printOnPath": pathStr}); 
+	text1.animate({"printOnPath": pathStr}, 2000, "linear"); 
+}); 
+</pre> 
+
+<p>As we can see we printed a text that will be aligned with a path. The resulting is a raphael set of path, each ona for a letter of the given string. 
+Internally it uses print() so it needs a valid cufon font for printing the letters. Each letter will be a path. </p>
+
+<p>The extension supports the custom attribute "printOnPath" for setting the path under which to align the text. This will only works for shapes created with <b class="code">paper.printLetters()</b>
+Just call .attr({"printOnPath": newPath}) and the text will automatically align to this new path. </p>
+
+<p>The method signature of <b class="code">paper.printLetters()</b> is:</p> 
+
+<p class="code-method-doc">
+@signature aPaper.printLetters(x, y, str, font, size, letter_spacing, line_height, onpath)
+@param x (number) absolute coord for initial left text coord
+@param y (number) absolute coord for initial top/y text coord
+@param font a valid cufon font object with which to print each letter
+@param size - number, font size in pixels
+@param letter_spacing - integer - optional space between letters - use 0-null for default
+@param line_height - integer - optional line_height - use 0-null for default 
+@param onpath - optional - if not null can be a raphael path object or a raphael path string and in this case the resulting text letters will be aligned in this path. 
+@return a new raphael set, each of its shapes will correspond to the string letters, in order, each letter being a path creeated with paper.print(). 
+</p>
+
+<p> This extension is mantained at raphael4gwt project for now, this is the extension's code: </p>
+
+<pre class="code">
+(function() {
+	/**
+	 * internal - 
+	 */
+	var _printLetterOnItsPath = function(letter) {
+		var parent = letter._printOnPathParent, p = parent._rm_topathPath; 
+		var bb = letter.getBBox();
+		var newP = p.getPointAtLength(bb.x);
+		var newTransformation = letter.transform() + "T"
+				+ (newP.x - bb.x) + ","
+				+ (newP.y - bb.y - bb.height);
+		// also rotate the letter to correspond the path angle of derivative
+//		newTransformation += "R"+newP.alpha; 
+//				+ (newP.alpha &lt; 360 ? 180 + newP.alpha : newP.alpha);
+		letter.transform(newTransformation);
+	}
+	/**
+	 * internal - do the job of putting all letters in a set returned bu printLetters in a
+	 * path. 
+	 * 
+	 * @param text - a set of shapes 
+	 * @param p -
+	 *            can be a rpahael path obejct or string
+	 */
+	var _printOnPath = function(aSet, paper, p) {
+		if (typeof (p) == "string")
+			p = paper.path(p).attr({
+				stroke : "none"
+			});
+		aSet._rm_topathPath = p;
+		aSet.forEach(function(letter, letterIndex){
+			if(!letter._printOnPathParent) {
+				letter._printOnPathParent=aSet;
+			}
+			letter.transform(null); 
+			_printLetterOnItsPath(letter); 
+			
+		}); 
+	};
+
+	/**
+	 * print letter by letter, and return the set of letters (paths), just like
+	 * the old raphael print() method did.
+	 */
+	Raphael.fn.printLetters = function(x, y, str, font, size, letter_spacing,
+			line_height, onpath) {
+		if(!this.customAttributes.printOnPath) {
+			this.customAttributes.printOnPath = function(p) {
+				 
+				var parent = this._printOnPathParent; 
+				if(parent &amp;&amp; parent.paper) {
+					if (typeof (p) == "string")
+						p = parent.paper.path(p).attr({
+							stroke : "none"
+						});
+					parent._rm_topathPath = p;
+					_printLetterOnItsPath(this);
+				}
+			}
+		}
+		letter_spacing = letter_spacing || size / 1.5;
+		line_height = line_height || size;
+		this.setStart();
+		var x_ = x, y_ = y;
+		for ( var i = 0; i &lt; str.length; i++) {
+			if (str.charAt(i) != '\n') {
+				var letter = this.print(x_, y_, str.charAt(i), font, size);
+				x_ += letter_spacing;
+			} else {
+				x_ = x;
+				y_ += line_height;
+			}
+		}
+		var set = this.setFinish();
+		if (onpath) {
+			_printOnPath(set, this, onpath);
+		}
+		if(!set.paper)set.paper=this; 
+		return set;
+	};
+
+})();
+</pre>
+
+	<h2 class="index">SVG filters</h2>
 	
 	<p>The SVG filters extension for raphael provides SVG filters functionality for raphaël. With SVG filters we can
 	compose advanced transformations and filters to be applied to raphael shapes, like shadows, blurs, pixel convolutions, 
@@ -3357,44 +3574,191 @@ eve.on("raphael.event.tripleclick."+c.id, function(evt) {
 	exception of Internet Explorer previus version 9.</p>
 	
 	<p>This raphael extension's author is the same author of this tutorial and of the project <a href="http://code.google.com/p/raphael4gwt/">raphael4gwt</a>. 
-	The project is currently being mantained at raphael4gwt repository, </p>
+	The project is currently being mantained at raphael4gwt repository </p>
+	
+	<ul>	
+	<li><a href="http://raphael4gwt.googlecode.com/svn/trunk/raphael4gwt/src/org/sgx/raphael4gwt/public/raphael-svg-filter.js">raphael-svg-filter.js</a></li>
+	<li><a href="http://raphael4gwt.googlecode.com/svn/trunk/raphael4gwt/src/org/sgx/raphael4gwt/public/raphael-svg-filter-min.js">raphael-svg-filter-min.js</a></li>
+	</ul>
+	
+	<p>For using this extensions user should have a little experience with SVG filters. Nice tutorial and reference are: </p>
+	
+	<ul>	
+	<li><a href="http://www.w3.org/TR/SVG/filters.html">SVG filters official reference. </a></li>
+	<li><a href="http://commons.oreilly.com/wiki/index.php/SVG_Essentials/Filters">Oreilly SVG Essentials - 
+	Filters - a nice introductory SVG filters tutorial</a></li>
+	</ul>
+
+	<p>In this section we will learn how to use the raphael SVG filters extension for defining and managing SVG 
+	filters and apply them to our raphaël shapes. But first of all let's explain
+	the basecs of how this works. </p>
+	
+	<p>In SVG we can define SVG filter elements that can contain one or more filter operations that can be 
+	chaining togheter to accomplish the desired filter effect.  Then those filters can be "installed" on one or more SVG shapes
+	for applying it to them. For example, the following is a SVG code for a filter that performs a drop shadow effect on installed shapes.</p>
+	
+	<pre>
+	
+&lt;filter id="drop-shadow"> 
+    &lt;feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>     [1]
+    &lt;feOffset in="blur" dx="4" dy="4" result="offsetBlur"/>     [2]
+    &lt;feMerge>     [3]
+        &lt;feMergeNode in="offsetBlur"/>
+        &lt;feMergeNode in="SourceGraphic"/>
+    &lt;/feMerge>
+&lt;/filter>
+	
+	</pre> 
+	
+	
+	<p>In this case the filter element contains 3 filter operations, [1] a gaussian blur operation that will compose a shadow of the shape, [2]
+	an offset filter operation that is applied to the resulting shadow ("offsetBlur") for moving it 4px to the right and bottom and [3]a merge filter 
+	operation that will merge this shadow with the original shape all together. Now let's perform just the same example using SVG Filter raphaël extension:</p> 
+	
+	<pre class="code code-run">
+var path1 = paper.path("M16,1.466C7.973,1.466,1.466,7.973,1.466,16c0,8.027,6.507,14.534,14.534,14.534c8.027,0,14.534-6.507,14.534-14.534C30.534,7.973,24.027,1.466,16,1.466z M17.328,24.371h-2.707v-2.596h2.707V24.371zM17.328,19.003v0.858h-2.707v-1.057c0-3.19,3.63-3.696,3.63-5.963c0-1.034-0.924-1.826-2.134-1.826c-1.254,0-2.354,0.924-2.354,0.924l-1.541-1.915c0,0,1.519-1.584,4.137-1.584c2.487,0,4.796,1.54,4.796,4.136C21.156,16.208,17.328,16.627,17.328,19.003z"); 
+path1.attr({stroke: "blue", "stroke-width": 2, transform: "t100,100s3.1"});
+
+/* create a filter object and install it to the path */
+var filter1 = paper.filterCreate("filter1");
+path1.filterInstall(filter1); 
+
+/* add the operations blur, offset and merge to the filter to accomplish a drop-shadow */ 
+
+var blur1 = Raphael.filterOps.feGaussianBlur(
+	{stdDeviation: "0.5", "in": "SourceAlpha", result: "blur1"});
+	
+var offset1 = Raphael.filterOps.feOffset(
+	{"in": "blur1", dx: 1, dy: 1, result: "offsetBlur"});
+	
+var merge1 = Raphael.filterOps.feMerge(["offsetBlur", "SourceGraphic"]);
+
+filter1.appendOperation(blur1);
+filter1.appendOperation(offset1);
+filter1.appendOperation(merge1); 
+	</pre>
+
+<p>That javascript code has the equivalent effect to the given SVG fragment below. </p>
+
+<p>The extension also support operation removal and filter removal, in the following example we 
+apply two filter operations to a shape (pixel convolution and color component transfer), and when it is clicked one of the operations 
+will be removed from the filter
+</p>
+
+<pre class="code code-run">
+var filter1 = paper.filterCreate("filter1"); 
+
+var cm1 = Raphael.filterOps.feConvolveMatrix(
+	{order: 3, kernelMatrix: [0, 1, 1, -1, 0, 1, -1, -1, 0].join(" "), bias: 1}); 
+filter1.appendOperation(cm1);
+
+var ct1 = Raphael.filterOps.feComponentTransfer({
+	feFuncR: {type: "linear", slope: 1.01},
+	feFuncG: {type: "linear", intercept: 0.1}, 
+	feFuncB: {type: "linear", slope: 1.11, intercept: 0.112}	
+}); 
+filter1.appendOperation(ct1);
+paper.text(200,50, "CLICK the following to remove a filter").attr({"font-size": 20}); 
+var img2 = paper.image("images/smallLion.png", 10, 110, 250, 250);
+img2.filterInstall(filter1); 
+img2.click(function(){
+	filter1.removeOperation(cm1); 
+})  
+</pre>
+
+<h3 class="index">Filter Object</h3>
+<p>A Filter object represent a SVG Filter element, this is , where a chain of Filter operations cooperate to 
+accomplish a desired effect. A filter can be installed and uninstalled from a raphaël shape using 
+shape.filterInstall() and shape.filterUninstall(), and are created using paper.filterCreate(): </p>
+
+<p class="code-method-doc">
+@signature aPaper.filterCreate(filterName) 
+@param filterName (string) the new filter id for future referencing it. The created Filter SVG element will have filterName as its id
+@return a new Filter object that represents a new SVG Filter element created. </p>
+
+<p>Then we can install the created filter to a shape using: </p>
+
+<p class="code-method-doc">
+@signature aShape.filterInstall(filterObj) 
+@param filterObj a filter object created with paper.filterCreate(name)
+</p>
+
+<p>With the function aShape.filterUninstall() we can uninstall a previously installed filter from a shape: </p>
+ 
+<p class="code-method-doc">
+@signature aShape.filterUninstall(filterObj) 
+@param filterObj a filter object created with paper.filterCreate(name)
+</p>
+
+<p class="code-method-doc">
+@signature aFilter.appendOperation(filterObj) 
+@param filterObj a filter object created with paper.filterCreate(name)
+</p>
 
 
+<p>A filter oject created with paper.filterCreate() çhas the following format: </p>
 
-<!-- widgets commented dropdown don't work with latest raphael.js, uncomment and see -->
+<pre>
+{
+	/* a reference to the paper containing this filter */
+	"paper" : paper,
+	
+	/* this filter id, so you can retrieve the filter element using document.getElementById() */
+	"filterId" : filterId,
+	
+	/* a method for appending operations in this filter */
+	"appendOperation" : function(filterOp) {	
+		this.paper.filterAddOperation(this, filterOp);
+	},
+	
+	/* a method for removing a filter operation from this filter. */
+	"removeOperation" : function(filterOp) {
+		this.paper.filterRemoveOperation(this, filterOp);
+	}
+}
+
+</pre>
+
+<h3>Filter operation object</h3>
+
+<p>A filter alone do nothing, the filter definition is done by one or more Filter operations inside the filter
+that will tell what the filter do. SVG supports a lot of filter operations, blur, pixzel 
+convolution, color matrix, component transfer, merge, turbulence, light and may many more. 
+In SVG, filter operations are &lt;filter> element children . See our previous SVG code example, the elements  
+&lt;feGaussianBlur>, &lt;feOffset> and &lt;feMerge> correspond to the three filter operations that defines what the filter do. </p>
+
+<p>In this extension, a filter operation is a javascript object with the following format: </p>
+
+<pre>
+{	
+	/* the filter operation parameters */
+	params: {},
+	
+	/* a function for creating the filter op elements inside a filter el corresponding to this operation */ 
+	appendToFilterEl : function(filterEl){...}, 
+	
+	/* the filter operation element id - use document.getElementByID() for getting this filter op element */	
+	filterOperationId : ...
+}
+</pre>
+
+ 
+<p>We can use paper.filterAddOperation() for appending operations to a filter: </p>
+
+<p class="code-method-doc">
+@signature paper.filterAddOperation(filterObj, filterOperationObj) 
+@param filterObj the filter object in which to append the filter operation to  */
+@param filterOperationObj a filter operation object 
+</p>
    
-<!--    <h2>Widgets</h2> -->   
-<!--    <p><a href="http://www.irunmywebsite.com/raphael/raphael.widgets.doc.php">raphael.widgets</a> -->
-<!--    is a collection of useful widgets like checkbox, button, combo box. You can download its javascript sources from  -->
-<!--    <a href="www.irunmywebsite.com/raphael/raphael.widgets.js">irunmysite.com</a>. </p> -->
-   
-<!--    <h3>Buttons</h3> -->
-<!--    <pre class="code code-run"> -->
-<!-- button1=paper.widgets.button(paper,30, 30, 25, "Button\n1",  -->
-<!-- 	"#800000" , "#FF7F00" ,14,function(){ alert(1); }); -->
-<!-- button2=paper.widgets.button(paper,75, 100, 50, "Button \n2",  -->
-<!-- 	"#ff0" , "#004000" ,24,function(){ alert(2); }); -->
-<!-- button3=paper.widgets.button(paper,300, 110, 100, "Button\n3",  -->
-<!-- 	"#f00" , "#F3664F" ,48,function(){ alert(3); }); -->
-<!-- button4=paper.widgets.button(paper,475, 310, 150, "Button\n4", "#00f" ,  -->
-<!-- 	"#8080FF" ,64,function(){ alert(4); }); -->
-<!--    </pre> -->
-   
-<!--    <h3>Dropdown</h3> -->
-<!--    <pre class="code code-run"> -->
-<!-- var text = paper.text(100,20,"status").attr({"font-size": 22}); -->
-<!-- var onselected=function(key,value) { -->
-<!-- 	text.attr({text: "Recieved value of "+value+"(br)Recieved key of "+key}); -->
-<!-- 	//setInfoContent("InfoContent","Recieved value of "+value+"(br)Recieved key of "+key+"(br)(br)Technique:Basic Drop down.","180%","#00f"); -->
-<!-- } -->
-<!-- dropdown_a=paper.widgets.dropdown(paper, 10, 10, 24,  -->
-<!-- 	["one hundred","two hundred","three hundred"], [1,2,3],onselected,{ vmlWidth : 100, colour :"#800000" , backColour:"#FF7F00" , fontSize : 20}) ; -->
-<!-- dropdown_b=paper.widgets.dropdown(paper, 210, 160, 30,  -->
-<!-- 	["CAT","DOG","HORSE","ELEPHANT","MONKEY"], [4,5,6,7,8],onselected,{ vmlWidth : 150, colour :"#f00" , backColour:"#F3664F" , fontSize : 24}) ; -->
-<!-- dropdown_c=paper.widgets.dropdown(paper, 410, 10, 36,  -->
-<!-- 	["Raphael","DOJO","Yahoo","Prototype","Jquery","MochiKit","Ext JS","Open Rico","Qooxdoo","Moo Tools","X library","AJS"], [11,12,13,14,15,16,17,18,19,20,21,22], -->
-<!-- onselected,{ vmlWidth : 200, colour :"#00f" , backColour:"#8080FF" , fontSize : 30}) ; -->
-<!-- 	</pre> -->
+    
+<p>Or use paper.filterRemoveOperation() for removing operations to a filter: </p>
+
+<p class="code-method-doc">
+@signature paper.filterRemoveOperation(filterObj, filterOperationObj) 
+@param filterObj the filter object in which to append the filter operation to  */
+@param filterOperationObj a filter operation object 
+</p>
    
    
    <h1>Index</h1>

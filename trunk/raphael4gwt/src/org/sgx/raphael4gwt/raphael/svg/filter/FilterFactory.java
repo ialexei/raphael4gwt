@@ -1,6 +1,7 @@
 package org.sgx.raphael4gwt.raphael.svg.filter;
 
 import org.sgx.raphael4gwt.raphael.svg.filter.ops.FilterOpDef;
+import org.sgx.raphael4gwt.raphael.svg.filter.params.FilterOperationParam;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
@@ -33,14 +34,18 @@ public FilterOperation createFilterOperation(FilterOpDef filterOpDef) {
 	return _createFilterOperation(filterOpDef.getFilterOperationName(), filterOpDef.toNative()); 
 }
 
-private final native FilterOperation _createFilterOperation(String fopName,
-		JavaScriptObject fopParams)/*-{
-			
-	if($wnd.Raphael.filterOps[fopName])
-		return $wnd.Raphael.filterOps[fopName](fopParams); 
-	else
+public final native FilterOperation _createFilterOperation(String fopName,
+		FilterOperationParam fopParams)/*-{
+	
+	var fn = $wnd.Raphael.filterOps[fopName]; 
+	if(fn) {
+		var ret = fn(fopParams); 
+		return ret;
+	} 
+	else 
 		return null; 
 		
 }-*/;
+
 
 }

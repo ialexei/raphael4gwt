@@ -2,6 +2,8 @@ package org.sgx.raphael4gwt.raphael.svg.filter.ops;
 
 import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 import org.sgx.raphael4gwt.raphael.svg.filter.FilterFactory;
+import org.sgx.raphael4gwt.raphael.svg.filter.params.FilterOperationParam;
+import org.sgx.raphael4gwt.raphael.svg.filter.params.GaussianBlurParam;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
@@ -55,10 +57,8 @@ public class GaussianBlur extends FilterOpDef {
 	}
 
 	@Override
-	public JavaScriptObject toNative() {
-		JavaScriptObject o = super.toNative();
-		JsUtil.put(o, "stdDeviation", stdDeviation);
-		return o; 
+	public GaussianBlurParam toNative() {
+		return JsUtil.put(super.toNative(), "stdDeviation", stdDeviation).cast();
 	}
 	@Override
 	public String getFilterOperationName() {

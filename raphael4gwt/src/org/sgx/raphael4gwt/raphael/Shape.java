@@ -59,6 +59,7 @@ public class Shape extends JavaScriptObject {
 	 * Adds rotation by given angle around given point to the list of transformations of the element. 
 	 * @param deg angle in degrees
 	 * @return
+	 * @deprecated - deprecated in raphaeljs api - please use the transform attribute or transform() method
 	 */
 	public final native Shape rotate(double deg, int cx, int cy)/*-{
 		return this.rotate(deg, cx, cy);
@@ -67,6 +68,7 @@ public class Shape extends JavaScriptObject {
 	 * centre of the shape is used as a point of rotation. 
 	 * @param deg angle in degrees
 	 * @return
+	 * @deprecated - deprecated in raphaeljs api - please use the transform attribute or transform() method
 	 */
 	public final native Shape rotate(double deg)/*-{
 		return this.rotate(deg);
@@ -78,6 +80,7 @@ public class Shape extends JavaScriptObject {
 	 * @param cx x coordinate of the centre of scale
 	 * @param cy xy coordinate of the centre of scale
 	 * @return
+	 * @deprecated - deprecated in raphaeljs api - please use the transform attribute or transform() method
 	 */
 	public final native Shape scale(double sx, double sy, int cx, int cy)/*-{
 		return this.scale(sx, sy, cx, cy);
@@ -87,10 +90,17 @@ public class Shape extends JavaScriptObject {
 	 * @param sx horizontal scale amount
 	 * @param sy vertical scale amount
 	 * @return
+	 * @deprecated - deprecated in raphaeljs api - please use the transform attribute or transform() method
 	 */
 	public final native Shape scale(double sx, double sy)/*-{
 		return this.scale(sx, sy);
 	}-*/;
+	/**
+	 * @deprecated - deprecated in raphaeljs api - please use the transform attribute or transform() method
+	 * @param dx
+	 * @param dy
+	 * @return
+	 */
 	public final native Shape translate(double dx, double dy)/*-{
 		return this.translate(dx, dy);
 	}-*/;
@@ -580,7 +590,11 @@ console.log(el.transform());
 		return this.attr();			
 	}-*/;
 	
-	
+	public final native Shape attr(Object ... args)/*-{
+		this.attr(@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsObject([Ljava/lang/Object;)(args));
+		return this;  
+	}-*/;
+
 	
 	
 	
@@ -935,6 +949,31 @@ Note: Glow is not connected to the element. If you change element attributes it 
 	 */
 	public final native boolean isRemoved()/*-{
 		return this.isRemoved();
+	}-*/;
+
+	/**
+	 * nt_translate/nt_scale - translate and scale without using transformation (nt ==
+	 * no transform) Methods for moving/ scaling any object using the same api
+	 * without changing its transform attr. The extension is defined in public/raphael-ext.js
+	 * @param dx
+	 * @param dy
+	 * @return
+	 */
+	public final native Shape translateNT(double dx, double dy)/*-{
+		this.nt_translate(dx, dy);
+		return this; 
+	}-*/;
+	/**
+	 * nt_translate/nt_scale - translate and scale without using transformation (nt ==
+	 * no transform) Methods for moving/ scaling any object using the same api
+	 * without changing its transform attr. The extension is defined in public/raphael-ext.js
+	 * @param dx
+	 * @param dy
+	 * @return
+	 */
+	public final native Shape scaleNT(double dx, double dy)/*-{
+		this.nt_scale(dx, dy);
+		return this; 
 	}-*/;
 
 }

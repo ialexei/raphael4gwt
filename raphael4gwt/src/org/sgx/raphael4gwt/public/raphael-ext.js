@@ -2101,10 +2101,74 @@ Raphael.fn.importSVG = function(svgXML) {
  * no transform) Methods for moving/ scaling any object using the same api
  * without changing its transform attr
  * 
+ * 
  * @author: sgurin
  */
 (function() {
+	/** define 2 custom attributes translateNT and scaleNT (relative attributes) */
+	var initCA = function(shape) {
+		if(!shape.paper.customAttributes["translateNT"]) {
+			
+			shape.paper.customAttributes["translateNT"] = function(dx, dy) {
+				if (this.type == "circle" || this.type == "ellipse") {
+					return {
+						"cx" : this.attr("cx") + dx,
+						"cy" : this.attr("cy") + dy
+					};
+				} else if (this.type == "rect" || this.type == "text"
+						|| this.type == "image") {
+					return {
+						"x" : this.attr("x") + dx,
+						"y" : this.attr("y") + dy
+					};
+				} else if (this.type == "path") {
+					var matrix = Raphael.matrix(1, 0, 0, 1, 0, 0);
+					matrix.translate(dx, dy);
+					var newPath = Raphael.mapPath(this.attr("path"), matrix);
+					this.attr({
+						"path" : newPath
+					});
+				}			
+			}; 			
+			
+			shape.paper.customAttributes["scaleNT"] = function(dx, dy) {
+			
+				if (this.type == "circle") {
+					return {
+						"r" : this.attr("r") * Math.max(dx, dy)
+					};
+				} else if (this.type == "ellipse") {
+					return {
+						"rx" : this.attr("rx") * dx,
+						"ry" : this.attr("ry") * dy
+					};
+				} else if (this.type == "rect" || this.type == "image") {
+					return {
+						"width" : this.attr("width") * dx,
+						"height" : this.attr("height") * dy
+					};
+				} else if (this.type == "text") {
+					var fs = parseInt(this.attr("font-size") + "");
+					return {
+						"font-size" : fs * Math.max(dx, dy)
+					};
+				} else if (this.type == "path") {
+					var bb = this.getBBox(), cx = bb.x + bb.width / 2, cy = bb.y
+							+ bb.height / 2;
+					var matrix = Raphael.matrix(1, 0, 0, 1, 0, 0);
+					matrix.scale(dx, dy, cx, cy);
+					var newPath = Raphael.mapPath(this.attr("path"), matrix);
+					return {
+						"path" : newPath
+					};
+				}
+			}
+			
+			
+		}
+	}; 
 	Raphael.el.nt_translate = function(dx, dy) {
+		initCA(this); 
 		if (this.type == "circle" || this.type == "ellipse") {
 			this.attr({
 				"cx" : this.attr("cx") + dx,
@@ -2124,8 +2188,10 @@ Raphael.fn.importSVG = function(svgXML) {
 				"path" : newPath
 			});
 		}
+		return this; 
 	};
 	Raphael.el.nt_scale = function(dx, dy) {
+		initCA(this);
 		if (this.type == "circle") {
 			this.attr({
 				"r" : this.attr("r") * Math.max(dx, dy)
@@ -2155,20 +2221,27 @@ Raphael.fn.importSVG = function(svgXML) {
 				"path" : newPath
 			});
 		}
+		return this; 
 	}
 
 	Raphael.st.nt_translate = function(dx, dy) {
+		initCA(this);
 		this.forEach(function(shape, idx) {
 			shape.nt_translate(dx, dy);
 			return true;
 		});
+		return this; 
 	};
 	Raphael.st.nt_scale = function(dx, dy) {
+		initCA(this);
 		this.forEach(function(shape, idx) {
 			shape.nt_scale(dx, dy);
 			return true;
 		});
+		return this; 
 	};
+	
+	
 
 })();
 

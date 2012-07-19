@@ -33,6 +33,6 @@ cat raphael.free_transform.js >> $ALL.js
 echo "/* raphael4gwt */" >> $ALL.js
 cat raphael4gwt.js >> $ALL.js
 
-cd graphael
-sh preparejs.sh
-cd ..
+#cd graphael
+#sh preparejs.sh
+#cd ..

@@ -3,6 +3,7 @@ package org.sgx.raphael4gwt.raphael.jsutil;
 import java.util.Map;
 
 import org.sgx.raphael4gwt.raphael.base.CSSRule;
+import org.sgx.raphael4gwt.raphael.svg.filter.FilterOperation;
 import org.sgx.raphael4gwt.raphael.util.Util;
 
 import com.google.gwt.core.client.JavaScriptObject;
@@ -27,14 +28,27 @@ public class JsUtil {
 	public static native <T> T get(JavaScriptObject o, Object p)/*-{
 		return o[p];
 	}-*/;
-	public static native Object put(JavaScriptObject o, Object pname, Object val)/*-{
-		o[pname]=val;
+
+	public static native String getString(JavaScriptObject o, String s)/*-{
+		return o[s]; 
 	}-*/;
-	public static native Object put(JavaScriptObject o, Object pname, int val)/*-{
-		o[pname]=val;
+
+	public static native int getInt(JavaScriptObject o, String s)/*-{
+		return o[s]; 
 	}-*/;
-	public static native Object put(JavaScriptObject o, Object pname, double val)/*-{
+
+	
+	public static native JavaScriptObject put(JavaScriptObject o, Object pname, Object val)/*-{
 		o[pname]=val;
+		return o; 
+	}-*/;
+	public static native JavaScriptObject put(JavaScriptObject o, Object pname, int val)/*-{
+		o[pname]=val;
+		return o; 
+	}-*/;
+	public static native JavaScriptObject put(JavaScriptObject o, Object pname, double val)/*-{
+		o[pname]=val;
+		return o; 
 	}-*/;
 	public static native JsArrayString props(JavaScriptObject o)/*-{
 		var props = [];
@@ -146,7 +160,15 @@ public class JsUtil {
 		}
 		return jsa;
 	}
-	
+	public static JavaScriptObject toJsObject(Object ... ja) {
+		if(ja==null)
+			return null;
+		JavaScriptObject jso = JsArray.createObject();
+		for (int i = 0; i < ja.length; i+=2) {
+			put(jso, ja[i], ja[i+1]); 
+		}
+		return jso;
+	}
 	public static JsArray to2DJsArray(double[][] ja) {
 		JsArray jsa = (JsArray) JsArray.createArray();
 		if(ja==null)
@@ -191,6 +213,15 @@ public class JsUtil {
 		}
 		return dd;
 	}
+	public static String[] toJavaStringArray(JsArrayString a) {
+		if(a==null)return null;
+		String[] dd = new String[a.length()];
+		for (int i = 0; i < dd.length; i++) {
+			dd[i]=a.get(i);
+		}
+		return dd;
+	}
+	
 //	public static String dump(JavaScriptObject o) {
 //		String s = "(";
 ////		o.
@@ -216,6 +247,19 @@ public class JsUtil {
 	public static native final void arrayRemoveItem(JsArray<?> a, int i)/*-{
 		a.splice(i, 1)
 	}-*/;
+
+	public static native double getDouble(JavaScriptObject o, String p)/*-{
+		return o[p]; 
+	}-*/;
+
+	public static native final String dump(JavaScriptObject obj, boolean printValues)/*-{
+		var s = "{"; 
+		for(var i in obj) {
+			s+=i+(printValues ? ": "+obj[i] : "")+", "; 
+		}
+		return s+"}"; 
+	}-*/;
+
 
 
 

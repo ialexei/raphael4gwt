@@ -12,7 +12,6 @@
 	<!-- 1 - For production - recommended - 2 large minified javascript files -->	
  	<script src='raphael-min.js' /> 	
  	<script src='raphael4gwt-all-min.js' />
- 	<script src='raphael-svg-filter.js' />
  	
 	<!-- 2 - For development - the non minified version of js for debuggin - two large non min js-->
 <!-- 	<script src='raphael.js' /> 	 -->

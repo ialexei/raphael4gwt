@@ -28,6 +28,7 @@ import org.sgx.raphael4gwt.test.EventRegisterAndUnregister;
 import org.sgx.raphael4gwt.test.FillTest1;
 import org.sgx.raphael4gwt.test.FontTest1;
 import org.sgx.raphael4gwt.test.FreeTransformTest1;
+import org.sgx.raphael4gwt.test.FreeTransformTest2;
 import org.sgx.raphael4gwt.test.GradientMouseTest1;
 import org.sgx.raphael4gwt.test.GradientTest1;
 import org.sgx.raphael4gwt.test.ImageSimpleTest;
@@ -39,6 +40,7 @@ import org.sgx.raphael4gwt.test.PaperLoadAndSave;
 import org.sgx.raphael4gwt.test.PaperLoadAndSaveUnit1;
 import org.sgx.raphael4gwt.test.PaperViewBoxTest1;
 import org.sgx.raphael4gwt.test.SvgFiltersTest1;
+import org.sgx.raphael4gwt.test.SvgFiltersTest2;
 //import org.sgx.raphael4gwt.test.PathCmdsTest1;
 //import org.sgx.raphael4gwt.test.PathEditorTest1;
 import org.sgx.raphael4gwt.test.PathObjectTest1;
@@ -322,10 +324,15 @@ public class GalleryUtil {
 		t = new SvgFiltersTest1(paper, w, h);
 		tests.put(t.getName(), t);
 		
+		t = new SvgFiltersTest2(paper, w, h);
+		tests.put(t.getName(), t);		
+		
 		t = new CSSTest1(paper, w, h);
 		tests.put(t.getName(), t);
 		
-		  
+		t = new FreeTransformTest2(paper, w, h);
+		tests.put(t.getName(), t);
+			
 	}
 
 	Map<String, List<Test>> getTestsByTag() {

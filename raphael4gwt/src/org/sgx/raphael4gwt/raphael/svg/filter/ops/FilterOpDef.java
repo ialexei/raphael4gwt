@@ -1,6 +1,7 @@
 package org.sgx.raphael4gwt.raphael.svg.filter.ops;
 
 import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
+import org.sgx.raphael4gwt.raphael.svg.filter.params.FilterOperationParam;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayMixed;
@@ -25,10 +26,11 @@ String result=null, in=null;
 
 /**
  * @return the filter op native object representation 
- * subclasses must override this and call super.toNative to concatenate concrete filter op params. . 
+ * subclasses must override this and call super.toNative to concatenate 
+ * concrete filter op params.  
  * */
-public JavaScriptObject toNative() {
-	JavaScriptObject o = JsArrayMixed.createObject(); 
+public FilterOperationParam toNative() {
+	FilterOperationParam o = JavaScriptObject.createObject().cast(); 
 	JsUtil.put(o, "x", x);
 	JsUtil.put(o, "y", y); 
 	JsUtil.put(o, "width", width);
@@ -40,5 +42,6 @@ public JavaScriptObject toNative() {
 	
 	return o; 
 }
+
 
 }

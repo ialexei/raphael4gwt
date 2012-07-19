@@ -82,7 +82,14 @@ public class Attrs extends JavaScriptObject {
 		this[attr]=val;
 		return this;
 	}-*/;
-	
+	public final native Attrs set(String attr, double val)/*-{
+		this[attr]=val;
+		return this;
+	}-*/;
+	public final native Attrs set(String attr, int val)/*-{
+		this[attr]=val;
+		return this;
+	}-*/;
 	
 	
 	/* *** FILL *** */

@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -22,8 +24,20 @@ import com.google.gwt.user.client.ui.Widget;
 public class GUIUtil {
 
 	public static String formLabelWidth="120px";
-	
+	public static void installWindowHeightUpdater(final Widget w, final int bottomMargin) {
+		
+		Window.addResizeHandler(new ResizeHandler() {
+			
+			@Override
+			public void onResize(ResizeEvent event) {
+				w.setHeight((event.getHeight()-bottomMargin)+"px"); 
+			}
+		}); 
+	}
 
+	public static void setWindowHeight(final Widget w, final int bottomMargin) {
+		w.setHeight((Window.getClientHeight()-bottomMargin)+"px"); 
+	}
 	/**
 	 * common method for dispatching rpc / services exceptions
 	 * @param t

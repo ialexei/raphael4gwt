@@ -184,13 +184,14 @@ public class ShapeEditor1 extends Test {
 				final FTCallback callback = new FTCallback() {				
 					@Override
 					public void call(FTSubject s, JsArrayString events) {
-						ftStatus.setText(
-							"translate: " + s.getTranslateX()+", "+s.getTranslateY()+
-							", center: "+s.getCx()+", "+s.getCy()+
-							", rotation: "+s.getRotate()+
-							"\nsize: "+s.getHeight()+", "+s.getWidth()+" - "+
-							", scale: "+s.getScaleX()+", "+s.getScaleY()+" - "+
-							"\nEvents: "+events.join(", "));
+//						ftStatus.setText(
+//							"translate: " + s..getTranslateX()+", "+s.getTranslateY()+
+//							", center: "+s.getCx()+", "+s.getCy()+
+//							", rotation: "+s.getRotate()+
+//							"\nsize: "+s.getHeight()+", "+s.getWidth()+" - "+
+//							", scale: "+s.getScaleX()+", "+s.getScaleY()+" - "+
+//							"\nEvents: "+events.join(", ")
+//							);
 					}
 				};
 				freeTransform = paper.freeTransform(els, ftOpts, callback);

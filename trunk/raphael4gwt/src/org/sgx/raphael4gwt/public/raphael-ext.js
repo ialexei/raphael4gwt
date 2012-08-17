@@ -306,9 +306,14 @@
 })();
 
 /*
- * named set Usage: var ns1 = paper.namedSet(); ns1.put("f1",
- * paper.rect(0,0,1,11)); var s1 = paper.set(); s1.push(paper.circle(0,0,5));
- * ns1.put("s1", s1); ... ns1.get("s1").attr({fill: "red}); ...
+ * named set Usage: 
+ * 
+ * var ns1 = paper.namedSet(); 
+ * ns1.put("f1", paper.rect(0,0,1,11)); 
+ * var s1 = paper.set(); 
+ * s1.push(paper.circle(0,0,5));
+ * ns1.put("s1", s1); ... 
+ * ns1.get("s1").attr({fill: "red}); ...
  * ns1.remove("f1");
  * 
  * //iterate the named set for(var i in ns1.data) ns1.get(i).transform(...);

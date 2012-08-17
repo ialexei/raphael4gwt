@@ -9,8 +9,20 @@ import com.google.gwt.core.client.JsArray;
  * @author sg
  *
  */
-public class FTSubject extends JavaScriptObject {
+public class FTSubject extends FreeTransform {
 	protected FTSubject(){}
+	
+public native final JsArray<Shape> getItems()/*-{
+return this.items;
+}-*/;
+public native final Shape getSubject()/*-{
+return this.subject;
+}-*/;
+
+public native final JavaScriptObject attrs()/*-{
+return this.attrs;
+}-*/;
+
 public native final int getX()/*-{
 	return Math.round(this.attrs.x);
 }-*/;
@@ -39,12 +51,11 @@ public native final double getScaleY()/*-{
 return this.attrs.scale.y;
 }-*/;
 public native final int getTranslateX()/*-{
-return this.attrs.translate.x;
+return Math.round(this.attrs.translate.x);
 }-*/;
 public native final int getTranslateY()/*-{
-return this.attrs.translate.y;
+return Math.round(this.attrs.translate.y);
 }-*/;
-public native final JsArray<Shape> getItems()/*-{
-return this.items;
-}-*/;
+
+
 }

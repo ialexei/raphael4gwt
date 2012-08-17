@@ -48,6 +48,11 @@ public class SvgFiltersTest2 extends Test {
 		filter1.appendOperation(fop1); 
 		
 		shape1.filterInstall(filter1); 
+		
+		
+		
+		//now the same but using the params package - use overlay types so there is 0 overhead with the extension
+		
 
 		
 	}

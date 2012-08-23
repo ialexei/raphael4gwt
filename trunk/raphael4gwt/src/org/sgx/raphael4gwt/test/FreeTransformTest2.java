@@ -27,9 +27,17 @@ public class FreeTransformTest2 extends Test {
 
 	@Override
 	public void test() {		
+
+		//create a text area gwt ui widget for loggin events
+		VerticalPanel testPanel = GalleryUtil.getInstance().getTestPanel();
+		ta = new TextArea();
+		ta.setSize("100%", "60px");
+		ta.getElement().setId("seba123");
+		testPanel.add(ta);
+		
 		final Path p = paper.path(IconPaths.question).attr(new Attr().fill("red")).cast();
 		final FTOptions ftOpts = FTOptions.create().setDraw(new String[]{"bbox", "circle"}).
-			setSnap(new FTSnap(30, 20, 50)).setSnapDist(new FTSnap(0, 0, 30));
+			setSnap(new FTSnap(30, 20, 50)).setSnapDist(new FTSnap(0, 0, 30)).size(7);
 		
 		final FTCallback callback = new FTCallback() {				
 			@Override
@@ -42,20 +50,11 @@ public class FreeTransformTest2 extends Test {
 					", scale: "+s.getScaleX()+", "+s.getScaleY()+" - "+
 					"\nEvents: "+events.join(", "));
 			}
-		};
-						
+		};						
 						
 		final FreeTransform ft = paper.freeTransform(p, ftOpts, callback);
 		ftOpts.attrs().setScale("");
 		ft.apply();
-	
-		//create a text area gwt ui widget for loggin events
-		VerticalPanel testPanel = GalleryUtil.getInstance().getTestPanel();
-		ta = new TextArea();
-		ta.setSize("100%", "60px");
-		ta.getElement().setId("seba123");
-		testPanel.add(ta);
-	
 	}
 	
 	

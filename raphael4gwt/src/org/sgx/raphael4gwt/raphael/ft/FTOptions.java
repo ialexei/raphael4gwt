@@ -137,6 +137,24 @@ public native final FTOptions setDrag(String[] s)/*-{
 	return this; 
 }-*/;
 
+/**
+ * Sets the radius of the handles in pixels.Default: 5
+ * @return
+ */
+public native final int size() /*-{
+return this.size; 
+}-*/;
+
+/**
+ * Sets the radius of the handles in pixels.Default: 5
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final FTOptions size(int val) /*-{
+this.size = val; 
+return this; 
+}-*/;
+
 ///**
 // * Enables/disables Rotate the subject by dragging (default: false).
 // * @return

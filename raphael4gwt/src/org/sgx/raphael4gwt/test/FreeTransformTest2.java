@@ -3,6 +3,7 @@ package org.sgx.raphael4gwt.test;
 import org.sgx.raphael4gwt.raphael.Attr;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Path;
+import org.sgx.raphael4gwt.raphael.ft.FTAttrs;
 import org.sgx.raphael4gwt.raphael.ft.FTCallback;
 import org.sgx.raphael4gwt.raphael.ft.FTOptions;
 import org.sgx.raphael4gwt.raphael.ft.FTSnap;
@@ -37,7 +38,8 @@ public class FreeTransformTest2 extends Test {
 		
 		final Path p = paper.path(IconPaths.question).attr(new Attr().fill("red")).cast();
 		final FTOptions ftOpts = FTOptions.create().setDraw(new String[]{"bbox", "circle"}).
-			setSnap(new FTSnap(30, 20, 50)).setSnapDist(new FTSnap(0, 0, 30)).size(7);
+			setSnap(new FTSnap(30, 20, 50)).setSnapDist(new FTSnap(0, 0, 30)).size(4);
+		ftOpts.setAttrs(FTAttrs.create().fill("red").stroke("blue")); 
 		
 		final FTCallback callback = new FTCallback() {				
 			@Override

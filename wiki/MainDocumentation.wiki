@@ -207,8 +207,34 @@ the objective is to provide the most direct java API to raphaeljs javascript API
 Nevertheless, when javascript overloading methods is overused in javascript, 
 some API methods are renamed from original. For example, Element.attr function
 is Divided into Shap.setAttribute(s) and getAttribute(s). 
-Also artificial classes like MouseEventListener and Attrs, but always performing critical 
-operations with zero overhead.
+Also artificial classes like MouseEventListener and Attrs, but always performing critical operations with zero overhead. 
+
+Also this project author is writing a [http://cancerbero.vacau.com/raphaeltut/ Raphaeljs tutorial] documenting all raphaeljs features not obvious for users new to SVG and vector drawing. A lot of raphael extensions are collected and documented there, and many of this exatensions, some authored by Sebastián Gurin, are included on raphael4gwt. 
+
+=How to generate the .jar from latest code on the SVG=
+
+This section explains how to build raphel4gwt.jar file from SVN. You will need the following software : Java, GWT SDK, subversion (svn) and ant. In a *nix shell the steps are the following: 
+
+
+{{{
+#download the SVG repository
+svn checkout http://raphael4gwt.googlecode.com/svn/trunk/raphael4gwt raphael4gwt-read-only
+
+cd raphael4gwt-read-only
+
+#edit gwt.sdk property in build.properties according to your system (points to GWT SDK folder). In this example use the cat command for ilustration but you can use your favourite text editor. 
+cat > build.properties
+gwt.sdk=/home/sebastian/programas/gwt-2.4.0
+raphael4gwt.version=0.37
+Ctrl-D
+
+ant jar
+}}}
+
+If everything was fine, you should have raphael4gwt jar file at dist/ folder. 
+
+Note, if in the last example, you make `ant compile` you will compile all the raphael4gwt exmpales, so after the command finish you could open `war/index.html` in your browser for running the main raphael4gwt example gallery and `war/graphaelExamples.html` for graphael example gallery. 
+
 
 
 

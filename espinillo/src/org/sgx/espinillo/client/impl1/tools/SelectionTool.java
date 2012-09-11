@@ -33,7 +33,7 @@ public class SelectionTool extends AbstractTool {
 	protected Point startCoords;
 	protected Shape feedback;
 	private Attrs initFeedbackAttrs;	
-	private DDListener ddListener;
+//	private DDListener ddListener;
 	private MouseEventListener clickHandler;
 	
 	public SelectionTool(Document doc){

@@ -101,7 +101,7 @@ public class VEditorWidget extends DockPanel {
 		FlowPanel flowPanel_1 = new FlowPanel();
 		add(flowPanel_1, DockPanel.SOUTH);
 		
-		status=new Label();
+		status=new Label("status bar");
 		flowPanel_1.add(status);
 		
 		
@@ -141,7 +141,9 @@ public class VEditorWidget extends DockPanel {
 //				paperWidget.add(paperOverlay);
 			}
 		});
-		paperWidget.setWidth("100%");
+		paperWidget.getElement().getStyle().setProperty("border", "1px solid black"); 
+		paperWidget.setWidth("500px");
+		paperWidget.setHeight("500px");
 		
 		paperWidget.addContextClickHandler(new ContextClickHandler() {			
 			@Override

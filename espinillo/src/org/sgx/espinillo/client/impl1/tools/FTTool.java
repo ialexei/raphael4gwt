@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 import org.sgx.espinillo.client.impl1.Constants;
 import org.sgx.espinillo.client.impl1.commands.ChangeShapeAttrsCmd;
 import org.sgx.espinillo.client.impl1.commands.CreateShapeCmd;
+import org.sgx.espinillo.client.impl1.model.VEditor1;
+import org.sgx.espinillo.client.impl1.ui.VEditorWidget;
 import org.sgx.espinillo.client.impl1.util.ShapeUtil;
 import org.sgx.espinillo.client.impl1.util.ToolUtil;
 import org.sgx.espinillo.client.model.Document;
@@ -21,6 +23,7 @@ import org.sgx.raphael4gwt.raphael.base.Point;
 import org.sgx.raphael4gwt.raphael.event.DDListener;
 import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
+import org.sgx.raphael4gwt.raphael.ft.FTAttrs;
 import org.sgx.raphael4gwt.raphael.ft.FTCallback;
 import org.sgx.raphael4gwt.raphael.ft.FTOptions;
 import org.sgx.raphael4gwt.raphael.ft.FTSubject;
@@ -38,7 +41,7 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * draw shapes using smoothQuadBezierCurveTo curves
+ * installs a free transform handler to the shape. 
  * @author sg
  *
  */
@@ -72,7 +75,7 @@ public class FTTool extends AbstractTool {
 	@Override
 	public void install() {
 		super.install();
-		
+		uninstall(); 
 		paper = getDocument().getPaper();
 		mask = ToolUtil.getInstance().showPaperMask(getDocument());
 						
@@ -81,23 +84,25 @@ public class FTTool extends AbstractTool {
 			@Override
 			public void notifyMouseEvent(final NativeEvent e) {
 				//does the samee as selection tool but also installs a free transform in selected shapes.
-				
-				
-				Point coords = Raphael.getCoordsInPaper(paper, e);
-				
+								
+				Point coords = Raphael.getCoordsInPaper(paper, e);				
 				
 				Set els = ToolUtil.getShapesUnderPoint(paper, coords);
 				els=filterOnlyShapes(els);
+				getDocument().setSelection(els); 
 				fs = els.firstShape();
+				if(fs==null)
+					return;
 				feedback = fs.clone();
-				fs.hide();
+				feedback.toFront(); 
+//				fs.hide();
 //				final Shape els = els2!=null ? els2.firstShape() : null; //only work for one shape selection
 				
 				getDocument().setSelection(els);
 				
 				final FTOptions ftOpts = FTOptions.create();
 				ftOpts.setRotate(true);
-				ftOpts.setAttrs(Attrs.create().fill("red").strokeWidth(4).stroke("blue"));
+				ftOpts.setAttrs(FTAttrs.create().fill("red").strokeWidth(4).stroke("blue"));
 				final FTCallback callback = new FTCallback() {				
 					@Override
 					public void call(FTSubject s, JsArrayString events) {
@@ -106,8 +111,8 @@ public class FTTool extends AbstractTool {
 							JsUtil.arrayContains(events, FreeTransform.EVENT_SCALE_END)|| //scale
 							JsUtil.arrayContains(events, FreeTransform.EVENT_DRAG_END)) { //translate
 							
-							doTransformation();
-							
+							doTransformation(s, events);
+							uninstall(); 
 						}
 //						ta.setText(
 //							"translate: " + s.getTranslateX()+", "+s.getTranslateY()+
@@ -127,11 +132,14 @@ public class FTTool extends AbstractTool {
 		};
 		mask.click(clickHandler);
 	}
-	void doTransformation() {
+	void doTransformation(FTSubject s, JsArrayString events) {
 		/* fs is modified already by the FT cause we didn't use any feedback shape.
 		 * so we demodify it and execute a ChangeShapeAttrsCmd
 		 */							
-		Attrs newAttrs = feedback.attr(); 
+		Attrs newAttrs = feedback.attr();
+		VEditorWidget.getInstance().getStatus().setText("hello: "+s.getRotate()); 
+		Window.alert(JsUtil.dump(s, false));
+//		Window.alert(JsUtil.get(s, "subject")+"");
 //		fs.attr(originalAttrs);
 //		fs.show();
 		
@@ -161,6 +169,9 @@ public class FTTool extends AbstractTool {
 		super.uninstall();		
 		ToolUtil.getInstance().hidePaperMask(getDocument());
 		try {
+			if(feedback!=null) {
+				feedback.remove(); 
+			}
 			if(mask!=null)
 				mask.undrag();
 			if(clickHandler!=null)

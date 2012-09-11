@@ -3,6 +3,7 @@ package org.sgx.espinillo.client.impl1.ui;
 import org.sgx.espinillo.client.impl1.commands.ClipboardCmd;
 import org.sgx.espinillo.client.impl1.ui.i18in.Messages;
 import org.sgx.espinillo.client.impl1.util.ClipboardUtil;
+import org.sgx.espinillo.client.impl1.util.ShapeUtil;
 import org.sgx.espinillo.client.impl1.util.ToolUtil;
 import org.sgx.espinillo.client.model.Document;
 import org.sgx.espinillo.client.model.SelectionListener;
@@ -96,17 +97,16 @@ public class VEditorMenuBar extends MenuBar{
 			public void execute() {
 				Document doc = VEditorWidget.getInstance().getVeditor().getCurrentDocument();
 				
+				
 				VerticalPanel vp = new VerticalPanel();
 				TextArea input = new TextArea();
-//				Set allshapes = doc.getPaper().getAllShapes();
-//				allshapes.exclude(ToolUtil.getInstance().getPaperMask(doc));
+				//TODO: exclude mask and selection feedback shapes from paper before exporting it.
 				input.setText(doc.getPaper().toSVG());
 				input.setSize("100%", "200px");
 				vp.add(new Label(
 						Messages.INSTANCE.msg2(getVeditor().getCurrentDocument().getName())
 						));
 				vp.add(input);
-				
 				DialogBox db = GUIUtil.acceptDialog(Messages.INSTANCE.exportToSVG(), vp);
 				GUIUtil.showDialogBox(db);
 			}
@@ -118,7 +118,16 @@ public class VEditorMenuBar extends MenuBar{
 				VerticalPanel vp = new VerticalPanel();
 				final TextArea input = new TextArea();
 				input.setSize("100%", "200px");
-				input.setText("<svg style=\"overflow: hidden; position: relative;\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"600\" version=\"1.1\" height=\"600\"><rect transform=\"matrix(1,0,0,1,0,0)\" x=\"10\" y=\"20\" width=\"100\" height=\"200\" r=\"12\" rx=\"12\" ry=\"12\" fill=\"red\" stroke=\"#000\" stroke-width=\"8\"></rect><circle transform=\"matrix(1,0,0,1,0,0)\" cx=\"200\" cy=\"200\" r=\"50\" fill=\"none\" stroke=\"#000\"></circle><ellipse transform=\"matrix(1,0,0,1,0,0)\" cx=\"100\" cy=\"100\" rx=\"50\" ry=\"120\" fill=\"none\" stroke=\"#000\"></ellipse></svg>");
+				input.setText("<svg style=\"overflow: hidden; position: relative;\" " +
+					"xmlns=\"http://www.w3.org/2000/svg\" " +
+					"xmlns:xlink=\"http://www.w3.org/1999/xlink\" " +
+					"width=\"600\" version=\"1.1\" height=\"600\">" +
+					"<rect transform=\"matrix(1,0,0,1,0,0)\" x=\"10\" y=\"20\" width=\"100\"" +
+					" height=\"200\" r=\"12\" rx=\"12\" ry=\"12\" fill=\"red\" stroke=\"#000\" " +
+					"stroke-width=\"8\"></rect><circle transform=\"matrix(1,0,0,1,0,0)\" " +
+					"cx=\"200\" cy=\"200\" r=\"50\" fill=\"none\" stroke=\"#000\"></circle>" +
+					"<ellipse transform=\"matrix(1,0,0,1,0,0)\" cx=\"100\" cy=\"100\" rx=\"50\" " +
+					"ry=\"120\" fill=\"none\" stroke=\"#000\"></ellipse></svg>");
 				
 				vp.add(new Label(Messages.INSTANCE.msg1()));
 				vp.add(input);
@@ -164,7 +173,7 @@ public class VEditorMenuBar extends MenuBar{
 				String url = Util.getCurrentAddressUrl();
 				if(!url.contains("en.html")&&!url.contains("index.html")) {
 					if(Window.confirm(Messages.INSTANCE.reloadEditorConfirmation())) {
-						Util.setCurrentAddressUrl("/en.html");
+						Util.setCurrentAddressUrl("/espinillo/en.html");
 					}
 				}
 			}
@@ -175,7 +184,7 @@ public class VEditorMenuBar extends MenuBar{
 				String url = Util.getCurrentAddressUrl();
 				if(!url.contains("es.html")) {
 					if(Window.confirm(Messages.INSTANCE.reloadEditorConfirmation())) {
-						Util.setCurrentAddressUrl("/es.html");
+						Util.setCurrentAddressUrl("/espinillo/es.html");
 					}
 				}
 			}
@@ -248,6 +257,19 @@ public class VEditorMenuBar extends MenuBar{
 		});
 		menuBar_2.addItem(mntmPaste);
 		addItem(mntmEdit);
+		MenuBar menuBar = new MenuBar(true);
+		
+		MenuItem mntmNewMenu = new MenuItem("Tools", false, menuBar);
+		
+		MenuItem mntmNewItem_2 = new MenuItem("Inspect Paper", false, new Command() {			
+			@Override
+			public void execute() {
+				Paper paper = getVeditor().getCurrentDocument().getPaper();
+				ShapeUtil.getInstance().dumpPaper(paper);
+			}
+		});
+		menuBar.addItem(mntmNewItem_2);
+		addItem(mntmNewMenu);
 		
 		
 		

@@ -25,7 +25,7 @@ static Logger logger = Logger.getLogger("ShapeUtil");
 	
 public static final String ID_PREFIX = "espinilloImpl1Shape-", 
 	ID_NAME ="espinilloImpl1Id", 
-	CLASS_NAME = "espinilloImpl1Class", 
+	CLASS = "espinilloImpl1Class", 
 	CLASS_SHAPE="shape", 
 	CLASS_SELFEEDBACK="selection editedShape", 
 	CLASS_MASK="mask";
@@ -52,6 +52,34 @@ private Shape setId(Shape e) {
 public String getShapeId(Shape s) {
 	return s.getData(ID_NAME)+"";
 }
+public String dumpPaper(Paper p) {
+	StringBuffer sb = new StringBuffer();
+	dumpPaper(p, sb);
+	return sb.toString();
+}
+public void dumpPaper(Paper p, StringBuffer sb) {
+	Shape s = p.bottom();
+	
+	while(s!=null) {
+		dumpShape(s, sb);
+		s=s.next();
+	}
+}
+private void dumpShape(Shape s, StringBuffer sb) {
+	Object className = s.getData(CLASS);
+	if(className!=null&&className.equals(CLASS_SHAPE)) {
+		sb.append("Espinillo Shape "+s.getType()+" nid: "+s.getId()+" eid: "+getShapeId(s)+", \n");
+	}
+	else if(className!=null && className.equals(CLASS_MASK)) {
+		sb.append("Espinillo MASK, \n");
+	}
+	else if(className!=null && className.equals(CLASS_SELFEEDBACK)) {
+		sb.append("Espinillo SELECTION FEEDBACK, \n");
+	}
+	else {
+		sb.append("UNDEFINED Shape "+s.getType()+" nid: "+s.getId()+" eid: "+getShapeId(s)+", \n");
+	}
+}
 
 private int incrCounter() {
 	return counter++;
@@ -59,7 +87,7 @@ private int incrCounter() {
 
 private Shape initShape(Shape s) {
 	s.attr(Attrs.create().clipRect("0 0 9999 9999"));
-	s.setData(CLASS_NAME, CLASS_SHAPE);
+	s.setData(CLASS, CLASS_SHAPE);
 	return setId(s);
 }
 public Circle newCircle(Paper paper, int cx, int cy, int r) {
@@ -99,7 +127,7 @@ public Shape newText(Paper paper) {
 	return initShape(e);
 }
 public static boolean isShape(Shape shape) {
-	Object d = shape.getData(CLASS_NAME);
+	Object d = shape.getData(CLASS);
 	logger.log(Level.INFO, "isShape: "+d+"="+CLASS_SHAPE);
 	return d!=null && d.equals(CLASS_SHAPE);
 }

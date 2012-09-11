@@ -25,4 +25,7 @@ public interface Toolbar {
 //	void changeTool(String toolName);
 	public Tool getCurrentTool(Document d);
 	public void setCurrentTool(Document d, Tool t);
+	
+//	public String getStatusText(); 
+//	public void setStatusText(String s); 
 }

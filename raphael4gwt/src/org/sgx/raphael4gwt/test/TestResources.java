@@ -144,5 +144,6 @@ public interface TestResources extends ClientBundle {
 	  @Source("CSSTest1.java")
 	  public TextResource CSSTest1();
 	  
-	  
+	  @Source("SetGlowing1.java")
+	  public TextResource SetGlowing1();
 }

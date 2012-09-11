@@ -74,11 +74,11 @@ public final native BarChart hbarchart(double x, double y, double w, double h,
 
 
 public final native DotChart dotchart(double x, double y, double w, 
-		double h, double[] xs, double[] ys, double[] data, DotOpts opts)/*-{	
+		double h, double[] xs, double[] ys, double [] data, DotOpts opts)/*-{	
 	return this.dotchart(x, y, w, h, 
 		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(xs),
 		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(ys),
-		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(params),
+		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(data),
 		opts.@org.sgx.raphael4gwt.graphael.dot.DotOpts::toNative()()
 		);
 }-*/;

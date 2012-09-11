@@ -39,6 +39,7 @@ import org.sgx.raphael4gwt.test.MouseRelativeCoordsTest;
 import org.sgx.raphael4gwt.test.PaperLoadAndSave;
 import org.sgx.raphael4gwt.test.PaperLoadAndSaveUnit1;
 import org.sgx.raphael4gwt.test.PaperViewBoxTest1;
+import org.sgx.raphael4gwt.test.SetGlowing1;
 import org.sgx.raphael4gwt.test.SvgFiltersTest1;
 import org.sgx.raphael4gwt.test.SvgFiltersTest2;
 //import org.sgx.raphael4gwt.test.PathCmdsTest1;
@@ -332,7 +333,11 @@ public class GalleryUtil {
 		
 		t = new FreeTransformTest2(paper, w, h);
 		tests.put(t.getName(), t);
+
+		t = new SetGlowing1(paper, w, h);
+		tests.put(t.getName(), t);
 			
+		
 	}
 
 	Map<String, List<Test>> getTestsByTag() {

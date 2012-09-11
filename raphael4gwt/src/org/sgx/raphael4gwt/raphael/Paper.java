@@ -28,7 +28,7 @@ public class Paper extends JavaScriptObject {
 	protected Paper(){}
 	
 	/**
-	 * Imports elements in JSON array in format {type: type, <attributes>}
+	 * Imports elements in JSON array in format {type: type, &lt;attributes>}. This format is the same as writeToObject()
 	 * @return resulting set of imported elements
 	 */
 	public final native Set add(JsArray<Attrs> content)/*-{
@@ -42,6 +42,7 @@ public class Paper extends JavaScriptObject {
 	 */
 	public final native Set add(String json)/*-{
 		var obj = @com.google.gwt.core.client.JsonUtils::unsafeEval(Ljava/lang/String;)(json);//escapeValue(Ljava/lang/String;)()
+		$wnd.alert(obj[0].x+""); 
 		return this.add(obj);
 	}-*/;
 	
@@ -669,7 +670,7 @@ txt[0].attr({fill: "#f00"});
 	//write to js obj
 	
 	/**
-	 * extension 
+	 * return a javascript - JSON object that can be later laded in the paper using add(). This is a raphael extension. 
 	 * @return a js object just like espected by paper.add
 	 */
 	public final native JsArray<Attrs> writeToObject()/*-{
@@ -677,7 +678,7 @@ txt[0].attr({fill: "#f00"});
 	}-*/;
 	
 	/**
-	 * extension 
+	 * return a JSON string that can be later laded in the paper using add(). This is a raphael extension.  
 	 * @return a json string in the structure espected by paper.add
 	 */
 	public final native String writeToString()/*-{

@@ -18,7 +18,7 @@ public class Document1 extends AbstractDocument {
 
 	static Logger logger = Logger.getLogger("Document1");
 	private Set selFeedbacks=null;
-	private CommandListener shapeChangeAttrListener;
+//	private CommandListener shapeChangeAttrListener;
 
 	public Document1(VEditor ved, Paper paper, String name) {
 		super(ved, paper, name);
@@ -28,21 +28,21 @@ public class Document1 extends AbstractDocument {
 	}
 	
 	private void init() {
-		shapeChangeAttrListener = new CommandListener() {			
-			@Override
-			public void onCommandExec(Command c) {
-				if(c instanceof ChangeShapeAttrsCmd) {
-					if(getSelection().contains(((ChangeShapeAttrsCmd)c).getShape())) {
-						SelectionUtil.getInstance().updateSelectionFeedbacks(getPaper(), getSelection());
-					}					
-				}
-			}			
-			@Override
-			public boolean beforeCommandExec(Command c) {
-				return true;
-			}
-		};
-		addCommandListener(ChangeShapeAttrsCmd.class, shapeChangeAttrListener);
+//		shapeChangeAttrListener = new CommandListener() {			
+//			@Override
+//			public void onCommandExec(Command c) {
+//				if(c instanceof ChangeShapeAttrsCmd) {
+//					if(getSelection().contains(((ChangeShapeAttrsCmd)c).getShape())) {
+//						SelectionUtil.getInstance().updateSelectionFeedbacks(getPaper(), getSelection());
+//					}					
+//				}
+//			}			
+//			@Override
+//			public boolean beforeCommandExec(Command c) {
+//				return true;
+//			}
+//		};
+//		addCommandListener(ChangeShapeAttrsCmd.class, shapeChangeAttrListener);
 	}
 
 	@Override

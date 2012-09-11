@@ -3,8 +3,12 @@ package org.sgx.espinillo.client.impl1.eds;
 import org.sgx.gwteditors.client.impl1.basetypes.Color;
 import org.sgx.gwteditors.client.impl1.basetypes.SelectionList;
 import org.sgx.gwteditors.client.impl1.edbean.EditableBean;
+import org.sgx.raphael4gwt.raphael.base.Attrs;
+import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.user.client.Window;
 
 public abstract class ShapeBean implements EditableBean {
 	
@@ -16,20 +20,25 @@ public ShapeBean(){
 	
 	fillColor=new Color("ffffff");
 	strokeColor=new Color("000000");
-	fillImage = null;
-	fillGradient=null;
+	fillImage = "";
+	fillGradient="";
 //	arrowEnd=GWT.create(ArrowEndBean.class);
 }
 
 Color fillColor, strokeColor; 
 String fillImage, fillGradient, transform, clipRect, path;
 SelectionList<String> strokeDashArray;
-Integer strokeWidth;
+Integer strokeWidth=2;
 Double opacity=1.0;
-String text, fontFamily;
-Integer fontSize;
+String text="", fontFamily="";
+Integer fontSize=14;
 //ArrowEndBean arrowEnd;
-
+public Attrs getNativeAttrs() {
+	Attrs a = Attrs.create().fill(getFill()).stroke(getStroke()).transform(getTransform()).
+		clipRect(getClipRect()).text(getText()).fontFamily(getFontFamily()).
+		fontSize(getFontSize()).strokeWidth(getStrokeWidth()); 
+	return a; 
+}
 
 public Color getFillColor() {
 	return fillColor;
@@ -42,6 +51,16 @@ public Color getStrokeColor() {
 }
 public void setStrokeColor(Color strokeColor) {
 	this.strokeColor = strokeColor;
+}
+public String getFill() {
+	if(fillColor!=null)
+		return "#"+fillColor.getHex(); 
+	else return "#ffffff";
+}
+public String getStroke() {
+	if(strokeColor!=null)
+		return "#"+strokeColor.getHex(); 
+	else return "#000000";
 }
 public String getFillImage() {
 	return fillImage;

@@ -52,6 +52,7 @@ public Shape getSelectionFeedback(Paper paper, Shape s) {
 	return sf;
 }
 public void updateSelectionFeedbacks(final Paper paper, Set shapes) {
+	logger.log(Level.INFO, "updateSelectionFeedbacks"); 
 	shapes.forEach(new ForEachCallback() {		
 		@Override
 		public boolean call(Shape el, int index) {
@@ -90,7 +91,7 @@ protected Shape newSelectionFeedback(Paper paper,Shape s) {
 	
 //	logger.log(Level.INFO, "newSelectionFeedback of "+s.getType()+" - bbox: "+bb.print()+" - shape id : "+ShapeUtil.getInstance().getShapeId(s));
 	Shape r = paper.rect(bb).attr(getDefaultSelectionFeedbackAttrs());
-	r.setData(ShapeUtil.CLASS_NAME, ShapeUtil.CLASS_SELFEEDBACK);
+	r.setData(ShapeUtil.CLASS, ShapeUtil.CLASS_SELFEEDBACK);
 	r.toFront();
 	r.show();
 	return r;

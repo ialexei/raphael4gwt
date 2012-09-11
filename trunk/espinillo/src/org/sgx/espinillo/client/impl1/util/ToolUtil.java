@@ -48,7 +48,7 @@ public class ToolUtil {
 	public Rect showPaperMask(Document d) {
 		if(_pMask==null||_pMask.isRemoved()) {
 			_pMask=createPaperMask(d);
-			_pMask.setData(ShapeUtil.CLASS_NAME, ShapeUtil.CLASS_MASK);
+			_pMask.setData(ShapeUtil.CLASS, ShapeUtil.CLASS_MASK);
 		}
 		_pMask.toFront();
 		return _pMask;
@@ -65,13 +65,13 @@ public class ToolUtil {
 	private Rect createPaperMask(final Document d) {
 		Rect r = (Rect) d.getPaper().rect(0,0,d.getPaper().getWidth(),d.getPaper().getHeight()).
 			attr(Attrs.create().opacity(0.2).fill("#ffffff"));
-		r.mouseMove(new MouseEventListener() {		
-			@Override
-			public void notifyMouseEvent(NativeEvent e) {
-				Point c = Raphael.getCoordsInPaper(d.getPaper(), e);
-				VEditorWidget.getInstance().getStatus().setText(c.print());
-			}
-		}, MASK_MOVE_THROTTLE);
+//		r.mouseMove(new MouseEventListener() {		
+//			@Override
+//			public void notifyMouseEvent(NativeEvent e) {
+//				Point c = Raphael.getCoordsInPaper(d.getPaper(), e);
+//				VEditorWidget.getInstance().getStatus().setText(c.print());
+//			}
+//		}, MASK_MOVE_THROTTLE);
 		return r;
 	}
 	public Rect hidePaperMask(Document d) {

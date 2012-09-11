@@ -5,7 +5,7 @@ to compile the project and build dist/raphael4gwt.jar file
 For performing javascript minimization and concatenation call ant js (need linux and yuicompressor.jar in the root folder)
 For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src property)
 -->
-<project name="espinillo" default="installdeps">
+<project name="espinillo" default="all">
 
 	<property file="build.properties"/>
 	<description>
@@ -13,7 +13,9 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 		@author: sgurin
     </description>
 
-
+	<target name="all" depends="clean,installdeps,gwtc">
+	</target>
+	
 	<target name="installdeps">
 		<copy file="${raphael4gwt.jar}" todir="war/WEB-INF/lib"></copy>
 		<copy file="${org.sgx.editors.jar}" todir="war/WEB-INF/lib"></copy>
@@ -26,6 +28,12 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 		<fileset dir="war/WEB-INF/lib" includes="**/*.jar" />
 	</path>
 
+	<target name="clean" depends="">
+		<delete dir="war/espinillo"/>
+		<delete dir="dist"/>
+		<delete dir="classes"/>	
+	</target>
+	
 	<target name="gwtc" description="individual GWT compile to JavaScript">
 		<java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
 			<classpath>

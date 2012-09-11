@@ -7,11 +7,11 @@ import org.sgx.espinillo.client.model.tool.Toolbar;
 /**
  * i represent the entire visual editor platform. some of my responsbilities are
  * 
- * 1) keep a list of documents 
- * 2) keep properties values currently selected by the user, 
+ * 1) admin a list of documents 
+ * 2) admin properties values currently selected by the user, 
  * most significant: the shape attributes selected by the user which will 
  * be used to paint figures in the editor. 
- * 3) keep the toolbar to be used
+ * 3) admin the toolbar to be used
  * 
  * @author sg
  *

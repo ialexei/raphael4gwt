@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.sgx.espinillo.client.impl1.ui.VEditorWidget;
 import org.sgx.espinillo.client.impl1.ui.i18in.Messages;
 import org.sgx.espinillo.client.model.Document;
 import org.sgx.espinillo.client.model.tool.Tool;
@@ -87,6 +88,16 @@ public class Toolbar1 implements Toolbar {
 		
 		return null;
 	}
+
+//	@Override
+//	public String getStatusText() {
+//		return VEditorWidget.getInstance().getStatus().getText(); 
+//	}
+//
+//	@Override
+//	public void setStatusText(String s) {
+//		VEditorWidget.getInstance().getStatus().setText(s); 
+//	}
 
 	
 }

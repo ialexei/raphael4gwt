@@ -3602,8 +3602,18 @@
 				};
 			})(method);
 		}
-	setproto.glow = elproto.glow;// sgurin - fix for set
-	setproto.isPointInside = function(x, y) {  //sgurin - fix for issu https://github.com/DmitryBaranovskiy/raphael/issues/587#issuecomment-6179760
+	setproto.glow = function(glowConfig) {// sgurin - fix for set
+		alert("glow js"); 
+		var ret = this.paper.set(); 
+		this.forEach(function(shape, index){
+			var g = shape.glow(glowConfig); 
+			g.forEach(function(shape2, index2){
+				ret.push(shape2); 
+			}); 
+		}); 
+		return ret; 
+	}; 
+	setproto.isPointInside = function(x, y) {  //sgurin - fix for issue https://github.com/DmitryBaranovskiy/raphael/issues/587#issuecomment-6179760
 		var ipi = false;
 		this.forEach(function(el) {
 			if (!ipi && el.isPointInside(x, y)) {

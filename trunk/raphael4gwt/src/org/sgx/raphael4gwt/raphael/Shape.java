@@ -493,7 +493,42 @@ console.log(el.transform());
 	}-*/;
 	
 	
-	
+	/**
+	 * Adds transformation to the element which is separate to other attributes, i.e. translation doesn’t change x or y of the rectange. The format of transformation string is similar to the path string syntax:
+<pre>
+"t100,100r30,100,100s2,2,100,100r45s1.5"
+</pre>
+Each letter is a command. There are four commands: t is for translate, r is for rotate, s is for scale and m is for matrix.
+<br/>
+There are also alternative “absolute” translation, rotation and scale: T, R and S. They will not take previous transformation into account. For example, ...T100,0 will always move element 100 px horisontally, while ...t100,0 could move it vertically if there is r90 before. Just compare results of r90t100,0 and r90T100,0.
+<br/>
+So, the example line above could be read like “translate by 100, 100; rotate 30° around 100, 100; scale twice around 100, 100; rotate 45° around centre; scale 1.5 times relative to centre”. As you can see rotate and scale commands have origin coordinates as optional parameters, the default is the centre point of the element. Matrix accepts six parameters. 
+Usage: 
+<pre>
+var el = paper.rect(10, 20, 300, 200);
+// translate 100, 100, rotate 45°, translate -100, 0
+el.transform("t100,100r45t-100,0");
+// if you want you can append or prepend transformations
+el.transform("...t50,50");
+el.transform("s2...");
+// or even wrap
+el.transform("t50,50...t-50-50");
+// to reset transformation call method with empty string
+el.transform("");
+// to get current value call it without parameters
+console.log(el.transform());
+</pre>
+	 */
+	public final native Shape transform(String tstr)/*-{
+		this.transform(tstr);
+		return this; 
+	}-*/;
+	/**
+	 * @returnm current transformation string. 
+	 */
+	public final native String transform()/*-{
+		return this.transform();
+	}-*/;
 	
 	
 	/* *** ATRIBUTES *** */
@@ -725,17 +760,27 @@ console.log(el.transform());
 	
 	
 	/**
-	 * Return set of elements that create glow-like effect around given element. See Paper.set.
-
-Note: Glow is not connected to the element. If you change element attributes it won’t adjust itself. 
+	 * Return set of elements that create glow-like effect around given element. See Paper.set.Note: Glow is not connected to the element. If you change element attributes it won’t adjust itself. 
 	 * @param glow
 	 * @return
 	 */
 	public final native Set glow(Glow glow)/*-{
-		if(glow==null)
-			return null;
+//		if(glow==null)
+//			return null;
 		var g = glow.@org.sgx.raphael4gwt.raphael.base.Glow::getNative()();
 		return this.glow(g);
+	}-*/;
+	/**
+	 * Return set of elements that create glow-like effect around given element. See Paper.set. Note: Glow is not connected to the element. If you change element attributes it won’t adjust itself. 
+	 * @param glow
+	 * @return
+	 */
+	public final native Set glow()/*-{
+		return this.glow(); 
+//		if(glow==null)
+//			return null;
+//		var g = glow.@org.sgx.raphael4gwt.raphael.base.Glow::getNative()();
+//		return this.glow(g);
 	}-*/;
 
 

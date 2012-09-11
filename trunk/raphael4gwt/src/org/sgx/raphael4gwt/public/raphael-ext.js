@@ -20,6 +20,20 @@
  * @author: sgurin and other raphael extension authors
  */
 
+
+
+
+
+
+
+
+/*
+ * first of all some fixes that can be done with extensions
+ */
+//(function() {
+//})(); 
+
+
 (function() {
 	/**
 	 * do the job of putting all letters in a set returned bu printLetters in a

@@ -66,7 +66,12 @@ public native final Shape pop()/*-{
 public native final Set push(Shape s)/*-{
 	return this.push(s);
 }-*/;
-
+/**
+ * add shape "on top" of this set
+ */
+public native final Set push(Shape[] s)/*-{
+	return this.push(@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([Lcom/google/gwt/core/client/JavaScriptObject;)(s));
+}-*/;
 /**
  * add shapes "on top" of this set
  */

@@ -3,6 +3,8 @@ package org.sgx.raphael4gwt.test;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;
@@ -10,6 +12,8 @@ import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
 import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * in this test we will import a svg file generated with a 3rd party like corel draw or inskape. 
@@ -23,8 +27,25 @@ public class SVGImportTest1 extends Test {
 
 @Override
 public void test() {
+	VerticalPanel p = GalleryUtil.getInstance().getTestPanel();
 	
-	String svgUri = "org.sgx.raphael4gwt.Raphael4GwtTest/test/svgExample1.svg";
+	p.add(new Button("svgExample1.svg", new ClickHandler() {		
+		@Override
+		public void onClick(ClickEvent event) {
+			loadSvg("org.sgx.raphael4gwt.Raphael4GwtTest/test/svgExample1.svg"); 
+		}
+	})); 
+	
+	p.add(new Button("svgExample2.svg", new ClickHandler() {		
+		@Override
+		public void onClick(ClickEvent event) {
+			loadSvg("org.sgx.raphael4gwt.Raphael4GwtTest/test/svgExample2.svg"); 
+		}
+	}));
+
+}
+
+protected void loadSvg(String svgUri) {
 	
 	RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, URL.encode(svgUri));
 
@@ -52,7 +73,6 @@ public void test() {
 	} catch (RequestException e) {
 		Window.alert("Error when trying to get the svg file. ");     
 	}
-
 }
 
 //test params

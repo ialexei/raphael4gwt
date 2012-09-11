@@ -55,7 +55,7 @@ public abstract class Test {
 		this.description = description;
 	}
 	public String[] getTags() {
-		return tags;
+		return this.tags;
 	}
 	public void setTags(String[] tags) {
 		this.tags = tags;

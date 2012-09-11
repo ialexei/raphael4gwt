@@ -72,11 +72,29 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 		<delete dir="java2html"/>		
 	</target>
 	
-	<target name="jar" depends="compile-core">
+	<property name="raphael4gwtRootPackage" 
+		value="/src/org/sgx/raphael4gwt/"></property>
+	
+	<property name="raphael4gwtJarExclude" 
+			value="org/sgx/raphael4gwt/test/,org/sgx/raphael4gwt/gtest/,org/sgx/raphael4gwt/public-raphael-test/,org/sgx/raphael4gwt/public-tut/,org/sgx/raphael4gwt/tut/"></property>
+	
+	<!--depends="compile-core"
+	 excludes="${raphael4gwtJarExclude}"
+	 	<property name="raphael4gwtJarExclude" 
+		value="${raphael4gwtRootPackage}/test,${raphael4gwtRootPackage}/gtest"></property>
+		-->
+	<target name="jar" >
 		<mkdir dir="dist"/>
 		<jar destfile="dist/raphael4gwt-${raphael4gwt.version}.jar">
-			<fileset dir="classes" excludes="**/Test.class" />
+			
+			<!--<fileset dir="classes" excludes="**/Test.class" />
 			<fileset dir="src" excludes="**/Test.java" />
+			-->
+			
+			<fileset dir="classes" excludes="${raphael4gwtJarExclude}" />
+			<fileset dir="src" excludes="${raphael4gwtJarExclude}" />
+			
+			
 		</jar>
 	</target>
 		
@@ -97,6 +115,10 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 	
 	<target name="js">
 		<exec dir="src/org/sgx/raphael4gwt/public" executable="sh" >
+			<arg line="preparejs.sh"/>
+		</exec>
+		
+		<exec dir="src/org/sgx/raphael4gwt/public-graphael/graphael" executable="sh" >
 			<arg line="preparejs.sh"/>
 		</exec>
 	</target>

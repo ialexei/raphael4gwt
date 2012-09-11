@@ -78,12 +78,12 @@ For creating javadocs, you do ant javadocs, will need gwt sources (edit gwt.src 
 	<property name="raphael4gwtJarExclude" 
 			value="org/sgx/raphael4gwt/test/,org/sgx/raphael4gwt/gtest/,org/sgx/raphael4gwt/public-raphael-test/,org/sgx/raphael4gwt/public-tut/,org/sgx/raphael4gwt/tut/"></property>
 	
-	<!--depends="compile-core"
+	<!--
 	 excludes="${raphael4gwtJarExclude}"
 	 	<property name="raphael4gwtJarExclude" 
 		value="${raphael4gwtRootPackage}/test,${raphael4gwtRootPackage}/gtest"></property>
 		-->
-	<target name="jar" >
+	<target name="jar" depends="compile-core">
 		<mkdir dir="dist"/>
 		<jar destfile="dist/raphael4gwt-${raphael4gwt.version}.jar">
 			

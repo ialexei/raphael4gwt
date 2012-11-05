@@ -6,8 +6,8 @@ import org.sgx.raphael4gwt.graphael.dot.DotChart;
 import org.sgx.raphael4gwt.graphael.dot.DotOpts;
 import org.sgx.raphael4gwt.graphael.line.LineChart;
 import org.sgx.raphael4gwt.graphael.line.LineOpts;
-import org.sgx.raphael4gwt.graphael.pie.PieOpts;
 import org.sgx.raphael4gwt.graphael.pie.PieChart;
+import org.sgx.raphael4gwt.graphael.pie.PieOpts;
 import org.sgx.raphael4gwt.graphael.radar.RadarChart;
 import org.sgx.raphael4gwt.graphael.radar.RadarOpts;
 import org.sgx.raphael4gwt.graphael.sunburst.Cluster;
@@ -18,6 +18,7 @@ import org.sgx.raphael4gwt.raphael.Set;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayNumber;
 
 /**
  * @author sg
@@ -27,20 +28,33 @@ public class GPaper extends Paper {
 	
 protected GPaper(){}
 	
-public final native PieChart piechart(double x, double y, double r, 
-		double[] vals)/*-{	
-	return this.piechart(x, y, r, 
-		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(vals));
+//public final native PieChart piechart(double x, double y, double r, 
+//		double[] vals)/*-{	
+//	return this.piechart(x, y, r, 
+//		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(vals));
+//}-*/;
+//
+//public final native PieChart piechart(double x, double y, double r,  
+//		double[] vals, PieOptsOld opts)/*-{
+//	return this.piechart(x, y, r, 
+//		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(vals),
+//		opts.@org.sgx.raphael4gwt.graphael.pie.PieOptsOld::toNative()()
+//	);
+//}-*/;
+ 
+public final native PieChart piechart(double x, double y, double r,  
+		JsArrayNumber vals, PieOpts opts)/*-{
+	return this.piechart(x, y, r,vals,opts);
 }-*/;
-
 public final native PieChart piechart(double x, double y, double r,  
 		double[] vals, PieOpts opts)/*-{
 	return this.piechart(x, y, r, 
 		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(vals),
-		opts.@org.sgx.raphael4gwt.graphael.pie.PieOpts::toNative()()
+		opts
 	);
 }-*/;
- 
+
+
 
 public final native BarChart barchart(double x, double y, double w, double h, 
 		double[][] vals)/*-{

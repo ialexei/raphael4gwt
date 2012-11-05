@@ -1,21 +1,10 @@
 /*!
- * g.Raphael 0.5 - Charting library, based on Raphaël
+ * g.Raphael 0.51 - Charting library, based on Raphaël
  *
- * Copyright (c) 2009 Dmitry Baranovskiy (http://g.raphaeljs.com)
+ * Copyright (c) 2009-2012 Dmitry Baranovskiy (http://g.raphaeljs.com)
  * Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
  */
-
-/* sgurin notes about bars: 
- * 
- * for a barchart like 
- * var data = [[55, 20, 13, 32, 5, 1, 2, 10], [65, 10, 23, 42, 15, 11, 12, 20]], 
- * stacked or not, there will be 8+8 shapes and these are, 
- *  
- * this[0][0] and this[0][1] - for each data sub array respectively.
- */
-
-
-//(function () {
+(function () {
     var mmin = Math.min,
         mmax = Math.max;
 
@@ -146,11 +135,38 @@
         }
     }
 
-    /*
-     * Vertical Barchart
-     */
+/*\
+ * Paper.vbarchart
+ [ method ]
+ **
+ * Creates a vertical bar chart
+ **
+ > Parameters
+ **
+ - x (number) x coordinate of the chart
+ - y (number) y coordinate of the chart
+ - width (number) width of the chart (respected by all elements in the set)
+ - height (number) height of the chart (respected by all elements in the set)
+ - values (array) values
+ - opts (object) options for the chart
+ o {
+ o type (string) type of endings of the bar. Default: 'square'. Other options are: 'round', 'sharp', 'soft'.
+ o gutter (number)(string) default '20%' (WHAT DOES IT DO?)
+ o vgutter (number)
+ o colors (array) colors be used repeatedly to plot the bars. If multicolumn bar is used each sequence of bars with use a different color.
+ o stacked (boolean) whether or not to tread values as in a stacked bar chart
+ o to
+ o stretch (boolean)
+ o }
+ **
+ = (object) path element of the popup
+ > Usage
+ | r.vbarchart(0, 0, 620, 260, [76, 70, 67, 71, 69], {})
+ \*/
+ 
     function VBarchart(paper, x, y, width, height, values, opts) {
         opts = opts || {};
+
         var chartinst = this,
             type = opts.type || "square",
             gutter = parseFloat(opts.gutter || "20%"),
@@ -326,6 +342,56 @@
         	
             return this;
         };
+        
+//        chart.label = function (labels, isBottom) {
+//            labels = labels || [];
+//            this.labels = paper.set();
+//
+//            var L, l = -Infinity;
+//
+//            if (opts.stacked) {
+//                for (var i = 0; i < len; i++) {
+//                    var tot = 0;
+//
+//                    for (var j = 0; j < (multi || 1); j++) {
+//                        tot += multi ? values[j][i] : values[i];
+//
+//                        if (j == multi - 1) {
+//                            var label = paper.labelise(labels[i], tot, total);
+//
+//                            L = paper.text(bars[i * (multi || 1) + j].x, y + height - barvgutter / 2, label).attr(txtattr).insertBefore(covers[i * (multi || 1) + j]);
+//
+//                            var bb = L.getBBox();
+//
+//                            if (bb.x - 7 < l) {
+//                                L.remove();
+//                            } else {
+//                                this.labels.push(L);
+//                                l = bb.x + bb.width;
+//                            }
+//                        }
+//                    }
+//                }
+//            } else {
+//                for (var i = 0; i < len; i++) {
+//                    for (var j = 0; j < (multi || 1); j++) {
+//                        var label = paper.labelise(multi ? labels[j] && labels[j][i] : labels[i], multi ? values[j][i] : values[i], total);
+//
+//                        L = paper.text(bars[i * (multi || 1) + j].x, isBottom ? y + height - barvgutter / 2 : bars[i * (multi || 1) + j].y - 10, label).attr(txtattr).insertBefore(covers[i * (multi || 1) + j]);
+//
+//                        var bb = L.getBBox();
+//
+//                        if (bb.x - 7 < l) {
+//                            L.remove();
+//                        } else {
+//                            this.labels.push(L);
+//                            l = bb.x + bb.width;
+//                        }
+//                    }
+//                }
+//            }
+//            return this;
+//        };
 
         chart.hover = function (fin, fout) {
             covers2.hide();
@@ -381,10 +447,45 @@
         chart.covers = covers;
         return chart;
     };
-
-    /**
-     * Horizontal Barchart
-     */
+    
+    //inheritance
+    var F = function() {};
+    F.prototype = Raphael.g;
+    HBarchart.prototype = VBarchart.prototype = new F; //prototype reused by hbarchart
+    
+    Raphael.fn.barchart = function(x, y, width, height, values, opts) {
+        return new VBarchart(this, x, y, width, height, values, opts);
+    };
+    
+/*\
+ * Paper.barchart
+ [ method ]
+ **
+ * Creates a horizontal bar chart
+ **
+ > Parameters
+ **
+ - x (number) x coordinate of the chart
+ - y (number) y coordinate of the chart
+ - width (number) width of the chart (respected by all elements in the set)
+ - height (number) height of the chart (respected by all elements in the set)
+ - values (array) values
+ - opts (object) options for the chart
+ o {
+ o type (string) type of endings of the bar. Default: 'square'. Other options are: 'round', 'sharp', 'soft'.
+ o gutter (number)(string) default '20%' (WHAT DOES IT DO?)
+ o vgutter (number)
+ o colors (array) colors be used repeatedly to plot the bars. If multicolumn bar is used each sequence of bars with use a different color.
+ o stacked (boolean) whether or not to tread values as in a stacked bar chart
+ o to
+ o stretch (boolean)
+ o }
+ **
+ = (object) path element of the popup
+ > Usage
+ | r.barchart(0, 0, 620, 260, [76, 70, 67, 71, 69], {})
+ \*/
+ 
     function HBarchart(paper, x, y, width, height, values, opts) {
         opts = opts || {};
 
@@ -526,12 +627,12 @@
 
             for (var i = 0; i < len; i++) {
                 for (var j = 0; j < multi; j++) {
-                    var  label = Raphael.g.labelise(multi ? labels[j] && labels[j][i] : labels[i], multi ? values[j][i] : values[i], total),
+                    var  label = paper.labelise(multi ? labels[j] && labels[j][i] : labels[i], multi ? values[j][i] : values[i], total),
                         X = isRight ? bars[i * (multi || 1) + j].x - barheight / 2 + 3 : x + 5,
                         A = isRight ? "end" : "start",
                         L;
 
-                    this.labels.push(L = paper.text(X, bars[i * (multi || 1) + j].y, label).attr(Raphael.g.txtattr).attr({ "text-anchor": A }).insertBefore(covers[0]));
+                    this.labels.push(L = paper.text(X, bars[i * (multi || 1) + j].y, label).attr(txtattr).attr({ "text-anchor": A }).insertBefore(covers[0]));
 
                     if (L.getBBox().x < x + 5) {
                         L.attr({x: x + 5, "text-anchor": "start"});
@@ -600,16 +701,8 @@
         return chart;
     };
     
-    //inheritance
-    var F = function() {};
-    F.prototype = Raphael.g;
-    HBarchart.prototype = VBarchart.prototype = new F;
-    
     Raphael.fn.hbarchart = function(x, y, width, height, values, opts) {
         return new HBarchart(this, x, y, width, height, values, opts);
     };
     
-    Raphael.fn.barchart = function(x, y, width, height, values, opts) {
-        return new VBarchart(this, x, y, width, height, values, opts);
-    };
-//})();
+})();

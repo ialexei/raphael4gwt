@@ -11,7 +11,7 @@ import org.sgx.raphael4gwt.gtest.gallery.tests.BarChartTest2;
 import org.sgx.raphael4gwt.gtest.gallery.tests.BarChartTest3;
 import org.sgx.raphael4gwt.gtest.gallery.tests.DotChartTest1;
 import org.sgx.raphael4gwt.gtest.gallery.tests.LineChartTest1;
-import org.sgx.raphael4gwt.gtest.gallery.tests.PieChartTest1;
+import org.sgx.raphael4gwt.gtest.gallery.tests.PieChartTest2;
 import org.sgx.raphael4gwt.gtest.gallery.tests.RadarTest1;
 import org.sgx.raphael4gwt.gtest.gallery.tests.RadarTest2;
 import org.sgx.raphael4gwt.gtest.gallery.tests.SunBurstTest1;
@@ -102,8 +102,8 @@ public class GalleryUtil {
 
 		Test t = null;
  
-		t = new PieChartTest1(paper, w, h);
-		tests.put(t.getName(), t);
+//		t = new PieChartTest1(paper, w, h);
+//		tests.put(t.getName(), t);
 
 		t = new BarChartTest1(paper, w, h);
 		tests.put(t.getName(), t);
@@ -136,6 +136,9 @@ public class GalleryUtil {
 		tests.put(t.getName(), t);
 		
 		t = new RadarTest2(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		t = new PieChartTest2(paper, w, h); 
 		tests.put(t.getName(), t);
 		
 	}

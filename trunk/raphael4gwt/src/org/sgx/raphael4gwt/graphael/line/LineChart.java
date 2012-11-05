@@ -44,7 +44,7 @@ public class LineChart extends GShape {
 		return this.lines;
 	}-*/;
 	
-	public final native GShape geShades()/*-{
+	public final native GShape getShades()/*-{
 		return this.shades;
 	}-*/;
 	

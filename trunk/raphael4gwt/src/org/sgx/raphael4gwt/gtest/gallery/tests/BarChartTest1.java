@@ -58,8 +58,6 @@ public class BarChartTest1 extends Test {
 		});
 		barchart.label(new String[][]{{"c++", "java", "python", "smalltalk", "lisp", 
 			"javascript", "perl", "shall"}}, true);
-		
-		
 	}
 
 	//test class stuff

@@ -1,8 +1,8 @@
 /* g.raphael */
 /*!
- * g.Raphael 0.5 - Charting library, based on Raphaël
+ * g.Raphael 0.51 - Charting library, based on Raphaël
  *
- * Copyright (c) 2009 Dmitry Baranovskiy (http://g.raphaeljs.com)
+ * Copyright (c) 2009-2012 Dmitry Baranovskiy (http://g.raphaeljs.com)
  * Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
  */
 
@@ -23,11 +23,6 @@
  - y (number) y coordinate of the popup's tail [default: Element's `y` or `cy`]
  **
  = (object) path element of the popup
- > Usage
- | paper.circle(50, 50, 5).attr({
- |     stroke: "#fff",
- |     fill: "0-#c9de96-#8ab66b:44-#398235"
- | }).popup();
  \*/
 Raphael.el.popup = function (dir, size, x, y) {
     var paper = this.paper || this[0].paper,
@@ -52,8 +47,10 @@ Raphael.el.popup = function (dir, size, x, y) {
     ch = Math.max(bb.height / 2 - size, 0);
 
     //sgurin : fix for raphael 2.1 https://github.com/jhurt/g.raphael/commit/97644e810fdb1e2519e2246b1a5be5934232a7de
-//    this.translate(x - bb.x - (center ? bb.width / 2 : 0), y - bb.y - (center ? bb.height / 2 : 0));
-//    bb = this.getBBox();  
+//  this.translate(x - bb.x - (center ? bb.width / 2 : 0), y - bb.y - (center ? bb.height / 2 : 0));
+//  bb = this.getBBox();  
+    this.translate(x - bb.x - (center ? bb.width / 2 : 0), y - bb.y - (center ? bb.height / 2 : 0));
+    bb = this.getBBox();
 
     var paths = {
         up: [
@@ -135,11 +132,6 @@ Raphael.el.popup = function (dir, size, x, y) {
  - y (number) y coordinate of the center of the tag loop [default: Element's `x` or `cx`]
  **
  = (object) path element of the tag
- > Usage
- | paper.circle(50, 50, 15).attr({
- |     stroke: "#fff",
- |     fill: "0-#c9de96-#8ab66b:44-#398235"
- | }).tag(60);
  \*/
 Raphael.el.tag = function (angle, r, x, y) {
     var d = 3,
@@ -225,11 +217,6 @@ Raphael.el.tag = function (angle, r, x, y) {
  - y (number) y coordinate of the drop's point [default: Element's `x` or `cx`]
  **
  = (object) path element of the drop
- > Usage
- | paper.circle(50, 50, 8).attr({
- |     stroke: "#fff",
- |     fill: "0-#c9de96-#8ab66b:44-#398235"
- | }).drop(60);
  \*/
 Raphael.el.drop = function (angle, x, y) {
     var bb = this.getBBox(),
@@ -281,11 +268,6 @@ Raphael.el.drop = function (angle, x, y) {
  - y (number) y coordinate of the flag's point [default: Element's `x` or `cx`]
  **
  = (object) path element of the flag
- > Usage
- | paper.circle(50, 50, 10).attr({
- |     stroke: "#fff",
- |     fill: "0-#c9de96-#8ab66b:44-#398235"
- | }).flag(60);
  \*/
 Raphael.el.flag = function (angle, x, y) {
     var d = 3,
@@ -346,11 +328,6 @@ Raphael.el.flag = function (angle, x, y) {
  * Puts the context Element in a 'label' tooltip. Can also be used on sets.
  **
  = (object) path element of the label.
- > Usage
- | paper.circle(50, 50, 10).attr({
- |     stroke: "#fff",
- |     fill: "0-#c9de96-#8ab66b:44-#398235"
- | }).label();
  \*/
 Raphael.el.label = function () {
     var bb = this.getBBox(),
@@ -375,11 +352,6 @@ Raphael.el.label = function () {
  - y (number) y coordinate of the blob's tail [default: Element's `x` or `cx`]
  **
  = (object) path element of the blob
- > Usage
- | paper.circle(50, 50, 8).attr({
- |     stroke: "#fff",
- |     fill: "0-#c9de96-#8ab66b:44-#398235"
- | }).blob(60);
  \*/
 Raphael.el.blob = function (angle, x, y) {
     var bb = this.getBBox(),
@@ -483,7 +455,7 @@ Raphael.fn.popup = function (x, y, text, dir, size) {
 
     text = this.text(x, y, text).attr(Raphael.g.txtattr);
     
-    //sgurin : fix for raphael 2.1 https://github.com/jhurt/g.raphael/commit/97644e810fdb1e2519e2246b1a5be5934232a7de
+  //sgurin : fix for raphael 2.1 https://github.com/jhurt/g.raphael/commit/97644e810fdb1e2519e2246b1a5be5934232a7de
     //return set.push(text.popup(dir, size), text);
     return set.push(text.popup(dir, size, x, y), text);
 };
@@ -775,10 +747,14 @@ Raphael.g = {
 
             i ++;
         } else {
-            while (!r) {
-                i = i || 1;
-                r = ~~(d * Math.pow(10, i)) / Math.pow(10, i);
-                i++;
+            if(d == 0 || !isFinite(d)) {
+                i = 1;
+            } else {
+                while (!r) {
+                    i = i || 1;
+                    r = ~~(d * Math.pow(10, i)) / Math.pow(10, i);
+                    i++;
+                }
             }
 
             i && i--;
@@ -892,23 +868,12 @@ Raphael.g = {
 }
 /* g.bar */
 /*!
- * g.Raphael 0.5 - Charting library, based on Raphaël
+ * g.Raphael 0.51 - Charting library, based on Raphaël
  *
- * Copyright (c) 2009 Dmitry Baranovskiy (http://g.raphaeljs.com)
+ * Copyright (c) 2009-2012 Dmitry Baranovskiy (http://g.raphaeljs.com)
  * Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
  */
-
-/* sgurin notes about bars: 
- * 
- * for a barchart like 
- * var data = [[55, 20, 13, 32, 5, 1, 2, 10], [65, 10, 23, 42, 15, 11, 12, 20]], 
- * stacked or not, there will be 8+8 shapes and these are, 
- *  
- * this[0][0] and this[0][1] - for each data sub array respectively.
- */
-
-
-//(function () {
+(function () {
     var mmin = Math.min,
         mmax = Math.max;
 
@@ -1039,11 +1004,38 @@ Raphael.g = {
         }
     }
 
-    /*
-     * Vertical Barchart
-     */
+/*\
+ * Paper.vbarchart
+ [ method ]
+ **
+ * Creates a vertical bar chart
+ **
+ > Parameters
+ **
+ - x (number) x coordinate of the chart
+ - y (number) y coordinate of the chart
+ - width (number) width of the chart (respected by all elements in the set)
+ - height (number) height of the chart (respected by all elements in the set)
+ - values (array) values
+ - opts (object) options for the chart
+ o {
+ o type (string) type of endings of the bar. Default: 'square'. Other options are: 'round', 'sharp', 'soft'.
+ o gutter (number)(string) default '20%' (WHAT DOES IT DO?)
+ o vgutter (number)
+ o colors (array) colors be used repeatedly to plot the bars. If multicolumn bar is used each sequence of bars with use a different color.
+ o stacked (boolean) whether or not to tread values as in a stacked bar chart
+ o to
+ o stretch (boolean)
+ o }
+ **
+ = (object) path element of the popup
+ > Usage
+ | r.vbarchart(0, 0, 620, 260, [76, 70, 67, 71, 69], {})
+ \*/
+ 
     function VBarchart(paper, x, y, width, height, values, opts) {
         opts = opts || {};
+
         var chartinst = this,
             type = opts.type || "square",
             gutter = parseFloat(opts.gutter || "20%"),
@@ -1219,6 +1211,56 @@ Raphael.g = {
         	
             return this;
         };
+        
+//        chart.label = function (labels, isBottom) {
+//            labels = labels || [];
+//            this.labels = paper.set();
+//
+//            var L, l = -Infinity;
+//
+//            if (opts.stacked) {
+//                for (var i = 0; i < len; i++) {
+//                    var tot = 0;
+//
+//                    for (var j = 0; j < (multi || 1); j++) {
+//                        tot += multi ? values[j][i] : values[i];
+//
+//                        if (j == multi - 1) {
+//                            var label = paper.labelise(labels[i], tot, total);
+//
+//                            L = paper.text(bars[i * (multi || 1) + j].x, y + height - barvgutter / 2, label).attr(txtattr).insertBefore(covers[i * (multi || 1) + j]);
+//
+//                            var bb = L.getBBox();
+//
+//                            if (bb.x - 7 < l) {
+//                                L.remove();
+//                            } else {
+//                                this.labels.push(L);
+//                                l = bb.x + bb.width;
+//                            }
+//                        }
+//                    }
+//                }
+//            } else {
+//                for (var i = 0; i < len; i++) {
+//                    for (var j = 0; j < (multi || 1); j++) {
+//                        var label = paper.labelise(multi ? labels[j] && labels[j][i] : labels[i], multi ? values[j][i] : values[i], total);
+//
+//                        L = paper.text(bars[i * (multi || 1) + j].x, isBottom ? y + height - barvgutter / 2 : bars[i * (multi || 1) + j].y - 10, label).attr(txtattr).insertBefore(covers[i * (multi || 1) + j]);
+//
+//                        var bb = L.getBBox();
+//
+//                        if (bb.x - 7 < l) {
+//                            L.remove();
+//                        } else {
+//                            this.labels.push(L);
+//                            l = bb.x + bb.width;
+//                        }
+//                    }
+//                }
+//            }
+//            return this;
+//        };
 
         chart.hover = function (fin, fout) {
             covers2.hide();
@@ -1274,10 +1316,45 @@ Raphael.g = {
         chart.covers = covers;
         return chart;
     };
-
-    /**
-     * Horizontal Barchart
-     */
+    
+    //inheritance
+    var F = function() {};
+    F.prototype = Raphael.g;
+    HBarchart.prototype = VBarchart.prototype = new F; //prototype reused by hbarchart
+    
+    Raphael.fn.barchart = function(x, y, width, height, values, opts) {
+        return new VBarchart(this, x, y, width, height, values, opts);
+    };
+    
+/*\
+ * Paper.barchart
+ [ method ]
+ **
+ * Creates a horizontal bar chart
+ **
+ > Parameters
+ **
+ - x (number) x coordinate of the chart
+ - y (number) y coordinate of the chart
+ - width (number) width of the chart (respected by all elements in the set)
+ - height (number) height of the chart (respected by all elements in the set)
+ - values (array) values
+ - opts (object) options for the chart
+ o {
+ o type (string) type of endings of the bar. Default: 'square'. Other options are: 'round', 'sharp', 'soft'.
+ o gutter (number)(string) default '20%' (WHAT DOES IT DO?)
+ o vgutter (number)
+ o colors (array) colors be used repeatedly to plot the bars. If multicolumn bar is used each sequence of bars with use a different color.
+ o stacked (boolean) whether or not to tread values as in a stacked bar chart
+ o to
+ o stretch (boolean)
+ o }
+ **
+ = (object) path element of the popup
+ > Usage
+ | r.barchart(0, 0, 620, 260, [76, 70, 67, 71, 69], {})
+ \*/
+ 
     function HBarchart(paper, x, y, width, height, values, opts) {
         opts = opts || {};
 
@@ -1419,12 +1496,12 @@ Raphael.g = {
 
             for (var i = 0; i < len; i++) {
                 for (var j = 0; j < multi; j++) {
-                    var  label = Raphael.g.labelise(multi ? labels[j] && labels[j][i] : labels[i], multi ? values[j][i] : values[i], total),
+                    var  label = paper.labelise(multi ? labels[j] && labels[j][i] : labels[i], multi ? values[j][i] : values[i], total),
                         X = isRight ? bars[i * (multi || 1) + j].x - barheight / 2 + 3 : x + 5,
                         A = isRight ? "end" : "start",
                         L;
 
-                    this.labels.push(L = paper.text(X, bars[i * (multi || 1) + j].y, label).attr(Raphael.g.txtattr).attr({ "text-anchor": A }).insertBefore(covers[0]));
+                    this.labels.push(L = paper.text(X, bars[i * (multi || 1) + j].y, label).attr(txtattr).attr({ "text-anchor": A }).insertBefore(covers[0]));
 
                     if (L.getBBox().x < x + 5) {
                         L.attr({x: x + 5, "text-anchor": "start"});
@@ -1493,34 +1570,25 @@ Raphael.g = {
         return chart;
     };
     
-    //inheritance
-    var F = function() {};
-    F.prototype = Raphael.g;
-    HBarchart.prototype = VBarchart.prototype = new F;
-    
     Raphael.fn.hbarchart = function(x, y, width, height, values, opts) {
         return new HBarchart(this, x, y, width, height, values, opts);
     };
     
-    Raphael.fn.barchart = function(x, y, width, height, values, opts) {
-        return new VBarchart(this, x, y, width, height, values, opts);
-    };
-//})();
+})();
 /* g.dot */
 /*!
- * g.Raphael 0.5 - Charting library, based on Raphaël
+ * g.Raphael 0.51 - Charting library, based on Raphaël
  *
- * Copyright (c) 2009 Dmitry Baranovskiy (http://g.raphaeljs.com)
+ * Copyright (c) 2009-2012 Dmitry Baranovskiy (http://g.raphaeljs.com)
  * Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
  */
+
 (function () {
         var colorValue = function (value, total, s, b) {
             return 'hsb(' + [Math.min((1 - value / total) * .4, 1), s || .75, b || .75] + ')';
         };
-
+ 
     function Dotchart(paper, x, y, width, height, valuesx, valuesy, size, opts) {
-        
-        var chartinst = this;
         
         function drawAxis(ax) {
             +ax[0] && (ax[0] = chartinst.axis(x + gutter, y + gutter, width - 2 * gutter, minx, maxx, opts.axisxstep || Math.floor((width - 2 * gutter) / 20), 2, opts.axisxlabels || null, opts.axisxtype || "t", null, paper));
@@ -1528,8 +1596,11 @@ Raphael.g = {
             +ax[2] && (ax[2] = chartinst.axis(x + gutter, y + height - gutter + maxR, width - 2 * gutter, minx, maxx, opts.axisxstep || Math.floor((width - 2 * gutter) / 20), 0, opts.axisxlabels || null, opts.axisxtype || "t", null, paper));
             +ax[3] && (ax[3] = chartinst.axis(x + gutter - maxR, y + height - gutter, height - 2 * gutter, miny, maxy, opts.axisystep || Math.floor((height - 2 * gutter) / 20), 1, opts.axisylabels || null, opts.axisytype || "t", null, paper));
         }
-
+        
+        //providing defaults
+        
         opts = opts || {};
+        var chartinst = this;
         var xdim = chartinst.snapEnds(Math.min.apply(Math, valuesx), Math.max.apply(Math, valuesx), valuesx.length - 1),
             minx = xdim.from,
             maxx = xdim.to,
@@ -1552,6 +1623,13 @@ Raphael.g = {
 
         gutter = Math.max.apply(Math, R.concat(gutter));
 
+ /*\
+ * dotchart.axis
+ [ object ]
+ **
+ * Set containing Elements of the chart axis. Only exists if `'axis'` definition string was passed to @Paper.dotchart
+ **
+ \*/
         var axis = paper.set(),
             maxR = Math.max.apply(Math, R);
 
@@ -1613,20 +1691,65 @@ Raphael.g = {
             covers[i].dot = series[i];
         }
 
+ /*\
+ * dotchart.covers
+ [ object ]
+ **
+ * Set of Elements positioned above the symbols and mirroring them in size and shape. Covers are used as a surface for events capturing. Each cover has a property `'dot'` being a reference to the actual data-representing symbol. 
+ **
+ ** 
+ \*/
         res.covers = covers;
+ /*\
+ * dotchart.series
+ [ object ]
+ **
+ * Set of Elements containing the actual data-representing symbols.
+ **
+ ** 
+ \*/
         res.series = series;
         res.push(series, axis, covers);
 
+ /*\
+ * dotchart.hover
+ [ method ]
+ > Parameters
+ - mouseover handler (function) handler for the event
+ - mouseout handler (function) handler for the event
+ * Conveniece method to set up hover-in and hover-out event handlers
+ = (object) @dotchart object
+ **
+ \*/
         res.hover = function (fin, fout) {
             covers.mouseover(fin).mouseout(fout);
             return this;
         };
 
+ /*\
+ * dotchart.click
+ [ method ]
+ > Parameters
+ - click handler (function) handler for the event
+ * Conveniece method to set up click event handler
+ = (object) @dotchart object
+ **
+ \*/
         res.click = function (f) {
             covers.click(f);
             return this;
         };
 
+ /*\
+ * dotchart.each
+ [ method ]
+ > Parameters
+ - callback (function) called for every item in @dotchart.covers.
+ - this (object) callback is executed in a context of a cover element object
+ * Conveniece method iterating on every symbol in the chart
+ = (object) @dotchart object
+ **
+ \*/
         res.each = function (f) {
             if (!paper.raphael.is(f, "function")) {
                 return this;
@@ -1639,6 +1762,15 @@ Raphael.g = {
             return this;
         };
 
+ /*\
+ * dotchart.href
+ [ method ]
+ > Parameters
+ - map (array) Array of objects `{x: 1, y: 20, value: 15, href: "http://www.raphaeljs.com"}`
+ * Iterates on all @dotchart.covers elements. If x, y and value on the object are the same as on the cover it sets up a link on a symbol using the passef `href`.
+ = (object) @dotchart object
+ **
+ \*/
         res.href = function (map) {
             var cover;
 
@@ -1658,18 +1790,58 @@ Raphael.g = {
     F.prototype = Raphael.g
     Dotchart.prototype = new F;
     
-    //public
+/*
+ * dotchart method on paper
+ */
+/*\
+ * Paper.dotchart
+ [ method ]
+ **
+ * Plots a dot chart
+ **
+ > Parameters
+ - x (number) x coordinate of the chart
+ - y (number) y coordinate of the chart
+ - width (number) width of the chart (respected by all elements in the set)
+ - height (number) height of the chart (respected by all elements in the set)
+ - valuesx (array) values used to plot x asis
+ - valuesy (array) values used to plot y asis
+ - size (array) values used as data
+ - opts (object) options for the chart
+ > Possible options
+ o {
+ o max (number) maximum diameter of a dot [default: 100]
+ o symbol (string) symbol used for rendering on the chart. The only possible option is `'circle'` [default]
+ o gutter (number) distance between symbols on the chart [default: 10]
+ o heat (boolean) whether or not to enable coloring higher value symbols with warmer hue [default: false]
+ o opacity (number) opacity of the symbols [default: 1]
+ o href (array) array of URLs to set up click-throughs on the symbols
+ o axis (string) Which axes should be renedered. String of four values evaluated in order `'top right bottom left'` e.g. `'0 0 1 1'`.
+ o axisxstep (number) the number of steps to plot on the axis X
+ o axisystep (number) the number of steps to plot on the axis Y
+ o axisxlabels (array) labels to be rendered instead of numeric values on axis X
+ o axisylabels (array) labels to be rendered instead of numeric values on axis Y
+ o axisxtype (string) Possible values: `'t'` [default], `'|'`, `' '`, `'-'`, `'+'` 
+ o axisytype (string) Possible values: `'t'` [default], `'|'`, `' '`, `'-'`, `'+'`
+ o }
+ **
+ = (object) @dotchart object
+ > Usage
+ | //life, expectancy, country and spending per capita (fictional data)
+ | r.dotchart(0, 0, 620, 260, [76, 70, 67, 71, 69], [0, 1, 2, 3, 4], [100, 120, 140, 160, 500], {max: 10, axisylabels: ['Mexico', 'Argentina', 'Cuba', 'Canada', 'United States of America'], heat: true, axis: '0 0 1 1'})
+ \*/
     Raphael.fn.dotchart = function(x, y, width, height, valuesx, valuesy, size, opts) {
         return new Dotchart(this, x, y, width, height, valuesx, valuesy, size, opts);
     }
 })();
 /* g.line */
 /*!
- * g.Raphael 0.5 - Charting library, based on Raphaël
+ * g.Raphael 0.51 - Charting library, based on Raphaël
  *
- * Copyright (c) 2009 Dmitry Baranovskiy (http://g.raphaeljs.com)
+ * Copyright (c) 2009-2012 Dmitry Baranovskiy (http://g.raphaeljs.com)
  * Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
  */
+
 (function () {
 
     function shrink(values, dim) {
@@ -1688,7 +1860,7 @@ Raphael.g = {
                 sum = values[j++] * -l;
                 l += k;
             } else {
-                sum += values[j++];
+                sum += values[j++] * 1;
             }
         }
         return res;
@@ -1744,6 +1916,14 @@ Raphael.g = {
             len = Math.max(len, valuesy[i].length);
         }
 
+ /*\
+ * linechart.shades
+ [ object ]
+ **
+ * Set containing Elements corresponding to shades plotted in the chart (if `opts.shade` was `true`).
+ **
+ ** 
+ \*/
         var shades = paper.set();
 
         for (i = 0, ii = valuesy.length; i < ii; i++) {
@@ -1772,6 +1952,14 @@ Raphael.g = {
             kx = (width - gutter * 2) / ((maxx - minx) || 1),
             ky = (height - gutter * 2) / ((maxy - miny) || 1);
 
+ /*\
+ * linechart.axis
+ [ object ]
+ **
+ * Set containing Elements of the chart axis. The set is populated if `'axis'` definition string was passed to @Paper.linechart 
+ **
+ ** 
+ \*/
         var axis = paper.set();
 
         if (opts.axis) {
@@ -1782,7 +1970,23 @@ Raphael.g = {
             +ax[3] && axis.push(chartinst.axis(x + gutter, y + height - gutter, height - 2 * gutter, miny, maxy, opts.axisystep || Math.floor((height - 2 * gutter) / 20), 1, paper));
         }
 
+ /*\
+ * linechart.lines
+ [ object ]
+ **
+ * Set containing Elements corresponding to lines plotted in the chart.
+ **
+ ** 
+ \*/
         var lines = paper.set(),
+ /*\
+ * linechart.symbols
+ [ object ]
+ **
+ * Set containing Elements corresponding to symbols plotted in the chart.
+ **
+ ** 
+ \*/
             symbols = paper.set(),
             line;
 
@@ -1848,7 +2052,7 @@ Raphael.g = {
                 Xs = Xs.concat(valuesx[i]);
             }
 
-            Xs.sort();
+            Xs.sort(function(a,b) { return a - b; });
             // remove duplicates
 
             var Xs2 = [],
@@ -1902,8 +2106,7 @@ Raphael.g = {
                     var X = x + gutter + ((valuesx[i] || valuesx[0])[j] - minx) * kx,
                         nearX = x + gutter + ((valuesx[i] || valuesx[0])[j ? j - 1 : 1] - minx) * kx,
                         Y = y + height - gutter - (valuesy[i][j] - miny) * ky;
-
-                    f ? (C = {}) : cvrs.push(C = paper.circle(X, Y, Math.abs(nearX - X) / 2).attr({ stroke: "none", fill: "#000", opacity: 0 }));
+                    f ? (C = {}) : cvrs.push(C = paper.circle(X, Y, Math.abs(nearX - X) / 2).attr({ stroke: "#000", fill: "#000", opacity: 1 }));
                     C.x = X;
                     C.y = Y;
                     C.value = valuesy[i][j];
@@ -1925,18 +2128,59 @@ Raphael.g = {
         chart.symbols = symbols;
         chart.axis = axis;
 
+ /*\
+ * linechart.hoverColumn
+ [ method ]
+ > Parameters
+ - mouseover handler (function) handler for the event
+ - mouseout handler (function) handler for the event
+ - this (object) callback is executed in a context of a cover element
+ * Conveniece method to set up hover-in and hover-out event handlers on the entire area of the chart.
+ * The handlers are passed a event object containing 
+ o {
+ o x (number) x coordinate on all lines in the chart
+ o y (array) y coordinates of all lines corresponding to the x
+ o }
+ = (object) @linechart object
+ **
+ \*/
+ 
         chart.hoverColumn = function (fin, fout) {
             !columns && createColumns();
             columns.mouseover(fin).mouseout(fout);
             return this;
         };
 
+ /*\
+ * linechart.clickColumn
+ [ method ]
+ > Parameters
+ - click handler (function) handler for the event
+ - this (object) callback is executed in a context of a cover element
+ * Conveniece method to set up click event handler on the antire area of the chart.
+ * The handler is passed a event object containing 
+ o {
+ o x (number) x coordinate on all lines in the chart
+ o y (array) y coordinates of all lines corresponding to the x
+ o }
+ = (object) @linechart object
+ **
+ \*/
         chart.clickColumn = function (f) {
             !columns && createColumns();
             columns.click(f);
             return this;
         };
 
+ /*\
+ * linechart.hrefColumn
+ [ method ]
+ > Parameters
+ - cols (object) object containing values as keys and URLs as values, e.g. {1: 'http://www.raphaeljs.com', 2: 'http://g.raphaeljs.com'}
+ * Creates click-throughs on the whole area of the chart corresponding to x values
+ = (object) @linechart object
+ **
+ \*/
         chart.hrefColumn = function (cols) {
             var hrefs = paper.raphael.is(arguments[0], "array") ? arguments[0] : arguments;
 
@@ -1957,23 +2201,75 @@ Raphael.g = {
             return this;
         };
 
+ /*\
+ * linechart.hover
+ [ method ]
+ > Parameters
+ - mouseover handler (function) handler for the event
+ - mouseout handler (function) handler for the event
+ * Conveniece method to set up hover-in and hover-out event handlers working on the lines of the chart.
+ * Use @linechart.hoverColumn to work with the entire chart area.
+ = (object) @linechart object
+ **
+ \*/
         chart.hover = function (fin, fout) {
             !dots && createDots();
             dots.mouseover(fin).mouseout(fout);
             return this;
         };
 
+ /*\
+ * linechart.click
+ [ method ]
+ > Parameters
+ - click handler (function) handler for the event
+ - this (object) callback is executed in a context of a cover element
+ * Conveniece method to set up click event handler on the lines of the chart
+ * Use @linechart.clickColumn to work with the entire chart area.
+ = (object) @linechart object
+ **
+ \*/
         chart.click = function (f) {
             !dots && createDots();
             dots.click(f);
             return this;
         };
 
+ /*\
+ * linechart.each
+ [ method ]
+ > Parameters
+ - callback (function) function executed for every data point
+ - this (object) context of the callback function.
+ o {
+ o x (number) x coordinate of the data point
+ o y (number) y coordinate of the data point
+ o value (number) value represented by the data point
+ o }
+ * Iterates over each unique data point plotted on every line on the chart.  
+ = (object) @linechart object
+ **
+ \*/
         chart.each = function (f) {
             createDots(f);
             return this;
         };
 
+ /*\
+ * linechart.eachColumn
+ [ method ]
+ > Parameters
+ - callback (function) function executed for every column
+ - this (object) context of the callback function.
+ o {
+ o x (number) x coordinate of the data point
+ o y (array) y coordinates of data points existing for the given x
+ o values (array) values represented by the data points existing for the given x
+ o }
+ * Iterates over each column area (area plotted above the chart).
+ = (object) @linechart object
+ **
+ \*/
         chart.eachColumn = function (f) {
             createColumns(f);
             return this;
@@ -1987,19 +2283,91 @@ Raphael.g = {
     F.prototype = Raphael.g;
     Linechart.prototype = new F;
     
-    //public
+ /*
+ * linechart method on paper
+ */
+/*\
+ * Paper.linechart
+ [ method ]
+ **
+ * Creates a line chart
+ **
+ > Parameters
+ **
+ - x (number) x coordinate of the chart
+ - y (number) y coordinate of the chart
+ - width (number) width of the chart (including the axis)
+ - height (number) height of the chart (including the axis)
+ - valuesx (array) values to plot on axis x
+ - valuesy (array) values to plot on axis y
+ - opts (object) options for the chart
+ o {
+ o gutter (number) distance between symbols on the chart
+ o symbol (string) (array) symbol to be plotted as nodes of the chart, if array are passed symbols are printed iteratively. Currently `'circle'` and `''` (no symbol) are the only supported options.
+ o width (number) controls the size of the plotted symbol. Also controls the thickness of the line using a formula stroke-width=width/2. This option is likely to change in the future versions of g.raphael.
+ o colors (array) colors to plot data series. Raphael default colors are used if not passed
+ o shade (boolean) whether or not to plot a shade of the chart [default: false]. Currently only a shade between the line and x axis is supported.
+ o nostroke (boolean) whether or not to plot lines [default: false]. Only practical when shade is enabled. 
+ o dash (string) changes display of the line from continues to dashed or dotted (Possible values are the same as stroke-dasharray attribute, see @Element.attr).
+ o smooth (boolean) changes display of the line from point-to-point straight lines to curves (type C, see @Paper.path).
+ o axis (string) Which axes should be renedered. String of four values evaluated in order `'top right bottom left'` e.g. `'0 0 1 1'`.
+ o axisxstep (number) distance between values on axis X
+ o axisystep (number) distance between values on axis Y
+ o }
+ **
+ = (object) path element of the popup
+ > Usage
+ | r.linechart(0, 0, 99, 99, [1,2,3,4,5], [[1,2,3,4,5], [1,3,9,16,25], [100,50,25,12,6]], {smooth: true, colors: ['#F00', '#0F0', '#FF0'], symbol: 'circle'});
+ \*/
     Raphael.fn.linechart = function(x, y, width, height, valuesx, valuesy, opts) {
         return new Linechart(this, x, y, width, height, valuesx, valuesy, opts);
     }
     
 })();
 /* g.pie */
-/*
- * g.Raphael 0.5 - Charting library, based on Raphaël
+/*!
+ * g.Raphael 0.51 - Charting library, based on Raphaël
  *
- * Copyright (c) 2009 Dmitry Baranovskiy (http://g.raphaeljs.com)
+ * Copyright (c) 2009-2012 Dmitry Baranovskiy (http://g.raphaeljs.com)
  * Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
  */
+
+ /*
+ * piechart method on paper
+ */
+/*\
+ * Paper.piechart
+ [ method ]
+ **
+ * Creates a pie chart
+ **
+ > Parameters
+ **
+ - cx (number) x coordinate of the chart
+ - cy (number) y coordinate of the chart
+ - r (integer) radius of the chart
+ - values (array) values used to plot
+ - opts (object) options for the chart
+ o {
+ o minPercent (number) minimal percent threshold which will have a slice rendered. Sliced corresponding to data points below this threshold will be collapsed into 1 additional slice. [default `1`]
+ o maxSlices (number) a threshold for how many slices should be rendered before collapsing all remaining slices into 1 additional slice (to focus on most important data points). [default `100`]
+ o stroke (string) color of the circle stroke in HTML color format [default `"#FFF"`]
+ o strokewidth (integer) width of the chart stroke [default `1`]
+ o init (boolean) whether or not to show animation when the chart is ready [default `false`]
+ o colors (array) colors be used to plot the chart
+ o href (array) urls to to set up clicks on chart slices
+ o legend (array) array containing strings that will be used in a legend. Other label options work if legend is defined.
+ o legendcolor (string) color of text in legend [default `"#000"`]
+ o legendothers (string) text that will be used in legend to describe options that are collapsed into 1 slice, because they are too small to render [default `"Others"`]
+ o legendmark (string) symbol used as a bullet point in legend that has the same colour as the chart slice [default `"circle"`]
+ o legendpos (string) position of the legend on the chart [default `"east"`]. Other options are `"north"`, `"south"`, `"west"`
+ o }
+ **
+ = (object) path element of the popup
+ > Usage
+ | r.piechart(cx, cy, r, values, opts)
+ \*/
+ 
 (function () {
 
     function Piechart(paper, cx, cy, r, values, opts) {
@@ -2015,8 +2383,9 @@ Raphael.g = {
             angle = 0,
             total = 0,
             others = 0,
-            cut = 9,
-            defcut = true;
+            cut = opts.maxSlices || 100,
+            minPercent = parseFloat(opts.minPercent) || 1,
+            defcut = Boolean( minPercent );
 
         function sector(cx, cy, r, startAngle, endAngle, fill) {
             var rad = Math.PI / 180,
@@ -2040,10 +2409,11 @@ Raphael.g = {
         chart.covers = covers;
 
         if (len == 1) {
-            series.push(paper.circle(cx, cy, r).attr({ fill: chartinst.colors[0], stroke: opts.stroke || "#fff", "stroke-width": opts.strokewidth == null ? 1 : opts.strokewidth }));
+            series.push(paper.circle(cx, cy, r).attr({ fill: opts.colors && opts.colors[0] || chartinst.colors[0], stroke: opts.stroke || "#fff", "stroke-width": opts.strokewidth == null ? 1 : opts.strokewidth }));
             covers.push(paper.circle(cx, cy, r).attr(chartinst.shim));
             total = values[0];
             values[0] = { value: values[0], order: 0, valueOf: function () { return this.value; } };
+            opts.href && opts.href[0] && covers[0].attr({ href: opts.href[0] });
             series[0].middle = {x: cx, y: cy};
             series[0].mangle = 180;
         } else {
@@ -2051,13 +2421,14 @@ Raphael.g = {
                 total += values[i];
                 values[i] = { value: values[i], order: i, valueOf: function () { return this.value; } };
             }
-
+            
+            //values are sorted numerically
             values.sort(function (a, b) {
                 return b.value - a.value;
             });
-
+            
             for (i = 0; i < len; i++) {
-                if (defcut && values[i] * 360 / total <= 1.5) {
+                if (defcut && values[i] * 100 / total < minPercent) {
                     cut = i;
                     defcut = false;
                 }
@@ -2086,7 +2457,8 @@ Raphael.g = {
                 }
 
                 var path = sector(cx, cy, r, angle, angle -= 360 * values[i] / total);
-                var p = paper.path(opts.init ? ipath : path).attr({ fill: opts.colors && opts.colors[i] || chartinst.colors[i] || "#666", stroke: opts.stroke || "#fff", "stroke-width": (opts.strokewidth == null ? 1 : opts.strokewidth), "stroke-linejoin": "round" });
+                var j = (opts.matchColors && opts.matchColors == true) ? values[i].order : i;
+                var p = paper.path(opts.init ? ipath : path).attr({ fill: opts.colors && opts.colors[j] || chartinst.colors[j] || "#666", stroke: opts.stroke || "#fff", "stroke-width": (opts.strokewidth == null ? 1 : opts.strokewidth), "stroke-linejoin": "round" });
 
                 p.value = values[i];
                 p.middle = path.middle;
@@ -2248,8 +2620,7 @@ Raphael.g = {
         return new Piechart(this, cx, cy, r, values, opts);
     }
     
-})();
-/* g.sunburst */
+})();/* g.sunburst */
 /*!
  * g.sunburst 0.1 - Sunburst diagrams
  * Needs g.Raphael 0.4.1 - Charting library, based on Raphaël

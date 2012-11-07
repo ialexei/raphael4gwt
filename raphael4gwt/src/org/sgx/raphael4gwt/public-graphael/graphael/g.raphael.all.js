@@ -2470,7 +2470,9 @@ Raphael.g = {
 
             for (i = 0; i < len; i++) {
                 p = paper.path(sectors[i].attr("path")).attr(chartinst.shim);
-                opts.href && opts.href[i] && p.attr({ href: opts.href[i] });
+//                opts.href && opts.href[i] && p.attr({ href: opts.href[i] });
+                var j = values[i].order; 
+                opts.href && opts.href[j] && p.attr({ href: opts.href[j] });                
                 p.attr = function () {};
                 covers.push(p);
                 series.push(p);

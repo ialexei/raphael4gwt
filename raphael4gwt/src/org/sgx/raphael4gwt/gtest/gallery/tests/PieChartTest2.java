@@ -21,7 +21,7 @@ public class PieChartTest2 extends Test {
 	
 	@Override
 	public void test() {
-		double[] vals = new double[]{10,40,60,80};
+		double[] vals = new double[]{55, 20, 13, 32, 1, 5};
 		
 		
 		//old - deprecated - using PieOptsOld
@@ -29,7 +29,7 @@ public class PieChartTest2 extends Test {
 		PieOpts opts = PieOpts.create()
 			.legend(new String[]{"%%.%% - Enterprise Users", "IE Users"})
 			.legendpos("west")
-			.href(new String[]{"http://raphaeljs.com", "http://g.raphaeljs.com"}); 
+			.href(new String[]{"http://55.com", "http://20.com", "http://13.com", "http://32.com"}); 
 		
 		final PieChart piechart = getGPaper().piechart(300, 200, 100, vals, opts);
 		

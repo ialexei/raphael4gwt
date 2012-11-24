@@ -43,6 +43,7 @@ public interface TestResources extends ClientBundle {
 	  @Source("RadarTest2.java")
 	  public TextResource RadarTest2();
 	  
-	  
+	  @Source("RaphalyticsTest1.java")
+	  public TextResource RaphalyticsTest1();
 	  
 }

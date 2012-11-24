@@ -142,6 +142,33 @@ public class JsUtil {
 		}
 		return jsa;
 	}
+	
+	public static JsArray<JsArrayNumber> toJsArray(double[][]a) {
+		if(a==null)
+			return null;
+		JsArray<JsArrayNumber> jsa = JsArrayNumber.createArray().cast();
+		for (int i = 0; i < a.length; i++) {			
+			JsArrayNumber row = JsArrayNumber.createArray().cast();
+			jsa.push(row); 
+			for (int j = 0; j < a[i].length; j++) {
+				row.push(a[i][j]); 
+			}
+		}
+		return jsa;
+	}
+	public static JsArray<JsArrayString> toJsArray(String[][]a) {
+		if(a==null)
+			return null;
+		JsArray<JsArrayString> jsa = JsArrayString.createArray().cast();
+		for (int i = 0; i < a.length; i++) {			
+			JsArrayString row = JsArrayString.createArray().cast();
+			jsa.push(row); 
+			for (int j = 0; j < a[i].length; j++) {
+				row.push(a[i][j]); 
+			}
+		}
+		return jsa;
+	}
 	public static JsArrayString toJsArray(String[] a) {
 		if(a==null)
 			return null;

@@ -10,6 +10,8 @@ import org.sgx.raphael4gwt.graphael.pie.PieChart;
 import org.sgx.raphael4gwt.graphael.pie.PieOpts;
 import org.sgx.raphael4gwt.graphael.radar.RadarChart;
 import org.sgx.raphael4gwt.graphael.radar.RadarOpts;
+import org.sgx.raphael4gwt.graphael.raphalytics.RaphalyticsChart;
+import org.sgx.raphael4gwt.graphael.raphalytics.RaphalyticsOpts;
 import org.sgx.raphael4gwt.graphael.sunburst.Cluster;
 import org.sgx.raphael4gwt.graphael.sunburst.SunBurstChart;
 import org.sgx.raphael4gwt.graphael.sunburst.SunBurstOpts;
@@ -18,7 +20,9 @@ import org.sgx.raphael4gwt.raphael.Set;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayNumber;
+import com.google.gwt.core.client.JsArrayString;
 
 /**
  * @author sg
@@ -174,6 +178,29 @@ public final native RadarChart radar(double x, double y, double radius, double[]
 	return this.radarchart(x, y, radius, @org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(vals));
 			
 }-*/;
+
+
+public final native RaphalyticsChart raphalytics(double[][]data, String[] labels, String[][] tooltips, RaphalyticsOpts opts)/*-{	
+
+var data_ = @org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([[D)(data); 
+var labels_ = @org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([Ljava/lang/String;)(labels);
+var tooltips_ = @org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([[Ljava/lang/String;)(tooltips); 
+
+return this.raphalytics(data_, labels_, tooltips_, opts);
+	
+}-*/;
+
+
+public final native RaphalyticsChart raphalytics(JsArray<JsArrayNumber>data, String[] labels, String[][] tooltips, RaphalyticsOpts opts)/*-{	
+	var labels_ = @org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([Ljava/lang/String;)(labels);
+	var tooltips_ = @org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([[Ljava/lang/String;)(tooltips);
+	return this.raphalytics(data, labels_, tooltips_, opts);	
+}-*/;
+public final native RaphalyticsChart raphalytics(JsArray<JsArrayNumber>data, String[] labels, JsArray<JsArrayString> tooltips, RaphalyticsOpts opts)/*-{	
+var labels_ = @org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([Ljava/lang/String;)(labels);
+return this.raphalytics(data, labels_, tooltips, opts);	
+}-*/;
+
 
 /**Puts the given `text` into a 'popup' tooltip. The text is given a default style according to getTextAttrs(). @see GShape.popup().
  *  Usagepaper.popup(50, 50, "$9.99", 'down');

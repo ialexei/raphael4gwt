@@ -580,13 +580,30 @@ txt[0].attr({fill: "#f00"});
 	
 	/**
 	 * safe entry point (managed by gwt.dom.client) for acessing HTML DOM RElated information on this paper
-	 * for example, knowing paper position, attributes, "paper html element" 
-	 * @return
+	 * for example, knowing paper position, attributes, "paper html element" . For example you can perform: 
+	 * <pre>
+	 * if(Raphael.type().equals("SVG")) {
+	 *   paper.canvas().setAttribute("viewBox", "0 0 824 465"); 
+	 * }
+	 * </pre>
+	 * @return the underline native canvas DOM element - in the case of SVG it will be a SVGDocument.
 	 */
 	public final native Element getCanvasElement()/*-{
 		return this.canvas;
 	}-*/;
-	
+	/**
+	 * safe entry point (managed by gwt.dom.client) for acessing HTML DOM RElated information on this paper
+	 * for example, knowing paper position, attributes, "paper html element" . For example you can perform: 
+	 * <pre>
+	 * if(Raphael.type().equals("SVG")) {
+	 *   paper.canvas().setAttribute("viewBox", "0 0 824 465"); 
+	 * }
+	 * </pre>
+	 * @return the underline native canvas DOM element - in the case of SVG it will be a SVGDocument.
+	 */
+	public final native Element canvas()/*-{
+		return this.canvas;
+	}-*/;
 //	public Rectangle getPaperBounds() {
 //		Raphael.createRectangle(getCanvasElement().getAbsoluteLeft(), 
 //				getCanvasElement().getAbsoluteTop())

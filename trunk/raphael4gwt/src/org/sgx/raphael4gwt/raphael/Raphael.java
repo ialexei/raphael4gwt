@@ -542,6 +542,13 @@ public static native String type()/*-{
 }-*/;
 
 /**
+ * @return Raphael version  
+ */
+public static native String version()/*-{
+	return $wnd.Raphael.version+"";
+}-*/;
+
+/**
  * Used when you need to draw in <iframe>. Switched window to the iframe one. 
  * @param newWindow new window object
  */
@@ -561,5 +568,7 @@ public static Set set(Paper paper, Shape...shapes) {
 	}
 	return s;
 }
+
+
 }
 

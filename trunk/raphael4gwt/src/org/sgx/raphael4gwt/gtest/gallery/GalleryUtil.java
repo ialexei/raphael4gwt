@@ -14,6 +14,7 @@ import org.sgx.raphael4gwt.gtest.gallery.tests.LineChartTest1;
 import org.sgx.raphael4gwt.gtest.gallery.tests.PieChartTest2;
 import org.sgx.raphael4gwt.gtest.gallery.tests.RadarTest1;
 import org.sgx.raphael4gwt.gtest.gallery.tests.RadarTest2;
+import org.sgx.raphael4gwt.gtest.gallery.tests.RaphalyticsTest1;
 import org.sgx.raphael4gwt.gtest.gallery.tests.SunBurstTest1;
 import org.sgx.raphael4gwt.gtest.gallery.tests.TooltipTest1;
 import org.sgx.raphael4gwt.raphael.Paper;
@@ -140,6 +141,11 @@ public class GalleryUtil {
 		
 		t = new PieChartTest2(paper, w, h); 
 		tests.put(t.getName(), t);
+		
+		t = new RaphalyticsTest1(paper, w, h); 
+		tests.put(t.getName(), t);
+		
+		
 		
 	}
 

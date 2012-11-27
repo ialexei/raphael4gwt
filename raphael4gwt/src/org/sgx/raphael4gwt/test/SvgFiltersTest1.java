@@ -7,7 +7,8 @@ import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 import org.sgx.raphael4gwt.raphael.svg.filter.Filter;
 import org.sgx.raphael4gwt.raphael.svg.filter.FilterFactory;
 import org.sgx.raphael4gwt.raphael.svg.filter.FilterOperation;
-import org.sgx.raphael4gwt.raphael.svg.filter.ops.GaussianBlur;
+import org.sgx.raphael4gwt.raphael.svg.filter.params.GaussianBlur;
+//import org.sgx.raphael4gwt.raphael.svg.filter.ops.GaussianBlur;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 import org.sgx.raphael4gwt.test.image.IconPaths;
 import org.sgx.raphael4gwt.test.image.TestImageResources;
@@ -40,7 +41,8 @@ public class SvgFiltersTest1 extends Test {
 			Filter filter1 = paper.filterCreate("filter_"+i);
 			
 			//the filter operation logic definition (POJO)
-			GaussianBlur blur1 = new GaussianBlur(blur);
+			GaussianBlur blur1 = GaussianBlur.create(blur);
+//			GaussianBlur blur1 = new GaussianBlur(blur);
 			
 			//the native filter operation object (object overlay) 
 			FilterOperation fop1 = FilterFactory.getInstance().createFilterOperation(blur1); 

@@ -40,8 +40,10 @@ import org.sgx.raphael4gwt.test.PaperLoadAndSave;
 import org.sgx.raphael4gwt.test.PaperLoadAndSaveUnit1;
 import org.sgx.raphael4gwt.test.PaperViewBoxTest1;
 import org.sgx.raphael4gwt.test.SetGlowing1;
+import org.sgx.raphael4gwt.test.SvgFiltersConvolveMatrix;
 import org.sgx.raphael4gwt.test.SvgFiltersTest1;
 import org.sgx.raphael4gwt.test.SvgFiltersTest2;
+import org.sgx.raphael4gwt.test.SvgFiltersTurbulence;
 //import org.sgx.raphael4gwt.test.PathCmdsTest1;
 //import org.sgx.raphael4gwt.test.PathEditorTest1;
 import org.sgx.raphael4gwt.test.PathObjectTest1;
@@ -337,6 +339,12 @@ public class GalleryUtil {
 		t = new SetGlowing1(paper, w, h);
 		tests.put(t.getName(), t);
 			
+		t = new SvgFiltersTurbulence(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		t = new SvgFiltersConvolveMatrix(paper, w, h);
+		tests.put(t.getName(), t);
+		
 		
 	}
 

@@ -120,13 +120,12 @@
 		});
 	};
 	/**
-	 * removes the filter from the shape.
-	 * TODO: warning this removes all filters
+	 * removes the filter from the shape. TODO: warning this removes all filters
 	 */
 	Raphael.el.filterUninstall = function(filter) {
 		$(this.node, {
 			filter : ""
-		}); 
+		});
 	};
 
 	// now filter operations definitions
@@ -138,6 +137,7 @@
 	 * filters
 	 */
 	Raphael.filterOps.svgFilter = function(filterName, params) {
+//		params._filterName = filterName; 
 		return {
 			"params" : params,
 			appendToFilterEl : function(filterEl) {
@@ -147,7 +147,7 @@
 						filterOpEl.setAttribute(i, this.params[i]);
 					} catch (ex) {
 						alert("invalid parameter " + i + " value: "
-								+ this.params[i]+". Error: "+ex);
+								+ this.params[i] + ". Error: " + ex);
 					}
 				}
 				filterEl.appendChild(filterOpEl);
@@ -157,28 +157,28 @@
 	};
 
 	/**
-	 * feGaussianBlurElement -
+	 * feGaussianBlur-
 	 * http://www.w3.org/TR/SVG/filters.html#feGaussianBlurElement This filter
 	 * primitive performs a Gaussian blur on the input image.
 	 * 
 	 * The Gaussian blur kernel is an approximation of the normalized
 	 * convolution
 	 * 
-	 * @param params - concrete params: 
-	 *  stdDeviation - an array with one or two numbers. The standard deviation for
-	 *            the blur operation. If two <number>s are provided, the first
-	 *            number represents a standard deviation value along the x-axis
-	 *            of the coordinate system established by attribute
-	 *            ‘primitiveUnits’ on the ‘filter’ element. The second value
-	 *            represents a standard deviation in Y. If one number is
-	 *            provided, then that value is used for both X and Y. A negative
-	 *            value is an error (see Error processing). A value of zero
-	 *            disables the effect of the given filter primitive (i.e., the
-	 *            result is the filter input image). If ‘stdDeviation’ is 0 in
-	 *            only one of X or Y, then the effect is that the blur is only
-	 *            applied in the direction that has a non-zero value. If the
-	 *            attribute is not specified, then the effect is as if a value
-	 *            of 0 were specified.
+	 * @param params -
+	 *            concrete params: stdDeviation - an array with one or two
+	 *            numbers. The standard deviation for the blur operation. If two
+	 *            <number>s are provided, the first number represents a standard
+	 *            deviation value along the x-axis of the coordinate system
+	 *            established by attribute ‘primitiveUnits’ on the ‘filter’
+	 *            element. The second value represents a standard deviation in
+	 *            Y. If one number is provided, then that value is used for both
+	 *            X and Y. A negative value is an error (see Error processing).
+	 *            A value of zero disables the effect of the given filter
+	 *            primitive (i.e., the result is the filter input image). If
+	 *            ‘stdDeviation’ is 0 in only one of X or Y, then the effect is
+	 *            that the blur is only applied in the direction that has a
+	 *            non-zero value. If the attribute is not specified, then the
+	 *            effect is as if a value of 0 were specified.
 	 * 
 	 * 
 	 * svg example: <filter id="MyFilter" filterUnits="userSpaceOnUse" x="0"
@@ -191,23 +191,20 @@
 	};
 
 	/**
-	 * feColorMatrixElement -
+	 * feColorMatrix -
 	 * http://www.w3.org/TR/SVG/filters.html#feColorMatrixElement
 	 * 
 	 * concrete parameters:
-	 *  
-	 * type -
-	 *           "matrix | saturate | hueRotate | luminanceToAlpha". Indicates
-	 *            the type of matrix operation. The keyword 'matrix' indicates
-	 *            that a full 5x4 matrix of values will be provided. The other
-	 *            keywords represent convenience shortcuts to allow commonly
-	 *            used color operations to be performed without specifying a
-	 *            complete matrix. If attribute ‘type’ is not specified, then
-	 *            the effect is as if a value of matrix were specified.
 	 * 
-	 * values
-	 *            an array of numbers - The contents of ‘values’ depends on the
-	 *            value of attribute ‘type’:
+	 * type - "matrix | saturate | hueRotate | luminanceToAlpha". Indicates the
+	 * type of matrix operation. The keyword 'matrix' indicates that a full 5x4
+	 * matrix of values will be provided. The other keywords represent
+	 * convenience shortcuts to allow commonly used color operations to be
+	 * performed without specifying a complete matrix. If attribute ‘type’ is
+	 * not specified, then the effect is as if a value of matrix were specified.
+	 * 
+	 * values an array of numbers - The contents of ‘values’ depends on the
+	 * value of attribute ‘type’:
 	 * 
 	 */
 	Raphael.filterOps.feColorMatrix = function(params) {
@@ -245,141 +242,148 @@
 	 * feConvolveMatrixElement -
 	 * http://www.w3.org/TR/SVG/filters.html#feConvolveMatrixElement
 	 * 
-	 * @param params - an object with all the transformation parameters. The params object will be modified. 
-	 * Concrete feConvolveMatrix parameters are:  
+	 * @param params -
+	 *            an object with all the transformation parameters. The params
+	 *            object will be modified. Concrete feConvolveMatrix parameters
+	 *            are:
 	 * 
-	 * mandatory parameters: order, kernelMatrix and bias, for example: 
+	 * mandatory parameters: order, kernelMatrix and bias, for example:
 	 * 
-		var cmop1 = {order: 3, kernelMatrix: [0, 1, 1, -1, 0, 1, -1, -1, 0].join(" "), bias: 1}, 
-			cm1 = Raphael.filterOps.feConvolveMatrix(cmop1); 
-		filter1.appendOperation(cm1);
+	 * var cmop1 = {order: 3, kernelMatrix: [0, 1, 1, -1, 0, 1, -1, -1,
+	 * 0].join(" "), bias: 1}, cm1 = Raphael.filterOps.feConvolveMatrix(cmop1);
+	 * filter1.appendOperation(cm1);
 	 * 
-	 * order -
-	 *            an array of 1 or 2 numbers - Indicates the number of cells in
-	 *            each dimension for ‘kernelMatrix’. The values provided must be
-	 *            <integer>s greater than zero. The first number, <orderX>,
-	 *            indicates the number of columns in the matrix. The second
-	 *            number, <orderY>, indicates the number of rows in the matrix.
-	 *            If <orderY> is not provided, it defaults to <orderX>. A
-	 *            typical value is order="3". It is recommended that only small
-	 *            values (e.g., 3) be used; higher values may result in very
-	 *            high CPU overhead and usually do not produce results that
-	 *            justify the impact on performance. If the attribute is not
-	 *            specified, the effect is as if a value of 3 were specified.
+	 * @param order - an array of 1 or 2 numbers - Indicates the number of cells in
+	 * each dimension for ‘kernelMatrix’. The values provided must be <integer>s
+	 * greater than zero. The first number, <orderX>, indicates the number of
+	 * columns in the matrix. The second number, <orderY>, indicates the number
+	 * of rows in the matrix. If <orderY> is not provided, it defaults to
+	 * <orderX>. A typical value is order="3". It is recommended that only small
+	 * values (e.g., 3) be used; higher values may result in very high CPU
+	 * overhead and usually do not produce results that justify the impact on
+	 * performance. If the attribute is not specified, the effect is as if a
+	 * value of 3 were specified.
 	 * 
-	 * kernelMatrix
-	 *            array of numbers - The list of <number>s that make up the
-	 *            kernel matrix for the convolution. Values are separated by
-	 *            space characters and/or a comma. The number of entries in the
-	 *            list must equal <orderX> times <orderY>.
+	 * @param kernelMatrix array of numbers - The list of <number>s that make up the
+	 * kernel matrix for the convolution. Values are separated by space
+	 * characters and/or a comma. The number of entries in the list must equal
+	 * <orderX> times <orderY>.
 	 * 
-	 * divisor -
-	 *            number After applying the ‘kernelMatrix’ to the input image to
-	 *            yield a number, that number is divided by ‘divisor’ to yield
-	 *            the final destination color value. A divisor that is the sum
-	 *            of all the matrix values tends to have an evening effect on
-	 *            the overall color intensity of the result. It is an error to
-	 *            specify a divisor of zero. The default value is the sum of all
-	 *            values in kernelMatrix, with the exception that if the sum is
-	 *            zero, then the divisor is set to 1.
+	 * @param divisor - number After applying the ‘kernelMatrix’ to the input image to
+	 * yield a number, that number is divided by ‘divisor’ to yield the final
+	 * destination color value. A divisor that is the sum of all the matrix
+	 * values tends to have an evening effect on the overall color intensity of
+	 * the result. It is an error to specify a divisor of zero. The default
+	 * value is the sum of all values in kernelMatrix, with the exception that
+	 * if the sum is zero, then the divisor is set to 1.
 	 * 
-	 * bias -
-	 *            a number After applying the ‘kernelMatrix’ to the input image
-	 *            to yield a number and applying the ‘divisor’, the ‘bias’
-	 *            attribute is added to each component. One application of
-	 *            ‘bias’ is when it is desirable to have .5 gray value be the
-	 *            zero response of the filter. The bias property shifts the
-	 *            range of the filter. This allows representation of values that
-	 *            would otherwise be clamped to 0 or 1. If ‘bias’ is not
-	 *            specified, then the effect is as if a value of 0 were
-	 *            specified.
+	 * bias - a number After applying the ‘kernelMatrix’ to the input image to
+	 * yield a number and applying the ‘divisor’, the ‘bias’ attribute is added
+	 * to each component. One application of ‘bias’ is when it is desirable to
+	 * have .5 gray value be the zero response of the filter. The bias property
+	 * shifts the range of the filter. This allows representation of values that
+	 * would otherwise be clamped to 0 or 1. If ‘bias’ is not specified, then
+	 * the effect is as if a value of 0 were specified.
 	 * 
-	 * targetX -
-	 *            a number - Determines the positioning in X of the convolution
-	 *            matrix relative to a given target pixel in the input image.
-	 *            The leftmost column of the matrix is column number zero. The
-	 *            value must be such that: 0 <= targetX < orderX. By default,
-	 *            the convolution matrix is centered in X over each pixel of the
-	 *            input image (i.e., targetX = floor ( orderX / 2 )).
+	 * targetX - a number - Determines the positioning in X of the convolution
+	 * matrix relative to a given target pixel in the input image. The leftmost
+	 * column of the matrix is column number zero. The value must be such that:
+	 * 0 <= targetX < orderX. By default, the convolution matrix is centered in
+	 * X over each pixel of the input image (i.e., targetX = floor ( orderX / 2
+	 * )).
 	 * 
-	 * targetY -
-	 *            a number - Determines the positioning in Y of the convolution
-	 *            matrix relative to a given target pixel in the input image.
-	 *            The topmost row of the matrix is row number zero. The value
-	 *            must be such that: 0 <= targetY < orderY. By default, the
-	 *            convolution matrix is centered in Y over each pixel of the
-	 *            input image (i.e., targetY = floor ( orderY / 2 )).
+	 * targetY - a number - Determines the positioning in Y of the convolution
+	 * matrix relative to a given target pixel in the input image. The topmost
+	 * row of the matrix is row number zero. The value must be such that: 0 <=
+	 * targetY < orderY. By default, the convolution matrix is centered in Y
+	 * over each pixel of the input image (i.e., targetY = floor ( orderY / 2
+	 * )).
 	 * 
-	 * edgeMode -
-	 *            one of "duplicate | wrap | none" - Determines how to extend
-	 *            the input image as necessary with color values so that the
-	 *            matrix operations can be applied when the kernel is positioned
-	 *            at or near the edge of the input image. "duplicate" indicates
-	 *            that the input image is extended along each of its borders as
-	 *            necessary by duplicating the color values at the given edge of
-	 *            the input image.
+	 * edgeMode - one of "duplicate | wrap | none" - Determines how to extend
+	 * the input image as necessary with color values so that the matrix
+	 * operations can be applied when the kernel is positioned at or near the
+	 * edge of the input image. "duplicate" indicates that the input image is
+	 * extended along each of its borders as necessary by duplicating the color
+	 * values at the given edge of the input image.
 	 * 
-	 * kernelUnitLength -
-	 *            array of 1 or two numbers - The first number is the <dx>
-	 *            value. The second number is the <dy> value. If the <dy> value
-	 *            is not specified, it defaults to the same value as <dx>.
-	 *            Indicates the intended distance in current filter units (i.e.,
-	 *            units as determined by the value of attribute
-	 *            ‘primitiveUnits’) between successive columns and rows,
-	 *            respectively, in the ‘kernelMatrix’. By specifying value(s)
-	 *            for ‘kernelUnitLength’, the kernel becomes defined in a
-	 *            scalable, abstract coordinate system. If ‘kernelUnitLength’ is
-	 *            not specified, the default value is one pixel in the offscreen
-	 *            bitmap, which is a pixel-based coordinate system, and thus
-	 *            potentially not scalable. For some level of consistency across
-	 *            display media and user agents, it is necessary that a value be
-	 *            provided for at least one of ‘filterRes’ and
-	 *            ‘kernelUnitLength’. In some implementations, the most
-	 *            consistent results and the fastest performance will be
-	 *            achieved if the pixel grid of the temporary offscreen images
-	 *            aligns with the pixel grid of the kernel. A negative or zero
-	 *            value is an error (see Error processing).
+	 * kernelUnitLength - array of 1 or two numbers - The first number is the
+	 * <dx> value. The second number is the <dy> value. If the <dy> value is not
+	 * specified, it defaults to the same value as <dx>. Indicates the intended
+	 * distance in current filter units (i.e., units as determined by the value
+	 * of attribute ‘primitiveUnits’) between successive columns and rows,
+	 * respectively, in the ‘kernelMatrix’. By specifying value(s) for
+	 * ‘kernelUnitLength’, the kernel becomes defined in a scalable, abstract
+	 * coordinate system. If ‘kernelUnitLength’ is not specified, the default
+	 * value is one pixel in the offscreen bitmap, which is a pixel-based
+	 * coordinate system, and thus potentially not scalable. For some level of
+	 * consistency across display media and user agents, it is necessary that a
+	 * value be provided for at least one of ‘filterRes’ and ‘kernelUnitLength’.
+	 * In some implementations, the most consistent results and the fastest
+	 * performance will be achieved if the pixel grid of the temporary offscreen
+	 * images aligns with the pixel grid of the kernel. A negative or zero value
+	 * is an error (see Error processing).
 	 * 
-	 * preserveAlpha -
-	 *            boolean - A value of false indicates that the convolution will
-	 *            apply to all channels, including the alpha channel.A value of
-	 *            true indicates that the convolution will only apply to the
-	 *            color channels. In this case, the filter will temporarily
-	 *            unpremultiply the color component values, apply the kernel,
-	 *            and then re-premultiply at the end.If ‘preserveAlpha’ is not
-	 *            specified, then the effect is as if a value of false were
-	 *            specified.
+	 * preserveAlpha - boolean - A value of false indicates that the convolution
+	 * will apply to all channels, including the alpha channel.A value of true
+	 * indicates that the convolution will only apply to the color channels. In
+	 * this case, the filter will temporarily unpremultiply the color component
+	 * values, apply the kernel, and then re-premultiply at the end.If
+	 * ‘preserveAlpha’ is not specified, then the effect is as if a value of
+	 * false were specified.
 	 */
-	Raphael.filterOps.feConvolveMatrix = function(params) {				
+	Raphael.filterOps.feConvolveMatrix = function(params) {
 		return Raphael.filterOps.svgFilter("feConvolveMatrix", params);
 	};
-	
+
 	/**
-	 * This filter primitive performs "fattening" or "thinning" of artwork. It is particularly useful for fattening or thinning an alpha channel.
-
-The dilation (or erosion) kernel is a rectangle with a width of 2*x-radius and a height of 2*y-radius. In dilation, the output pixel is the individual component-wise maximum of the corresponding R,G,B,A values in the input image's kernel rectangle. In erosion, the output pixel is the individual component-wise minimum of the corresponding R,G,B,A values in the input image's kernel rectangle.
-
-Frequently this operation will take place on alpha-only images, such as that produced by the built-in input, SourceAlpha. In that case, the implementation might want to optimize the single channel case.
-
-If the input has infinite extent and is constant (e.g FillPaint where the fill is a solid color), this operation has no effect. If the input has infinite extent and the filter result is the input to an ‘feTile’, the filter is evaluated with periodic boundary conditions.
-
-Because ‘feMorphology’ operates on premultipied color values, it will always result in color values less than or equal to the alpha channel.
-
-@param operator = "erode | dilate"
-A keyword indicating whether to erode (i.e., thin) or dilate (fatten) the source graphic. If attribute ‘operator’ is not specified, then the effect is as if a value of erode were specified. 
-
-@param radius = "<number-optional-number>"
-The radius (or radii) for the operation. If two <number>s are provided, the first number represents a x-radius and the second value represents a y-radius. If one number is provided, then that value is used for both X and Y. The values are in the coordinate system established by attribute ‘primitiveUnits’ on the ‘filter’ element.
-A negative value is an error (see Error processing). A value of zero disables the effect of the given filter primitive (i.e., the result is a transparent black image).
-If the attribute is not specified, then the effect is as if a value of 0 were specified.
+	 * This filter primitive performs "fattening" or "thinning" of artwork. It
+	 * is particularly useful for fattening or thinning an alpha channel.
+	 * 
+	 * The dilation (or erosion) kernel is a rectangle with a width of
+	 * 2*x-radius and a height of 2*y-radius. In dilation, the output pixel is
+	 * the individual component-wise maximum of the corresponding R,G,B,A values
+	 * in the input image's kernel rectangle. In erosion, the output pixel is
+	 * the individual component-wise minimum of the corresponding R,G,B,A values
+	 * in the input image's kernel rectangle.
+	 * 
+	 * Frequently this operation will take place on alpha-only images, such as
+	 * that produced by the built-in input, SourceAlpha. In that case, the
+	 * implementation might want to optimize the single channel case.
+	 * 
+	 * If the input has infinite extent and is constant (e.g FillPaint where the
+	 * fill is a solid color), this operation has no effect. If the input has
+	 * infinite extent and the filter result is the input to an ‘feTile’, the
+	 * filter is evaluated with periodic boundary conditions.
+	 * 
+	 * Because ‘feMorphology’ operates on premultipied color values, it will
+	 * always result in color values less than or equal to the alpha channel.
+	 * 
+	 * @param operator =
+	 *            "erode | dilate" A keyword indicating whether to erode (i.e.,
+	 *            thin) or dilate (fatten) the source graphic. If attribute
+	 *            ‘operator’ is not specified, then the effect is as if a value
+	 *            of erode were specified.
+	 * 
+	 * @param radius = "
+	 *            <number-optional-number>" The radius (or radii) for the
+	 *            operation. If two <number>s are provided, the first number
+	 *            represents a x-radius and the second value represents a
+	 *            y-radius. If one number is provided, then that value is used
+	 *            for both X and Y. The values are in the coordinate system
+	 *            established by attribute ‘primitiveUnits’ on the ‘filter’
+	 *            element. A negative value is an error (see Error processing).
+	 *            A value of zero disables the effect of the given filter
+	 *            primitive (i.e., the result is a transparent black image). If
+	 *            the attribute is not specified, then the effect is as if a
+	 *            value of 0 were specified.
 	 */
 	Raphael.filterOps.feMorphology = function(params) {
 		return Raphael.filterOps.svgFilter("feMorphology", params);
 	};
-	
 
-		
 	/**
+	 * http://www.w3.org/TR/SVG/filters.html#feTurbulenceElement
+	 * 
 	 * This filter primitive creates an image using the Perlin turbulence
 	 * function. It allows the synthesis of artificial textures like clouds or
 	 * marble. For a detailed description the of the Perlin turbulence function,
@@ -505,25 +509,45 @@ If the attribute is not specified, then the effect is as if a value of 0 were sp
 	Raphael.filterOps.feOffset = function(params) {
 		return Raphael.filterOps.svgFilter("feOffset", params);
 	};
-	
 
-	/**@param params - an array of the ids of filters / sources to merge, for example: 
+	/**
+	 * @param params -
+	 *            an array of the ids of filters / sources to merge, for
+	 *            example:
 	 * 
-var blur1 = Raphael.filterOps.feGaussianBlur({stdDeviation: "0.5", "in": "SourceAlpha", result: "blur1"});
-var offset1 = Raphael.filterOps.feOffset({"in": "blur1", dx: 1, dy: 1, result: "offsetBlur"});
-var merge1 = Raphael.filterOps.feMerge(["offsetBlur", "SourceGraphic"]);
-
-
-This filter primitive composites input image layers on top of each other using the over operator with Input1 (corresponding to the first ‘feMergeNode’ child element) on the bottom and the last specified input, InputN (corresponding to the last ‘feMergeNode’ child element), on top.
-
-Many effects produce a number of intermediate layers in order to create the final output image. This filter allows us to collapse those into a single image. Although this could be done by using n-1 Composite-filters, it is more convenient to have this common operation available in this form, and offers the implementation some additional flexibility.
-
-Each ‘feMerge’ element can have any number of ‘feMergeNode’ subelements, each of which has an ‘in’ attribute.
-
-The canonical implementation of feMerge is to render the entire effect into one RGBA layer, and then render the resulting layer on the output device. In certain cases (in particular if the output device itself is a continuous tone device), and since merging is associative, it might be a sufficient approximation to evaluate the effect one layer at a time and render each layer individually onto the output device bottom to top.
-
-If the topmost image input is SourceGraphic and this ‘feMerge’ is the last filter primitive in the filter, the implementation is encouraged to render the layers up to that point, and then render the SourceGraphic directly from its vector description on top.
-
+	 * var blur1 = Raphael.filterOps.feGaussianBlur({stdDeviation: "0.5", "in":
+	 * "SourceAlpha", result: "blur1"}); var offset1 =
+	 * Raphael.filterOps.feOffset({"in": "blur1", dx: 1, dy: 1, result:
+	 * "offsetBlur"}); var merge1 = Raphael.filterOps.feMerge(["offsetBlur",
+	 * "SourceGraphic"]);
+	 * 
+	 * 
+	 * This filter primitive composites input image layers on top of each other
+	 * using the over operator with Input1 (corresponding to the first
+	 * ‘feMergeNode’ child element) on the bottom and the last specified input,
+	 * InputN (corresponding to the last ‘feMergeNode’ child element), on top.
+	 * 
+	 * Many effects produce a number of intermediate layers in order to create
+	 * the final output image. This filter allows us to collapse those into a
+	 * single image. Although this could be done by using n-1 Composite-filters,
+	 * it is more convenient to have this common operation available in this
+	 * form, and offers the implementation some additional flexibility.
+	 * 
+	 * Each ‘feMerge’ element can have any number of ‘feMergeNode’ subelements,
+	 * each of which has an ‘in’ attribute.
+	 * 
+	 * The canonical implementation of feMerge is to render the entire effect
+	 * into one RGBA layer, and then render the resulting layer on the output
+	 * device. In certain cases (in particular if the output device itself is a
+	 * continuous tone device), and since merging is associative, it might be a
+	 * sufficient approximation to evaluate the effect one layer at a time and
+	 * render each layer individually onto the output device bottom to top.
+	 * 
+	 * If the topmost image input is SourceGraphic and this ‘feMerge’ is the
+	 * last filter primitive in the filter, the implementation is encouraged to
+	 * render the layers up to that point, and then render the SourceGraphic
+	 * directly from its vector description on top.
+	 * 
 	 * 
 	 */
 	Raphael.filterOps.feMerge = function(params) {
@@ -532,10 +556,10 @@ If the topmost image input is SourceGraphic and this ‘feMerge’ is the last f
 			appendToFilterEl : function(filterEl) {
 				var filterOpEl = $("feMerge");
 				for ( var i = 0; i < this.params.length; i++) {
-					var node =  $("feMergeNode"); 
+					var node = $("feMergeNode");
 					node.setAttribute("in", this.params[i]);
-					filterOpEl.appendChild(node); 
-				}				
+					filterOpEl.appendChild(node);
+				}
 				filterEl.appendChild(filterOpEl);
 				return filterOpEl;
 			}

@@ -7,7 +7,7 @@ import org.sgx.raphael4gwt.graphael.raphalytics.RaphalyticsOpts;
 import org.sgx.raphael4gwt.gtest.gallery.Test;
 import org.sgx.raphael4gwt.raphael.Paper;
 /**
- * shows bargraph with columns hovering 
+ * shows use of Raphalytics charts
  * @author sg
  *
  */

@@ -151,7 +151,12 @@ public interface TestResources extends ClientBundle {
 	  public TextResource SvgFiltersTurbulence();
 	  
 	  @Source("SvgFiltersConvolveMatrix.java")
-	  public TextResource SvgFiltersConvolveMatrix();
+	  public TextResource SvgFiltersConvolveMatrix();	  
+
+	  @Source("SvgFiltersColorMatrix.java")
+	  public TextResource SvgFiltersColorMatrix();
 	  
+	  @Source("SvgFiltersColorMatrix.java")
+	  public TextResource SvgFiltersSpecularLighting(); 
 	  
 }

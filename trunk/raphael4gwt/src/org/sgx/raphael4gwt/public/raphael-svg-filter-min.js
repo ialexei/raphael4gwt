@@ -9,4 +9,6 @@ for(var b=0;b<d.childNodes.length;b++){var g=d.childNodes[b];if(g.getAttribute("
 for(var e in this.params){var d=a(e);for(var c in this.params[e]){d.setAttribute(c,this.params[e][c])}f.appendChild(d)}g.appendChild(f);return f}}};Raphael.filterOps.feConvolveMatrix=function(b){return Raphael.filterOps.svgFilter("feConvolveMatrix",b)
 };Raphael.filterOps.feMorphology=function(b){return Raphael.filterOps.svgFilter("feMorphology",b)};Raphael.filterOps.feTurbulence=function(b){return Raphael.filterOps.svgFilter("feTurbulence",b)};Raphael.filterOps.feOffset=function(b){return Raphael.filterOps.svgFilter("feOffset",b)
 };Raphael.filterOps.feMerge=function(b){return{params:b,appendToFilterEl:function(f){var e=a("feMerge");for(var c=0;c<this.params.length;c++){var d=a("feMergeNode");d.setAttribute("in",this.params[c]);
-e.appendChild(d)}f.appendChild(e);return e}}}})();
+e.appendChild(d)}f.appendChild(e);return e}}};Raphael.filterOps.feSpecularLighting=function(b){return{params:b,appendToFilterEl:function(f){var e=a("feSpecularLighting");for(var c in b){if(c!="lightSource"){e.setAttribute(c,b[c])
+}}if(b.lightSource&&b.lightSource.lightSourceName){var d=a(b.lightSource.lightSourceName);for(var c in b.lightSource){if(c!="lightSourceName"){d.setAttribute(c,b.lightSource[c])}}e.appendChild(d)}f.appendChild(e);
+return e}}}})();

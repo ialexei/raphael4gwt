@@ -92,5 +92,21 @@ public native final String objDump(boolean printValues)/*-{
 	}
 	return s+"}"; 
 }-*/;
-
+/**
+ * simple - not recursive - property cloning
+ */
+public native final JsObject clone()/*-{
+var o = {}; 
+for(var i in this) {
+	o[i] = this[i]; 
+}
+return o;
+}-*/;
+/**
+ * simple - not recursive - property cloning
+ */
+public native final JsObject removeProperty(String propName)/*-{
+delete this[propName]; 
+return this; 
+}-*/;
 }

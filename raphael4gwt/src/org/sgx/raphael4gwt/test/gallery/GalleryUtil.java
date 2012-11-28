@@ -40,7 +40,10 @@ import org.sgx.raphael4gwt.test.PaperLoadAndSave;
 import org.sgx.raphael4gwt.test.PaperLoadAndSaveUnit1;
 import org.sgx.raphael4gwt.test.PaperViewBoxTest1;
 import org.sgx.raphael4gwt.test.SetGlowing1;
+import org.sgx.raphael4gwt.test.SvgFiltersColorMatrix;
+import org.sgx.raphael4gwt.test.SvgFiltersComponentTransfer;
 import org.sgx.raphael4gwt.test.SvgFiltersConvolveMatrix;
+import org.sgx.raphael4gwt.test.SvgFiltersSpecularLighting;
 import org.sgx.raphael4gwt.test.SvgFiltersTest1;
 import org.sgx.raphael4gwt.test.SvgFiltersTest2;
 import org.sgx.raphael4gwt.test.SvgFiltersTurbulence;
@@ -345,7 +348,14 @@ public class GalleryUtil {
 		t = new SvgFiltersConvolveMatrix(paper, w, h);
 		tests.put(t.getName(), t);
 		
+		t = new SvgFiltersComponentTransfer(paper, w, h);
+		tests.put(t.getName(), t);
 		
+		t = new SvgFiltersColorMatrix(paper, w, h);
+		tests.put(t.getName(), t);
+		
+		t = new SvgFiltersSpecularLighting(paper, w, h);
+		tests.put(t.getName(), t);
 	}
 
 	Map<String, List<Test>> getTestsByTag() {

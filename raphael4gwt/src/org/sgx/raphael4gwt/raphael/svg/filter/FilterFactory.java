@@ -1,5 +1,6 @@
 package org.sgx.raphael4gwt.raphael.svg.filter;
 
+import org.sgx.raphael4gwt.raphael.jsutil.JsObject;
 import org.sgx.raphael4gwt.raphael.svg.filter.params.FilterOperationParam;
 
 /**
@@ -32,7 +33,9 @@ public class FilterFactory {
 	// return _createFilterOperation(filterOpDef.getFilterOperationName(), filterOpDef.toNative());
 	// }
 	public FilterOperation createFilterOperation(FilterOperationParam filterOpParam) {
-		return _createFilterOperation(filterOpParam.getFilterName(), filterOpParam);
+		FilterOperationParam paramCopy = filterOpParam.clone().cast();
+		paramCopy.removeProperty("_filterName"); 
+		return _createFilterOperation(filterOpParam.getFilterName(), paramCopy);
 	}
 
 	public final native FilterOperation _createFilterOperation(String fopName, FilterOperationParam fopParams)/*-{

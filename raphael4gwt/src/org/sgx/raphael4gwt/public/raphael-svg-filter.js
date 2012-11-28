@@ -137,7 +137,7 @@
 	 * filters
 	 */
 	Raphael.filterOps.svgFilter = function(filterName, params) {
-//		params._filterName = filterName; 
+		// params._filterName = filterName;
 		return {
 			"params" : params,
 			appendToFilterEl : function(filterEl) {
@@ -213,7 +213,7 @@
 
 	/**
 	 * feComponentTransferElement -
-	 * http://www.w3.org/TR/SVG/filters.html#feComponentTransferElement
+	 * @see http://www.w3.org/TR/SVG/filters.html#feComponentTransferElement
 	 * 
 	 * @param params -
 	 *            an object with the format {funcR: {‘type’, ‘tableValues’,
@@ -253,29 +253,34 @@
 	 * 0].join(" "), bias: 1}, cm1 = Raphael.filterOps.feConvolveMatrix(cmop1);
 	 * filter1.appendOperation(cm1);
 	 * 
-	 * @param order - an array of 1 or 2 numbers - Indicates the number of cells in
-	 * each dimension for ‘kernelMatrix’. The values provided must be <integer>s
-	 * greater than zero. The first number, <orderX>, indicates the number of
-	 * columns in the matrix. The second number, <orderY>, indicates the number
-	 * of rows in the matrix. If <orderY> is not provided, it defaults to
-	 * <orderX>. A typical value is order="3". It is recommended that only small
-	 * values (e.g., 3) be used; higher values may result in very high CPU
-	 * overhead and usually do not produce results that justify the impact on
-	 * performance. If the attribute is not specified, the effect is as if a
-	 * value of 3 were specified.
+	 * @param order -
+	 *            an array of 1 or 2 numbers - Indicates the number of cells in
+	 *            each dimension for ‘kernelMatrix’. The values provided must be
+	 *            <integer>s greater than zero. The first number, <orderX>,
+	 *            indicates the number of columns in the matrix. The second
+	 *            number, <orderY>, indicates the number of rows in the matrix.
+	 *            If <orderY> is not provided, it defaults to <orderX>. A
+	 *            typical value is order="3". It is recommended that only small
+	 *            values (e.g., 3) be used; higher values may result in very
+	 *            high CPU overhead and usually do not produce results that
+	 *            justify the impact on performance. If the attribute is not
+	 *            specified, the effect is as if a value of 3 were specified.
 	 * 
-	 * @param kernelMatrix array of numbers - The list of <number>s that make up the
-	 * kernel matrix for the convolution. Values are separated by space
-	 * characters and/or a comma. The number of entries in the list must equal
-	 * <orderX> times <orderY>.
+	 * @param kernelMatrix
+	 *            array of numbers - The list of <number>s that make up the
+	 *            kernel matrix for the convolution. Values are separated by
+	 *            space characters and/or a comma. The number of entries in the
+	 *            list must equal <orderX> times <orderY>.
 	 * 
-	 * @param divisor - number After applying the ‘kernelMatrix’ to the input image to
-	 * yield a number, that number is divided by ‘divisor’ to yield the final
-	 * destination color value. A divisor that is the sum of all the matrix
-	 * values tends to have an evening effect on the overall color intensity of
-	 * the result. It is an error to specify a divisor of zero. The default
-	 * value is the sum of all values in kernelMatrix, with the exception that
-	 * if the sum is zero, then the divisor is set to 1.
+	 * @param divisor -
+	 *            number After applying the ‘kernelMatrix’ to the input image to
+	 *            yield a number, that number is divided by ‘divisor’ to yield
+	 *            the final destination color value. A divisor that is the sum
+	 *            of all the matrix values tends to have an evening effect on
+	 *            the overall color intensity of the result. It is an error to
+	 *            specify a divisor of zero. The default value is the sum of all
+	 *            values in kernelMatrix, with the exception that if the sum is
+	 *            zero, then the divisor is set to 1.
 	 * 
 	 * bias - a number After applying the ‘kernelMatrix’ to the input image to
 	 * yield a number and applying the ‘divisor’, the ‘bias’ attribute is added
@@ -511,6 +516,9 @@
 	};
 
 	/**
+	 * feMerge
+	 * @see http://www.w3.org/TR/SVG/filters.html#feMergeElement
+	 * 
 	 * @param params -
 	 *            an array of the ids of filters / sources to merge, for
 	 *            example:
@@ -565,6 +573,84 @@
 			}
 		};
 	};
+
+	/**
+	 * feSpecularLighting -
+	 * 
+	 * params should be something like:
+	 *  
+	 * <pre>
+	 * params = {specularExponent: 25, "lightning-color": "white", 
+	 * 	lightSource: {lightSourceName: "fePointLight", x: 400, y: 100, z: 100}
+	 * }</pre>
+	 * 
+	 * @see http://www.w3.org/TR/SVG/filters.html#feSpecularLightingElement
+	 * 
+	 * @param surfaceScale = "
+	 *            <number>" height of surface when Ain = 1. If the attribute is
+	 *            not specified, then the effect is as if a value of 1 were
+	 *            specified.
+	 * 
+	 * @param specularConstant = "
+	 *            <number>" ks in Phong lighting model. In SVG, this can be any
+	 *            non-negative number. If the attribute is not specified, then
+	 *            the effect is as if a value of 1 were specified.
+	 * 
+	 * @param specularExponent = "
+	 *            <number>" Exponent for specular term, larger is more "shiny".
+	 *            Range 1.0 to 128.0. If the attribute is not specified, then
+	 *            the effect is as if a value of 1 were specified.
+	 * 
+	 * @param kernelUnitLength = "
+	 *            <number-optional-number>" The first number is the <dx> value.
+	 *            The second number is the <dy> value. If the <dy> value is not
+	 *            specified, it defaults to the same value as <dx>. Indicates
+	 *            the intended distance in current filter units (i.e., units as
+	 *            determined by the value of attribute ‘primitiveUnits’) for dx
+	 *            and dy, respectively, in the surface normal calculation
+	 *            formulas. By specifying value(s) for ‘kernelUnitLength’, the
+	 *            kernel becomes defined in a scalable, abstract coordinate
+	 *            system. If ‘kernelUnitLength’ is not specified, the dx and dy
+	 *            values should represent very small deltas relative to a given
+	 *            (x,y) position, which might be implemented in some cases as
+	 *            one pixel in the intermediate image offscreen bitmap, which is
+	 *            a pixel-based coordinate system, and thus potentially not
+	 *            scalable. For some level of consistency across display media
+	 *            and user agents, it is necessary that a value be provided for
+	 *            at least one of ‘filterRes’ and ‘kernelUnitLength’. Discussion
+	 *            of intermediate images are in the Introduction and in the
+	 *            description of attribute ‘filterRes’. A negative or zero value
+	 *            is an error.
+	 */
+	Raphael.filterOps.feSpecularLighting = function(params) {
+		return {
+			"params" : params,
+			appendToFilterEl : function(filterEl) {
+				var filterOpEl = $("feSpecularLighting");
+				for(var i in params)
+					if(i!="lightSource") 
+						filterOpEl.setAttribute(i, params[i]); 
+					
+				if(params.lightSource && params.lightSource.lightSourceName) {
+					var el = $(params.lightSource.lightSourceName);
+					for(var i in params.lightSource) 
+						if(i!="lightSourceName")
+							el.setAttribute(i, params.lightSource[i]); 
+					filterOpEl.appendChild(el);
+				}
+//				for ( var funcName in this.params) {
+//					var el = $(funcName);
+//					for ( var i in this.params[funcName]) {
+//						el.setAttribute(i, this.params[funcName][i]);
+//					}
+//					filterOpEl.appendChild(el);
+//				}
+				filterEl.appendChild(filterOpEl);
+				return filterOpEl;
+			}
+		};
+	};
+
 	// /**
 	// * feBlend http://www.w3.org/TR/SVG/filters.html#feBlendElement
 	// *

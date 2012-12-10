@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-
+	<meta name="description" content="SVG, vector graphics, raphael, raphaël, raphaeljs, raphaëljs, graphics web, web, drawing, javascript, library">
     <title>RaphaëlJs Tutorial</title>
     
     <script type="text/javascript">window.raphaeltutTimer1=new Date().getTime();</script>
@@ -51,6 +51,23 @@
    	Sebastián Gurin</a>
    
    
+   
+   <!-- adsense sg -->
+   
+   <script type="text/javascript"><!--
+google_ad_client = "ca-pub-1268697634221460";
+/* raphaeltut */
+google_ad_slot = "4765677828";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+   
+   
+   
      <h1>License</h1>
 	<pre>
 	    Copyright (c)  2012  SEBASTIAN GURIN.
@@ -82,13 +99,20 @@
    <p>Raphaël comes with an nice <a href="http://raphaeljs.com/reference.html#Raphael">Reference</a> where all its features are 
    described with examples. Nevertheless, some features are not easy to understand to those not familiar with technologies 
    like SVG or JavaScript and it is there where this tutorial wants to contribute.</p>
-   
+      
    <p>The author of this tutorial is also the author of  <a href="http://code.google.com/p/raphael4gwt/">raphael4gwt</a>
     a Raphaël porting to GWT (Java). The sources of this tutorial are currently being mantained at 
     <a href="http://code.google.com/p/raphael4gwt/source/browse/#svn%2Ftrunk%2Fraphael4gwt%2Fdoc%2Fraphaeltut">
     raphael4gwt project page</a>. So contact with that project if you have 
     comments or suggestiongs about this tutorial. </p>
     
+    <p>For downloading the entire tutorial so you can access all the source code involved you can do: </p>
+	<pre class="code">
+svn co http://raphael4gwt.googlecode.com/svn/trunk/raphael4gwt
+firefox raphael4gwt/doc/raphaeltut/index.html
+	</pre>
+	
+	    
   <p>The tutorial was written entirely in HTML and contain a lot of live links to <a href="http://raphaeljs.com/reference.html">Raphaël reference page</a>
   containing the exact reference definition., These links will open in a popup and show a certain function like <a href="Element.attr" class="raphael-ref">Element.attr()</a> 
   
@@ -239,7 +263,7 @@
 	<p>As you can see, once we include <b class="code">raphael.js</b>, we have ceated a raphael paper and drawed a rectangle on it with JavaScript. 
 	You can <a href="examples/example1.html">run this individual example</a> and checkout the source code in your browser for better understanding. </p>
 	
-	<p>We will examine paper more in deep in <a href="#sec-shape-paper">Section "Paper"</a>. </p>
+	<p>We will examine paper more in deep in <a href="#sec-paper">Section "Paper"</a>. </p>
 	
 	
 	<h2>Simple example</h2>
@@ -2100,14 +2124,31 @@ movers[7].click(function () {
    
    
    <h2 class="index" id="sec-animation-cubic-bezier">cubic-bezier animation formulmae</h2>
-   <p>As we have seen, raphaeljs support a number of predefined easing animation formulaes. But what if 
-   none of those is what we want?After all there are infinte ways of changing a value in a time lapsus...</p>
+   <p>As we have seen, raphaeljs support a number of predefined easing animation formulaes like "linear", "bounce", etc. But what if 
+   none of those is what we want? After all there are infinte ways of changing a value in a time lapsus...</p>
    
    <p>Fortunately, Raphaël support a way of define a custom animation formulae using cubic-bezier curves 
    for defining HOW a value should change from the initial state to the final state. </p>
    
    <p>A detailed description of this kind of curves is given in 
-   <a href="#sec-types-path-curveto">Section Raphael types -> Path -> curve to</a>. </p>
+   <a href="#sec-types-path-curveto">Section Raphael types -> Path -> curve to</a>. 
+   The following image contains some examples of cubic-bezier curves (taken from from http://www.the-art-of-web.com/css/timing-function/): </p>
+   
+   <img src="images/cubicbezier1.png"></img>
+   
+   <p>In raphael, instead using one of the predefined easing formulae like "linear", "bounce", etc, we can also
+   use a custom cubic-bezier formulae. But what is the meaning of these functions ? In the 
+   following example, we animate a rectangle using the custom animation formulae given by
+   the cubic-bezier curve (0,1)(1,0). This is the last curve of the previous image. As you can see, 
+   we expect quicker changes at the extremes, and slower changes in the middle of the animation:    
+   </p>
+   
+   <pre class="code, code-run">
+var rect2 = paper.rect(10,20,50,80).attr({fill: "blue"});
+rect2.click(function(e){
+    rect2.animate({x: 200}, 1000, "cubic-bezier(0,1,1,0)");
+});
+   </pre>
    
    
    <p>idea stolen from http://www.the-art-of-web.com/css/timing-function/</p>
@@ -2826,7 +2867,7 @@ e1.animate({"fill": g2}, 2000, "linear");
    
    <p>Also paper acts as an intermediate between your raphael shapes and the parent document. An HTML document can contain several papers.</p>
    
-   <p>Is because of these facts that we will discuss paper detailed in this individual section.</p>
+<!--    <p>Is because of these facts that we will discuss paper detailed in this individual section.</p> -->
    
 <!--    <h2 id="sec-shape-paper" class="index">Paper</h2> -->
    
@@ -3784,6 +3825,7 @@ In SVG, filter operations are &lt;filter> element children . See our previous SV
    
    
 </div>
+   
    
   </body>
 </html>

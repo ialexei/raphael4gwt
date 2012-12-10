@@ -43,7 +43,7 @@ import org.sgx.raphael4gwt.test.SetGlowing1;
 import org.sgx.raphael4gwt.test.SvgFiltersColorMatrix;
 import org.sgx.raphael4gwt.test.SvgFiltersComponentTransfer;
 import org.sgx.raphael4gwt.test.SvgFiltersConvolveMatrix;
-import org.sgx.raphael4gwt.test.SvgFiltersSpecularLighting;
+import org.sgx.raphael4gwt.test.SvgFiltersLighting1;
 import org.sgx.raphael4gwt.test.SvgFiltersTest1;
 import org.sgx.raphael4gwt.test.SvgFiltersTest2;
 import org.sgx.raphael4gwt.test.SvgFiltersTurbulence;
@@ -354,7 +354,7 @@ public class GalleryUtil {
 		t = new SvgFiltersColorMatrix(paper, w, h);
 		tests.put(t.getName(), t);
 		
-		t = new SvgFiltersSpecularLighting(paper, w, h);
+		t = new SvgFiltersLighting1(paper, w, h);
 		tests.put(t.getName(), t);
 	}
 

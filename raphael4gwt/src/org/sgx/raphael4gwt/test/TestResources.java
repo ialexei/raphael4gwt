@@ -156,7 +156,7 @@ public interface TestResources extends ClientBundle {
 	  @Source("SvgFiltersColorMatrix.java")
 	  public TextResource SvgFiltersColorMatrix();
 	  
-	  @Source("SvgFiltersColorMatrix.java")
-	  public TextResource SvgFiltersSpecularLighting(); 
+	  @Source("SvgFiltersLighting1.java")
+	  public TextResource SvgFiltersLighting1(); 
 	  
 }

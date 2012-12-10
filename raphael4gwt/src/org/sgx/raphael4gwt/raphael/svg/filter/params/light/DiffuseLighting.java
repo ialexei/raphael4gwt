@@ -4,62 +4,17 @@ import org.sgx.raphael4gwt.raphael.svg.filter.params.FilterOperationParam;
 
 /**
  * 
- * <p>
- * This filter primitive lights a source graphic using the alpha channel as a bump map. The resulting image is an RGBA image based on the light color. The lighting calculation
- * follows the standard specular component of the Phong lighting model. The resulting image depends on the light color, light position and surface geometry of the input bump map.
- * The result of the lighting calculation is added. The filter primitive assumes that the viewer is at infinity in the z direction (i.e., the unit vector in the eye direction is
- * (0,0,1) everywhere).
- * </p>
- * 
- * <p>
- * This filter primitive produces an image which contains the specular reflection part of the lighting calculation. Such a map is intended to be combined with a texture using the
- * add term of the arithmetic ‘feComposite’ method. Multiple light sources can be simulated by adding several of these light maps before applying it to the texture image.
- * </p>
- * 
- * <p>
- * The resulting RGBA image is computed as follows:
- * </p>
- * 
- * <p class="filterformula">
- * S<sub>r</sub> = k<sub>s</sub> * pow(N.H, specularExponent) * L<sub>r<br>
- * </sub> S<sub>g</sub> = k<sub>s</sub> * pow(N.H, specularExponent) * L<sub>g<br>
- * </sub> S<sub>b</sub> = k<sub>s</sub> * pow(N.H, specularExponent) * L<sub>b<br>
- * </sub> S<sub>a</sub> = max(S<sub>r,</sub> S<sub>g,</sub> S<sub>b</sub>)
- * </p>
- * 
- * <p>
- * Where
- * </p>
- * 
- * <dd>k<sub>s</sub> = specular lighting constant<br>
- * N = surface normal unit vector, a function of x and y<br>
- * H = "halfway" unit vector between eye unit vector and light unit vector<br>
- * <br>
- * L<sub>r</sub>,L<sub>g</sub>,L<sub>b</sub> = RGB components of light</dd>
- * 
- * <p>
- * Unlike the ‘feDiffuseLighting’, the ‘feSpecularLighting’ filter produces a non-opaque image. This is due to the fact that the specular result (Sr,Sg,Sb,Sa) is meant to be added
- * to the textured image. The alpha channel of the result is the max of the color components, so that where the specular light is zero, no additional coverage is added to the image
- * and a fully white highlight will add opacity.
- * </p>
- * 
- * <p>
- * The ‘feDiffuseLighting’ and ‘feSpecularLighting’ filters will often be applied together. An implementation may detect this and calculate both maps in one pass, instead of two.
- * </p>
- * 
- * 
- * 
  * @see http://www.w3.org/TR/SVG/filters.html#feSpecularLightingElement
  * @author sg
  * 
  */
-public class SpecularLighting extends FilterOperationParam {
-	protected SpecularLighting() {
+public class DiffuseLighting extends FilterOperationParam {
+	protected DiffuseLighting() {
 	}
 
-	public static final native SpecularLighting create()/*-{
+	public static final native DiffuseLighting create()/*-{
 		return {
-			"_filterName" : "feSpecularLighting"
+			"_filterName" : "feDiffuseLighting"
 		};
 	}-*/;
 
@@ -78,7 +33,7 @@ public class SpecularLighting extends FilterOperationParam {
 	 * @param val
 	 * @return this - for setter chaining
 	 */
-	public native final SpecularLighting surfaceScale(double val) /*-{
+	public native final DiffuseLighting surfaceScale(double val) /*-{
 		this.surfaceScale = val;
 		return this;
 	}-*/;
@@ -88,8 +43,8 @@ public class SpecularLighting extends FilterOperationParam {
 	 * 
 	 * @return
 	 */
-	public native final double specularConstant() /*-{
-		return this.specularConstant;
+	public native final double diffuseConstant() /*-{
+		return this.diffuseConstant;
 	}-*/;
 
 	/**
@@ -98,28 +53,8 @@ public class SpecularLighting extends FilterOperationParam {
 	 * @param val
 	 * @return this - for setter chaining
 	 */
-	public native final SpecularLighting specularConstant(double val) /*-{
-		this.specularConstant = val;
-		return this;
-	}-*/;
-
-	/**
-	 * Exponent for specular term, larger is more "shiny". Range 1.0 to 128.0. If the attribute is not specified, then the effect is as if a value of 1 were specified.
-	 * 
-	 * @return
-	 */
-	public native final double specularExponent() /*-{
-		return this.specularExponent;
-	}-*/;
-
-	/**
-	 * Exponent for specular term, larger is more "shiny". Range 1.0 to 128.0. If the attribute is not specified, then the effect is as if a value of 1 were specified.
-	 * 
-	 * @param val
-	 * @return this - for setter chaining
-	 */
-	public native final SpecularLighting specularExponent(double val) /*-{
-		this.specularExponent = val;
+	public native final DiffuseLighting diffuseConstant(double val) /*-{
+		this.diffuseConstant = val;
 		return this;
 	}-*/;
 
@@ -139,7 +74,7 @@ public class SpecularLighting extends FilterOperationParam {
 	}-*/;
 
 	/**
-	 * The first number is the <dx> value. The second number is the <dy> value. If the <dy> value is not specified, it defaults to the same value as <dx>. Indicates the intended
+	 * The first number is the dx value. The second number is the <dy> value. If the <dy> value is not specified, it defaults to the same value as dx. Indicates the intended
 	 * distance in current filter units (i.e., units as determined by the value of attribute ‘primitiveUnits’) for dx and dy, respectively, in the surface normal calculation
 	 * formulas. By specifying value(s) for ‘kernelUnitLength’, the kernel becomes defined in a scalable, abstract coordinate system. If ‘kernelUnitLength’ is not specified, the dx
 	 * and dy values should represent very small deltas relative to a given (x,y) position, which might be implemented in some cases as one pixel in the intermediate image
@@ -202,7 +137,7 @@ public class SpecularLighting extends FilterOperationParam {
 	 * @param val
 	 * @return this - for setter chaining
 	 */
-	public native final SpecularLighting lightSource(LightSource val) /*-{
+	public native final DiffuseLighting lightSource(LightSource val) /*-{
 		this.lightSource = val;
 		return this;
 	}-*/;
@@ -222,7 +157,7 @@ public class SpecularLighting extends FilterOperationParam {
 	 * @param val
 	 * @return this - for setter chaining
 	 */
-	public native final SpecularLighting lightningColor(String val) /*-{
+	public native final DiffuseLighting lightningColor(String val) /*-{
 		this["lighting-color"] = val;
 		return this;
 	}-*/;

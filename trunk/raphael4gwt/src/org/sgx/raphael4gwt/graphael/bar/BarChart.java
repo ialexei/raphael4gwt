@@ -107,7 +107,8 @@ public native final BarChart clickColumn(BarSectorCallback l)/*-{
 public native final Set getBars()/*-{
 	return this.bars
 }-*/;
-/**covers is where mouse events are registered.
+/**
+ * covers is where mouse events are registered.
  * it is a set of rects
  * @return
  */

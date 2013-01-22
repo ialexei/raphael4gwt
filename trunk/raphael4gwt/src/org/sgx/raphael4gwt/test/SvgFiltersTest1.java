@@ -10,8 +10,8 @@ import org.sgx.raphael4gwt.raphael.svg.filter.FilterOperation;
 import org.sgx.raphael4gwt.raphael.svg.filter.params.GaussianBlur;
 //import org.sgx.raphael4gwt.raphael.svg.filter.ops.GaussianBlur;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
-import org.sgx.raphael4gwt.test.image.IconPaths;
-import org.sgx.raphael4gwt.test.image.TestImageResources;
+import org.sgx.raphael4gwt.test.gallery.IconPaths;
+import org.sgx.raphael4gwt.test.gallery.GalleryResources;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.TextBox;
@@ -26,7 +26,7 @@ public class SvgFiltersTest1 extends Test {
 	public void test() {
 		
 		Shape shape1 = paper.path(IconPaths.question).attr( Attrs.create().
-			fill(TestImageResources.INSTANCE.smallLion()).
+			fill(GalleryResources.INSTANCE.smallLion()).
 			transform("s6.0t10,10")
 		);
 

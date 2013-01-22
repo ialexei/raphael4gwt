@@ -7,8 +7,8 @@ import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
-import org.sgx.raphael4gwt.test.image.IconPaths;
-import org.sgx.raphael4gwt.test.image.TestImageResources;
+import org.sgx.raphael4gwt.test.gallery.IconPaths;
+import org.sgx.raphael4gwt.test.gallery.GalleryResources;
 
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.resources.client.ImageResource;
@@ -42,7 +42,7 @@ public class ImageTransforms1 extends Test {
 			"configuration panels above. ");
 				
 		
-		image1 = paper.image(TestImageResources.INSTANCE.smallLion(), 10, 10, 180, 180);
+		image1 = paper.image(GalleryResources.INSTANCE.smallLion(), 10, 10, 180, 180);
 		image1.click(new MouseEventListener() {			
 			@Override
 			public void notifyMouseEvent(NativeEvent e) {

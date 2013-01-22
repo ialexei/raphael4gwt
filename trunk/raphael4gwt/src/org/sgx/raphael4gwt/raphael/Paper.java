@@ -10,6 +10,7 @@ import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
 import org.sgx.raphael4gwt.raphael.ft.FTCallback;
 import org.sgx.raphael4gwt.raphael.ft.FTOptions;
 import org.sgx.raphael4gwt.raphael.ft.FreeTransform;
+import org.sgx.raphael4gwt.raphael.jsutil.AbstractCallback;
 import org.sgx.raphael4gwt.raphael.pathobj.PathObject;
 import org.sgx.raphael4gwt.raphael.svg.filter.Filter;
 
@@ -575,7 +576,7 @@ txt[0].attr({fill: "#f00"});
 	}-*/;
 
 	
-
+	
 	
 	
 	/**
@@ -612,9 +613,21 @@ txt[0].attr({fill: "#f00"});
 	
 	
 	
+	//custom attributes
+	public final native void setCustomAttribute(String caName, AbstractCallback callback)/*-{
+		var fn = @org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsFunction(Lorg/sgx/raphael4gwt/raphael/jsutil/AbstractCallback;)(callback);
+		this.customAttributes[caName] = fn; 
+	}-*/;
+
+	
+	
+	
+	
 	
 	
 	/* * * * EXTENSIONS * * * * */
+	
+	
 	
 	/// FREE TRANSFOrm: 
 	public final native FreeTransform freeTransform(Shape s)/*-{
@@ -626,6 +639,7 @@ txt[0].attr({fill: "#f00"});
 		});
 	}-*/;
 
+	
 	
 	/// printletters
 	
@@ -684,6 +698,8 @@ txt[0].attr({fill: "#f00"});
 	
 	
 	
+	
+	
 	//write to js obj
 	
 	/**
@@ -710,6 +726,8 @@ txt[0].attr({fill: "#f00"});
 		return set;
 	}-*/;
 
+	
+	
 	
 	//export/import to svg
 	
@@ -739,6 +757,8 @@ txt[0].attr({fill: "#f00"});
 //	public final native Set importSvg(Document doc)/*-{
 //		return this.importSVG(doc);
 //	}-*/;
+	
+	
 	
 	
 	//named set

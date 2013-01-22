@@ -19,7 +19,7 @@ import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 import org.sgx.raphael4gwt.raphael.util.Util;
 import org.sgx.raphael4gwt.test.gallery.MainPanel;
-import org.sgx.raphael4gwt.test.image.TestImageResources;
+import org.sgx.raphael4gwt.test.gallery.GalleryResources;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.AnchorElement;

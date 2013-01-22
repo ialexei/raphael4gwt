@@ -9,8 +9,8 @@ import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Gradient;
 import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
-import org.sgx.raphael4gwt.test.image.IconPaths;
-import org.sgx.raphael4gwt.test.image.TestImageResources;
+import org.sgx.raphael4gwt.test.gallery.IconPaths;
+import org.sgx.raphael4gwt.test.gallery.GalleryResources;
 
 public class FillTest1 extends Test {
 	
@@ -31,7 +31,7 @@ public class FillTest1 extends Test {
 				s.translate(100, ycounter);
 				s.scale(3.0, 4.0);
 				s.attr( Attrs.create().
-					fill(TestImageResources.INSTANCE.smallLion())
+					fill(GalleryResources.INSTANCE.smallLion())
 				);
 				ycounter+=100;
 				return true;

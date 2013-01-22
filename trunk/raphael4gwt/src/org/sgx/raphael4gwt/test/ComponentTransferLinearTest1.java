@@ -6,7 +6,7 @@ import org.sgx.raphael4gwt.raphael.Shape;
 //import org.sgx.raphael4gwt.raphael.svg.FEComponentTransfer;
 //import org.sgx.raphael4gwt.raphael.svg.FEComponentTransferLinear;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
-import org.sgx.raphael4gwt.test.image.TestImageResources;
+import org.sgx.raphael4gwt.test.gallery.GalleryResources;
 /**
  * show how to use Shape.componentTransferLinear. It only works in SVG (all but IE<9)
  * @author sg

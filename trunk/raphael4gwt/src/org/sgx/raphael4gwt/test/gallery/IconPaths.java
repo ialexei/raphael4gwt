@@ -1,4 +1,4 @@
-package org.sgx.raphael4gwt.test.image;
+package org.sgx.raphael4gwt.test.gallery;
 
 
 /**

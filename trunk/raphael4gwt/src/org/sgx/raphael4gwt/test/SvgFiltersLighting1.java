@@ -14,7 +14,7 @@ import org.sgx.raphael4gwt.raphael.svg.filter.params.light.DiffuseLighting;
 import org.sgx.raphael4gwt.raphael.svg.filter.params.light.PointLight;
 import org.sgx.raphael4gwt.raphael.svg.filter.params.light.SpecularLighting;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
-import org.sgx.raphael4gwt.test.image.TestImageResources;
+import org.sgx.raphael4gwt.test.gallery.GalleryResources;
 /**
  * SvgFiltersSpecularLighting 
  * @author sg
@@ -27,7 +27,7 @@ public class SvgFiltersLighting1 extends Test {
 		int M = 150; 
 		//the original - no filter
 		Shape shape = paper.image(
-			TestImageResources.INSTANCE.smallLion(), 0, 0, M, M
+			GalleryResources.INSTANCE.smallLion(), 0, 0, M, M
 		); 
 		Shape mask = paper.rect(0,0,M,M).attr(Attrs.create().stroke("none")); 
 		

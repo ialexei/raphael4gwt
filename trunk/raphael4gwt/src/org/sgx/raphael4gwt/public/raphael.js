@@ -3618,6 +3618,7 @@
 		this.forEach(function(el) {
 			if (!ipi && el.isPointInside(x, y)) {
 				ipi = true;
+				return false; 
 			}
 		});
 		return ipi;

@@ -2,8 +2,6 @@ package org.sgx.raphael4gwt.raphael.jsutil;
 
 import java.util.Map;
 
-import org.sgx.raphael4gwt.raphael.base.CSSRule;
-import org.sgx.raphael4gwt.raphael.svg.filter.FilterOperation;
 import org.sgx.raphael4gwt.raphael.util.Util;
 
 import com.google.gwt.core.client.JavaScriptObject;
@@ -292,7 +290,12 @@ public class JsUtil {
 	}-*/;
 
 
-
+	public static final native JavaScriptObject toJsFunction(AbstractCallback c)/*-{
+		return $entry(function(){
+			return c.@org.sgx.raphael4gwt.raphael.jsutil.AbstractCallback::call(Lcom/google/gwt/core/client/JsArrayMixed;)(arguments);   
+		}); 
+	//	return @org.sgx.yuigwt.yui.util.JsUtil::toJsArray([Lcom/google/gwt/core/client/JavaScriptObject;)(t); 
+	}-*/;
 
 
 	

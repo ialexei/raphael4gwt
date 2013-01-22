@@ -7,7 +7,7 @@ import org.sgx.raphael4gwt.raphael.base.Gradient;
 import org.sgx.raphael4gwt.raphael.base.Stop;
 import org.sgx.raphael4gwt.raphael.event.ForEachCallback;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
-import org.sgx.raphael4gwt.test.image.IconPaths;
+import org.sgx.raphael4gwt.test.gallery.IconPaths;
 
 import com.google.gwt.user.client.Window;
 

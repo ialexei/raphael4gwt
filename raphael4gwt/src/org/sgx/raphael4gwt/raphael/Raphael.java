@@ -9,13 +9,19 @@ import org.sgx.raphael4gwt.raphael.base.Point;
 import org.sgx.raphael4gwt.raphael.base.RGB;
 import org.sgx.raphael4gwt.raphael.base.Rectangle;
 import org.sgx.raphael4gwt.raphael.event.Callback;
+import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayMixed;
+import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.ClientBundle.Source;
+import com.google.gwt.resources.client.TextResource;
 import com.google.gwt.user.client.Window;
 
 /**
@@ -569,6 +575,34 @@ public static Set set(Paper paper, Shape...shapes) {
 	return s;
 }
 
+
+
+/* raphael javascript loading using a TextResource and ScriptInjector.fromString(),
+ * not using the unsuported <script> in gwt.xml */
+       
+public interface RaphaelScripts extends ClientBundle {
+       
+        public static RaphaelScripts instance = GWT.create(RaphaelScripts.class);
+       
+        @Source("scripts/raphael-min.js")
+        TextResource raphaelminjs();
+        
+        @Source("scripts/raphael4gwt-all-min.js")
+        TextResource raphael4gwtallminjs();
+        
+}
+
+public static void loadRaphaelJs() {
+        String text = RaphaelScripts.instance.raphaelminjs().getText()+
+    		";"+
+    		RaphaelScripts.instance.raphael4gwtallminjs().getText();
+        ScriptInjector.fromString(text).setWindow(JsUtil.window().cast()).inject();
+}
+
+static {
+        loadRaphaelJs();
+}
+      
 
 }
 

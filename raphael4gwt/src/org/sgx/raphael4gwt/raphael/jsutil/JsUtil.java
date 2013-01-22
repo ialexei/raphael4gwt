@@ -287,6 +287,9 @@ public class JsUtil {
 		return s+"}"; 
 	}-*/;
 
+	public static native JavaScriptObject window()/*-{
+		return $wnd; 
+	}-*/;
 
 
 

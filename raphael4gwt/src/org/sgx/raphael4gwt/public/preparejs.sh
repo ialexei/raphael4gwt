@@ -33,6 +33,8 @@ cat raphael.free_transform.js >> $ALL.js
 echo "/* raphael4gwt */" >> $ALL.js
 cat raphael4gwt.js >> $ALL.js
 
+cp raphael-min.js raphael4gwt-all-min.js ../raphael/scripts
+
 #cd graphael
 #sh preparejs.sh
 #cd ..

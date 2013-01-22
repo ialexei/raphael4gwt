@@ -19,11 +19,11 @@
  	
 
 	<!-- 3 - For development - non minified files separated --> 	
-	<script src='raphael.js' />
-	<script src='raphael-ext.js' />
-	<script src='raphael.free_transform.js' />
-	<script src='raphael4gwt.js' />
-	<script src='raphael-svg-filter.js' />
+<!-- 	<script src='raphael.js' /> -->
+<!-- 	<script src='raphael-ext.js' /> -->
+<!-- 	<script src='raphael.free_transform.js' /> -->
+<!-- 	<script src='raphael4gwt.js' /> -->
+<!-- 	<script src='raphael-svg-filter.js' /> -->
 
 	<source path="raphael" />
 	

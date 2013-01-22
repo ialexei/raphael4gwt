@@ -46,3 +46,5 @@ cat g.radar.js >> $ALL.js
 
 echo "/* raphalytics */" >> $ALL.js
 cat raphalytics.js >> $ALL.js
+
+cp g.raphael.all-min.js ../../graphael/scripts

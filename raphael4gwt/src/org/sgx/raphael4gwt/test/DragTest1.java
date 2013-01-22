@@ -15,7 +15,7 @@ import com.google.gwt.resources.client.ImageResource;
 /**
  * this test shows many ways of drag&drop shapes.
  * 
- * @author sebastian
+ * @author sg
  * 
  */
 public class DragTest1 extends Test {
@@ -87,10 +87,12 @@ public class DragTest1 extends Test {
 			@Override
 			public void onStart(int x, int y, NativeEvent e) {
 			}
+
 			@Override
 			public void onMove(int dx, int dy, int x, int y, NativeEvent e) {
 				img3.transform("t" + dx + "," + dy);
 			}
+
 			@Override
 			public void onEnd(NativeEvent e) {
 			}

@@ -3412,6 +3412,12 @@ Raphael.fn.importSVG = function(svgXML) {
 		return Raphael.filterOps.svgFilter("feOffset", params);
 	};
 
+	
+	Raphael.filterOps.feComposite = function(params) {
+		return Raphael.filterOps.svgFilter("feComposite", params);
+	};
+	
+	
 	/**
 	 * feMerge
 	 * @see http://www.w3.org/TR/SVG/filters.html#feMergeElement
@@ -3420,11 +3426,16 @@ Raphael.fn.importSVG = function(svgXML) {
 	 *            an array of the ids of filters / sources to merge, for
 	 *            example:
 	 * 
+	 * <pre>
 	 * var blur1 = Raphael.filterOps.feGaussianBlur({stdDeviation: "0.5", "in":
-	 * "SourceAlpha", result: "blur1"}); var offset1 =
-	 * Raphael.filterOps.feOffset({"in": "blur1", dx: 1, dy: 1, result:
-	 * "offsetBlur"}); var merge1 = Raphael.filterOps.feMerge(["offsetBlur",
-	 * "SourceGraphic"]);
+	 * "SourceAlpha", result: "blur1"}); 
+	 * 
+	 * var offset1 = Raphael.filterOps.feOffset({"in": "blur1", dx: 1, dy: 1, result:
+	 * "offsetBlur"}); 
+	 * 
+	 * var merge1 = Raphael.filterOps.feMerge({merge: ["offsetBlur",
+	 * "SourceGraphic"]});
+	 * </pre>
 	 * 
 	 * 
 	 * This filter primitive composites input image layers on top of each other
@@ -3460,9 +3471,9 @@ Raphael.fn.importSVG = function(svgXML) {
 			"params" : params,
 			appendToFilterEl : function(filterEl) {
 				var filterOpEl = $("feMerge");
-				for ( var i = 0; i < this.params.length; i++) {
+				if(this.params.merge) for ( var i = 0; i < this.params.merge.length; i++) {
 					var node = $("feMergeNode");
-					node.setAttribute("in", this.params[i]);
+					node.setAttribute("in", this.params.merge[i]);
 					filterOpEl.appendChild(node);
 				}
 				filterEl.appendChild(filterOpEl);
@@ -3471,6 +3482,8 @@ Raphael.fn.importSVG = function(svgXML) {
 		};
 	};
 
+	
+	
 	/**
 	 * feSpecularLighting -
 	 * 
@@ -3524,30 +3537,91 @@ Raphael.fn.importSVG = function(svgXML) {
 			"params" : params,
 			appendToFilterEl : function(filterEl) {
 				var filterOpEl = $("feSpecularLighting");
-				for(var i in params)
+				for(var i in this.params)
 					if(i!="lightSource") 
-						filterOpEl.setAttribute(i, params[i]); 
+						filterOpEl.setAttribute(i, this.params[i]); 
 					
-				if(params.lightSource && params.lightSource.lightSourceName) {
-					var el = $(params.lightSource.lightSourceName);
-					for(var i in params.lightSource) 
+				if(this.params.lightSource && this.params.lightSource.lightSourceName) {
+					var el = $(this.params.lightSource.lightSourceName);
+					for(var i in this.params.lightSource) 
 						if(i!="lightSourceName")
-							el.setAttribute(i, params.lightSource[i]); 
+							el.setAttribute(i, this.params.lightSource[i]); 
 					filterOpEl.appendChild(el);
 				}
-//				for ( var funcName in this.params) {
-//					var el = $(funcName);
-//					for ( var i in this.params[funcName]) {
-//						el.setAttribute(i, this.params[funcName][i]);
-//					}
-//					filterOpEl.appendChild(el);
-//				}
 				filterEl.appendChild(filterOpEl);
 				return filterOpEl;
 			}
 		};
 	};
 
+	
+	
+	/**
+	 * feDiffuseLighting 
+	 * @see http://www.w3.org/TR/SVG/filters.html#feDiffuseLightingElement
+	 * 
+	 * params should be something like:
+	 *  
+	 * <pre>
+	 * params = {diffuseConstant: 2, "lightning-color": "white", 
+	 * 	lightSource: {lightSourceName: "fePointLight", x: 400, y: 100, z: 100}
+	 * }</pre>
+	 * 
+	 * 
+	 * @param surfaceScale = "
+	 *            <number>" height of surface when Ain = 1. If the attribute is
+	 *            not specified, then the effect is as if a value of 1 were
+	 *            specified.
+	 * 
+	 * @param diffuseConstant = "
+	 *            <number>" ks in Phong lighting model. In SVG, this can be any
+	 *            non-negative number. If the attribute is not specified, then
+	 *            the effect is as if a value of 1 were specified.
+	 * 
+	 * @param kernelUnitLength = "
+	 *            <number-optional-number>" The first number is the <dx> value.
+	 *            The second number is the <dy> value. If the <dy> value is not
+	 *            specified, it defaults to the same value as <dx>. Indicates
+	 *            the intended distance in current filter units (i.e., units as
+	 *            determined by the value of attribute ‘primitiveUnits’) for dx
+	 *            and dy, respectively, in the surface normal calculation
+	 *            formulas. By specifying value(s) for ‘kernelUnitLength’, the
+	 *            kernel becomes defined in a scalable, abstract coordinate
+	 *            system. If ‘kernelUnitLength’ is not specified, the dx and dy
+	 *            values should represent very small deltas relative to a given
+	 *            (x,y) position, which might be implemented in some cases as
+	 *            one pixel in the intermediate image offscreen bitmap, which is
+	 *            a pixel-based coordinate system, and thus potentially not
+	 *            scalable. For some level of consistency across display media
+	 *            and user agents, it is necessary that a value be provided for
+	 *            at least one of ‘filterRes’ and ‘kernelUnitLength’. Discussion
+	 *            of intermediate images are in the Introduction and in the
+	 *            description of attribute ‘filterRes’. A negative or zero value
+	 *            is an error.
+	 */
+	Raphael.filterOps.feDiffuseLighting = function(params) {
+		return {
+			"params" : params,
+			appendToFilterEl : function(filterEl) {
+				var filterOpEl = $("feDiffuseLighting");
+				for(var i in this.params)
+					if(i!="lightSource") 
+						filterOpEl.setAttribute(i, this.params[i]); 
+					
+				if(this.params.lightSource && this.params.lightSource.lightSourceName) {
+					var el = $(this.params.lightSource.lightSourceName);
+					for(var i in this.params.lightSource) 
+						if(i!="lightSourceName")
+							el.setAttribute(i, this.params.lightSource[i]); 
+					filterOpEl.appendChild(el);
+				}
+				filterEl.appendChild(filterOpEl);
+				return filterOpEl;
+			}
+		};
+	};
+	
+	
 	// /**
 	// * feBlend http://www.w3.org/TR/SVG/filters.html#feBlendElement
 	// *

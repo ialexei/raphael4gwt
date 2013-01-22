@@ -5,7 +5,7 @@
 		
 	
 	<!--  minified version - for production  -->
-	<script src="graphael/g.raphael.all-min.js"></script>
+<!-- 	<script src="graphael/g.raphael.all-min.js"></script> -->
 
 
 <!-- development version  -->

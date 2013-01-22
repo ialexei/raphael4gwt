@@ -9,7 +9,7 @@ import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.event.Callback;
 import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
-import org.sgx.raphael4gwt.test.image.IconPaths;
+import org.sgx.raphael4gwt.test.gallery.IconPaths;
 
 import com.google.gwt.user.client.Window;
 

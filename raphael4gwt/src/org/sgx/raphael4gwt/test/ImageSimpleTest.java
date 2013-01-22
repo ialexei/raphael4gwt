@@ -7,7 +7,7 @@ import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.event.DDListener;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
-import org.sgx.raphael4gwt.test.image.TestImageResources;
+import org.sgx.raphael4gwt.test.gallery.GalleryResources;
 
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.resources.client.ImageResource;
@@ -45,7 +45,7 @@ public class ImageSimpleTest extends Test {
 	@Override
 	public void test() {
 		/* get the GWT image resources */
-		ImageResource img1Res = TestImageResources.INSTANCE.smallLion();	
+		ImageResource img1Res = GalleryResources.INSTANCE.smallLion();	
 		
 		//draw a raphael image using the gwt resource and add a click listener that rotates it.
 		final Shape img1 = paper.image(img1Res, 10, 10, 120, 120).rotate(20);

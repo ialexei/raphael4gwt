@@ -15,6 +15,7 @@ import org.sgx.raphael4gwt.test.AnimTransformAndPathTest1;
 import org.sgx.raphael4gwt.test.AttributesTest1;
 import org.sgx.raphael4gwt.test.CSSTest1;
 import org.sgx.raphael4gwt.test.ComponentTransferLinearTest1;
+import org.sgx.raphael4gwt.test.CustomAttributesTest1;
 import org.sgx.raphael4gwt.test.EveAttrChangeTest1;
 import org.sgx.raphael4gwt.test.BlurAndEmbossTest1;
 import org.sgx.raphael4gwt.test.CircleGlowingAndDraggin;
@@ -286,8 +287,8 @@ public class GalleryUtil {
 		t = new PaperLoadAndSaveUnit1(paper, w, h);
 		tests.put(t.getName(), t);
 		
-//		t = new CustomAttributesTest1(paper, w, h);
-//		tests.put(t.getName(), t);
+		t = new CustomAttributesTest1(paper, w, h);
+		tests.put(t.getName(), t);
 		
 		t = new AnimKeyframesTest1(paper, w, h);
 		tests.put(t.getName(), t);

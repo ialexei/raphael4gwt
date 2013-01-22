@@ -10,7 +10,7 @@ import org.sgx.raphael4gwt.raphael.svg.filter.FilterOperation;
 import org.sgx.raphael4gwt.raphael.svg.filter.params.ColorMatrix;
 import org.sgx.raphael4gwt.raphael.svg.filter.params.FilterOperationParam;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
-import org.sgx.raphael4gwt.test.image.TestImageResources;
+import org.sgx.raphael4gwt.test.gallery.GalleryResources;
 
 import com.google.gwt.dom.client.NativeEvent;
 /**
@@ -27,7 +27,7 @@ public class SvgFiltersColorMatrix extends Test {
 		//the original - no filter
 		Shape shape = paper				
 			.image(
-						TestImageResources.INSTANCE.smallLion()
+						GalleryResources.INSTANCE.smallLion()
 //						"http://upload.wikimedia.org/wikipedia/commons/3/3f/Bikesgray.jpg"
 				, 0, 30, 150,150); 
 		Shape text0 = paper.text(60,100, "original").attr(Attrs.create()

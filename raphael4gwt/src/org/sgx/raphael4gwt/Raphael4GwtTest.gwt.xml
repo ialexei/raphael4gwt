@@ -12,8 +12,8 @@
 	<inherits name="com.google.gwt.http.HTTP" />
 <!-- 	<inherits name="com.google.gwt.xml.XML" /> -->
 
-	<script src="test/Anchor_Steam_NF_400.font.js"></script>
-	<script src="test/Phorssa_400.font.js"></script>
+<!-- 	<script src="test/Anchor_Steam_NF_400.font.js"></script> -->
+<!-- 	<script src="test/Phorssa_400.font.js"></script> -->
 <!-- 	<css src="test/raphael4gwtGallery.css"></css> -->
 
 	<entry-point class="org.sgx.raphael4gwt.test.Raphael4GwtTest" />	

@@ -6,8 +6,8 @@ import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
-import org.sgx.raphael4gwt.test.image.IconPaths;
-import org.sgx.raphael4gwt.test.image.TestImageResources;
+import org.sgx.raphael4gwt.test.gallery.IconPaths;
+import org.sgx.raphael4gwt.test.gallery.GalleryResources;
 
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.resources.client.ImageResource;
@@ -51,12 +51,12 @@ public class BlurAndEmbossTest1 extends Test {
 			"following shapes for applying the effect");
 		
 		Shape normalPath = paper.path(IconPaths.question).attr( Attrs.create().
-			fill(TestImageResources.INSTANCE.smallLion()).
+			fill(GalleryResources.INSTANCE.smallLion()).
 			transform("s3.0t10,50")
 		);				
 		
 		blurPath = paper.path(IconPaths.question).attr( Attrs.create().
-			fill(TestImageResources.INSTANCE.smallLion()).
+			fill(GalleryResources.INSTANCE.smallLion()).
 			transform("s3.0t70,50")
 		);
 //		blurPath.click(new MouseEventListener() {			
@@ -68,7 +68,7 @@ public class BlurAndEmbossTest1 extends Test {
 //		});
 		
 		embossPath = paper.path(IconPaths.question).attr( Attrs.create().
-			fill(TestImageResources.INSTANCE.smallLion()).
+			fill(GalleryResources.INSTANCE.smallLion()).
 			transform("s3.0t140,50")
 		);
 //		embossPath.click(new MouseEventListener() {			
@@ -80,7 +80,7 @@ public class BlurAndEmbossTest1 extends Test {
 //		});
 		
 		emboss2Path = paper.path(IconPaths.question).attr( Attrs.create().
-			fill(TestImageResources.INSTANCE.smallLion()).
+			fill(GalleryResources.INSTANCE.smallLion()).
 			transform("s3.0t10,100")
 		);
 		emboss2Path.click(new MouseEventListener() {			

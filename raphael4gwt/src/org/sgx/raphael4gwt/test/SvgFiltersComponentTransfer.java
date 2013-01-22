@@ -10,7 +10,7 @@ import org.sgx.raphael4gwt.raphael.svg.filter.params.ComponentTransfer;
 import org.sgx.raphael4gwt.raphael.svg.filter.params.FilterOperationParam;
 import org.sgx.raphael4gwt.raphael.svg.filter.params.Turbulence;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
-import org.sgx.raphael4gwt.test.image.TestImageResources;
+import org.sgx.raphael4gwt.test.gallery.GalleryResources;
 
 import com.google.gwt.user.client.ui.TextBox;
 /**
@@ -27,7 +27,7 @@ public class SvgFiltersComponentTransfer extends Test {
 		Shape shape = paper
 				
 				.image(
-						TestImageResources.INSTANCE.smallLion()
+						GalleryResources.INSTANCE.smallLion()
 //						"http://upload.wikimedia.org/wikipedia/commons/3/3f/Bikesgray.jpg"
 						, 0, 0, 150,150); 
 //			.rect(0,0,120,120).attr(Attrs.create().fill("90-#fff-#000"));

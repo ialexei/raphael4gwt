@@ -10,7 +10,7 @@ import org.sgx.raphael4gwt.raphael.ft.FTSnap;
 import org.sgx.raphael4gwt.raphael.ft.FTSubject;
 import org.sgx.raphael4gwt.raphael.ft.FreeTransform;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
-import org.sgx.raphael4gwt.test.image.IconPaths;
+import org.sgx.raphael4gwt.test.gallery.IconPaths;
 
 import com.google.gwt.core.client.JsArrayString;
 import com.google.gwt.user.client.ui.TextArea;

@@ -3,14 +3,21 @@ package org.sgx.raphael4gwt.test;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Path;
 import org.sgx.raphael4gwt.raphael.Raphael;
+import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Animation;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Font;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
+import org.sgx.raphael4gwt.raphael.util.FontUtil;
+import org.sgx.raphael4gwt.test.gallery.GalleryResources;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 
+import com.google.gwt.core.client.Callback;
 import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.resources.client.ResourceCallback;
+import com.google.gwt.resources.client.ResourceException;
+import com.google.gwt.resources.client.TextResource;
 
 public class FontTest1 extends Test {
 
@@ -26,23 +33,43 @@ public class FontTest1 extends Test {
 		 * 1) go to http://cufon.shoqolate.com/generate/ and generate a javascript 
 		 * file from true type font compatible with raphaeljs.
 		 * 
-		 * We must include that script in our application so one way of doing this is:
+		 * 2) you must load this script in your document. In this case we add the script
+		 * as a GWT Resource, in this case a ExternalTextResource, so it will be loaded 
+		 * when required. You can also use a normal TextResource so the font will be 
+		 * embbeded in your app, or just include the script in gwt.xml or in the html 
+		 * document itself. 
 		 * 
-		 * 2) create if not exists a directory called "public" at the same level 
-		 * of your project's *.gwt.xml file and put the font javascript file there, 
-		 * like public/TimeNewRoman500.js
-		 * 
-		 * 3) include that script in your *.gwt.xml file like this:
-		 * <script src="Anchor_Steam_NF_400.font.js"></script>
-		 * 
-		 * and now we are ready to use the font in our paper.
 		 */
+		try {
+			FontUtil.loadFont(GalleryResources.INSTANCE.FontAnchorSteam(), new ResourceCallback<TextResource>() {
+				
+				@Override
+				public void onSuccess(TextResource resource) {
+//					System.out.println("font loaded ok");
+					performTest(); 
+				}
+				
+				@Override
+				public void onError(ResourceException e) {
+					System.out.println("font failed to load 1");
+				}
+			});
+			
+		} catch (ResourceException e) {
+//			System.out.println("font failed to load 2");
+			e.printStackTrace();
+		} 
+			
+	}
 
+	
+	private void performTest() {
+//		System.out.println("test started");
 		Font font = paper.getFont("Anchor Steam NF");
-		text1 = paper.print(150,200,"clickme please !!!", font, 84);
+		text1 = paper.print(150,150,"clickme please !!!", font, 84);
 		text1.hide();
 		
-		text2 = paper.print(150,200,"thanks for my life", font, 84);
+		text2 = paper.print(150,150,"thanks for my life", font, 84);
 		text2.hide();
 		
 		Attrs future1 = (Attrs) JsUtil.obj(
@@ -58,10 +85,25 @@ public class FontTest1 extends Test {
 			public void notifyMouseEvent(NativeEvent e) {
 				text1.animate(animation1);
 			}
-		});		
+		});	
+		
+		//now download a font from a url
+		final String fontUrl = "http://cancerbero.vacau.com/testFiles/Elvish_Ring_NFI_100.font.js", 
+				fontFamily = "Elvish Ring NFI"; 
+		FontUtil.loadFont(fontUrl, new Callback<Void, Exception>() {			
+			@Override
+			public void onSuccess(Void result) {
+				Font font2 = paper.getFont(fontFamily);
+				Shape text3 = paper.print(50,100,"some elvish style !!!", font2, 44).attr(Attrs.create().fill("red"));				
+			}			
+			@Override
+			public void onFailure(Exception reason) {
+			}
+		}); 
+		
 	}
 
-	
+
 	//test stuff
 	public String[] getTags() {
 		return new String[]{GalleryUtil.TAG_FONT};

@@ -7,7 +7,7 @@ import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Point;
 import org.sgx.raphael4gwt.raphael.event.DDListener;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
-import org.sgx.raphael4gwt.test.image.TestImageResources;
+import org.sgx.raphael4gwt.test.gallery.GalleryResources;
 
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.resources.client.ImageResource;
@@ -50,7 +50,7 @@ public class DragTest1 extends Test {
 		 * now make an image drag and drop, this time not using Raphael.getCoordsInPaper but substracting papaer's absolute coords.
 		 */
 
-		ImageResource img1Res = TestImageResources.INSTANCE.smallLion();
+		ImageResource img1Res = GalleryResources.INSTANCE.smallLion();
 
 		// paper absolute coords in the document are needed for dragging the element.
 		final int paperAbsX = paper.getCanvasElement().getAbsoluteLeft();

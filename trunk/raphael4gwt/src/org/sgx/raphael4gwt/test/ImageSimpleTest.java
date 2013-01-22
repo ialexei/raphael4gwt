@@ -1,7 +1,10 @@
 package org.sgx.raphael4gwt.test;
 
 import org.sgx.raphael4gwt.raphael.Paper;
+import org.sgx.raphael4gwt.raphael.Raphael;
 import org.sgx.raphael4gwt.raphael.Shape;
+import org.sgx.raphael4gwt.raphael.base.Attrs;
+import org.sgx.raphael4gwt.raphael.event.DDListener;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 import org.sgx.raphael4gwt.test.image.TestImageResources;
@@ -53,6 +56,12 @@ public class ImageSimpleTest extends Test {
 			}
 		});
 		paper.text(200,200, "click the lion");
+		
+		
+		
+			
+		
+		
 	}
 
 	

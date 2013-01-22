@@ -262,15 +262,15 @@ console.log(el.transform());
 	 * @return
 	 */
 	public final native Shape drag(DDListener l)/*-{ 
-		var onstart = function(x, y, e) {
-			$entry(l.@org.sgx.raphael4gwt.raphael.event.DDListener::onStart(IILcom/google/gwt/dom/client/NativeEvent;)(x, y, e));
-		};
+		var onstart = $entry(function(x, y, e) {
+			return l.@org.sgx.raphael4gwt.raphael.event.DDListener::onStart(IILcom/google/gwt/dom/client/NativeEvent;)(x, y, e);
+		});
 		var onend = function(e) {
 			$entry(l.@org.sgx.raphael4gwt.raphael.event.DDListener::onEnd(Lcom/google/gwt/dom/client/NativeEvent;)(e));
 		};
-		var onmove = function(dx, dy, x, y, e) {
-			$entry(l.@org.sgx.raphael4gwt.raphael.event.DDListener::onMove(IIIILcom/google/gwt/dom/client/NativeEvent;)(dx, dy, x, y, e));
-		};
+		var onmove = $entry(function(dx, dy, x, y, e) {
+			return l.@org.sgx.raphael4gwt.raphael.event.DDListener::onMove(IIIILcom/google/gwt/dom/client/NativeEvent;)(dx, dy, x, y, e);
+		});
 		return this.drag(onmove, onstart, onend);
 	}-*/;
 	/**
@@ -570,6 +570,15 @@ console.log(el.transform());
 	public final native String getAttribute(String name)/*-{
 		return this.attr(name)+"";
 	}-*/;
+	/**
+	 * do not make any sense to call this on Set elements, only individual shapes.
+	 * @param name
+	 * @return
+	 */
+	public final native int getAttributeInt(String name)/*-{
+		return this.attr(name);
+	}-*/;
+	
 	
 //	public final native NativeAttrs getNativeAttrs()/*-{
 //		return this.attr();

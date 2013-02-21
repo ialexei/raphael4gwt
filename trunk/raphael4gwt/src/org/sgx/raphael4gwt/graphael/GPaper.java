@@ -17,19 +17,12 @@ import org.sgx.raphael4gwt.graphael.sunburst.SunBurstChart;
 import org.sgx.raphael4gwt.graphael.sunburst.SunBurstOpts;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Set;
-import org.sgx.raphael4gwt.raphael.Raphael.RaphaelScripts;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
-import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayNumber;
 import com.google.gwt.core.client.JsArrayString;
-import com.google.gwt.core.client.ScriptInjector;
-import com.google.gwt.resources.client.ClientBundle;
-import com.google.gwt.resources.client.TextResource;
-import com.google.gwt.resources.client.ClientBundle.Source;
 
 /**
  * @author sg
@@ -65,6 +58,17 @@ public final native PieChart piechart(double x, double y, double r,
 	);
 }-*/;
 
+public final native PieChart piechart(double x, double y, double r,  
+		JsArrayNumber vals)/*-{
+	return this.piechart(x, y, r,vals,{});
+}-*/;
+public final native PieChart piechart(double x, double y, double r,  
+		double[] vals)/*-{
+	return this.piechart(x, y, r, 
+		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(vals),
+		{}
+	);
+}-*/;
 
 
 public final native BarChart barchart(double x, double y, double w, double h, 
@@ -371,30 +375,6 @@ public final native Attrs getShimAttrs()/*-{
 public final native void getShimAttrs(Attrs a)/*-{
 	Rapahel.g.txtattrs=a;
 }-*/;
-
-
-
-
-/* graphael javascript loading using a TextResource and ScriptInjector.fromString(),
- * not using the unsuported <script> in gwt.xml */
-       
-public interface RaphaelScripts extends ClientBundle {
-       
-        public static RaphaelScripts instance = GWT.create(RaphaelScripts.class);
-       
-        @Source("scripts/g.raphael.all-min.js")
-        TextResource graphaelallminjs();
-}
-
-public static void loadGRaphaelJs() {
-        String text = RaphaelScripts.instance.graphaelallminjs().getText(); 
-        ScriptInjector.fromString(text).setWindow(JsUtil.window().cast()).inject();
-}
-
-static {
-        loadGRaphaelJs();
-}
-     
 
 
 }

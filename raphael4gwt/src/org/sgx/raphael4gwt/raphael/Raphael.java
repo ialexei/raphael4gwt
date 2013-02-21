@@ -576,33 +576,5 @@ public static Set set(Paper paper, Shape...shapes) {
 }
 
 
-
-/* raphael javascript loading using a TextResource and ScriptInjector.fromString(),
- * not using the unsuported <script> in gwt.xml */
-       
-public interface RaphaelScripts extends ClientBundle {
-       
-        public static RaphaelScripts instance = GWT.create(RaphaelScripts.class);
-       
-        @Source("scripts/raphael-min.js")
-        TextResource raphaelminjs();
-        
-        @Source("scripts/raphael4gwt-all-min.js")
-        TextResource raphael4gwtallminjs();
-        
-}
-
-public static void loadRaphaelJs() {
-        String text = RaphaelScripts.instance.raphaelminjs().getText()+
-    		";"+
-    		RaphaelScripts.instance.raphael4gwtallminjs().getText();
-        ScriptInjector.fromString(text).setWindow(JsUtil.window().cast()).inject();
-}
-
-static {
-        loadRaphaelJs();
-}
-      
-
 }
 

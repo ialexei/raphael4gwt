@@ -302,6 +302,16 @@ mvn install
 
 }}}
 
+Once you have installed it on your system like before, then you can include it as a maven dependency in you Gwt projects. This is the relevant information for that. Sorry, this project is not currently on maven central or any other repository.
+
+{{{
+
+<groupId>org.sgx</groupId>
+<artifactId>raphael4gwt</artifactId>
+<version>1.0</version>
+
+}}}
+
 
 
 =Project objectives=

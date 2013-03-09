@@ -210,41 +210,56 @@ This is not good when trying to optimize initial web page startup time, and fort
 
   # inherit org.sgx.raphael4gwt.GRaphael4GwtNoScript GWT module instead of org.sgx.raphael4gwt.GRaphael4Gwt. GRaphael4GwtNoScript will not load any extra javascript at startup.  
 
-  # use RaphaelLoader utility class for loading raphael or graphael javascript code dynamically only when you need the tool. The following EntryPoint class shows howto:
+  # use RaphaelLoader utility class for loading raphael or graphael javascript code dynamically only when you need the tool. The following EntryPoint class shows howto. When a button that when clicked will load the required Js files and show a Graphael Pie chart. 
+
+Open it using a network traffic tool like firebug and see how javascript is loading. 
+
+Initially only 18kb of js is loaded for displaying the the document and after the button is clicked two files of aprox 195kb (total) are loaded and then a chart is showed. these 195kbs are the javascript files corresponding to raphael and graphael code that are only loaded when required for showing a chart: 
 
 {{{
 import org.sgx.raphael4gwt.graphael.GPaper;
+import org.sgx.raphael4gwt.graphael.GRaphaelLoader;
 import org.sgx.raphael4gwt.graphael.pie.PieOpts;
 import org.sgx.raphael4gwt.raphael.Raphael;
-import org.sgx.raphael4gwt.raphael.RaphaelLoader;
 import org.sgx.raphael4gwt.raphael.RaphaelLoader.Listener;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.RootPanel;
 
 public class Raphael4gwtNoScriptTestEP implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
-		RaphaelLoader.loadGRaphael(new Listener() {			
+		RootPanel.get().add(new Button("load graphael example", new ClickHandler() {			
 			@Override
-			public void loaded(Exception error) {
-				if(error == null)
-					test1();
-				else {
-					Window.alert("ERROR loading graphael : "+error);
-					error.printStackTrace(); 
-				}
+			public void onClick(ClickEvent event) {
+				GRaphaelLoader.loadGRaphael(new Listener() {			
+					@Override
+					public void loaded(Exception error) {
+						if(error == null) {
+							doGraphaelExample(); 
+						}
+						else {
+							Window.alert("ERROR loading graphael : "+error);
+							error.printStackTrace(); 
+						}
+					}
+				}); 
 			}
-		}); 
-		test1();
+		})); 
+		
 	}
 
-	private void test1() {
-        	GPaper paper = Raphael.paper(0,0,600,600).cast();
-        	//createa pie chart in one line
-        	paper.piechart(200f, 200, 100, new double[]{10, 40, 70, 90}, PieOpts.create());
+	private void doGraphaelExample() {
+        GPaper paper = Raphael.paper(0,0,600,600).cast();
+        PieOpts opts = PieOpts.create(); 
+        paper.piechart(200f, 200, 100, new double[]{10, 40, 70, 90}, opts);
 	}
+
 }
 }}}
 

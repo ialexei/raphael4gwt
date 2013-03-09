@@ -1,6 +1,9 @@
 #summary raphael4gwt getting started guide.
 #labels gwt,raphaeljs,raphael,raphael4gwt,raphaelgwt
+#sidebar TableOfContents
 
+Table of Contents
+<wiki:toc max_depth="1" />
 
 =What is it?=
 

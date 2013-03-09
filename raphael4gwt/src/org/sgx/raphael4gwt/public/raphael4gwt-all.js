@@ -1,4 +1,6 @@
+
 /* raphael-ext */
+
 /*
  * raphael extensions made by sgurin.
  * 
@@ -2894,7 +2896,9 @@ Raphael.fn.importSVG = function(svgXML) {
 	};
 
 })();
+
 /* raphael-svg-filter */
+
 /* Raphael extensions to support SVG filters on Raphael shapes. 
  * 
  * @author: Sebastián Gurin (sg - sgurin - cancerbero_sgx)
@@ -3662,7 +3666,9 @@ Raphael.fn.importSVG = function(svgXML) {
 	// };
 
 })(); // end of extension
+
 /* raphael.free_transform */
+
 /*
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/mit-license.php
@@ -4597,7 +4603,9 @@ Raphael.fn.freeTransform = function(subject, options, callback) {
 	// Enable method chaining
 	return ft;
 };
+
 /* raphael4gwt */
+
 /**
  * native javascript for raphael4gwt
  * @author sgurin

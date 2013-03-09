@@ -255,9 +255,9 @@ public class Raphael4gwtNoScriptTestEP implements EntryPoint {
 	}
 
 	private void doGraphaelExample() {
-        GPaper paper = Raphael.paper(0,0,600,600).cast();
-        PieOpts opts = PieOpts.create(); 
-        paper.piechart(200f, 200, 100, new double[]{10, 40, 70, 90}, opts);
+        	GPaper paper = Raphael.paper(0,0,600,600).cast();
+        	PieOpts opts = PieOpts.create(); 
+        	paper.piechart(200f, 200, 100, new double[]{10, 40, 70, 90}, opts);
 	}
 
 }

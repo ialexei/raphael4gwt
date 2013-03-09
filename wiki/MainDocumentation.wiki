@@ -201,6 +201,53 @@ public class Raphael4GwtTestAlone implements EntryPoint, PaperListener {
 }}}
 
 
+
+=Dynamic JavaScript loading =
+
+when inheriting org.sgx.raphael4gwt.Raphael4Gwt GWT module your GWT application will load all the required JavaScript code. For org.sgx.raphael4gwt.Raphael4Gwt this is about 140 kb and for org.sgx.raphael4gwt.GRaphael4Gwt are 140 + 40 = 180 kb in total.
+
+This is not good when trying to optimize initial web page startup time, and fortunately raphael4gwt comes with Modules and utilities that will let you load these necessary javascript code synamically only when needed. You must: 
+
+  # inherit org.sgx.raphael4gwt.GRaphael4GwtNoScript GWT module instead of org.sgx.raphael4gwt.GRaphael4Gwt. GRaphael4GwtNoScript will not load any extra javascript at startup.  
+
+  # use RaphaelLoader utility class for loading raphael or graphael javascript code dynamically only when you need the tool. The following EntryPoint class shows howto:
+
+{{{
+import org.sgx.raphael4gwt.graphael.GPaper;
+import org.sgx.raphael4gwt.graphael.pie.PieOpts;
+import org.sgx.raphael4gwt.raphael.Raphael;
+import org.sgx.raphael4gwt.raphael.RaphaelLoader;
+import org.sgx.raphael4gwt.raphael.RaphaelLoader.Listener;
+
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.Window;
+
+public class Raphael4gwtNoScriptTestEP implements EntryPoint {
+
+	@Override
+	public void onModuleLoad() {
+		RaphaelLoader.loadGRaphael(new Listener() {			
+			@Override
+			public void loaded(Exception error) {
+				if(error == null)
+					test1();
+				else {
+					Window.alert("ERROR loading graphael : "+error);
+					error.printStackTrace(); 
+				}
+			}
+		}); 
+		test1();
+	}
+
+	private void test1() {
+        GPaper paper = (GPaper)Raphael.paper(0,0,600,600);
+        PieOpts opts = PieOpts.create(); 
+        paper.piechart(200f, 200, 100, new double[]{10, 40, 70, 90}, opts);
+	}
+}
+}}}
+
 =Project objectives=
 
 the objective is to provide the most direct java API to raphaeljs javascript API.

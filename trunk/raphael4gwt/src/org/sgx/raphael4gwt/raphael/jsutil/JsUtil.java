@@ -1,5 +1,6 @@
 package org.sgx.raphael4gwt.raphael.jsutil;
 
+import java.util.Collection;
 import java.util.Map;
 
 import org.sgx.raphael4gwt.raphael.util.Util;
@@ -116,7 +117,7 @@ public class JsUtil {
 		}
 		return false;
 	}
-	public static JsArrayNumber toJsArrayNumber(int[] a) {
+	public static JsArrayNumber toJsArray(int[] a) {
 		JsArrayNumber jsa = (JsArrayNumber) JsArrayNumber.createArray();
 		for (int i = 0; i < a.length; i++) {
 			jsa.push(a[i]);
@@ -297,6 +298,8 @@ public class JsUtil {
 	//	return @org.sgx.yuigwt.yui.util.JsUtil::toJsArray([Lcom/google/gwt/core/client/JavaScriptObject;)(t); 
 	}-*/;
 
-
+	public static final native <T> Collection<T> toJavaCollection(JavaScriptObject array)/*-{
+		return @org.sgx.raphael4gwt.raphael.jsutil.JsArrayCollection::create(Lcom/google/gwt/core/client/JavaScriptObject;)(array); 
+	}-*/;
 	
 }

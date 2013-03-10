@@ -23,6 +23,7 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ClientBundle.Source;
 import com.google.gwt.resources.client.TextResource;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Panel;
 
 /**
  * this is the main entry point to raphael4gwt library. 
@@ -142,6 +143,18 @@ public static native Paper paper(Element container)/*-{
 	if(!container)
 		return null;
 	return $wnd.Raphael(container);
+}-*/;
+public static native Paper paper(Panel p, int w, int h)/*-{
+if(!p)
+	return null;
+var container = p.@com.google.gwt.user.client.ui.Panel::getElement()(); 
+return $wnd.Raphael(container, w, h);
+}-*/;
+public static native Paper paper(Panel p)/*-{
+if(!p)
+	return null;
+var container = p.@com.google.gwt.user.client.ui.Panel::getElement()(); 
+return $wnd.Raphael(container);
 }-*/;
 public static native Paper paper(String container)/*-{
 	if(!container)

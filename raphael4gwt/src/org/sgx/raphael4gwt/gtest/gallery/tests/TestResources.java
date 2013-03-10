@@ -46,4 +46,8 @@ public interface TestResources extends ClientBundle {
 	  @Source("RaphalyticsTest1.java")
 	  public TextResource RaphalyticsTest1();
 	  
+	  @Source("DonutChartTest1.java")
+	  public TextResource DonutChartTest1();
+	  
+	  
 }

@@ -10,47 +10,53 @@ import com.google.gwt.resources.client.TextResource;
 
 /**
  * an utility for loading raphaeljs async
+ * 
  * @author sg
- *
+ * 
  */
 public class RaphaelLoader {
 	public static interface Listener {
 		/**
-		 * @param error if not null then it is the cause of an error and means that probably 
-		 * raphael4gwt required script couln't be loaded
+		 * @param error
+		 *            if not null then it is the cause of an error and means that probably raphael4gwt required script couln't be loaded
 		 */
 		void loaded(Exception error);
 	}
+
 	public static interface RaphaelScripts extends ClientBundle {
 		public static RaphaelScripts instance = GWT.create(RaphaelScripts.class);
 
 		@Source("scripts/raphael4gwt-all-min.js")
 		ExternalTextResource raphael4gwtallminjs();
-		
 
-//		@Source("../graphael/scripts/g.raphael.all-min.js")
-//		ExternalTextResource graphael4gwtallminjs();
+		// @Source("../graphael/scripts/g.raphael.all-min.js")
+		// ExternalTextResource graphael4gwtallminjs();
 	}
+
 	protected static boolean raphaelLoaded = false;
 
-	public static void loadRaphael(final Listener l) {		
-		try {
-			RaphaelScripts.instance.raphael4gwtallminjs().getText(new ResourceCallback<TextResource>() {				
-				@Override
-				public void onSuccess(TextResource r) {
-					ScriptInjector.fromString(r.getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
-					l.loaded(null); 
-					raphaelLoaded =true;
-				}				
-				@Override
-				public void onError(ResourceException e) {
-					l.loaded(e); 
-				}
-			});
-		} catch (ResourceException e) {
-			l.loaded(e); 
-		} 
+	public static void loadRaphael(final Listener l) {
+		if (raphaelLoaded) {
+			l.loaded(null);
+		} else {
+			try {
+				RaphaelScripts.instance.raphael4gwtallminjs().getText(new ResourceCallback<TextResource>() {
+					@Override
+					public void onSuccess(TextResource r) {
+						ScriptInjector.fromString(r.getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
+						l.loaded(null);
+						raphaelLoaded = true;
+					}
+
+					@Override
+					public void onError(ResourceException e) {
+						l.loaded(e);
+					}
+				});
+			} catch (ResourceException e) {
+				l.loaded(e);
+			}
+		}
 	}
-	
 
 }

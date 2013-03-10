@@ -1,4 +1,6 @@
+
 /* g.raphael */
+
 /*!
  * g.Raphael 0.51 - Charting library, based on Raphaël
  *
@@ -866,7 +868,9 @@ Raphael.g = {
         }
     }
 }
+
 /* g.bar */
+
 /*!
  * g.Raphael 0.51 - Charting library, based on Raphaël
  *
@@ -1575,7 +1579,9 @@ Raphael.g = {
     };
     
 })();
+
 /* g.dot */
+
 /*!
  * g.Raphael 0.51 - Charting library, based on Raphaël
  *
@@ -1834,7 +1840,9 @@ Raphael.g = {
         return new Dotchart(this, x, y, width, height, valuesx, valuesy, size, opts);
     }
 })();
+
 /* g.line */
+
 /*!
  * g.Raphael 0.51 - Charting library, based on Raphaël
  *
@@ -2324,7 +2332,9 @@ Raphael.g = {
     }
     
 })();
+
 /* g.pie */
+
 /*!
  * g.Raphael 0.51 - Charting library, based on Raphaël
  *
@@ -2623,7 +2633,9 @@ Raphael.g = {
         return new Piechart(this, cx, cy, r, values, opts);
     }
     
-})();/* g.sunburst */
+})();
+/* g.sunburst */
+
 /*!
  * g.sunburst 0.1 - Sunburst diagrams
  * Needs g.Raphael 0.4.1 - Charting library, based on Raphaël
@@ -2841,7 +2853,9 @@ Raphael.fn.sunburst = function(cx, cy, values, opts) {
 	chart.series = series;
 	return chart;
 };
+
 /* g.radar */
+
 //from https://github.com/sentience/g.raphael/commit/81d142f542dd47c96f1159bb5e8978ad75ca42d2
 /* Copyright (c) 2009 Dmitry Baranovskiy (http://g.raphaeljs.com)
  * Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
@@ -3094,7 +3108,9 @@ Raphael.fn.sunburst = function(cx, cy, values, opts) {
     };
 
 })();
+
 /* raphalytics */
+
 /*
  * this file contains both popup.js and raphalytics.js from https://github.com/tataencu/raphalytics
  * with the following modifications for integrating with graphael
@@ -3598,3 +3614,925 @@ function raphalytics(paper, data, labels, tooltips, options) {
 Raphael.fn.raphalytics = function(data, labels, tooltips, options) {
 	return new raphalytics(this, data, labels, tooltips, options);
 }
+
+/* orgchart */
+
+/*
+ * lib_gg_orgchart 0.4 - JavaScript Organizational Chart Drawing Library
+ *
+ * Copyright (c) 2012 Gorka G Llona - http://www.fluxus.com.ve/gorka.
+ * Licensed under the GNU Lesser General Public License.
+ * Project home: http://www.fluxus.com.ve/gorka/lib_gg_orgchart.
+ * 
+ * Revision history:
+ * v.0.4.0        (2012.05.14, GG): made publicly available
+ * v.0.4.1 beta 1 (2012.07.11, GG): added support for images within boxes
+ * v.0.4.1 beta 2 (2012.08.20, YL): fixed rendering issues with IE8
+ *
+ * Contributors:
+ * GG :: Gorka G LLONA
+ * YL :: Yoann LECUYER
+ */
+
+
+// PARAMETERS YOU SHOULD DEFINE IN YOUR HTML FILE
+// see companion html file for samples and documentation
+
+/*
+var oc_data;                                  // json organizational chart hierarchy
+var oc_style;                                 // json organizational chart styles
+function oc_box_click_handler (event, box);   // handler for box clicking event
+*/
+
+// END OF PARAMETERS
+
+// PUBLIC FUNCTIONS
+
+
+// call this function in order to draw the chart
+// note: oc_data and oc_style will be changed in this operation
+//
+function oc_render () {
+	oc_calc();
+	oc_draw();
+}
+
+if (navigator.appName == 'Microsoft Internet Explorer')
+	var oc_IE = 1;
+else
+	var oc_IE = 0;
+
+
+// END OF PUBLIC FUNCTIONS
+
+// PRIVATE FUNCTIONS AND VARIABLES
+
+
+// global variables
+var oc_max_text_width = 0;
+var oc_max_text_height = 0;
+var oc_max_title_lines = 0;
+var oc_max_subtitle_lines = 0;
+var oc_paper = null;
+
+
+// clone an object or array
+// 
+function oc_clone (obj) {
+	var newObj = (obj instanceof Array) ? [] : {};
+	for (i in obj) {
+		if (obj[i] && typeof obj[i] == "object")
+			newObj[i] = oc_clone(obj[i]);
+		else
+			newObj[i] = obj[i];
+	}
+	return newObj;
+}
+
+
+// add an offset to a (x, y) point
+//
+function oc_add2point (base, delta) {
+	base[0] += delta[0];
+	base[1] += delta[1];
+}
+
+
+// return a string made by repeating 'str' 'times' times
+//
+function oc_repeat_str (str, times) {
+	var result = '';
+	for (var i = 0; i < times -1; i++)
+		result += str;
+	return result;
+}
+
+
+// calc all orgchart metrics needed for drawing
+//
+function oc_calc () {
+	oc_text_limit(oc_data.root);
+	oc_delete_special_chars(oc_data.root);
+	oc_text_dimensions(oc_data.root);
+	oc_data.root.is_root = true;
+	oc_boundboxes_dimensions(oc_data.root);
+}
+
+
+// insert newlines in titles and subtitles in order to meet max_text_width limit of each line
+//
+function oc_text_limit (node) {
+
+	if (oc_style.max_text_width == 0)
+		return;
+	node.title = oc_text_limit_obj(node.title);
+	node.subtitle = oc_text_limit_obj(node.subtitle);
+	if (node.children === undefined)
+		return;
+	for (var i = 0; i < node.children.length - (oc_IE); i++)
+		oc_text_limit(node.children[i]);
+}
+
+
+// insert newlines in a string in order to meet max_text_width limit
+//
+function oc_text_limit_obj (str) {
+	if (str == undefined)
+		return undefined;
+	var parts = str.split(/[ \n]+/);
+	var lines = [];
+	var line_str = '';
+	var last_line_str = '';
+	for (var i = 0; i < parts.length - (0); i++) {
+		var last_line_str = line_str;
+		line_str += (i == 0 ? '' : ' ') + parts[i];
+		if (line_str.length > oc_style.max_text_width) {
+			lines.push(last_line_str);
+			line_str = parts[i];
+		}
+	}
+	if (line_str != '')
+		lines.push(line_str);
+	var result = lines.join('\n');
+	return result;
+}
+
+
+// substitute special chars in node title and subtitle (they don't render well in SVG)
+//
+function oc_delete_special_chars (node) {
+
+	node.title = oc_delete_special_chars_obj(node.title);
+	node.subtitle = oc_delete_special_chars_obj(node.subtitle);
+	if (node.children === undefined)
+		return;
+	for (var i = 0; i < node.children.length - (oc_IE); i++)
+		oc_delete_special_chars(node.children[i]);
+}
+
+
+// substitute special chars in a string
+//
+function oc_delete_special_chars_obj (str) {
+	if (str === undefined)
+		return undefined;
+	str = str.replace(/á/g, 'a');
+	str = str.replace(/é/g, 'e');
+	str = str.replace(/í/g, 'i');
+	str = str.replace(/ó/g, 'o');
+	str = str.replace(/ú/g, 'u');
+	str = str.replace(/Á/g, 'A');
+	str = str.replace(/É/g, 'E');
+	str = str.replace(/Í/g, 'I');
+	str = str.replace(/Ó/g, 'O');
+	str = str.replace(/Ú/g, 'U');
+	str = str.replace(/ñ/g, 'n');
+	str = str.replace(/Ñ/g, 'N');
+	return str;
+}
+
+
+// calc text dimensions in order to calc size of boxes
+// result will be stored in global variables
+//
+function oc_text_dimensions (node) {
+
+	var dimensions_title    = [ 0, 0 ];
+	var dimensions_subtitle = [ 0, 0 ];
+	node.title_lines = node.subtitle_lines = 0;
+
+	// check title dimensions
+	dimensions_title = oc_text_dimensions_obj (node.title, oc_style.title_char_size);
+	node.title_lines = dimensions_title[2];
+	if (node.title_lines > oc_max_title_lines)
+		oc_max_title_lines = node.title_lines;
+
+	// check subtitle dimensions
+	if (node.subtitle !== undefined) {
+		dimensions_subtitle = oc_text_dimensions_obj (node.subtitle, oc_style.subtitle_char_size);
+		node.subtitle_lines = dimensions_subtitle[2];
+		if (node.subtitle_lines > oc_max_subtitle_lines)
+			oc_max_subtitle_lines = node.subtitle_lines;
+	}
+
+	// check node dimensions vs stored dimensions
+	if (dimensions_title[0] > oc_max_text_width)
+		oc_max_text_width = dimensions_title[0];
+	if (oc_style.use_images && oc_style.images_size[0] > oc_max_text_width)   // GG 110712 include space for optional image width
+		oc_max_text_width = oc_style.images_size[0];
+	if (dimensions_subtitle[0] > oc_max_text_width)
+		oc_max_text_width = dimensions_subtitle[0];
+	if (dimensions_title[1] + dimensions_subtitle[1] > oc_max_text_height)
+		oc_max_text_height = dimensions_title[1] + dimensions_subtitle[1];
+
+	// traverse children
+	if (node.children === undefined)
+		return;
+	for (var i = 0; i < node.children.length - (oc_IE); i++)
+		oc_text_dimensions(node.children[i]);
+}
+
+
+// calc the size (in pixels) of a multi-line string
+// third element of the returned array is the number of lines of the text
+//
+function oc_text_dimensions_obj (text, font_pixels) {
+	var width = 0;
+	var parts = text.split('\n');
+	if (parts.length == 0)
+		return [0, 0];
+	for (var i = 0; i < parts.length - (0) ; i++) {
+		if (parts[i].length > width)
+			width = parts[i].length;
+	}
+	return [ width * font_pixels[0], (parts.length - (0)) * font_pixels[1], parts.length - (0)];
+}
+
+
+// calc all metrics (of a node and subnodes) needed for drawing the chart
+//
+function oc_boundboxes_dimensions (node) {
+	// complete attributes
+	if (node.type === undefined)
+		node.type = 'subordinate';
+	//if (node.is_root !== undefined)
+		node.deltacorner = [ 0, 0 ];
+
+	// traverse down recursively; add position attribute to collateral and staff children
+	var oc_staff_position = 0;
+	var oc_collateral_position = 0;
+	if (node.children !== undefined) {
+		for (var i = 0; i < node.children.length - (oc_IE) ; i++) {
+			var child = node.children[i];
+			if (child.type == 'staff')
+				child.position = (oc_staff_position++ % 2 == 0 ? 'left' : 'right');
+			else if (child.type == 'collateral')
+				child.position = (oc_collateral_position++ % 2 == 0 ? 'left' : 'right');
+			oc_boundboxes_dimensions(child);
+		}
+	}
+
+	// now each children have: boundbox, deltacenter, fullbbox, deltacorner and xoffset
+	// now calc this node boundbox and deltacenter
+	node.boundbox = [
+		oc_max_text_width  + 2 * oc_style.inner_padding,
+		oc_max_text_height + 2 * oc_style.inner_padding
+	];
+
+	// GG 110712 add vertical space for images within boxes
+	if (oc_style.use_images && node.image !== undefined)
+		node.boundbox[1] += oc_style.inner_padding * 1 + oc_style.images_size[1];
+
+	var y = node.boundbox[1];
+	if (node.is_root !== undefined) {
+		oc_add2point(node.boundbox, [
+			2 * oc_style.hline,   // 0
+			2 * oc_style.vline    // 0
+		]);
+		node.deltacenter = [ node.boundbox[0] / 2, y / 2 + 2 * oc_style.vline ];
+	}
+	else if (node.type == 'collateral') {
+		oc_add2point(node.boundbox, [
+			2 * oc_style.hline,
+			2 * oc_style.vline   // 0
+		]);
+		node.deltacenter = [ node.boundbox[0] / 2, y / 2 + 2 * oc_style.vline ];
+	}
+	else if (node.type == 'staff') {
+		oc_add2point(node.boundbox, [
+			2 * oc_style.hline,
+			1 * oc_style.vline
+		]);
+		node.deltacenter = [ node.boundbox[0] / 2, y / 2 + 1 * oc_style.vline ];
+	}
+	else {   // subordinate
+		oc_add2point(node.boundbox, [
+			2 * oc_style.hline,
+			2 * oc_style.vline
+		]);
+		node.deltacenter = [ node.boundbox[0] / 2, y / 2 + 2 * oc_style.vline ];
+	}
+
+	// now prepare calc of this node fullbbox and deltacorner of children
+	node.fullbbox = oc_clone(node.boundbox);
+	if (node.children === undefined)
+		node.xoffset = 0;
+	// 1. collateral children
+	var collateral_left_width  = node.boundbox[0] / 2;
+	var collateral_right_width = node.boundbox[0] / 2;
+	var collateral_children = 0;
+	if (node.children !== undefined) {
+		for (var i = 0; i < node.children.length - (oc_IE) ; i++) {
+			var child = node.children[i];
+			if (child.type != 'collateral')
+				continue;
+			collateral_children++;
+			if (child.position == 'left')
+				collateral_left_width = child.fullbbox[0] + node.boundbox[0] / 2;
+			else   // right
+				collateral_right_width = child.fullbbox[0] + node.boundbox[0] / 2;
+		}
+	}            
+	// 2. staff children
+	var staff_height = 0;
+	var last_left_height = 0;
+	var last_right_height = 0;
+	var staff_left_width = 0;
+	var staff_right_width = 0;
+	var staff_children = 0;
+	if (node.children !== undefined) {
+		for (var i = 0; i < node.children.length - (oc_IE); i++) {
+			var child = node.children[i];
+			if (child.type != 'staff')
+				continue;
+			staff_children++;
+			if (child.position == 'left') {
+				staff_height += child.fullbbox[1];
+				last_left_height = child.fullbbox[1];
+				if (staff_left_width < child.fullbbox[0])
+					staff_left_width = child.fullbbox[0];
+			}
+			else {   // right
+				last_left_height = child.fullbbox[1];
+				if (child.fullbbox[1] > last_left_height)
+					staff_height += child.fullbbox[1] - last_left_height;
+				if (staff_right_width < child.fullbbox[0])
+					staff_right_width = child.fullbbox[0];
+			}
+		}
+	}        
+	// 3. subordinate children
+	var subordinate_full_width = 0;
+	if (node.children !== undefined) {
+		for (var i = 0; i < node.children.length - (oc_IE); i++) {
+			var child = node.children[i];
+			if (child.type != 'subordinate')
+				continue;
+			subordinate_full_width += child.fullbbox[0];
+		}
+	}
+
+	// calc total width and xoffset of this node
+	var left_width = 0;
+	if (collateral_left_width      > left_width) left_width = collateral_left_width;
+	if (staff_left_width           > left_width) left_width = staff_left_width;
+	if (subordinate_full_width / 2 > left_width) left_width = subordinate_full_width / 2;
+	var right_width = 0;
+	if (collateral_right_width     > right_width) right_width = collateral_right_width;
+	if (staff_right_width          > right_width) right_width = staff_right_width;
+	if (subordinate_full_width / 2 > right_width) right_width = subordinate_full_width / 2;
+	node.xoffset = left_width - node.boundbox[0] / 2;
+
+	// now calc this node fullbbox, and deltacorner of children
+	// 1. collateral children
+	if (node.children !== undefined) {
+		for (var i = 0; i < node.children.length - (oc_IE) ; i++) {
+			var child = node.children[i];
+			if (child.type != 'collateral')
+				continue;
+			if (child.position == 'left') {
+				child.deltacorner = [
+					left_width - node.boundbox[0] / 2 - child.fullbbox[0],
+					0
+				];
+			}
+			else {   // right
+				child.deltacorner = [
+					left_width + node.boundbox[0] / 2,
+					0
+				];
+			}
+			oc_update_fullbbox(node, child);
+		}
+	}            
+	// 2. staff children
+	staff_height = 0;
+	last_left_height = 0;
+	last_right_height = 0;
+	if (node.children !== undefined) {
+		for (var i = 0; i < node.children.length - (oc_IE); i++) {
+			var child = node.children[i];
+			if (child.type != 'staff')
+				continue;
+			if (child.position == 'left') {
+				child.deltacorner = [
+					left_width - child.fullbbox[0],
+					node.boundbox[1] + staff_height
+				];
+				staff_height    += child.fullbbox[1];
+				last_left_height = child.fullbbox[1];
+				if (staff_children == 1)   // patch for case of only one children drawn at botton left of the node
+					node.fullbbox[0] += node.boundbox[0] ;
+			}
+			else {   // right
+				child.deltacorner = [
+					left_width,
+					node.boundbox[1] + last_right_height
+				];
+				last_left_height = child.fullbbox[1];
+				if (child.fullbbox[1] > last_left_height)
+					staff_height += child.fullbbox[1] - last_left_height;
+			}
+			oc_update_fullbbox(node, child);
+		}
+	}            
+	// 3. subordinate children
+	var incremental_width = 0;
+	var diff_width = left_width - subordinate_full_width / 2;
+	if (diff_width < 0) diff_width = 0;
+	if (node.children !== undefined) {
+		for (var i = 0; i < node.children.length - (oc_IE); i++) {
+			var child = node.children[i];
+			if (child.type != 'subordinate')
+				continue;
+			child.deltacorner = [
+				diff_width + incremental_width,
+				node.boundbox[1] + staff_height
+			];
+			incremental_width += child.fullbbox[0];
+		}
+		for (var i = 0; i < node.children.length - (oc_IE); i++) {
+			var child = node.children[i];
+			if (child.type != 'subordinate')
+				continue;
+			oc_update_fullbbox(node, child);
+		}
+	}
+
+	if (OC_DEBUG) { 
+		if (node.children !== undefined) {
+			for (var i = 0; i < node.children.length - (oc_IE); i++) {
+				var child = node.children[i];
+				console.log('oc_boundboxes_dimensions [' + child.title + '] ' +
+					'boundbox(' + child.boundbox[0] + ',' + child.boundbox[1] + ') ' +
+					'deltacenter(' + child.deltacenter[0] + ',' + child.deltacenter[1] + ') ' +
+					'fullbbox(' + child.fullbbox[0] + ',' + child.fullbbox[1] + ') ' +
+					'deltacorner(' + child.deltacorner[0] + ',' + child.deltacorner[1] + ') ' +
+					'xoffset(' + child.xoffset + ')');
+			}
+		}
+	}
+}
+
+
+// update the full bounding box of a subtree by adding the size and relative position of a child
+//
+function oc_update_fullbbox(node, child) {
+	// entran: child.deltacorner, node.fullbbox
+	var x0 = 0, y0 = 0, x1 = node.fullbbox[0], y1 = node.fullbbox[1];
+
+	if (child.deltacorner[0] < x0)                        x0 = child.deltacorner[0];
+	if (child.deltacorner[0] + child.fullbbox[0] > x1)    x1 = child.deltacorner[0] + child.fullbbox[0];
+	if (child.deltacorner[1] + child.fullbbox[1] > y1)    y1 = child.deltacorner[1] + child.fullbbox[1];
+	if (x0 < node.deltacorner[0])                         node.deltacorner[0] = x0;
+
+	if (OC_DEBUG)
+		console.log('updatefullbbox ' + node.title + ' <-- ' + child.title + ' x0=' + x0 + ' x1=' + x1 + ' y0=' + y0 + ' y1=' + y1);
+
+	node.fullbbox = [ x1 - x0, y1 - y0 ];
+}
+
+
+// after all calcs, draw the chart into the 'oc_container' DIV
+//
+function oc_draw () {
+	oc_paper = new Raphael(document.getElementById(oc_style.container), oc_data.root.fullbbox[0], oc_data.root.fullbbox[1]);
+	oc_draw_obj(oc_data.root, null, 0, 0);
+	// draw orgchart title here
+}
+
+
+// draw a subtree
+//
+function oc_draw_obj (node, parent, xoffset, yoffset) {
+	// draw children
+	if (node.children !== undefined) {
+		for (var i = 0; i < node.children.length - (oc_IE); i++)
+			oc_draw_obj(node.children[i], node, node.deltacorner[0] + xoffset, node.deltacorner[1] + yoffset);
+	}
+
+	if (OC_DEBUG) {
+		console.log('drawing ' + node.title + ': legacyXoff=' + xoffset + ' legacyYoff=' + yoffset +
+			' dcornerX=' + node.deltacorner[0] + ' dcornerY=' + node.deltacorner[1] + ' dcenterX=' +
+			node.deltacenter[0] +' dcenterY=' + node.deltacenter[1] + ' xoff=' + node.xoffset);
+	}
+
+	// draw this node rectangle
+	var xc = xoffset + node.deltacorner[0] + node.deltacenter[0] + node.xoffset;
+	var yc = yoffset + node.deltacorner[1] + node.deltacenter[1];
+	var x0 = xc - oc_max_text_width  / 2 - oc_style.inner_padding;
+	var x1 = xc + oc_max_text_width  / 2 + oc_style.inner_padding;
+	// GG 110712 support for embeeded images
+	if (oc_style.use_images && node.image !== undefined) {
+		var y0 = yc - oc_max_text_height / 2 - oc_style.inner_padding - oc_style.images_size[1] / 2 - oc_style.inner_padding / 2;
+		var y1 = yc + oc_max_text_height / 2 + oc_style.inner_padding + oc_style.images_size[1] / 2 + oc_style.inner_padding / 2;
+	}
+	else {
+		var y0 = yc - oc_max_text_height / 2 - oc_style.inner_padding;
+		var y1 = yc + oc_max_text_height / 2 + oc_style.inner_padding;
+	}
+	var box = oc_paper.rect(x0, y0, x1 - x0, y1 - y0);
+	box.attr('fill'  , oc_style.box_color       );
+	box.attr('stroke', oc_style.box_border_color);
+	if (node.id !== undefined)
+		box.oc_id = node.id;
+
+	// attach events to rectangle
+	box.hover(
+		function (event) { this.attr({ fill: oc_style.box_color_hover }); },
+		function (event) { this.attr({ fill: oc_style.box_color       }); }
+		//, overScope, outScope
+	);
+	if (oc_style.box_click_handler !== null)
+		box.click( function (event) { oc_style.box_click_handler(event, box); } );
+
+	// draw node title and subtitle
+	var title_ypos = y0 + oc_style.inner_padding
+					 + node.title_lines * oc_style.title_char_size[1] / 2
+					 + (oc_max_title_lines - node.title_lines) * oc_style.title_char_size[1] / 2
+					 - 2;
+	var title = oc_paper.text(xc, title_ypos, node.title);
+	title.attr('font-family', oc_style.text_font);
+	title.attr('font-size', oc_style.title_font_size);
+	title.attr('fill', oc_style.title_color);
+	if (node.subtitle !== undefined) {
+		var subtitle_ypos = y1 - oc_style.inner_padding
+							- node.subtitle_lines * oc_style.subtitle_char_size[1] / 2;
+
+
+
+		var subtitle = oc_paper.text(xc, subtitle_ypos, node.subtitle);
+		subtitle.attr('font-family', oc_style.text_font);
+		subtitle.attr('font-size', oc_style.subtitle_font_size);
+		subtitle.attr('fill', oc_style.subtitle_color);
+	}
+
+	// GG 110712 draw optional images
+	if (oc_style.use_images && node.image !== undefined) {
+		var image = oc_paper.image(oc_style.images_base_url + node.image,
+			xc - oc_style.images_size[0] / 2, y1 - oc_style.images_size[1] - oc_style.inner_padding,
+			oc_style.images_size[0], oc_style.images_size[1]);
+	}
+
+	// draw line connectors
+	if (parent != null) {
+		var pxc = xc - node.xoffset - node.deltacorner[0] + parent.xoffset + (                    0 -                   0);
+		var pyc = yc -            0 - node.deltacorner[1] +              0 + (parent.deltacenter[1] - node.deltacenter[1]);
+		var px0 = pxc - oc_max_text_width  / 2 - oc_style.inner_padding;
+		var px1 = pxc + oc_max_text_width  / 2 + oc_style.inner_padding;
+		var py0 = pyc - oc_max_text_height / 2 - oc_style.inner_padding;
+		var py1 = pyc + oc_max_text_height / 2 + oc_style.inner_padding;
+		var line1, line2;
+		if (node.type == 'collateral') {
+			if (node.position == 'left') {
+				var path = 'M ' + x1 + ' ' + yc + ' l ' + (2 * oc_style.hline) + ' 0';
+				line1 = oc_paper.path(path);
+				line2 = oc_paper.path(path);
+			}
+			else {   // right
+				var path = 'M ' + x0 + ' ' + yc + ' l -' + (2 * oc_style.hline) + ' 0';
+				line1 = oc_paper.path(path);
+				line2 = oc_paper.path(path);
+			}
+		}
+		else if (node.type == 'staff') {
+			if (node.position == 'left') {
+				var path = 'M ' + x1 + ' ' + yc + ' h ' + (pxc - x1) + ' v ' + (pyc - yc);
+				line1 = oc_paper.path(path);
+				line2 = oc_paper.path(path);
+			}
+			else {   // right
+				var path = 'M ' + x0 + ' ' + yc + ' h ' + (pxc - x0) + ' v ' + (pyc - yc);
+				line1 = oc_paper.path(path);
+				line2 = oc_paper.path(path);
+			}
+		}
+		else {   // subordinate
+			if (node.is_root === undefined) {
+				var path = 'M ' + xc + ' ' + y0 + ' v -' + oc_style.vline + ' h ' + (pxc - xc) + ' V ' + py1;
+				line1 = oc_paper.path(path);
+				line2 = oc_paper.path(path);
+			}
+		}
+		line1.attr('stroke', oc_style.line_color);
+		line2.attr('stroke', oc_style.line_color);
+	}
+
+	if (OC_DEBUG) {
+		// draw the boundbox
+		x0 = xoffset + node.deltacorner[0] + node.xoffset;
+		x1 = xoffset + node.deltacorner[0] + node.xoffset + node.boundbox[0];
+		y0 = yoffset + node.deltacorner[1];
+		y1 = yoffset + node.deltacorner[1] + node.boundbox[1];
+		var boundbox = oc_paper.rect(x0 + 4, y0 + 4, x1 - x0 - 8, y1 - y0 - 6);
+		boundbox.attr({
+			stroke : "#00f", 
+			"stroke-width" : 0.4
+		});
+		// draw the fullbbox
+		x0 = xoffset + node.deltacorner[0];
+		x1 = xoffset + node.deltacorner[0] + node.fullbbox[0];
+		y0 = yoffset + node.deltacorner[1];
+		y1 = yoffset + node.deltacorner[1] + node.fullbbox[1];
+		var fullbbox = oc_paper.rect(x0 + 2, y0 + 2, x1 - x0 - 4, y1 - y0 - 2);
+		fullbbox.attr({
+			stroke : "#f00", 
+			"stroke-width" : 0.4
+		});
+	}
+
+}
+
+// END OF LIBRARY
+
+/* donut */
+
+/** from http://jsfiddle.net/EuMQ5/ */
+Raphael.fn.donutChart = function (cx, cy, r, rin, values, labels, stroke) {
+    var paper = this,
+        rad = Math.PI / 180,
+        chart = this.set();
+    function sector(cx, cy, r, startAngle, endAngle, params) {
+        //console.log(params.fill);
+        var x1 = cx + r * Math.cos(-startAngle * rad),
+            x2 = cx + r * Math.cos(-endAngle * rad),
+            y1 = cy + r * Math.sin(-startAngle * rad),
+            y2 = cy + r * Math.sin(-endAngle * rad),
+            xx1 = cx + rin * Math.cos(-startAngle * rad),
+            xx2 = cx + rin * Math.cos(-endAngle * rad),
+            yy1 = cy + rin * Math.sin(-startAngle * rad),
+            yy2 = cy + rin * Math.sin(-endAngle * rad);
+        
+        return paper.path(["M", xx1, yy1,
+                           "L", x1, y1, 
+                           "A", r, r, 0, +(endAngle - startAngle > 180), 0, x2, y2, 
+                           "L", xx2, yy2, 
+                           "A", rin, rin, 0, +(endAngle - startAngle > 180), 1, xx1, yy1, "z"]
+                         ).attr(params);
+        
+    }
+    var angle = 0,
+        total = 0,
+        start = 0,
+        process = function (j) {
+            var value = values[j],
+                angleplus = 360 * value / total,
+                popangle = angle + (angleplus / 2),
+                color = Raphael.hsb(start, .75, 1),
+                ms = 500,
+                delta = 30,
+                bcolor = Raphael.hsb(start, 1, 1),
+                p = sector(cx, cy, r, angle, angle + angleplus, {fill: "90-" + bcolor + "-" + color, stroke: stroke, "stroke-width": 3}),
+                txt = paper.text(cx + (r + delta + 55) * Math.cos(-popangle * rad), cy + (r + delta + 25) * Math.sin(-popangle * rad), labels[j]).attr({fill: bcolor, stroke: "none", opacity: 0, "font-size": 20});
+            p.mouseover(function () {
+                p.stop().animate({transform: "s1.1 1.1 " + cx + " " + cy}, ms, "elastic");
+                txt.stop().animate({opacity: 1}, ms, "elastic");
+            }).mouseout(function () {
+                p.stop().animate({transform: ""}, ms, "elastic");
+                txt.stop().animate({opacity: 0}, ms);
+            });
+            angle += angleplus;
+            chart.push(p);
+            chart.push(txt);
+            start += .1;
+        };
+    for (var i = 0, ii = values.length; i < ii; i++) {
+        total += values[i];
+    }
+    for (i = 0; i < ii; i++) {
+        process(i);
+    }
+    return chart;
+};
+/* coxcomb */
+
+/*!
+ * Copyright (c) 2012 Guillermo Winkler
+ * Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
+ */
+
+ /*
+ * coxcomb chart method on paper
+ */
+/*\
+ * Paper.coxCombChart
+ [ method ]
+ **
+ * Creates a coxcomb chart
+ **
+ > Parameters
+ **
+ - cx (number) x coordinate of the chart
+ - cy (number) y coordinate of the chart
+ - r (integer) radius of the chart
+ - data
+ - opts (object) options for the chart
+ o {
+     categoryFontSize (int)
+     seriesFontSize (int)
+     onClick (fn)
+     categorySize (int)
+ o }
+ **
+ > Usage
+ | r.coxCombChart(cx, cy, r, data, opts)
+ \*/
+(function () {
+
+    var currentColor = 0;
+    var rad = Math.PI / 180;
+
+    function positionLabel(paper, cx, cy, r, startAngle, endAngle, params) {
+      //need to add text at the middle point between the two lower ones
+      var labelAngle = startAngle + (endAngle - startAngle) / 2,
+          xLabel = cx + r * Math.cos(-labelAngle * rad),
+          yLabel = cy + r * Math.sin(-labelAngle * rad),
+          label = paper.text(xLabel, yLabel, params.text).attr({fill: params.fontColor, "font-size": params.fontSize});
+      //the label never should be bottom up in order for the
+      //text to be read without turning your head or your screen
+      if (labelAngle >= 90 && labelAngle < 270) {
+          labelAngle += 180;
+      }
+      label.transform("r" + -labelAngle);
+      return label;
+    };
+    
+    function categorySlice(paper, cx, cy, r, startAngle, endAngle, params) {
+      var x1 = cx + r * Math.cos(-startAngle * rad),
+          x2 = cx + r * Math.cos(-endAngle * rad),
+          y1 = cy + r * Math.sin(-startAngle * rad),
+          y2 = cy + r * Math.sin(-endAngle * rad);
+      var slice = paper.path(["M", cx, cy, 
+                              "L", x1, y1, 
+                              "A", r, r, 0, +(endAngle - startAngle > 180), 0, x2, y2, 
+                              "z"]).attr(params);
+      //position the category label in the middle of the slice
+      positionLabel(paper, cx, cy, r/2, startAngle, endAngle, params);
+      return slice;
+    };
+
+    /*
+     * Creates a data bar inside a category
+     * r1 radius of the category
+     * r2 radius of the data bar
+     */
+    function coxCombBar(paper, cx, cy, r1, r2, startAngle, endAngle, params) {
+      var x1 = cx + r1 * Math.cos(-startAngle * rad),
+          y1 = cy + r1 * Math.sin(-startAngle * rad),
+          x2 = cx + r2 * Math.cos(-startAngle * rad),
+          y2 = cy + r2 * Math.sin(-startAngle * rad),
+          x3 = cx + r2 * Math.cos(-endAngle * rad),
+          y3 = cy + r2 * Math.sin(-endAngle * rad),
+          x4 = cx + r1 * Math.cos(-endAngle * rad),
+          y4 = cy + r1 * Math.sin(-endAngle * rad);
+      
+      var polygon = paper.path([ "M", x1, y1, 
+                                 "L", x2, y2, 
+                                 "A", r2, r2, 0, +(endAngle - startAngle > 180), 0, x3, y3, 
+                                 "L", x4, y4, 
+                                 "A", r1, r1, 0, +(endAngle - startAngle > 180), 0, x1, y1, 
+                                 "z"]).attr(params);
+      var label = positionLabel(paper, cx, cy, (r1 + r2) / 2, startAngle, endAngle, params); 
+      var section = paper.set();
+      section.push(polygon, label);
+      var onClick = function() {
+        if (typeof(params.onClick) === "function") {
+            section.toFront();
+            params.onClick(polygon, params.text);
+        }
+      };
+      var onMouseOver = function() {
+        polygon.attr({ "fill-opacity" : 0.2 });
+      };
+      var onMouseOut = function() {
+        polygon.attr({ "fill-opacity": params["fill-opacity"] || 1 });
+      };
+      section.mouseover(onMouseOver)
+           .mouseout(onMouseOut)
+           .click(onClick);
+      return section;
+    };
+
+    function getSeriesColor(category, serie, dataset) {
+      if (dataset.colors) {
+        if (dataset.colors.byCategory && dataset.colors.byCategory[category]) {
+            return dataset.colors.byCategory[category];
+        }
+        if (dataset.colors.bySeries && dataset.colors.bySeries[serie]) {
+            return dataset.colors.bySeries[serie];
+        }
+      }
+      currentColor+=1;
+      return {
+         color: Raphael.hsb(currentColor, 1, 1)
+      };
+    };
+
+    /*
+     * {
+     *  data: {
+     *      jan : {
+     *          disease : 80,
+     *          battle : 20             
+     *      },
+     *      feb : {
+     *          disease : 70,
+     *          battle : 10
+     *      }
+     *  },
+     *  colors : {
+     *      category : #fff,
+     *      opacity : 0.2,
+     *      byCategory : {
+     *          jan : {
+     *              color : #fff,
+     *              hover : #fff,
+     *              opacity : 0.5
+     *          },
+     *          feb : {
+     *              color: #fff
+     *          }
+     *      },
+     *      bySeries : {
+     *          disease : {
+     *              color : #fff,
+     *              hover : #fff
+     *          },
+     *          battle : {
+     *              color : #fff
+     *              hover : #fff
+     *          }
+     *      }
+     *  }
+     * }
+     */
+    function CoxCombChart(paper, cx, cy, r, dataset, opts) {
+        var chart = paper.set();
+
+        //categories and series should be counted in order
+        //to set the angles properly
+        var totalCategories = 0;
+        var totalSeries = {};
+        var maxValue;
+        var cat, serie;
+        for (cat in dataset.data) {
+            if (dataset.data.hasOwnProperty(cat)) {
+                totalCategories+=1;
+                if (typeof(dataset.data[cat]) === "object") {
+                    totalSeries[cat] = 0;
+                    for (serie in dataset.data[cat]) {
+                        if (dataset.data[cat].hasOwnProperty(serie)) {
+                            totalSeries[cat]+=1;
+                            //the maximum value of all the series is used
+                            //for normalization of the radius
+                            if (!maxValue || maxValue < dataset.data[cat][serie]) {
+                                maxValue = dataset.data[cat][serie];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        var catSize = (opts && opts.categorySize) || 0.30;
+        var currentAngle = 0;
+        var catRadius = r * catSize;
+        var catAngle = 360 * (1 / totalCategories);
+        for (cat in dataset.data) {
+            if (typeof(dataset.data[cat]) === "object") {
+                categorySlice(paper, cx, cy, catRadius, currentAngle, currentAngle + catAngle, 
+                              {fill: dataset.colors.category, 
+                               "fill-opacity": dataset.colors.opacity, 
+                               text: cat,
+                               fontSize: opts.categoryFontSize,
+                               fontColor: dataset.colors.fontColor,
+                               stroke: opts.stroke, 
+                               "stroke-width": 3 });
+                for (serie in dataset.data[cat]) {
+                    var serieRadius = catRadius + (r * (1 - catSize) * (dataset.data[cat][serie] / maxValue));
+                    var serieAngle = catAngle / totalSeries[cat];
+                    var color = getSeriesColor(cat, serie, dataset);
+                    coxCombBar(paper, cx, cy, catRadius, serieRadius, 
+                               currentAngle, currentAngle + serieAngle, 
+                               { fill: color.color, 
+                                 stroke: opts.stroke,
+                                 hoverColor : color.hover,    
+                                 fontSize: opts.seriesFontSize,
+                                 fontColor: color.fontColor,
+                                 text: serie,
+                                 "fill-opacity": color.opacity, 
+                                 "stroke-width": 3,
+                                 onClick: opts.onClick});
+                    //when the last serie is finished for this category
+                    //the angle is at the beginning of the next one
+                    currentAngle += serieAngle;
+                }
+            }
+        }
+    }
+
+    //public
+    Raphael.fn.coxCombChart = function(cx, cy, r, dataset, opts) {
+        return new CoxCombChart(this, cx, cy, r, dataset, opts);
+    };
+    
+}());

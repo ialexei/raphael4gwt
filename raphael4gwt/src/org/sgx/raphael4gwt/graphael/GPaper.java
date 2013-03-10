@@ -2,6 +2,8 @@ package org.sgx.raphael4gwt.graphael;
 
 import org.sgx.raphael4gwt.graphael.bar.BarChart;
 import org.sgx.raphael4gwt.graphael.bar.BarOpts;
+import org.sgx.raphael4gwt.graphael.coxcomb.CoxCombData;
+import org.sgx.raphael4gwt.graphael.coxcomb.CoxCombOpts;
 import org.sgx.raphael4gwt.graphael.dot.DotChart;
 import org.sgx.raphael4gwt.graphael.dot.DotOpts;
 import org.sgx.raphael4gwt.graphael.line.LineChart;
@@ -50,10 +52,22 @@ public final native PieChart piechart(double x, double y, double r,
 		JsArrayNumber vals, PieOpts opts)/*-{
 	return this.piechart(x, y, r,vals,opts);
 }-*/;
+
+public final native PieChart piechart(int x, int y, int r,  
+		JsArrayNumber vals, PieOpts opts)/*-{
+	return this.piechart(x, y, r,vals,opts);
+}-*/;
 public final native PieChart piechart(double x, double y, double r,  
 		double[] vals, PieOpts opts)/*-{
 	return this.piechart(x, y, r, 
 		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(vals),
+		opts
+	);
+}-*/;
+public final native PieChart piechart(int x, int y, int r,  
+		int[] vals, PieOpts opts)/*-{
+	return this.piechart(x, y, r, 
+		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([I)(vals),
 		opts
 	);
 }-*/;
@@ -65,7 +79,7 @@ public final native PieChart piechart(double x, double y, double r,
 public final native PieChart piechart(double x, double y, double r,  
 		double[] vals)/*-{
 	return this.piechart(x, y, r, 
-		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(vals),
+		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([I)(vals),
 		{}
 	);
 }-*/;
@@ -135,6 +149,58 @@ public final native LineChart linechart(double x, double y, double w,
 				
 }-*/;
 
+
+
+//donut charts
+/**
+ *  a donut chart like in http://jsfiddle.net/EuMQ5/
+ * @param cx
+ * @param cy
+ * @param r
+ * @param rin
+ * @param values
+ * @param labels
+ * @param stroke
+ * @return
+ */
+public final native GShape donutChart(double cx, double cy, double r, double rin, 
+		double[] values, String[]labels, String stroke)/*-{	
+		
+	return this.donutChart(cx, cy, r, rin,
+		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(values),
+		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([Ljava/lang/String;)(labels),
+		stroke
+	);
+				
+}-*/;
+
+	/**
+	 * Creates a new CoxComb chart
+	 * 
+	 * @see https://github.com/guilespi/coxcomb-chart
+	 * @param cx
+	 *            x coordinate of the chart
+	 * @param cy
+	 *            y coordinate of the chart
+	 * @param r
+	 *            radius of the chart
+	 * @param data
+	 * @param opts
+	 *            options for the chart
+	 * 
+	 *            <pre>
+	 * {
+	 * 	categoryFontSize (int)
+	 * 	seriesFontSize (int)
+	 * 	onClick (fn)
+	 * 	categorySize (int)
+	 * }
+	 * </pre>
+	 * @return
+	 */
+	public final native GShape coxCombChart(double cx, double cy, double r, CoxCombData data, CoxCombOpts opts)/*-{
+		return this.coxCombChart(cx, cy, r, data, opts); 
+	}-*/;
 
 /**
  * creates a sunburst chart

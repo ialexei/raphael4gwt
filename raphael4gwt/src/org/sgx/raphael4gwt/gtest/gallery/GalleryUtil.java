@@ -9,6 +9,8 @@ import org.sgx.raphael4gwt.gtest.gallery.tests.BarChartDynamicUpdate;
 import org.sgx.raphael4gwt.gtest.gallery.tests.BarChartTest1;
 import org.sgx.raphael4gwt.gtest.gallery.tests.BarChartTest2;
 import org.sgx.raphael4gwt.gtest.gallery.tests.BarChartTest3;
+import org.sgx.raphael4gwt.gtest.gallery.tests.CoxCombTest1;
+import org.sgx.raphael4gwt.gtest.gallery.tests.DonutChartTest1;
 import org.sgx.raphael4gwt.gtest.gallery.tests.DotChartTest1;
 import org.sgx.raphael4gwt.gtest.gallery.tests.LineChartTest1;
 import org.sgx.raphael4gwt.gtest.gallery.tests.PieChartTest2;
@@ -145,6 +147,11 @@ public class GalleryUtil {
 		t = new RaphalyticsTest1(paper, w, h); 
 		tests.put(t.getName(), t);
 		
+		t = new DonutChartTest1(paper, w, h); 
+		tests.put(t.getName(), t);
+		
+		t = new CoxCombTest1(paper, w, h); 
+		tests.put(t.getName(), t);
 		
 		
 	}

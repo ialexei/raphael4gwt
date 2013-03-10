@@ -66,7 +66,7 @@ public JavaScriptObject toNative() {
 	JavaScriptObject o = JavaScriptObject.createObject();
 	JsUtil.put(o, "rootLabel", getRootLabel());
 	JsUtil.put(o, "offsetAngle", getOffsetAngle());
-	JsUtil.put(o, "levelWidths", JsUtil.toJsArrayNumber(getLevelWidths()));
+	JsUtil.put(o, "levelWidths", JsUtil.toJsArray(getLevelWidths()));
 	JsUtil.put(o, "colors", JsUtil.toJsArray(getColors()));
 	JsUtil.put(o, "gradients", JsUtil.toJsArray(getGradients()));
 	JsUtil.put(o, "stroke", getStroke());

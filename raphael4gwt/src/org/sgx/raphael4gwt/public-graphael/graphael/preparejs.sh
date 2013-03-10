@@ -11,6 +11,9 @@ java -jar $YUIC -o g.pie-min.js g.pie.js
 java -jar $YUIC -o g.sunburst-min.js g.sunburst.js
 java -jar $YUIC -o g.radar-min.js g.radar.js
 java -jar $YUIC -o raphalytics-min.js raphalytics.js
+java -jar $YUIC -o g.org-min.js g.org.js
+java -jar $YUIC -o donut-min.js donut.js
+java -jar $YUIC -o coxcomb-min.js coxcomb.js
 
 echo "
 /* g.raphael */
@@ -52,6 +55,23 @@ echo "
 " >> $ALL-min.js
 cat raphalytics-min.js >> $ALL-min.js
 
+echo "
+/* orgchart */
+" >> $ALL-min.js
+cat g.org-min.js >> $ALL-min.js
+
+echo "
+/* donut */
+" >> $ALL-min.js
+cat donut-min.js >> $ALL-min.js
+
+echo "
+/* coxcomb */
+" >> $ALL-min.js
+cat coxcomb-min.js >> $ALL-min.js
+
+
+
 
 echo "
 /* g.raphael */
@@ -92,5 +112,22 @@ echo "
 /* raphalytics */
 " >> $ALL.js
 cat raphalytics.js >> $ALL.js
+
+echo "
+/* orgchart */
+" >> $ALL.js
+cat g.org.js >> $ALL.js
+
+echo "
+/* donut */
+" >> $ALL.js
+cat donut.js >> $ALL.js
+
+echo "
+/* coxcomb */
+" >> $ALL.js
+cat coxcomb.js >> $ALL.js
+
+
 
 cp g.raphael.all-min.js ../../graphael/scripts

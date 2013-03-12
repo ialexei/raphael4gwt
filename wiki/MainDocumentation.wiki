@@ -7,12 +7,13 @@ Table of Contents
 
 =What is it?=
 
-A gwt lightweight java API for raphaeljs (http://raphaeljs.com/). It uses gwt overly types for implementing zero overhear java API for raphaeljs.
-Based on raphaeljs 2.0. All raphaeljs features supported. Very straightforward java  API to raphael javascript API.
+A gwt lightweight java API for [raphaeljs http://raphaeljs.com/], a graphic drawing JavaScript library. It uses GWT overly types for implementing zero overhear java API for raphaeljs.
+
+Based on latest raphaeljs version, currently 2.1. All raphaeljs features supported. Very straightforward java  API to raphael javascript API.
 
 
 
-=How to use it?=
+=How to include it in your GWT project=
 
 1) add the following in your project's gwt.xml file:
 
@@ -20,12 +21,18 @@ Based on raphaeljs 2.0. All raphaeljs features supported. Very straightforward j
 <inherits name="org.sgx.raphael4gwt.Raphael4Gwt" />
 }}}
 
-2) add the .jar to your gwt project's classpath
+2) add the .jar to your gwt project's classpath. For example, copy it to war/WEB-INF/lib folder and add it to the java class path.
 
-3) you are ready to use it. The following are some GWT Entry point class examples that show different ways of creating a raphael paper
+3) you are ready to use it. 
+
+
+=How to use it=
+
+The following are some GWT Entry point class examples that show different ways of creating a raphael paper
 
 The first is the most easy and that is creating a Raphael paper from "thin air" not asociated with any particular HTML element: 
 
+==Creating a paper in the body==
 {{{
 
 package org.sgx.civ.client;
@@ -63,6 +70,9 @@ public void onModuleLoad() {
 }
 
 }}}
+
+
+==Creating a paper and in a div using GWT dom (no widgets)==
 
 Normally you want to create the raphael paper inside an existing HTML element. For that we pass the element id or the HTML element it self to the Raphael method. In the following example, we create an HTML element and then a Raphael paper inside it. We manipulate the HTML DOM using gwt.dom.client. IMPORTANT: the HTML Element must be attached to the document before creating a Raphael paper on it: 
 
@@ -140,7 +150,9 @@ public class Raphael4GwtTestAloneSimple implements EntryPoint {
 }
 }}}
 
-or a gwt entry point class showing a raphael paper using PaperWidget, a rudimentary GWT widget that shows a raphael Paper in which you can draw. It is very easy to use with GWT widgets: 
+==Using PaperWidget==
+
+But the following is the recommended way of including a Raphael Paper in a GWT Widget based project: we use the PaperWidget class, a GWT WIdget that contains a paper inside. Only the paper is the widget; shapes you draw are not widgets: 
 
 {{{
 
@@ -199,10 +211,82 @@ public class Raphael4GwtTestAlone implements EntryPoint, PaperListener {
 	}
 
 }
+}}}
 
+
+==Using PaperWidget in UIBinder==
+
+The following example shows a UIBinder widget that uses PaperWidget importing and using it in the ui.xml file passing the paper's width and height as xml attributes. No extra work is required to start drawing: 
+
+*MainGameView.ui.xml*
+{{{
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" 
+    xmlns:g="urn:import:com.google.gwt.user.client.ui"
+    xmlns:raphael="urn:import:org.sgx.raphael4gwt.raphael.widget"
+    >
+	<ui:style>
+		
+	</ui:style>
+	<g:HTMLPanel>
+	    <table>
+	        <tr><h3>This is your game of Horror ho ho ho</h3></tr>
+	        <tr>
+	            <td>
+	            <ul>
+	                <li><b>Options</b> nightmare</li>
+	                <li><b>Start</b> Frankenstein</li>
+	            </ul>
+	            	</td>
+	            	
+	            <td>
+	                <raphael:PaperWidget ui:field="paperWidget" paperWidth="600" paperHeight="600">	                    
+	                </raphael:PaperWidget>	                
+	            </td>
+	        </tr>
+	        
+	    </table>
+	</g:HTMLPanel>
+</ui:UiBinder> 
+}}}
+
+*MainGameView.java*
+{{{
+package org.sgx.raphael4gwttest.client.uibindertest1;
+
+import org.sgx.raphael4gwt.raphael.base.Attrs;
+import org.sgx.raphael4gwt.raphael.widget.PaperWidget;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Widget;
+
+public class MainGameView extends Composite {
+
+	private static MainGameViewUiBinder uiBinder = GWT.create(MainGameViewUiBinder.class);
+
+	interface MainGameViewUiBinder extends UiBinder<Widget, MainGameView> {
+	}
+
+	@UiField PaperWidget paperWidget;
+	
+	public MainGameView() {
+		initWidget(uiBinder.createAndBindUi(this));
+		
+		// ready to use the paper: 
+
+		paperWidget.getPaper().rect(10,10,20,30,5).attr(Attrs.create().fill("red")); 
+	}
+
+}
 
 }}}
 
+==Using uibinder and dom (no widgets)==
+
+TODO
 
 
 =Dynamic JavaScript loading =

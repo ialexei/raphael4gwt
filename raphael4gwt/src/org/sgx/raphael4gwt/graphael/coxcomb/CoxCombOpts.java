@@ -9,8 +9,12 @@ import com.google.gwt.core.client.JavaScriptObject;
  *
  */
 public class CoxCombOpts extends JsObject {
+	
 	protected CoxCombOpts() {
 	}
+	public static final native CoxCombOpts create()/*-{
+	return {}; 
+	}-*/;
 
 	/**
 	 * percentage of radius used for categories
@@ -87,9 +91,8 @@ public class CoxCombOpts extends JsObject {
 	}-*/;
 
 	public native final CoxCombOpts onClick(CoxCombEventListener l) /*-{
-		var f = $entry(function(polugon, text) {
-			window.alert(polygon + " - " + text);
-			//	l.@org.sgx.raphael4gwt.graphael.coxcomb.CoxCombEventListener::
+		var f = $entry(function(polygon, text) {
+			l.@org.sgx.raphael4gwt.graphael.coxcomb.CoxCombEventListener::notifyEvent(Lorg/sgx/raphael4gwt/raphael/Shape;Ljava/lang/String;)(polygon, text); 
 		});
 		this["onClick"] = f;
 		return this;

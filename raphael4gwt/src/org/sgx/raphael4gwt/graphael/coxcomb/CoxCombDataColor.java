@@ -8,7 +8,9 @@ import org.sgx.raphael4gwt.raphael.jsutil.JsObject;
  */
 public class CoxCombDataColor extends JsObject{
 protected CoxCombDataColor(){}
-
+//public static final native CoxCombDataColor create()/*-{
+//return {}; 
+//}-*/;
 /**
  * 
  * @return

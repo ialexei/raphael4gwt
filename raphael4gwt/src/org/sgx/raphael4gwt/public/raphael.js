@@ -3603,7 +3603,7 @@
 			})(method);
 		}
 	setproto.glow = function(glowConfig) {// sgurin - fix for set
-		alert("glow js"); 
+//		alert("glow js"); 
 		var ret = this.paper.set(); 
 		this.forEach(function(shape, index){
 			var g = shape.glow(glowConfig); 

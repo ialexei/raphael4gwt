@@ -132,6 +132,10 @@ public class JsUtil {
 //		return jsa;
 //	}
 	
+	public static JsArrayString objProps(JavaScriptObject o) {
+		return ((JsObject)o).objProps(); 
+	}
+	
 	public static JsArrayNumber toJsArray(double[]a) {
 		if(a==null)
 			return null;

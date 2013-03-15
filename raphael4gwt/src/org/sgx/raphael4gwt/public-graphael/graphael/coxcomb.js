@@ -40,12 +40,14 @@
           xLabel = cx + r * Math.cos(-labelAngle * rad),
           yLabel = cy + r * Math.sin(-labelAngle * rad),
           label = paper.text(xLabel, yLabel, params.text).attr({fill: params.fontColor, "font-size": params.fontSize});
+      
+      //alert(cx+", "+cy+", "+startAngle+", "+ endAngle+", "+xLabel+", "+yLabel); 
       //the label never should be bottom up in order for the
       //text to be read without turning your head or your screen
       if (labelAngle >= 90 && labelAngle < 270) {
           labelAngle += 180;
       }
-      label.transform("r" + -labelAngle);
+      label.transform("r" + (-labelAngle)+","+xLabel+","+yLabel); //sgurin
       return label;
     };
     

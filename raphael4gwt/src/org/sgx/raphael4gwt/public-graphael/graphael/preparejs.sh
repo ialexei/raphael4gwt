@@ -14,6 +14,7 @@ java -jar $YUIC -o raphalytics-min.js raphalytics.js
 java -jar $YUIC -o g.org-min.js g.org.js
 java -jar $YUIC -o donut-min.js donut.js
 java -jar $YUIC -o coxcomb-min.js coxcomb.js
+#java -jar $YUIC -o prototype-min.js prototype.js
 
 echo "
 /* g.raphael */

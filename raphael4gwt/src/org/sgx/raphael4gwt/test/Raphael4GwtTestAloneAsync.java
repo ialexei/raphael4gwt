@@ -2,8 +2,8 @@ package org.sgx.raphael4gwt.test;
 
 import org.sgx.raphael4gwt.raphael.Circle;
 import org.sgx.raphael4gwt.raphael.Paper;
-import org.sgx.raphael4gwt.raphael.PaperWidget;
 import org.sgx.raphael4gwt.raphael.event.PaperListener;
+import org.sgx.raphael4gwt.raphael.widget.PaperWidget;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.Button;
@@ -32,7 +32,8 @@ public class Raphael4GwtTestAloneAsync implements EntryPoint, PaperListener {
 		toolbar.add(new Button("action2"));
 		vp.add(toolbar);
 		
-		paper = new PaperWidget(600, 600, this);
+		paper = new PaperWidget(600, 600);
+		paperLoaded(paper.getPaper()); 
 		paper.setSize("100%", "100%");
 		vp.add(paper);
 		

@@ -18,7 +18,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.Window;
 
 /**
- * using http://jsfiddle.net/EuMQ5/
+ * using coxcomb chart defining data in JSON using GWT JSNI methods
  * 
  * @author sg
  * 
@@ -106,7 +106,7 @@ public class CoxCombTest1 extends Test {
 	public CoxCombTest1(Paper paper, int paperWidth, int paperHeight) {
 		super(paper, paperWidth, paperHeight);
 		setName("coxComb1");
-		setDescription("using this simple infraestructure: http://jsfiddle.net/EuMQ5/");
+		setDescription("using coxcomb chart defining data in JSON using GWT JSNI methods");
 	}
 
 	@Override

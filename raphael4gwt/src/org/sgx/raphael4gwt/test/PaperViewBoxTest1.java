@@ -1,18 +1,23 @@
 package org.sgx.raphael4gwt.test;
 
 import org.sgx.raphael4gwt.raphael.Paper;
-import org.sgx.raphael4gwt.raphael.PaperWidget;
 import org.sgx.raphael4gwt.raphael.Raphael;
 import org.sgx.raphael4gwt.raphael.Text;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Rectangle;
 import org.sgx.raphael4gwt.raphael.util.Util;
+import org.sgx.raphael4gwt.raphael.widget.PaperWidget;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * demonstrate the paper view port using the arrow keys or mouse dragging 
@@ -45,7 +50,17 @@ public class PaperViewBoxTest1 extends Test implements MouseWheelHandler {
 		 * because it is a FocusPanel 
 		 */
 		PaperWidget paperWidget = getPaperWidget();
-		paperWidget.setFocus(true);
+//		paperWidget.setFocus(true);
+		
+		TextBox keyEntry = new TextBox(); 
+
+		VerticalPanel testPanel = GalleryUtil.getInstance().getMainPanel().getTestPanel();
+		testPanel.add(new HTML(
+				"<b>showing a big drawing using paper's viewbox attribute. </b>" +
+				"Focus the next input box for key pressing, and then move with arrow keys and zoom with ctrl-up and ctrl-down. " +
+				"this way you can zoom-in zoom-out and move like in a game complex game board. ")); 
+		testPanel.add(keyEntry); 
+		
 		
 		paperViewbox = Raphael.createRectangle(0, 0, paperWidth, paperHeight);
 		paper.setViewBox(paperViewbox, true);
@@ -54,7 +69,7 @@ public class PaperViewBoxTest1 extends Test implements MouseWheelHandler {
 		statusText = paper.text(200,250,"");
 		statusText.attr(Attrs.create().text(paperViewbox.print()));
 		
-		paperWidget.addKeyPressHandler(new KeyPressHandler() {			
+		keyEntry.addKeyPressHandler(new KeyPressHandler() {			
 			@Override
 			public void onKeyPress(KeyPressEvent event) {
 				int keyCode = event.getNativeEvent().getKeyCode();
@@ -104,6 +119,8 @@ public class PaperViewBoxTest1 extends Test implements MouseWheelHandler {
 				event.preventDefault();
 			}
 		});
+
+		keyEntry.setFocus(true); 
 	}
 
 

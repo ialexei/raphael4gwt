@@ -6,7 +6,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayString;
 
 /**
- * This class represents a JavaScriptObject which keys are of type string and values only of type number. 
+ * This class represents a JavaScriptObject which keys are of type string and values only of type number.
  * 
  * @author sg
  * 
@@ -24,8 +24,9 @@ public class JsMapDouble extends JsObject {
 		return o;
 	}-*/;
 
-	public final native void put(String key, double val)/*-{
+	public final native JsMapDouble put(String key, double val)/*-{
 		this[key] = val;
+		return this;
 	}-*/;
 
 	public final native double get(String key)/*-{
@@ -33,11 +34,11 @@ public class JsMapDouble extends JsObject {
 	}-*/;
 
 	public final native JsArrayString keys()/*-{
-		return this.@org.sgx.raphael4gwt.raphael.jsutil.JsObject::objProps()();
+		return @org.sgx.raphael4gwt.raphael.jsutil.JsUtil::objProps(Lcom/google/gwt/core/client/JavaScriptObject;)(this); //gethis.@org.sgx.raphael4gwt.raphael.jsutil.JsObject::objProps()();
 	}-*/;
 
 	public final native JsArrayString keysCol()/*-{
-		var r = this.@org.sgx.raphael4gwt.raphael.jsutil.JsObject::objProps()();
+		var r = @org.sgx.raphael4gwt.raphael.jsutil.JsUtil::objProps(Lcom/google/gwt/core/client/JavaScriptObject;)(this);
 		return @org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJavaCollection(Lcom/google/gwt/core/client/JavaScriptObject;)(r);
 	}-*/;
 }

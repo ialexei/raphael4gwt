@@ -7,11 +7,11 @@ public class Raphael4GwTTutorial implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
-		
-		TutUtils.registerTutorialNatives(); 
-		
-		MainPanel mp = new MainPanel(); 
-		RootPanel.get().add(mp); 
+		Raphael4GwtManual m = new Raphael4GwtManual(); 
+		RootPanel.get().add(m);
+//		TutUtils.registerTutorialNatives(); 
+//		MainPanel mp = new MainPanel(); 
+//		RootPanel.get().add(mp); 
 	}
 ;
 

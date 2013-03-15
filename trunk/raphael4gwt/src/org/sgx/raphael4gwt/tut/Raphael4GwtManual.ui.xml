@@ -1,0 +1,79 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder 
+	xmlns:ui="urn:ui:com.google.gwt.uibinder" 
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+>
+
+	
+<!-- 	xmlns:manual="urn:import:org.sgx.raphael4gwt.tut" -->
+
+	<ui:style src="main.css" />
+
+	<g:HTMLPanel>
+
+
+		<h1 class="{style.maintitle}">Raphael4Gwt Manual</h1>
+
+		<p>
+			<i>Raphael4Gwt: A vector drawing library for GWT - A wrapper of RaphaelJs JavaScript library for GWT - Java</i>
+		</p>
+
+
+		<p class="{style.author}">
+			Author:
+			<a href="http://code.google.com/p/raphael4gwt/">Sebastián Gurin</a>
+		</p>
+
+		<div id="toc" class="{style.toc}">
+		<h1>Table of Contents</h1>
+		</div>
+
+
+		<div class="{style.maincontent}" id="gwteditorsManualMain">
+
+
+<h2 id="sec-intro">Introduction</h2>
+
+<p>
+	<a href="http://code.google.com/p/gwteditors/">Raphael4Gwt</a>
+	is a wrapper <a href="TODO">GWT</a> library for <a href="raphaeljs.com">Raphaël</a> JavaScript library for vector drawing in the web.
+		
+</p>
+
+<p>It is based on <a href="TODO">GWT overlay types</a> for directly manipulating the JavaScript objects from Java code without any extra 
+overhead. So this has two main conequences: first, the Raphael Java code is equivalent to what native javascript raphael code would be, and
+second, working with overlay types can be a little "special" for Java Programmers. </p>
+
+<p>This document is a full Raphael4Gwt user's manual containing online example with java sources that are shoued in this same manual doucment. </p>
+
+<p>It is recommended that the user be familiar with some vector drawing technology like SVG, raphael, etc for a quicker understanding of this document. 
+Neverthtless, this document will try to explain all in detail so this is not actually required, but please reffer to the following references for a more in depth 
+information about Raphaël JavaScript library: </p>
+
+<ul>
+<li><a href="http://raphaeljs.com" id="ref-raphaelhome">raphaeljs.com</a> - the Raphaël JavaScript library home site. </li>
+<li><a href="http://cancerbero.vacau.com/raphaeltut/">Raphaël Tutorial</a> - by this same author. </li>
+<li><a href="http://raphaeljs.com/reference.html" id="ref-raphaelhome">Raphaël Reference</a> - the Raphaël JavaScript library reference. </li>
+<li><a href="http://code.google.com/p/raphael4gwt/" >Raphaël Reference</a> - the Raphaël JavaScript library reference. </li>
+
+</ul>
+
+
+
+
+
+
+<h2>References</h2>
+
+<ul>
+<li><a href="http://raphaeljs.com" id="ref-raphaelhome">raphaeljs.com</a> - the Raphaël JavaScript library home site. </li>
+<li><a href="http://raphaeljs.com" id="ref-raphaelhome">raphaeljs.com</a> - the Raphaël JavaScript library home site. </li>
+<li><a href="http://raphaeljs.com" id="ref-raphaelhome">raphaeljs.com</a> - the Raphaël JavaScript library home site. </li>
+
+</ul>
+						
+
+		</div>
+
+	</g:HTMLPanel>
+</ui:UiBinder> 

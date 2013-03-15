@@ -2,6 +2,7 @@ package org.sgx.raphael4gwt.test;
 
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Set;
+import org.sgx.raphael4gwt.raphael.Text;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.base.Font;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
@@ -10,15 +11,20 @@ import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 
 import com.google.gwt.core.client.Callback;
 import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.user.client.Window;
 
 public class PrintLettersOnPath extends Test {
 
 	private String fontUrl;
 	private String fontFamily;
+	private Text statusLabel;
 
 	@Override
 	public void test() {
+
+//		Window.alert("printLettersOnAPath begin"); 
 		// first load the font from url
+		statusLabel = paper.text(100,100, "Loading font..."); 
 		fontUrl = "http://cancerbero.vacau.com/testFiles/Kill_Switch_400.font.js";
 		fontFamily = "Kill Switch";
 		FontUtil.loadFont(fontUrl, new Callback<Void, Exception>() {
@@ -26,10 +32,12 @@ public class PrintLettersOnPath extends Test {
 			public void onSuccess(Void result) {
 				// if loaded correctly, then perform the test
 				performTest();
+				statusLabel.hide(); 
 			}
 
 			@Override
 			public void onFailure(Exception reason) {
+				Window.alert("failure to load : "+fontUrl); 
 			}
 		});
 
@@ -52,6 +60,8 @@ public class PrintLettersOnPath extends Test {
 				lettersOnAPath.animate(Attrs.create().transform("...t-50,50"), 2000, "bounce");				
 			}
 		}); 
+		
+//		Window.alert("printLettersOnAPath end"); 
 		 
 	}
 

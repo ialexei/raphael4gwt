@@ -11,6 +11,10 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 public class CoxCombData extends JsObject{
 protected CoxCombData(){}
+public static final native CoxCombData create()/*-{
+	return {}; 
+}-*/;
+
 /**
  * 
  * @return
@@ -24,7 +28,7 @@ return this["data"];
  * @param val
  * @return this - for setter chaining
  */
-public native final CoxCombData data(JavaScriptObject val) /*-{
+public native final CoxCombData data(JsMap<JsMapDouble> val) /*-{
 this["data"] = val; 
 return this; 
 }-*/;

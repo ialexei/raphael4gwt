@@ -145,6 +145,19 @@
 				this.push(other[i]);
 		return this;
 	};
+	
+	/**
+	 * @returns the size of the set. 
+	 */
+	Raphael.st.size = function() {
+		var s=0;
+		this.forEach(function(el, idx) {
+			s++; 
+			return true; 
+		});
+		return s;
+	};
+	
 	/**
 	 * @returns this with other set els removed
 	 */

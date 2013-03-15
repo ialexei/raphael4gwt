@@ -1,0 +1,146 @@
+
+.userguide-nav {
+	padding: 30px 10px 0px 0px;
+	position: fixed; 
+/* 	height: 800px; */
+/* 	background-color: red;  */
+}
+
+/* text */
+.main-body H1 {
+	font-family: Georgia, serif;
+	font-size: 18px;
+	font-weight: bold;
+	color: #006600;
+	letter-spacing: 1.4px;
+	border-bottom: solid 1px #006600;
+	text-transform: uppercase;
+	margin: 1.1em 0 1.2em 0;
+}
+
+.main-body  H2 {
+	font-family: Georgia, serif;
+	font-size: 16px;
+	font-weight: normal;
+	letter-spacing: 1.2px;
+	color: #009900;	
+	margin: 1.05em 0 1.1em 0;
+}
+.main-body  H3 {
+	font-family: Georgia, serif;
+	font-size: 12px;
+	font-weight: normal;
+	letter-spacing: 1.2px;
+	color: #009900;	
+	margin: 1.05em 0 1.1em 0;
+}
+
+.main-body>* {
+	font-family: Verdana;
+	font-size: 11px;
+	color: #555555;
+	line-height: 1.5;
+	letter-spacing: .25px;
+	margin: 1.02em 0 1.05em 0;
+}
+}
+.main-body p {
+	margin: 6px 0px 6px 0px;
+}
+.main-body  BLOCKQUOTE {
+	font-family: Georgia, serif;
+	font-style: italic;
+	color: #444444;
+	letter-spacing: 1.25px;
+	line-height: 1.5;
+	background: #EEEEEE;
+	padding: 5px;
+	margin: auto 15px;
+}
+
+.main-body  A {
+	color: #006600;
+}
+.main-body  ABBR {
+	border-bottom: dotted 1px #006600;
+}
+
+
+.main-body  .code {
+	font-family: monospace; 
+	color: black; 
+	height: 100px;
+}
+
+.main-body  .codelarge {
+	height: 300px;
+}
+
+
+.main-body  pre {
+	overflow: scroll; 
+	font-size: 11px;
+	width: 100%; 
+}
+
+
+.header {
+/* 	background-color: #eded68; */
+	padding: 10px;
+	font-size: 28px;
+	font-weight: bold;
+	width: 100%;
+}
+
+.main-body  ul, .main-body  ol {
+	list-style-type:circle;
+	padding: 6px 0px 4px 6px;
+}
+.main-body  ul li, .main-body  ol li {	 
+	padding: 6px 0px 4px 6px;
+}
+
+.maintitle {
+	font-size: 32px;
+}
+.author {
+	float: right; 
+}
+.maincontent {
+	padding: 10px 10px 10px 8px;
+}
+
+.important {
+	font-size:16px;
+	font-weight: bold; 
+	margin-left: 50px;
+	background-color: #ffaaaa;
+}
+.note {
+	font-style:italic;
+	margin-left: 50px;
+	background-color: #ededed; 
+}
+.toc {
+	margin: 20px;
+}
+.toc a{
+	padding-top: 10px;
+	display: block; 
+}
+/* .uibinderuserguide-root { */
+/* 	display: block; */
+/* 	width: 100%; */
+/* } */
+
+/* .uibinderuserguide-root .main-header { */
+/* 	position: fixed;  */
+/* } */
+
+/* .uibinderuserguide-root .main { */
+/* 	padding: 30px; */
+/* } */
+
+/* .main-body { */
+/* 	overflow: scroll; */
+/*}*/

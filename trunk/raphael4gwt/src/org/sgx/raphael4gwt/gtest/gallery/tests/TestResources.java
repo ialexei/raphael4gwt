@@ -49,5 +49,8 @@ public interface TestResources extends ClientBundle {
 	  @Source("DonutChartTest1.java")
 	  public TextResource DonutChartTest1();
 	  
+	  @Source("CoxCombTest2.java")
+	  public TextResource CoxCombTest2();
+	  
 	  
 }

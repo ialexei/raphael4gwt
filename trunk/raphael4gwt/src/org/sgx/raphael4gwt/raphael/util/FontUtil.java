@@ -16,7 +16,7 @@ public class FontUtil {
 
 	public static void loadFont(TextResource fontJs) {
 		String text = fontJs.getText(); 
-		System.out.println("loadFont "+text.length());
+//		System.out.println("loadFont "+text.length());
 		ScriptInjector.fromString(text).setWindow(JsUtil.window()).inject();
 	}
 

@@ -1,11 +1,9 @@
 package org.sgx.raphael4gwt.gtest.gallery;
 
 import org.sgx.raphael4gwt.raphael.Paper;
-import org.sgx.raphael4gwt.raphael.PaperWidget;
-import org.sgx.raphael4gwt.raphael.event.PaperListener;
 import org.sgx.raphael4gwt.raphael.util.GUIUtil;
+import org.sgx.raphael4gwt.raphael.widget.PaperWidget;
 
-import com.google.gwt.dom.client.Style.BorderStyle;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -20,6 +18,7 @@ public class MainPanel extends VerticalPanel {
 	private static final int PAPER_WIDTH = 900;
 	private static final int PAPER_HEIGHT = 900;
 	private FlowPanel testEvent;
+//	private PaperWidgetOld paperWidget;
 	private PaperWidget paperWidget;
 	private HorizontalSplitPanel horizontalSplitPanel;
 	private FlowPanel testGeneral;
@@ -106,21 +105,33 @@ public class MainPanel extends VerticalPanel {
 		vp2.add(new Label("Test controls: "));
 		vp2.add(testPanel);
 		vp2.add(new Label("Test canvas: "));
-		paperWidget = new PaperWidget(PAPER_WIDTH, PAPER_HEIGHT, new PaperListener() {
-			
-			@Override
-			public void paperLoaded(Paper paper) {
-				/* the paper is loaded! so now we can instantiate all our tests */
-				MainPanel.this.paper=paper;
-//				native1(paper);
-				GalleryUtil.getInstance().loadAllTest(paperWidget.getPaper(), PAPER_WIDTH, PAPER_HEIGHT);
-				GalleryUtil.getInstance().doAddAllGeneralTests(testGeneral);
+		
+		paperWidget = new PaperWidget(PAPER_WIDTH, PAPER_HEIGHT); 
+		MainPanel.this.paper=paperWidget.getPaper(); //.createPaper(PAPER_WIDTH, PAPER_HEIGHT);
+		paperWidget.getPaper().rect(10,10,40,60,2);
+		vp2.add(paperWidget); 
+		
+		GalleryUtil.getInstance().loadAllTest(paperWidget.getPaper(), PAPER_WIDTH, PAPER_HEIGHT);
+		GalleryUtil.getInstance().doAddAllGeneralTests(testGeneral);		
+		GalleryUtil.getInstance().checkUrl();
 				
-				GalleryUtil.getInstance().checkUrl();
-			}
-		});
-		paperWidget.getElement().getStyle().setBorderStyle(BorderStyle.SOLID);
-		vp2.add(paperWidget);
+//		paperWidget = new PaperWidgetOld(PAPER_WIDTH, PAPER_HEIGHT, new PaperListener() {
+//			
+//			@Override
+//			public void paperLoaded(Paper paper) {
+//				/* the paper is loaded! so now we can instantiate all our tests */
+//				MainPanel.this.paper=paper;
+////				native1(paper);
+//				GalleryUtil.getInstance().loadAllTest(paperWidget.getPaper(), PAPER_WIDTH, PAPER_HEIGHT);
+//				GalleryUtil.getInstance().doAddAllGeneralTests(testGeneral);
+//				
+//				GalleryUtil.getInstance().checkUrl();
+//			}
+//		});
+//		paperWidget.getElement().getStyle().setBorderStyle(BorderStyle.SOLID);
+//		vp2.add(paperWidget);
+		
+		
 		horizontalSplitPanel.setRightWidget(vp2);
 		paperWidget.setSize("100%", "100%");
 		

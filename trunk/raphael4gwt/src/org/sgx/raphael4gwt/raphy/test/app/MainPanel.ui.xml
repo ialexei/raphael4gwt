@@ -1,0 +1,23 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" 
+    xmlns:g="urn:import:com.google.gwt.user.client.ui"
+    >
+    
+	<g:HTMLPanel>
+	    
+	    <h2>This is Raphy charts for Raphael4gwt Test examples. </h2>
+	    
+	    <h3>What is this</h3>
+	    
+	    <p>Inside project <a href="">raphael4gwt</a> there is a sub project, with a separate GWT module, 
+	        for doing <a href="">Raphy charts</a> in GWT (using the library raphael4gwt).</p>
+	    
+	    <p>Raphy charts uses raphael internally for drawing the charts, but do not expose any Raphael API to the user. The
+	        user works with HTML Elements only, not with raphael's paper or shapes. </p>
+	        
+	    <p>Chart example: </p>
+	    
+	    <div ui:field="linechart1El"></div>
+	   
+	</g:HTMLPanel>
+</ui:UiBinder> 

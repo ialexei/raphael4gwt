@@ -1,9 +1,8 @@
 package org.sgx.raphael4gwt.test;
 
 import org.sgx.raphael4gwt.raphael.Paper;
-import org.sgx.raphael4gwt.raphael.PaperWidget;
-import org.sgx.raphael4gwt.raphael.Raphael;
 import org.sgx.raphael4gwt.raphael.util.Util;
+import org.sgx.raphael4gwt.raphael.widget.PaperWidget;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 
 public abstract class Test {

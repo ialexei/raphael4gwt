@@ -6,6 +6,9 @@ package org.sgx.raphael4gwt.graphael.coxcomb;
  *
  */
 public class CoxCombDataColors extends CoxCombDataColor {
+	public static final native CoxCombDataColors create()/*-{
+	return {}; 
+	}-*/;
 	protected CoxCombDataColors() {
 	}
 
@@ -94,7 +97,7 @@ public class CoxCombDataColors extends CoxCombDataColor {
 	 * @param val
 	 * @return this - for setter chaining
 	 */
-	public native final CoxCombDataColors byCategory(JsMap<CoxCombDataColor> val) /*-{
+	public native final CoxCombDataColors byCategory(JsMap val) /*-{
 		this["byCategory"] = val;
 		return this;
 	}-*/;

@@ -72,7 +72,37 @@ public void onModuleLoad() {
 }}}
 
 
-==Creating a paper and in a div using GWT dom (no widgets)==
+==Creating a paper Using PaperWidget==
+
+raphael4gwt comes with a basic GWT Widget that host a Paper. This is nice when using GWTWidgets and raphael4gwt. Only the paper is the widget; shapes you draw are not widgets: 
+
+{{{
+
+/**
+ * a gwt entry points that use PaperWidget for showing a raphael paper on it, with other gwt widgets.
+ * @author sg
+ */
+public class Raphael4GwtTestAlone implements EntryPoint{
+
+	@Override
+	public void onModuleLoad() {
+		
+		PaperWidget paperWidget = new PaperWidget(PAPER_WIDTH, PAPER_HEIGHT); 
+		
+		RootPanel.get().add(paperWidget); 
+
+                //draw something
+		Paper paper=paperWidget.getPaper();
+		paper.rect(10,10,40,60,2);
+	}
+}
+}}}
+
+
+
+
+
+==Creating a paper GWT dom (no widgets)==
 
 Normally you want to create the raphael paper inside an existing HTML element. For that we pass the element id or the HTML element it self to the Raphael method. In the following example, we create an HTML element and then a Raphael paper inside it. We manipulate the HTML DOM using gwt.dom.client. IMPORTANT: the HTML Element must be attached to the document before creating a Raphael paper on it: 
 
@@ -147,69 +177,6 @@ public class Raphael4GwtTestAloneSimple implements EntryPoint {
 		Circle circle1 = paper.circle(150, 150, 40);
 		circle1.setAttribute("fill", "red");	
 	}	
-}
-}}}
-
-==Using PaperWidget==
-
-But the following is the recommended way of including a Raphael Paper in a GWT Widget based project: we use the PaperWidget class, a GWT WIdget that contains a paper inside. Only the paper is the widget; shapes you draw are not widgets: 
-
-{{{
-
-package org.sgx.raphael4gwt.test;
-
-import org.sgx.raphael4gwt.raphael.Circle;
-import org.sgx.raphael4gwt.raphael.Paper;
-import org.sgx.raphael4gwt.raphael.PaperWidget;
-import org.sgx.raphael4gwt.raphael.event.PaperListener;
-
-import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
-
-/**
- * a gwt entry points that use PaperWidget for showing a 
- * raphael paper in it, with other gwt widgets.
- * @author sg
- */
-public class Raphael4GwtTestAlone implements EntryPoint, PaperListener {
-
-	String attr1 = "world";
-	private PaperWidget paper;
-	
-	@Override
-	public void onModuleLoad() {
-		
-		VerticalPanel vp = new VerticalPanel();		
-		
-		//some gwt buttons
-		FlowPanel toolbar = new FlowPanel();
-		toolbar.add(new Button("action1"));
-		toolbar.add(new Button("action2"));
-		vp.add(toolbar);
-		
-		paper = new PaperWidget(600, 600, this);
-		paper.setSize("100%", "100%");
-		vp.add(paper);
-		
-		/* note: the followind attach all gwt widgets 
-		 * elements to the DOM document. raphaeljs requires to create a paper 
-		 * in a html element that is attached to document, but because WidgetPanel
-		 * do creates the paper asynchronously and only at Widget:onload()
-		 * we can safely create the WidgetPanel before attach parent to document.
-		 */
-		RootPanel.get().add(vp); 
-	}
-	
-	@Override
-	public void paperLoaded(Paper paper) {
-		//raphael's paper is ready to draw in:
-		final Circle circle1 = paper.circle(150, 150, 40);
-		circle1.setAttribute("fill", "red");		
-	}
-
 }
 }}}
 

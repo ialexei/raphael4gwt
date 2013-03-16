@@ -23,6 +23,9 @@ public class PathMenuOpts extends JsObject {
 	protected PathMenuOpts() {
 	}
 
+public static native final PathMenuOpts create() /*-{
+	return {};
+}-*/;
 	/**
 	 * main_circle_radius size of main menu circle. default 70
 	 * 

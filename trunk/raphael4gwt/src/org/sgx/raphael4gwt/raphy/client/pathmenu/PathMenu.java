@@ -1,8 +1,8 @@
 package org.sgx.raphael4gwt.raphy.client.pathmenu;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import org.sgx.raphael4gwt.raphy.client.RaphyChart;
 
-public class PathMenu extends JavaScriptObject{
+public class PathMenu extends RaphyChart{
 protected PathMenu(){}
 public final native PathMenu add(PathMenuItem item)/*-{
 	this.add(item); 

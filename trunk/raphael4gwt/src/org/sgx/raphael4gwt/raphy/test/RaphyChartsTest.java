@@ -9,6 +9,7 @@ import org.sgx.raphael4gwt.raphy.test.app.MainPanel;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.Timer;
@@ -16,35 +17,30 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
-public class RaphyChartsTestNoScript implements EntryPoint {
+public class RaphyChartsTest implements EntryPoint {
 
 //	boolean ready=false;
 
 	@Override
 	public void onModuleLoad() {
-		    
-		RaphyChartsLoader.loadRaphy(new RaphyChartsLoader.Listener() {			
-			@Override
-			public void loaded(Exception error) {
-				if(error!=null) {
-					Window.alert("ERROR loading Raphy: "+error);
-					error.printStackTrace(); 
-				}
-				else {
-					start();
-				}
-			}
-		}); 
-
-	}
-
-	protected void start() {
+//		doLineChart();
 		RootPanel.get().add(new MainPanel()); 
-//		drawChart1(); 
-//		drawNative(); 
-		
 	}
-	
+
+	private void doLineChart() {
+		DivElement e = Document.get().createDivElement(); 
+		Document.get().getBody().appendChild(e);
+		e.getStyle().setProperty("width", "400px");
+		e.getStyle().setProperty("height", "300px");
+
+		// create and draw a line chart from previous element
+		LineChart chart = Charts.LineChart(e);
+		chart.add_line(Line.create().data(
+				new double[][] { { 1, 828906 }, { 2, 566933 }, { 3, 584150 }, { 4, 1072143 }, { 5, 1622455 },
+						{ 6, 2466746 }, { 7, 2427789 } }));
+		chart.draw();
+	}
+
 	
 
 //	private final native void drawNative()/*-{

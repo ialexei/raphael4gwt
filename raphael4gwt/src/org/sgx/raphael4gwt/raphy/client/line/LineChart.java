@@ -1,8 +1,8 @@
 package org.sgx.raphael4gwt.raphy.client.line;
 
-import org.sgx.raphael4gwt.raphy.client.Chart;
+import org.sgx.raphael4gwt.raphy.client.RaphyChart;
 
-public class LineChart extends Chart {
+public class LineChart extends RaphyChart {
 	protected LineChart() {
 	}
 

@@ -1,23 +1,139 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" 
     xmlns:g="urn:import:com.google.gwt.user.client.ui"
+    xmlns:app="urn:import:org.sgx.raphael4gwt.raphy.test.app"    
     >
+    
+    <ui:style>
+.title1 {
+   font-size: 22px;
+   font-weight: bold;
+}
+    </ui:style>
     
 	<g:HTMLPanel>
 	    
-	    <h2>This is Raphy charts for Raphael4gwt Test examples. </h2>
+	    <p class="{style.title1}">Raphy Charts on GWT through raphael4gwt</p>
+	    <p>This document is Raphy charts for Raphael4gwt Test examples and User Guide. </p>
 	    
-	    <h3>What is this</h3>
+	    <p>Author: <i><a href="http://code.google.com/p/raphael4gwt/">Sebastián Gurin</a></i></p>
 	    
-	    <p>Inside project <a href="">raphael4gwt</a> there is a sub project, with a separate GWT module, 
-	        for doing <a href="">Raphy charts</a> in GWT (using the library raphael4gwt).</p>
+	    <h2>Table of Contents</h2>
+	    <div ui:field="toc"></div>
+	    
+	    <h2>Introduction</h2>
+	    
+	    <p>Inside project <a href="http://code.google.com/p/raphael4gwt/">raphael4gwt</a> there is a sub project, with a separate GWT module, 
+	        for doing <a href="http://softwarebyjosh.com/raphy-charts/">Raphy charts</a> in GWT (using the library raphael4gwt).</p>
 	    
 	    <p>Raphy charts uses raphael internally for drawing the charts, but do not expose any Raphael API to the user. The
 	        user works with HTML Elements only, not with raphael's paper or shapes. </p>
+	       
+	    <p>The following are examples of using each kind of raphy charts. You have the 
+	        chart at the left, anda "See Sources" button at the right for talking a 
+	        look at the Java sources that build that particular chart kind. </p>
 	        
-	    <p>Chart example: </p>
+	    <h2>Using it</h2>
 	    
-	    <div ui:field="linechart1El"></div>
+	    <p>Here we will describe what it is neccesary to use Raphy Charts in your GWT projects throght raphael4gwt. </p>
+	        
+	    <ol>
+	        <li><b>Add the raphael4gwt.jar. </b>Download the latest version from the Download Section, copy it to your GWT project's war/WEB-INF/lib folder and add it to the project's Java class path. </li>
+	        <li><b>inherith the module</b>. Add the following line to the GWT module gwt.xml in which you desire to use raphy charts:<br/> 
+	        <pre>
+&lt;inherits name="org.sgx.raphael4gwt.raphy.RaphyCharts" /&gt;
+	        </pre>
+	        </li>
+	        
+	        <li><b>Ready to use, </b> for example this is a valid Entry Point class: 
+	            <pre>
+public class RaphyChartsTest implements EntryPoint {
+
+@Override
+public void onModuleLoad() {
+	DivElement e = Document.get().createDivElement(); 
+	Document.get().getBody().appendChild(e);
+	e.getStyle().setProperty("width", "400px");
+	e.getStyle().setProperty("height", "300px");
+
+	// create and draw a line chart from previous element
+	LineChart chart = Charts.LineChart(e);
+	chart.add_line(Line.create().data(
+			new double[][] { { 1, 828906 }, { 2, 566933 }, { 3, 584150 }, { 4, 1072143 }, { 5, 1622455 },
+					{ 6, 2466746 }, { 7, 2427789 } }));
+	chart.draw();
+}
+
+}
+	            </pre>
+	            
+	        </li>	        
+	    </ol>
+	    
+	    <h2>Loading the library dynamically</h2>
+	    
+	    <p>Just like raphael4gwt modules, raphy charts support a second "NoScript" module
+	        that will not load any javascript required code automatically for minimizing js code initial size. </p>
+	    
+	    <p>The stepsfor using it are the same as above but changing the last two with:</p>
+	    
+ <ol>
+	        <li><b>Add the raphael4gwt.jar. </b>Download the latest version from the Download Section, copy it to your GWT project's war/WEB-INF/lib folder and add it to the project's Java class path. </li>
+	        <li><b>inherith the module</b>. Add the following line to the GWT module gwt.xml in which you desire to use raphy charts:<br/> 
+	        <pre>
+&lt;inherits name="org.sgx.raphael4gwt.raphy.RaphyChartsNoScript" /&gt;
+	        </pre>
+	        </li>
+	        
+	        <li><b>Load the library explicitly for using it </b>. Before using the Raphy Java API, 
+	            we must load the library. In the following Entry Point class we use he uility RaphyChartsLoader 
+	            class for that: 
+	            <pre>
+public class RaphyChartsTestNoScript implements EntryPoint {
+
+@Override
+public void onModuleLoad() {		    
+	RaphyChartsLoader.loadRaphy(new RaphyChartsLoader.Listener() {			
+		@Override
+		public void loaded(Exception error) {
+			if(error!=null) {
+				Window.alert("ERROR loading Raphy: "+error);
+				error.printStackTrace(); 
+			}
+			else {
+				/* now we can start drawing raphy charts, like in the previous entry point class */
+			}
+		}
+	}); 
+}
+
+}
+	            </pre>
+	            
+	        </li>	        
+	    </ol>
+	    
+	    <h2>Examples with Java sources</h2>
+	    
+	    <h3>Line Chart Example</h3>	    
+	    <app:RunTest testName="LineChartTest1" ></app:RunTest>
+
+		<h3>Path Menu Charts example. </h3>
+	    <app:RunTest testName="PathMenuTest1" ></app:RunTest>
+	    
+	    
+		<h3>Bar Charts example. </h3>
+	    <app:RunTest testName="BarChartTest1" ></app:RunTest>
+	    
+	    
+		<h3>Index Charts example. </h3>
+	    <app:RunTest testName="IndexChartTest1" ></app:RunTest>
+	    
+	    
+		<h3>Circle Progress Charts example. </h3>
+	    <app:RunTest testName="CircleProgressChartTest1" ></app:RunTest>
+	    
+	    
 	   
 	</g:HTMLPanel>
 </ui:UiBinder> 

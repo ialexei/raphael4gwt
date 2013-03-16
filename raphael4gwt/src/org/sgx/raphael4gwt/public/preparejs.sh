@@ -69,11 +69,14 @@ cp $ALL-min.js ../raphael/scripts
 #sh preparejs.sh
 #cd ..
 
-
-#cat raphael-min.js > raphycharts-all-min.js
-cat raphycharts-min.js > raphycharts-all-min.js
+rm -rf raphycharts-all-min.js
+#cat raphael-min.js >> raphycharts-all-min.js
+#cat $ALL-min.js >> raphycharts-all-min.js
+cat raphycharts-min.js >> raphycharts-all-min.js
 cp raphycharts-all-min.js ../raphy/client/scripts
 
-#cat raphael.js > raphycharts-all.js
-cat raphycharts.js > raphycharts-all.js
+rm -rf raphycharts-all.js
+#cat raphael.js >> raphycharts-all.js
+#cat $ALL.js >> raphycharts-all.js
+cat raphycharts.js >> raphycharts-all.js
 cp raphycharts-all.js ../raphy/client/scripts

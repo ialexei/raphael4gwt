@@ -3,11 +3,16 @@ package org.sgx.raphael4gwt.raphy.client.pathmenu;
 import java.util.Collection;
 
 import org.sgx.raphael4gwt.raphael.jsutil.JsObject;
+import org.sgx.raphael4gwt.raphy.client.line.LineChartOpts;
 
 import com.google.gwt.core.client.JsArray;
 
 public class PathMenuItem extends JsObject {
 protected PathMenuItem(){}
+
+public static native final PathMenuItem create() /*-{
+	return {};
+}-*/;
 /**
  * 
  * @return
@@ -68,5 +73,13 @@ public native final PathMenuItem children(JsArray<PathMenuItem> val) /*-{
 this["children"] = val; 
 return this; 
 }-*/;
-
+/**
+ * 
+ * @param val
+ * @return this - for setter chaining
+ */
+public native final PathMenuItem children(PathMenuItem[] val) /*-{
+this["children"] = @org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([Lcom/google/gwt/core/client/JavaScriptObject;)(val); 
+return this; 
+}-*/;
 }

@@ -11,11 +11,11 @@ protected AbstractRaphyTest(String name, String description) {
 	this.name = name;
 	this.description = description;
 }
-protected void clear(Element root) {
-	while (root.hasChildNodes()) {
-	    root.removeChild(root.getLastChild());
-	}
-}
+//protected void clear(Element root) {
+//	while (root.hasChildNodes()) {
+//	    root.removeChild(root.getLastChild());
+//	}
+//}
 
 
 public String getName() {

@@ -47,7 +47,7 @@ this["bar_width"] = val;
 return this; 
 }-*/;
 	/**
-	 * 
+	 * render a background grid
 	 * @return
 	 */
 	public native final boolean show_grid() /*-{
@@ -55,7 +55,7 @@ return this;
 	}-*/;
 
 	/**
-	 * 
+	 * render a background grid
 	 * @param val
 	 * @return this - for setter chaining
 	 */

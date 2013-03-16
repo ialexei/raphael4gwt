@@ -5,5 +5,5 @@
 
 	<source path="client" />
 
-	<entry-point class="org.sgx.raphael4gwt.raphy.client." />
+	<entry-point class="org.sgx.raphael4gwt.raphy.client.RaphyChartsEntryPoint" />
 </module>

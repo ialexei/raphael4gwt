@@ -48,6 +48,18 @@ public class CoxCombTest2 extends Test {
 					.opacity(0.8)
 					.color("#00ed55")
 					.fontColor("#000000")
+				)
+				.put("SOs", 
+					CoxCombDataColors.create()
+					.opacity(0.8)
+					.color("#00edff")
+					.fontColor("#0000ff")
+				)
+				.put("Testing", 
+					CoxCombDataColors.create()
+					.opacity(0.8)
+					.color("#ffed55")
+					.fontColor("#ff0000")
 				))
 			.opacity( 0.8).fontColor("#ffffff").cast();
 		
@@ -60,11 +72,18 @@ public class CoxCombTest2 extends Test {
 			)
 			.put("J2EE Frameworks", JsMapDouble.create()
 				.put("spring", 7)
-				.put("hibernate", 7)
-				.put("struts", 7)
-				
+				.put("hibernate", 8)
+				.put("struts", 5)
+			)
+			.put("SOs", JsMapDouble.create()
+				.put("GNU/Linux", 7)
+				.put("Windows Server 2000", 4)
+			)		
+			.put("Testing", JsMapDouble.create()
+				.put("JUnit", 8)
+				.put("jMeter", 5)
+				.put("selenium", 7)
 			);
-		
 		
 		CoxCombData data1 = CoxCombData.create().colors(colors).data(data );
 		
@@ -82,8 +101,7 @@ public class CoxCombTest2 extends Test {
 					}
 				});
 		getGPaper().clear(); 
-		getGPaper().coxCombChart(200, 200, 200, data1, opts);
-		getGPaper().coxCombChart(200, 200, 200, data1, opts);
+		getGPaper().coxCombChart(200, 180, 200, data1, opts);
 	}
 
 

@@ -86,7 +86,7 @@ public void test() {
             		bar.getValue() + "", 0, 8);
         }
     };
-    hbarchart2 = getGPaper().hbarchart(440, 10, 200, 220, stackedData, new BarOpts(true, BarOpts.TYPE_SOFT));
+    hbarchart2 = getGPaper().hbarchart(300, 10, 200, 220, stackedData, new BarOpts(true, BarOpts.TYPE_SOFT));
     hbarchart2.hover(hoverHandlerStacked);
 
 }

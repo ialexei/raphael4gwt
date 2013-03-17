@@ -8,6 +8,7 @@ import org.sgx.raphael4gwt.raphy.test.tests.CircleProgressChartTest1;
 import org.sgx.raphael4gwt.raphy.test.tests.IndexChartTest1;
 import org.sgx.raphael4gwt.raphy.test.tests.LineChartTest1;
 import org.sgx.raphael4gwt.raphy.test.tests.PathMenuTest1;
+import org.sgx.raphael4gwt.raphy.test.tests.gr.*;
 
 public class RaphyTestHome {
 private static RaphyTestHome instance;
@@ -41,8 +42,19 @@ private void initTests() {
 	alltests.add(new PathMenuTest1());
 	alltests.add(new BarChartTest1());
 	alltests.add(new IndexChartTest1());
-	alltests.add(new CircleProgressChartTest1());	
+	alltests.add(new CircleProgressChartTest1());
+	alltests.add(new GRPieChartTest1());
+	alltests.add(new GRBarChartTest1());
+	alltests.add(new GRDonutChartTest1());
+	alltests.add(new GRCoxcombChartTest1());
+	alltests.add(new GRDotChartTest1());
+	alltests.add(new GRLineChartTest1());
+	alltests.add(new GRRadarChartTest1());
+	alltests.add(new GRRaphalyticsChartTest1());
+	alltests.add(new GRSunBurstChartTest1());
+	
 }
 
 }
+
 

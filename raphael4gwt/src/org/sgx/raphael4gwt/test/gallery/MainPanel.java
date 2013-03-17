@@ -110,7 +110,7 @@ public class MainPanel extends VerticalPanel {
 		
 		paperWidget = new PaperWidget(PAPER_WIDTH, PAPER_HEIGHT); 
 		MainPanel.this.paper=paperWidget.getPaper(); //.createPaper(PAPER_WIDTH, PAPER_HEIGHT);
-		paperWidget.getPaper().rect(10,10,40,60,2);
+//		paperWidget.getPaper().rect(10,10,40,60,2);
 		vp2.add(paperWidget); 
 		
 		GalleryUtil.getInstance().loadAllTest(paperWidget.getPaper(), PAPER_WIDTH, PAPER_HEIGHT);

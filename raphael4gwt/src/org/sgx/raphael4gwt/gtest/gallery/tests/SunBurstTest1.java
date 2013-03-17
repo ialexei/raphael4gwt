@@ -51,7 +51,7 @@ public void test() {
        	       "45-#1D0DFF-#1D0DFF"});
 	opts.setLevelWidths(new int[]{25, 75, 50, 40, 30});	
 	
-	SunBurstChart sunburst1 = getGPaper().sunburst(300,300, c, opts);
+	SunBurstChart sunburst1 = getGPaper().sunburst(230,240, c, opts);
 	
 	sunburst1.hover(new SunBurstHoverListener() {		
 		@Override

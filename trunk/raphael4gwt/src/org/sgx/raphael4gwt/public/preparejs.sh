@@ -17,6 +17,10 @@ java -jar $YUIC --line-break 1200 -o raphael4gwt-min.js raphael4gwt.js
 
 java -jar $YUIC --line-break 1200 -o raphycharts-min.js raphycharts.js
 
+java -jar $YUIC --line-break 1200 -o moment-min.js moment.js
+java -jar $YUIC --line-break 1200 -o raphael-gantt-min.js raphael-gantt.js
+
+
 echo "
 /* raphael.js */
 " > $ALL-min.js
@@ -69,14 +73,18 @@ cp $ALL-min.js ../raphael/scripts
 #sh preparejs.sh
 #cd ..
 
+
+moment-min.js moment.js
+java -jar $YUIC --line-break 1200 -o raphael-gantt-min.js raphael-gantt.js
+
 rm -rf raphycharts-all-min.js
-#cat raphael-min.js >> raphycharts-all-min.js
-#cat $ALL-min.js >> raphycharts-all-min.js
+cat moment-min.js >> raphycharts-all-min.js
+cat raphael-gantt-min.js >> raphycharts-all-min.js
 cat raphycharts-min.js >> raphycharts-all-min.js
 cp raphycharts-all-min.js ../raphy/client/scripts
 
 rm -rf raphycharts-all.js
-#cat raphael.js >> raphycharts-all.js
-#cat $ALL.js >> raphycharts-all.js
+cat moment.js >> raphycharts-all.js
+cat raphael-gantt.js >> raphycharts-all.js
 cat raphycharts.js >> raphycharts-all.js
 cp raphycharts-all.js ../raphy/client/scripts

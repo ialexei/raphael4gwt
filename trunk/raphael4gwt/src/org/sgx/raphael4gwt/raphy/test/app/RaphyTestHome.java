@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.sgx.raphael4gwt.raphy.test.tests.BarChartTest1;
 import org.sgx.raphael4gwt.raphy.test.tests.CircleProgressChartTest1;
+import org.sgx.raphael4gwt.raphy.test.tests.GanttChartTest1;
 import org.sgx.raphael4gwt.raphy.test.tests.IndexChartTest1;
 import org.sgx.raphael4gwt.raphy.test.tests.LineChartTest1;
 import org.sgx.raphael4gwt.raphy.test.tests.PathMenuTest1;
@@ -52,6 +53,7 @@ private void initTests() {
 	alltests.add(new GRRadarChartTest1());
 	alltests.add(new GRRaphalyticsChartTest1());
 	alltests.add(new GRSunBurstChartTest1());
+	alltests.add(new GanttChartTest1());
 	
 }
 

@@ -24,8 +24,6 @@ public class BarChartTest1 extends AbstractRaphyTest {
 
 	@Override
 	public void test(Element parent) {
-//		clear(parent);
-
 		// create a div for the first chart. set dimensions
 		DivElement e = Document.get().createDivElement();
 		parent.appendChild(e);

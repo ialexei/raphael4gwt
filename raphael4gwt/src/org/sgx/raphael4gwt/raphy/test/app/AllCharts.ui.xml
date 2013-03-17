@@ -77,5 +77,10 @@
 		<h3>Circle Progress </h3>
 		<app:RunTest testName="CircleProgressChartTest1"></app:RunTest>
 
+
+		<h3>Gantt</h3>
+		<app:RunTest testName="GanntChartTest1"></app:RunTest>
+		
+	
 	</g:HTMLPanel>
 </ui:UiBinder> 

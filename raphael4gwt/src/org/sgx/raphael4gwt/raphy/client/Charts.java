@@ -2,6 +2,7 @@ package org.sgx.raphael4gwt.raphy.client;
 
 import org.sgx.raphael4gwt.raphy.client.pathmenu.PathMenu;
 import org.sgx.raphael4gwt.raphy.client.pathmenu.PathMenuOpts;
+import org.sgx.raphael4gwt.raphy.client.gantt.GanttChart;
 import org.sgx.raphael4gwt.raphy.client.index.IndexChartOpts;
 import org.sgx.raphael4gwt.raphy.client.line.LineChart;
 import org.sgx.raphael4gwt.raphy.client.line.LineChartOpts;
@@ -107,5 +108,14 @@ public class Charts {
 	
 	public static final native CircleProgressChart CircleProgressChart(String id, String label, int percentage, IndexChartOpts opts)/*-{
 		return new $wnd.Charts.CircleProgress(id, label, percentage, opts);
+	}-*/;
+	
+	
+	//Gantt
+	public static final native GanttChart GanttChart(Element el)/*-{
+		return new $wnd.GanttChart(el);
+	}-*/;
+	public static final native GanttChart GanttChart(String el)/*-{
+		return new $wnd.GanttChart(el);
 	}-*/;
 }

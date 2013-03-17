@@ -21,6 +21,9 @@ public interface RaphyTestResources extends ClientBundle {
 	
 	@Source("CircleProgressChartTest1.java")
 	public ExternalTextResource CircleProgressChartTest1();
+
+	@Source("GanntChartTest1.java")
+	public ExternalTextResource GanntChartTest1();
 	
 	
 	//g.raphael

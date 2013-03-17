@@ -29,6 +29,9 @@ public class RunTest extends Composite {
 	String testName;
 	@UiField
 	Element containerEl;
+
+	@UiField
+	Element descEl;
 	@UiField
 	Button seeSourcesButton;
 
@@ -53,9 +56,11 @@ public class RunTest extends Composite {
 
 	private void doRunTest() {
 		RaphyTest test = RaphyTestHome.getInstance().getByName(testName);
-		if(test!=null)
+		if(test!=null) {
 			test.test(containerEl);
-		//TODO: else
+			descEl.setInnerHTML(test.getDescription()); 
+		}
+		//TODO: else	
 	}
 
 	protected void doSeeSources() {

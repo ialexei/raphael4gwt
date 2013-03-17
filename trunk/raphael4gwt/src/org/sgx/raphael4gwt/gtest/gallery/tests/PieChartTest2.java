@@ -60,17 +60,6 @@ public class PieChartTest2 extends Test {
 			}	
 		});
 		
-		//a simple example of using sectorEach() for iterating through pie chart sectors
-		final StringBuffer sb = new StringBuffer("sectors labels: ");
-		piechart.each(new PieSectorCallback() {			
-			@Override
-			public void call(PieSector ctx) {
-				if(ctx.getLabelText()!=null) {
-					sb.append(ctx.getLabelText().getAttribute("text")+", ");
-				}
-			}
-		});
-		Window.alert(sb.toString());
 	}
 
 	//test class stuff

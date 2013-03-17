@@ -28,7 +28,7 @@ public class RaphyChartsLoader {
 	public static interface RaphyScripts extends ClientBundle {
 		public static RaphyScripts instance = GWT.create(RaphyScripts.class);
 		
-		@Source("scripts/raphycharts-all.js")
+		@Source("scripts/raphycharts-all-min.js")
 		ExternalTextResource raphyCharts();
 	}
 

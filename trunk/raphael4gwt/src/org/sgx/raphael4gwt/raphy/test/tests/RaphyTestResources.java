@@ -22,4 +22,33 @@ public interface RaphyTestResources extends ClientBundle {
 	@Source("CircleProgressChartTest1.java")
 	public ExternalTextResource CircleProgressChartTest1();
 	
+	
+	//g.raphael
+	@Source("../../../gtest/gallery/tests/PieChartTest2.java")
+	public ExternalTextResource GRPieChartTest2();
+	
+	@Source("../../../gtest/gallery/tests/BarChartTest2.java")
+	public ExternalTextResource GRBarChartTest2();
+	
+	@Source("../../../gtest/gallery/tests/DonutChartTest1.java")
+	public ExternalTextResource GRDonutChartTest1();
+	
+	@Source("../../../gtest/gallery/tests/CoxCombTest2.java")
+	public ExternalTextResource GRCoxCombTest2();
+	
+	@Source("../../../gtest/gallery/tests/DotChartTest1.java")
+	public ExternalTextResource GRDotChartTest1();
+	
+	@Source("../../../gtest/gallery/tests/LineChartTest1.java")
+	public ExternalTextResource GRLineChartTest1();
+	
+	@Source("../../../gtest/gallery/tests/RadarTest2.java")
+	public ExternalTextResource GRRadarTest2();
+	
+	@Source("../../../gtest/gallery/tests/RaphalyticsTest1.java")
+	public ExternalTextResource GRRaphalyticsTest1();
+	
+	@Source("../../../gtest/gallery/tests/SunBurstTest1.java")
+	public ExternalTextResource GRSunBurstTest1();
+	
 }

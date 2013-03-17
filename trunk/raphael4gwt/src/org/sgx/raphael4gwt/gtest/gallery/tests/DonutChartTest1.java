@@ -25,7 +25,7 @@ public class DonutChartTest1 extends Test {
 		double[] vals = new double[]{55, 20, 13, 32, 1, 5};
 		String[] legends = {"Batman", "Superman", "Spiderman", "Lafayette", "Jim Morrison", "Alex de la Iglesia"}; 
 		
-		GShape chart = getGPaper().donutChart(200, 200, 120, 50, vals, legends, "#000000"); 
+		GShape chart = getGPaper().donutChart(200, 180, 120, 50, vals, legends, "#000000"); 
 		
 	}
 

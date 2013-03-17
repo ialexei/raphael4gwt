@@ -1,0 +1,81 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:app="urn:import:org.sgx.raphael4gwt.raphy.test.app">
+
+	<ui:style>
+		.title1 {
+			font-size: 22px;
+			font-weight: bold;
+		}
+	</ui:style>
+
+	<g:HTMLPanel>
+
+		<p class="{style.title1}">All Charts types supported by raphaelgwt</p>
+		<p>
+			This document shows all the charts types supported by
+			<a href="http://code.google.com/p/raphael4gwt/">raphael4gwt</a>
+		</p>
+
+		<p>
+			Author:
+			<i>
+				<a href="http://code.google.com/p/raphael4gwt/">Sebastián Gurin</a>
+			</i>
+		</p>
+
+		<h2>Table of Contents</h2>
+		<div ui:field="toc"></div>
+
+		<h2>GRaphael charts</h2>
+
+		<h3>Pie </h3>
+		<app:RunTest testName="GRPieChartTest1"></app:RunTest>
+
+		<h3>Bar </h3>
+		<app:RunTest testName="GRBarChartTest1"></app:RunTest>
+
+		<h3>Coxcomb </h3>
+		<app:RunTest testName="GRCoxcombChartTest1"></app:RunTest>
+
+		<h3>Dot </h3>
+		<app:RunTest testName="GRDotChartTest1"></app:RunTest>
+
+		<h3>Line </h3>
+		<app:RunTest testName="GRLineChartTest1"></app:RunTest>
+
+		<h3>Radar </h3>
+		<app:RunTest testName="GRRadarChartTest1"></app:RunTest>
+
+		<h3>Raphalytics (line)</h3>
+		<app:RunTest testName="GRRaphalyticsChartTest1"></app:RunTest>
+
+		<h3>Sun Burnst</h3>
+		<app:RunTest testName="GRSunBurstChartTest1"></app:RunTest>
+
+		<h3>Donut  </h3>
+		<app:RunTest testName="GRDonutChartTest1"></app:RunTest>
+
+
+
+		<h2>Raphy </h2>
+
+		<h3>Line  </h3>
+		<app:RunTest testName="LineChartTest1"></app:RunTest>
+
+		<h3>Path Menu </h3>
+		<app:RunTest testName="PathMenuTest1"></app:RunTest>
+
+
+		<h3>Bar   </h3>
+		<app:RunTest testName="BarChartTest1"></app:RunTest>
+
+
+		<h3>Index   </h3>
+		<app:RunTest testName="IndexChartTest1"></app:RunTest>
+
+
+		<h3>Circle Progress </h3>
+		<app:RunTest testName="CircleProgressChartTest1"></app:RunTest>
+
+	</g:HTMLPanel>
+</ui:UiBinder> 

@@ -132,8 +132,6 @@ public void onModuleLoad() {
 	    
 		<h3>Circle Progress Charts example. </h3>
 	    <app:RunTest testName="CircleProgressChartTest1" ></app:RunTest>
-	    
-	    
 	   
 	</g:HTMLPanel>
 </ui:UiBinder> 

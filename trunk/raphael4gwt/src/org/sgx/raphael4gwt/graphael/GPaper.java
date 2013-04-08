@@ -79,7 +79,7 @@ public final native PieChart piechart(double x, double y, double r,
 public final native PieChart piechart(double x, double y, double r,  
 		double[] vals)/*-{
 	return this.piechart(x, y, r, 
-		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([I)(vals),
+		@org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsArray([D)(vals),
 		{}
 	);
 }-*/;

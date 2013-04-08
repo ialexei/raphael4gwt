@@ -6,9 +6,9 @@
 	
 	<inherits name='com.google.gwt.user.theme.clean.Clean' />
 	
-	<inherits name="org.sgx.raphael4gwt.raphy.RaphyCharts" />
+	<inherits name="org.sgx.raphael4gwt.raphy.RaphyChartsNoScriptTest" />
 	
-	<inherits name="org.sgx.raphael4gwt.GRaphael4Gwt" />
+	<inherits name="org.sgx.raphael4gwt.GRaphael4GwtTest" />
 
 
 	<source path="raphy" />

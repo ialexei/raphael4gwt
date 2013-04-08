@@ -485,7 +485,11 @@ public static native boolean isPointInsidePath(String path, double x, double y)/
 public static native String mapPath(String path, Matrix m)/*-{
 	return $wnd.Raphael.mapPath(path, x, y);
 }-*/;
-
+public static native String transformPath(String path, String transform)/*-{
+var r = $wnd.Raphael.transformPath(path, transform); 
+//$wnd.alert(r)	
+return r+"";
+}-*/;
 
 //parsing utilities
 /**

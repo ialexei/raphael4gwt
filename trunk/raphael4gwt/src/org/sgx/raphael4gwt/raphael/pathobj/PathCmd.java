@@ -6,7 +6,7 @@ import com.google.gwt.core.client.JsArrayMixed;
  * the path command ["l", 20, 0, 0, 20, 50, 5] is a path command moveto with 3 
  * pathcmddata (20, 0) , (0, 20) and (50,5) 
  * 
- * @author sebastian
+ * @author sg
  *
  */
 public class PathCmd extends JsArrayMixed {

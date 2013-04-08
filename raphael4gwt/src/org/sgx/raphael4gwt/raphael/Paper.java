@@ -540,6 +540,20 @@ txt[0].attr({fill: "#f00"});
 	public final native Set set()/*-{
 		return this.set();
 	}-*/;
+	
+	/**
+	 * 
+	 * @return all shapes in this paper as a Set
+	 */
+	public final native Set allShapes()/*-{
+		var set = this.set();
+		var bot = this.bottom;
+		while(bot) {
+			set.push(bot);
+			bot = bot.next;
+		}
+		return set;
+	}-*/;
 
 	public final native void setStart()/*-{
 		this.setStart();

@@ -30,6 +30,7 @@ public class AnimTransformAndPathTest1 extends Test {
 			"transform", "t400,400,s4.0,4.0"
 		);
 		
+		
 		alarm1.attr(now);
 		Animation animation1 = Raphael.animation(
 				future1, 2000, Raphael.EASING_BACKIN, new Callback() {					

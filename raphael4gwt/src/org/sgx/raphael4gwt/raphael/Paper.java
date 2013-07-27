@@ -449,7 +449,12 @@ txt[0].attr({fill: "#f00"});
 	public native final Shape getById(int id)/*-{
 		return this.getById(id);
 	}-*/;
-
+	/**
+	 * @return element by its internal ID. 
+	 */
+	public native final Shape getById(String id)/*-{
+		return this.getById(id);
+	}-*/;
 	/**Returns you topmost element under given point. 
 	 * Use it like:
 	 * <pre>
@@ -628,12 +633,25 @@ txt[0].attr({fill: "#f00"});
 	
 	
 	//custom attributes
+	/**
+	 * install a custom attribute.
+	 * @param caName the custom attribute name
+	 * @param callback 
+	 */
 	public final native void setCustomAttribute(String caName, AbstractCallback callback)/*-{
 		var fn = @org.sgx.raphael4gwt.raphael.jsutil.JsUtil::toJsFunction(Lorg/sgx/raphael4gwt/raphael/jsutil/AbstractCallback;)(callback);
 		this.customAttributes[caName] = fn; 
 	}-*/;
 
-	
+	/**
+	 * Get this paper's shape corresponding to the passed Dom element. 
+	 * @see https://groups.google.com/d/topic/raphaeljs/imEQIVn42nQ/discussion
+	 * @see http://jsfiddle.net/Jgnmh/6/
+	 * @param node the DOM element obtained with aShape.node 
+	 */
+	public final native Shape getShapeFromNode(Element node)/*-{
+		return this.getById(node.raphaelid); 
+	}-*/;
 	
 	
 	
@@ -643,7 +661,7 @@ txt[0].attr({fill: "#f00"});
 	
 	
 	
-	/// FREE TRANSFOrm: 
+	/// FREE TRANSFORM: 
 	public final native FreeTransform freeTransform(Shape s)/*-{
 		return this.freeTransform(s);
 	}-*/;

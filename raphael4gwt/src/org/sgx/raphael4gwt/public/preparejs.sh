@@ -15,6 +15,8 @@ java -jar $YUIC --line-break 200 -o raphael-svg-filter-min.js raphael-svg-filter
 #cp raphael4gwt.js raphael4gwt-min.js #do not compress cause it has a debugger;
 java -jar $YUIC --line-break 1200 -o raphael4gwt-min.js raphael4gwt.js
 
+
+#raphy charts
 java -jar $YUIC --line-break 1200 -o raphycharts-min.js raphycharts.js
 
 java -jar $YUIC --line-break 1200 -o moment-min.js moment.js
@@ -68,13 +70,13 @@ echo "
 cat raphael4gwt.js >> $ALL.js
 
 cp $ALL-min.js ../raphael/scripts
+cp $ALL.js ../raphael/scripts
 
 #cd graphael
 #sh preparejs.sh
 #cd ..
 
-
-moment-min.js moment.js
+#raphy charts
 java -jar $YUIC --line-break 1200 -o raphael-gantt-min.js raphael-gantt.js
 
 rm -rf raphycharts-all-min.js

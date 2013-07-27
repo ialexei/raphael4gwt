@@ -33,8 +33,65 @@
 /*
  * first of all some fixes that can be done with extensions
  */
-//(function() {
-//})(); 
+(function() {
+	
+	//R.is() fix for arrays: 	https://github.com/DmitryBaranovskiy/raphael/issues/564
+	
+	// sgurin: types utils for knowing js types
+	Raphael._sg_typesutils = {};
+	/**
+	 * utils.isArray
+	 * 
+	 * Best guess if object is an array.
+	 */
+	Raphael._sg_typesutils.isArray = function(obj) {
+		// do an instanceof check first
+		if (obj instanceof Array) {
+			return true;
+		}
+		// then check for obvious falses
+		if (typeof obj !== 'object') {
+			return false;
+		}
+		if (Raphael._sg_typesutils.type(obj) === 'array') {
+			return true;
+		}
+		return false;
+	};
+	/**
+	 * utils.type
+	 * 
+	 * Attempt to ascertain actual object type.
+	 */
+	Raphael._sg_typesutils.type = function(obj) {
+		if (obj === null || typeof obj === 'undefined') {
+			return String(obj);
+		}
+		return Object.prototype.toString.call(obj).replace(
+				/\[object ([a-zA-Z]+)\]/, '$1').toLowerCase();
+	};
+
+	Raphael.is = function(o, type) {
+		type = lowerCase.call(type);
+		if (type == "finite") {
+			return !isnan[has](+o);
+		}
+		if (type == "array") {
+			// return o instanceof Array;
+			return Raphael._sg_typesutils.isArray(o); // sgurin fix
+		}
+		return (type == "null" && o === null)
+				|| (type == typeof o && o !== null)
+				|| (type == "object" && o === Object(o))
+				|| (type == "array" && Array.isArray && Array.isArray(o))
+				|| objectToString.call(o).slice(8, -1).toLowerCase() == type;
+	};
+	
+})(); 
+
+
+//print letters / print on path extension
+
 
 
 (function() {

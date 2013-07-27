@@ -552,6 +552,13 @@ public static native boolean isSVG()/*-{
 	return $wnd.Raphael.SVG;
 }-*/;
 /**
+ * @return true if browser supports SVG. 
+ */
+public static native boolean is()/*-{
+	return $wnd.Raphael.SVG;
+}-*/;
+
+/**
  * @return true if browser supports VML. 
  */
 public static native boolean isVML()/*-{

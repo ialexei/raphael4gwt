@@ -1,6 +1,7 @@
 package org.sgx.raphael4gwt.test.gallery;
 
 import org.sgx.raphael4gwt.raphael.Paper;
+import org.sgx.raphael4gwt.raphael.Raphael;
 import org.sgx.raphael4gwt.raphael.util.GUIUtil;
 import org.sgx.raphael4gwt.raphael.widget.PaperWidget;
 
@@ -81,6 +82,7 @@ public class MainPanel extends VerticalPanel {
 		});		
 		toobarPanel.add(showJavaButton2);
 		
+		toobarPanel.add(new Label("Raphael version "+Raphael.version()));
 		
 		
 		horizontalSplitPanel = new HorizontalSplitPanel();

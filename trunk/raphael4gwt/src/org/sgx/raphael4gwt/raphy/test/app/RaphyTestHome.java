@@ -45,7 +45,7 @@ private void initTests() {
 	alltests.add(new IndexChartTest1());
 	alltests.add(new CircleProgressChartTest1());
 	alltests.add(new GRPieChartTest1());
-	alltests.add(new GRBarChartTest1());
+//	alltests.add(new GRBarChartTest1());
 	alltests.add(new GRDonutChartTest1());
 	alltests.add(new GRCoxcombChartTest1());
 	alltests.add(new GRDotChartTest1());

@@ -28,6 +28,9 @@ public class RaphaelLoader {
 
 		@Source("scripts/raphael4gwt-all-min.js")
 		ExternalTextResource raphael4gwtallminjs();
+		
+		@Source("scripts/raphael4gwt-all.js")
+		ExternalTextResource raphael4gwtalljs();
 
 		// @Source("../graphael/scripts/g.raphael.all-min.js")
 		// ExternalTextResource graphael4gwtallminjs();
@@ -36,18 +39,25 @@ public class RaphaelLoader {
 	protected static boolean raphaelLoaded = false;
 
 	public static void loadRaphael(final Listener l) {
+		loadRaphaelFrom(l, RaphaelScripts.instance.raphael4gwtallminjs());		
+	}
+	
+	public static void loadRaphaelDebug(final Listener l) {
+		loadRaphaelFrom(l, RaphaelScripts.instance.raphael4gwtalljs());		
+	}
+	
+	private static void loadRaphaelFrom(final Listener l, ExternalTextResource res) {
 		if (raphaelLoaded) {
 			l.loaded(null);
 		} else {
 			try {
-				RaphaelScripts.instance.raphael4gwtallminjs().getText(new ResourceCallback<TextResource>() {
+				res.getText(new ResourceCallback<TextResource>() {
 					@Override
 					public void onSuccess(TextResource r) {
 						ScriptInjector.fromString(r.getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
 						l.loaded(null);
 						raphaelLoaded = true;
 					}
-
 					@Override
 					public void onError(ResourceException e) {
 						l.loaded(e);
@@ -59,4 +69,5 @@ public class RaphaelLoader {
 		}
 	}
 
+	
 }

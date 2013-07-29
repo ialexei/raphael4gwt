@@ -3,7 +3,7 @@
 <module>
 	<inherits name="com.google.gwt.user.User" />
 
-	<inherits name="org.sgx.raphael4gwt.GRaphael4Gwt" />
+	<inherits name="org.sgx.raphael4gwt.Raphael4Gwt" />
 
 	<source path="client" />
 	<entry-point class="org.sgx.raphael4gwttest.client.Raphael4gwtTestEP"></entry-point>

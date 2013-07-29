@@ -3,9 +3,8 @@
 <module>
 	<inherits name="com.google.gwt.user.User" />
 
-	<inherits name="org.sgx.raphael4gwt.GRaphael4GwtNoScript" />
+	<inherits name="org.sgx.raphael4gwt.GRaphael4Gwt" />
 
 	<source path="client" />
-	<entry-point class="org.sgx.raphael4gwttest.client.Raphael4gwtNoScriptTestEP"></entry-point>
-	
+	<entry-point class="org.sgx.raphael4gwttest.client.GRaphael4gwtTestEP"></entry-point>
 </module>

@@ -44,15 +44,15 @@ private void initTests() {
 	alltests.add(new BarChartTest1());
 	alltests.add(new IndexChartTest1());
 	alltests.add(new CircleProgressChartTest1());
-	alltests.add(new GRPieChartTest1());
+//	alltests.add(new GRPieChartTest1());
 //	alltests.add(new GRBarChartTest1());
-	alltests.add(new GRDonutChartTest1());
-	alltests.add(new GRCoxcombChartTest1());
-	alltests.add(new GRDotChartTest1());
-	alltests.add(new GRLineChartTest1());
-	alltests.add(new GRRadarChartTest1());
-	alltests.add(new GRRaphalyticsChartTest1());
-	alltests.add(new GRSunBurstChartTest1());
+//	alltests.add(new GRDonutChartTest1());
+//	alltests.add(new GRCoxcombChartTest1());
+//	alltests.add(new GRDotChartTest1());
+//	alltests.add(new GRLineChartTest1());
+//	alltests.add(new GRRadarChartTest1());
+//	alltests.add(new GRRaphalyticsChartTest1());
+//	alltests.add(new GRSunBurstChartTest1());
 	alltests.add(new GanttChartTest1());
 	
 }

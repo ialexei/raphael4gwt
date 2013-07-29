@@ -5,12 +5,12 @@
 	<groupId>org.sgx</groupId>
 	<artifactId>raphael4gwt</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0</version>
+	<version>0.41</version>
 	<name>Gwt vector drawing and charts library, based on raphaeljs.com</name>
 	<url>http://code.google.com/p/raphael4gwt/</url>
 
 	<properties>
-		<gwt.version>2.5.0</gwt.version>
+		<gwt.version>2.5.1</gwt.version>
 		<java.version>${java.specification.version}</java.version>
 		<project.build.sourceEncoding>UTF8</project.build.sourceEncoding>
 	</properties>
@@ -49,13 +49,13 @@
 
 	<build>
 	
-<extensions>
-    <extension>
-      <groupId>org.jvnet.wagon-svn</groupId>
-      <artifactId>wagon-svn</artifactId>
-      <version>1.9</version>
-    </extension>
-  </extensions>
+		<extensions>
+		    <extension>
+		      <groupId>org.jvnet.wagon-svn</groupId>
+		      <artifactId>wagon-svn</artifactId>
+		      <version>1.9</version>
+		    </extension>
+		  </extensions>
   
 		<sourceDirectory>${basedir}/src</sourceDirectory>
 		<resources>
@@ -66,26 +66,19 @@
 					<include>**/*.gwt.xml</include>
 					<include>**/*.js</include>
 				</includes>
+				 <excludes>
+                    <exclude>**/raphael4gwt/test/**</exclude>                    
+                    <exclude>**/raphael4gwt/gtest/*</exclude>
+                    <exclude>**/raphael4gwt/public-raphael-test/**</exclude>
+                    <exclude>**/raphael4gwt/public-tut/**</exclude>               
+                    <exclude>**/raphael4gwt/tut/**</exclude>
+                </excludes>
+                <filtering>false</filtering>
 			</resource>
 		</resources>
 		
 		
     <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>gwt-maven-plugin</artifactId>
-        <version>2.5.0</version>
-        <executions>
-          <execution>
-<!--             <configuration> -->
-<!--               <module>org.sgx.jsutil.JsUtil</module> -->
-<!--             </configuration> -->
-            <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   <outputDirectory>${project.build.directory}/war/WEB-INF/classes</outputDirectory>
 	</build>

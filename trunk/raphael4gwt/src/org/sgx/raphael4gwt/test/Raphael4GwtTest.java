@@ -7,6 +7,7 @@ import org.sgx.raphael4gwt.raphael.Circle;
 import org.sgx.raphael4gwt.raphael.Constants;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Raphael;
+import org.sgx.raphael4gwt.raphael.RaphaelLoader;
 import org.sgx.raphael4gwt.raphael.Set;
 import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.Text;
@@ -22,6 +23,7 @@ import org.sgx.raphael4gwt.test.gallery.MainPanel;
 import org.sgx.raphael4gwt.test.gallery.GalleryResources;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.NativeEvent;
@@ -39,11 +41,76 @@ public class Raphael4GwtTest implements EntryPoint {
 	
 	@Override
 	public void onModuleLoad() {
-		testMainPanel();
+//		testMainPanelScriptUrl();
+//		testRaphaelLoaderTest1(); 
+		testRaphaelLoaderUrlManually();
+//		testMainPanel();
 //		testCustomAttrs();
 	}
+	
+	//use raphael loader for loading raphael javascript manually from urls: 
+	private void testRaphaelLoaderUrlManually() {
+		
+		//you can load raphael.js libraries directly from the author's website / cdn : 
+		String url = "https://raw.github.com/DmitryBaranovskiy/raphael/master/raphael.js";
+		
+		//or use provided file with all dependencies, including raphael and extensions
+		//String url = "org.sgx.raphael4gwt.Raphael4GwtTest/raphael4gwt-all.js"; 
+		
+		//load the script into the document and call testMainPanel() when loaded. 
+		RaphaelLoader.loadRaphaelFrom(new RaphaelLoader.Listener() {			
+			@Override
+			public void loaded(Exception error) {
+				if(error==null)
+					testMainPanel();
+				else
+					error.printStackTrace(); 
+			}
+		}, url); 
+	}
+	//one way of loading raphaeljs scripts and dependencies is manually
+	private void testMainPanelScriptUrl() {
+		
+		//you can load raphael.js libraries directly from the author's website / cdn : 
+		//String url = "https://raw.github.com/DmitryBaranovskiy/raphael/master/raphael.js";
+		
+		//or use provided file with all dependencies, including raphael and extensions
+		String url = "org.sgx.raphael4gwt.Raphael4GwtTest/raphael4gwt-all.js"; 
+		
+		//load the script into the document and call testMainPanel() when loaded. 	
+		ScriptInjector.fromUrl(url).setWindow(ScriptInjector.TOP_WINDOW)
+		.setCallback(new com.google.gwt.core.client.Callback<Void, Exception>() {			
+			@Override
+			public void onSuccess(Void result) {
+				testMainPanel();
+			}			
+			@Override
+			public void onFailure(Exception reason) {
+				reason.printStackTrace(); 
+			}
+		}).inject();
+	}
+
+	//if you want to just load raphael4gwt and all its required javascript dependencies just 
+	// use RaphaelLoader.loadRaphael like in the following example. 
+	private void testRaphaelLoaderTest1() {
+		RaphaelLoader.loadRaphael(new RaphaelLoader.Listener() {			
+			@Override
+			public void loaded(Exception error) {
+				if(error==null)
+					 testMainPanel() ; 
+				 else {
+					 error.printStackTrace(); 
+				 }
+			}
+		}); 
+	}
+
+
 	private void testMainPanel() {
-		RootPanel.get().add(new MainPanel());
+		MainPanel main = new MainPanel(); 
+		RootPanel.get().add(main);
+//		main.getPaperWidget().createPaper(); 
 	}
 	
 	

@@ -39,14 +39,34 @@ public class RaphaelLoader {
 	protected static boolean raphaelLoaded = false;
 
 	public static void loadRaphael(final Listener l) {
-		loadRaphaelFrom(l, RaphaelScripts.instance.raphael4gwtallminjs());		
+		loadRaphaelFrom(l, RaphaelScripts.instance.raphael4gwtallminjs());
+//		loadRaphaelFrom(l, "raphael4gwt-all-min.js"); 
 	}
 	
 	public static void loadRaphaelDebug(final Listener l) {
 		loadRaphaelFrom(l, RaphaelScripts.instance.raphael4gwtalljs());		
+//		loadRaphaelFrom(l, "raphael4gwt-all.js"); 
 	}
 	
-	private static void loadRaphaelFrom(final Listener l, ExternalTextResource res) {
+	public static void loadRaphaelFrom(final Listener l, String url) {
+		if (raphaelLoaded) {
+			l.loaded(null);
+		} else {
+			ScriptInjector.fromUrl(url).setWindow(ScriptInjector.TOP_WINDOW)
+			.setCallback(new com.google.gwt.core.client.Callback<Void, Exception>() {				
+				@Override
+				public void onSuccess(Void result) {
+					l.loaded(null); 
+				}				
+				@Override
+				public void onFailure(Exception reason) {
+					l.loaded(reason); 
+				}
+			}).inject();
+		}
+	}
+	
+	public static void loadRaphaelFrom(final Listener l, ExternalTextResource res) {
 		if (raphaelLoaded) {
 			l.loaded(null);
 		} else {

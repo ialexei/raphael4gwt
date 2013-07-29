@@ -68,6 +68,12 @@
 				/\[object ([a-zA-Z]+)\]/, '$1').toLowerCase();
 	};
 
+	//names from raphael.js
+    var objectToString = Object.prototype.toString, 
+    	lowerCase=String.prototype.toLowerCase, 
+    	isnan = {"NaN": 1, "Infinity": 1, "-Infinity": 1},
+        has = "hasOwnProperty";
+    	
 	Raphael.is = function(o, type) {
 		type = lowerCase.call(type);
 		if (type == "finite") {

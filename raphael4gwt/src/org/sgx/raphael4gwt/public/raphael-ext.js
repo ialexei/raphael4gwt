@@ -28,17 +28,14 @@
 
 
 /*
- * first of all some fixes that can be done with extensions
+ * These are some fixes that can be done with extensions - this is the only required extension for compliance with GWT (arrays of data in bar charts won't work.)
+ * R.is() fix for arrays: 	https://github.com/DmitryBaranovskiy/raphael/issues/564
  */
-(function() {
-	
-	//R.is() fix for arrays: 	https://github.com/DmitryBaranovskiy/raphael/issues/564
+(function() {	
 	
 	// sgurin: types utils for knowing js types
 	Raphael._sg_typesutils = {};
 	/**
-	 * utils.isArray
-	 * 
 	 * Best guess if object is an array.
 	 */
 	Raphael._sg_typesutils.isArray = function(obj) {
@@ -56,8 +53,6 @@
 		return false;
 	};
 	/**
-	 * utils.type
-	 * 
 	 * Attempt to ascertain actual object type.
 	 */
 	Raphael._sg_typesutils.type = function(obj) {
@@ -88,15 +83,13 @@
 				|| (type == "object" && o === Object(o))
 				|| (type == "array" && Array.isArray && Array.isArray(o))
 				|| objectToString.call(o).slice(8, -1).toLowerCase() == type;
-	};
-	
+	};	
 })(); 
 
 
+
+
 //print letters / print on path extension
-
-
-
 (function() {
 	/**
 	 * do the job of putting all letters in a set returned bu printLetters in a

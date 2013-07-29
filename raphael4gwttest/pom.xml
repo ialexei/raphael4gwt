@@ -18,7 +18,7 @@
 	</repositories>
 
 	<properties>
-		<gwt.version>2.5.0</gwt.version>
+		<gwt.version>2.5.1</gwt.version>
 		<java.version>${java.specification.version}</java.version>
 		<project.build.sourceEncoding>UTF8</project.build.sourceEncoding>
 	</properties>
@@ -29,15 +29,10 @@
 			<artifactId>gwt-user</artifactId>
 			<version>${gwt.version}</version>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.sgx</groupId> -->
-<!-- 			<artifactId>gwtjsutil</artifactId> -->
-<!-- 			<version>1.0</version> -->
-<!-- 		</dependency> -->
 		<dependency>
 			<groupId>org.sgx</groupId>
 			<artifactId>raphael4gwt</artifactId>
-			<version>1.0</version>
+			<version>0.41</version>
 		</dependency>
 	</dependencies>
 
@@ -58,7 +53,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>2.5.0</version>
+				<version>${gwt.version}</version>
 				<executions>
 					<execution>
 						<configuration>

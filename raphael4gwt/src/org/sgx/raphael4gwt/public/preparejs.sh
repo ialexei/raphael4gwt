@@ -49,9 +49,15 @@ echo "
 cat raphael4gwt-min.js >> $ALL-min.js
 
 
+
+echo "
+/* raphael */
+" > $ALL.js
+cat raphael.js >> $ALL.js
+
 echo "
 /* raphael-ext */
-" > $ALL.js
+" >> $ALL.js
 cat raphael-ext.js >> $ALL.js
 
 echo "

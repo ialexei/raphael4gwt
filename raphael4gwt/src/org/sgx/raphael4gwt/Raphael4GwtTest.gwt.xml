@@ -4,7 +4,7 @@
 	<inherits name="com.google.gwt.user.User" />
 
 	<inherits name="com.google.gwt.resources.Resources" />
-	<inherits name="org.sgx.raphael4gwt.Raphael4Gwt" />
+	<inherits name="org.sgx.raphael4gwt.Raphael4GwtNoScript" />
 	<inherits name='com.google.gwt.user.theme.clean.Clean' />
 
 	

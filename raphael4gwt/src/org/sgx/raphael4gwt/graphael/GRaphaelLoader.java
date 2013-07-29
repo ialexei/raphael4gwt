@@ -51,7 +51,6 @@ public class GRaphaelLoader {
 								ScriptInjector.fromString(r.getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
 								graphaelLoaded = true;
 								l.loaded(null);
-
 							}
 
 							@Override

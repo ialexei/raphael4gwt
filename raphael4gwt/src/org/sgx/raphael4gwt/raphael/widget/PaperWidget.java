@@ -48,12 +48,12 @@ Focusable, HasAllKeyHandlers*/
 		createPaper();
 	}
 
-	public PaperWidget() {
-		this(0, 0);
-	}
+//	public PaperWidget() {
+//		this(0, 0);
+//	}
 
 
-	private Paper createPaper() {
+	public Paper createPaper() {
 		if (paper == null && paperWidth > 0 && paperHeight > 0)
 			paper = Raphael.paper(paperEl, paperWidth, paperHeight);
 		return paper;

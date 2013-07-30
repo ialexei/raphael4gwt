@@ -351,26 +351,47 @@ This project has a maven project definition. You can for example, download the s
 {{{
 
 svn checkout http://raphael4gwt.googlecode.com/svn/trunk/raphael4gwt raphael4gwt-read-only
-cd aphael4gwt-read-only
-mvn install
+cd raphael4gwt-read-only/raphael4gwt
+mvn clean install
 
 }}}
 
-Once you have installed it on your system like before, then you can include it as a maven dependency in you Gwt projects. This is the relevant information for that. Sorry, this project is not currently on maven central or any other repository.
+Once you have installed it on your system like before, then you can include it as a maven dependency in you Gwt projects. This is the relevant information for that. Sorry, this project is not currently on maven central.
 
 {{{
 
 <groupId>org.sgx</groupId>
 <artifactId>raphael4gwt</artifactId>
-<version>1.0</version>
+<version>0.41</version>
 
 }}}
+
+Also, you can reference my personal maven repository that contains this project latest version. For that see [http://code.google.com/p/raphael4gwt/source/browse/raphael4gwttest/pom.xml example pom.xml]. The relevant parts: 
+
+{{{
+<repositories>
+  <repository>....
+    <id>sgmavenrepo</id>
+    <name>Maven Repository for sg libraries</name>
+    <url>http://sgmavenrepo.googlecode.com/svn/maven/repo</url>
+  </repository>
+</repositories>.
+
+<dependencies>....
+	<dependency>
+		<groupId>org.sgx</groupId>
+		<artifactId>raphael4gwt</artifactId>
+		<version>0.41</version>
+	</dependency>
+</dependencies>
+}}}
+
 
 
 
 =Project objectives=
 
-the objective is to provide the most direct java API to raphaeljs javascript API.
+The objective is to provide the most direct java API to raphaeljs javascript API.
 Nevertheless, when javascript overloading methods is overused in javascript, 
 some API methods are renamed from original. For example, Element.attr function
 is Divided into Shap.setAttribute(s) and getAttribute(s). 

@@ -10,9 +10,10 @@ public class BarOpts {
 		TYPE_SOFT="soft", TYPE_ROUND="round",
 		TYPE_SHARP="sharp", TYPE_SQUARE="square";
 		
-	boolean stacked;
-	String type, axis;
-	String [] axisXLabels, axisYLabels, colors;	
+	boolean stacked, stretch;
+	String type, gutter, vgutter;
+	double to;
+	String [] colors;	
 	
 	public BarOpts(){
 		this(false, TYPE_SOFT);
@@ -34,30 +35,66 @@ public class BarOpts {
 	public void setStacked(boolean stacked) {
 		this.stacked = stacked;
 	}
+
+	/**
+	 * type of endings of the bar. Default: 'square'. Other options are: 'round', 'sharp', 'soft'. One of TYPE_* constants
+	 * @param type
+	 */
 	public String getType() {
 		return type;
 	}
+	/**
+	 * type of endings of the bar. Default: 'square'. Other options are: 'round', 'sharp', 'soft'. One of TYPE_* constants
+	 * @param type
+	 */	
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getAxis() {
-		return axis;
+	/**
+	 * separation between bars, Must be a valid float number or something like "17%". Default value "20%"
+	 * @return
+	 */
+	public String getGutter() {
+		return gutter;
 	}
-	public void setAxis(String axis) {
-		this.axis = axis;
-	}	
-	public String[] getAxisXLabels() {
-		return axisXLabels;
+	/**
+	 * separation between bars, Must be a valid float number or something like "17%". Default value "20%"
+	 * @param gutter
+	 */
+	public void setGutter(String gutter) {
+		this.gutter = gutter;
 	}
-	public void setAxisXLabels(String[] axisXLabels) {
-		this.axisXLabels = axisXLabels;
+	/**
+	 * separation between bars, Must be a valid float number or something like "17%". Default value "20%"
+	 * @param gutter
+	 */
+	public String getVgutter() {
+		return vgutter;
+	}/**
+	 * separation between bars, Must be a valid float number or something like "17%". Default value "20%"
+	 * @param gutter
+	 */
+	public void setVgutter(String vgutter) {
+		this.vgutter = vgutter;
 	}
-	public String[] getAxisYLabels() {
-		return axisYLabels;
-	}
-	public void setAxisYLabels(String[] axisYLabels) {
-		this.axisYLabels = axisYLabels;
-	}
+//	public String getAxis() {
+//		return axis;
+//	}
+//	public void setAxis(String axis) {
+//		this.axis = axis;
+//	}	
+//	public String[] getAxisXLabels() {
+//		return axisXLabels;
+//	}
+//	public void setAxisXLabels(String[] axisXLabels) {
+//		this.axisXLabels = axisXLabels;
+//	}
+//	public String[] getAxisYLabels() {
+//		return axisYLabels;
+//	}
+//	public void setAxisYLabels(String[] axisYLabels) {
+//		this.axisYLabels = axisYLabels;
+//	}
 	
 	public String[] getColors() {
 		return colors;
@@ -65,14 +102,32 @@ public class BarOpts {
 	public void setColors(String[] colors) {
 		this.colors = colors;
 	}
+	
+	public boolean isStretch() {
+		return stretch;
+	}
+	public void setStretch(boolean stretch) {
+		this.stretch = stretch;
+	}
+	public double getTo() {
+		return to;
+	}
+	public void setTo(double to) {
+		this.to = to;
+	}
 	public JavaScriptObject toNative() {
 		JavaScriptObject o = JavaScriptObject.createObject();
 		JsUtil.putBoolean(o, "stacked", stacked);
+		JsUtil.putBoolean(o, "stretch", stretch);
+		JsUtil.put(o, "to", to);
 		JsUtil.put(o, "type", type);
-		JsUtil.put(o, "axis", axis);
+//		JsUtil.put(o, "axis", axis);
+		JsUtil.put(o, "gutter", gutter);
+		JsUtil.put(o, "vgutter", vgutter);
 		JsUtil.put(o, "colors", JsUtil.toJsArray(colors));
-		JsUtil.put(o, "axisxlabels", JsUtil.toJsArray(axisXLabels));
-		JsUtil.put(o, "axisylabels", JsUtil.toJsArray(axisYLabels));
+//		JsUtil.put(o, "axisxlabels", JsUtil.toJsArray(axisXLabels));
+//		JsUtil.put(o, "axisylabels", JsUtil.toJsArray(axisYLabels));
 		return o;
 	}
 }
+

@@ -40,7 +40,11 @@ public void test() {
 		{55, 20, 13, 32, 5, 1, 2, 10}
 	};
 	
-	barchart = getGPaper().barchart(10, 10, 200, 220, data2, new BarOpts(BarOpts.TYPE_SOFT));
+	BarOpts opts1 = new BarOpts();
+	opts1.setType(BarOpts.TYPE_SOFT); 
+	
+	barchart = getGPaper().barchart(10, 10, 400, 420, data2, opts1);
+	barchart.label(new String[][]{{"2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015"}}, false); 
 	BarSectorHoverListener hoverHandler1 = new BarSectorHoverListener() {				
 		@Override
 		public void hoverOut(BarContext ctx) {
@@ -54,6 +58,7 @@ public void test() {
 			if(flag2==null){
 				flag2=getGPaper().tag(ctx.getBar().getX(), 
 						ctx.getBar().getY(), ctx.getBar().getValue()+"", 0);
+				flag2.attr(Attrs.create().fill("blue").stroke("brown")); 
 			}	
 			if(flag1==null){
 				Rectangle bb = ctx.getBar().getBBox();
@@ -86,7 +91,12 @@ public void test() {
             		bar.getValue() + "", 0, 8);
         }
     };
-    hbarchart2 = getGPaper().hbarchart(300, 10, 200, 220, stackedData, new BarOpts(true, BarOpts.TYPE_SOFT));
+
+	BarOpts opts2 = new BarOpts();
+	opts2.setType(BarOpts.TYPE_ROUND); 
+	opts2.setStacked(true); 
+	
+    hbarchart2 = getGPaper().hbarchart(300, 10, 200, 220, stackedData, opts2);
     hbarchart2.hover(hoverHandlerStacked);
 
 }

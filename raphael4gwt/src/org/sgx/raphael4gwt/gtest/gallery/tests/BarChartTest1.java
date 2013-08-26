@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import org.sgx.raphael4gwt.graphael.GPaper;
 import org.sgx.raphael4gwt.graphael.bar.BarChart;
+import org.sgx.raphael4gwt.graphael.bar.BarOpts;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
@@ -28,9 +29,9 @@ public class BarChartTest1 extends Test {
 			{55, 20, 13, 32, 5, 1, 2, 10}
 		};
 		
-		getPaper().text(100,600, "click the chart for painting it...");
+		getPaper().text(100,600, "click the chart for painting it...");		
 		final BarChart barchart = getGPaper().barchart(100,100,400,400, vals);
-		logger.log(Level.SEVERE, barchart.print());
+//		logger.log(Level.SEVERE, barchart.print());
 		
 		//because charts are set we can iterate and paint each row.
 		barchart.attr("transform", "s1,1");

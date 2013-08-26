@@ -39,7 +39,7 @@ public class BarChartDynamicUpdate extends Test {
 			font("100 14px Serifa-Reg, Arial, sans-serif").
 			fill("#333333").fontStyle(Raphael.FONT_STYLE_ITALIC));
 		
-		final double[][] b1data = {{319309},{305303},{534917}};
+		final double[][] b1data = {{319309},{305303},{434917}};
 		final double[][] b2data = {{268210}, {263097}, {359183}};
 		final double[][] b3data = {{373217}, {64199}, {201510}};
 		
@@ -47,8 +47,8 @@ public class BarChartDynamicUpdate extends Test {
 		
 		BarOpts baropts = new BarOpts(true, BarOpts.TYPE_SOFT);
 		baropts.setStacked(false);
-		baropts.setAxis("0 0 1 1");
-		baropts.setAxisXLabels(new String[]{"2008", "2009", "2010"});
+//		baropts.setAxis("0 0 1 1");
+//		baropts.setAxisXLabels(new String[]{"2008", "2009", "2010"});
 		baropts.setColors(new String[]{"#999999","#333333","#666666"});
 		
 		chart = bars.barchart(100,0,300,400,bdata,baropts);
@@ -89,8 +89,8 @@ public class BarChartDynamicUpdate extends Test {
 	protected void doChangeVals(double[][] d) {
 		BarOpts baropts = new BarOpts(true, BarOpts.TYPE_SOFT);
 		baropts.setStacked(false);
-		baropts.setAxis("0 0 1 1");
-		baropts.setAxisXLabels(new String[]{"2008", "2009", "2010"});
+//		baropts.setAxis("0 0 1 1");
+//		baropts.setAxisXLabels(new String[]{"2008", "2009", "2010"});
 		
 		final BarChart c2 = bars.barchart(100, 0, 300, 400, d, baropts);		
 		final Set barSet = chart.getBars().<Set>cast(), 

@@ -61,24 +61,40 @@
 		<resources>
 			<resource>
 				<directory>${basedir}/src</directory>
+				 <excludes>
+                    <exclude>**/raphael4gwt/test/*</exclude>                    
+                    <exclude>**/raphael4gwt/gtest/*</exclude>
+                    <exclude>**/raphael4gwt/public-raphael-test/*</exclude>
+                    <exclude>**/raphael4gwt/public-tut/*</exclude>               
+                    <exclude>**/raphael4gwt/tut/*</exclude>
+                </excludes>
 				<includes>
 					<include>**/*.java</include>
 					<include>**/*.gwt.xml</include>
 					<include>**/*.js</include>
 				</includes>
-				 <excludes>
-                    <exclude>**/raphael4gwt/test/**</exclude>                    
-                    <exclude>**/raphael4gwt/gtest/*</exclude>
-                    <exclude>**/raphael4gwt/public-raphael-test/**</exclude>
-                    <exclude>**/raphael4gwt/public-tut/**</exclude>               
-                    <exclude>**/raphael4gwt/tut/**</exclude>
-                </excludes>
                 <filtering>false</filtering>
 			</resource>
 		</resources>
 		
 		
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
+        <version>${gwt.version}</version>
+        <executions>
+          <execution>
+            <configuration>
+				<warSourceDirectory>${project.build.directory}/war</warSourceDirectory>
+				<webappDirectory>${project.build.directory}/war</webappDirectory>
+            </configuration>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   <outputDirectory>${project.build.directory}/war/WEB-INF/classes</outputDirectory>
 	</build>

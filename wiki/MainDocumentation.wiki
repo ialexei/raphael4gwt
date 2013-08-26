@@ -386,7 +386,18 @@ Also, you can reference my personal maven repository that contains this project 
 </dependencies>
 }}}
 
+=Compiling Javascript=
+raphael4gwt includes all the raphael libraries files plus some extensions and charting libraries like graphael, raphycharts, gantt, etc. All of these javascripts are minified and packed into a single file so GWT modules like Raphael and GRaphael can easily include all the required javascript automatically. 
 
+These javascript files are located in folders src/org/sgx/raphael4gwt/public/ and src/org/sgx/raphael4gwt/public-graphael/. If you need to change any of them, then you will need to regenerate the minified versions. This can be easily done using grunt js as follows: 
+
+Install nodejs on your system
+{{{
+cd jseditors
+npm install grunt
+npm install grunt-contrib-uglify
+grunt
+}}}
 
 
 =Project objectives=

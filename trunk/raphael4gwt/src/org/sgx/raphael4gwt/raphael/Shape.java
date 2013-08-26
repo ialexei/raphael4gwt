@@ -857,8 +857,42 @@ console.log(el.transform());
 		return this.removeData(key);
 	}-*/;
 	
+	/**
+	 * Sets the status of animation of the element in milliseconds. Similar to status() method. 
+	 * Note, that during animation following events are triggered:
+		On each animation frame event "anim.frame.&lt;id>", on start "anim.start.&lt;id>" and on end "anim.finish.&lt;id>". 
+	 * @param anim animation object
+	 * @param value number of milliseconds from the beginning of the animation
+	 * @return original element if value is specified
+	 */
+	public final native Shape setTime(Animation anim, double value)/*-{
+		return this.setTime(anim, value);
+	}-*/;
 	
-	
+	/**
+	 * Gets the status of all animations of the element. 
+	 * @return
+	 */
+	public final native JsArray<AnimStatus> status()/*-{
+		return this.status();
+	}-*/;
+	/**
+	 * Gets the status of animation of the element. 
+	 * @param anim animation object
+	 * @return
+	 */
+	public final native AnimStatus status(Animation anim)/*-{
+		return this.status(anim);
+	}-*/;
+	/**
+	 * Sets the status of animation of the element.
+	 * @param anim animation object
+	 * @param status 0 – 1. If specified, method works like a setter and sets the status of a given animation to the value. This will cause animation to jump to the given position. 
+	 * @return
+	 */
+	public final native AnimStatus status(Animation anim, double status)/*-{
+		return this.status(anim, status);
+	}-*/;
 	
 	
 	// EXTENSIONS - see raphael-ext.js

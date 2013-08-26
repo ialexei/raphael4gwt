@@ -83,7 +83,7 @@ cp $ALL.js ../raphael/scripts
 #cd ..
 
 #raphy charts
-java -jar $YUIC --line-break 1200 -o raphael-gantt-min.js raphael-gantt.js
+#java -jar $YUIC --line-break 1200 -o raphael-gantt-min.js raphael-gantt.js
 
 rm -rf raphycharts-all-min.js
 cat moment-min.js >> raphycharts-all-min.js

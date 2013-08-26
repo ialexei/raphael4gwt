@@ -8,6 +8,7 @@ import org.sgx.raphael4gwt.graphael.line.LineContext;
 import org.sgx.raphael4gwt.graphael.line.LineHoverListener;
 import org.sgx.raphael4gwt.graphael.line.LineOpts;
 import org.sgx.raphael4gwt.raphael.Paper;
+import org.sgx.raphael4gwt.raphael.Raphael;
 import org.sgx.raphael4gwt.raphael.Set;
 import org.sgx.raphael4gwt.gtest.gallery.Test;
 /**
@@ -41,16 +42,17 @@ public class LineChartTest1 extends Test {
 		opts1.setFill(false);
 		opts1.setShade(true);
 		opts1.setSmooth(true);
+		opts1.setWidth(3);
+		opts1.setDash(Raphael.STROKE_DASHARRAY_DASH_DASH); 
+		opts1.setColors(new String[]{"#f23", "#23f"}); 
 		opts1.setSymbol("circle");
 		final LineChart linechart3 = getGPaper().
-				linechart(0, 220, 200,200, valuesx, valuesy, opts1);
-		linechart3.hoverColumn(new LineHoverListener() {
-			
+				linechart(0, 220, 300, 300, valuesx, valuesy, opts1);
+		linechart3.hoverColumn(new LineHoverListener() {			
 			@Override
 			public void hoverOut(LineContext ctx) {
 				tags3.remove();
 			}
-			
 			@Override
 			public void hoverIn(LineContext ctx) {
 				GPaper r = getGPaper();

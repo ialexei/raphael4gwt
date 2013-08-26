@@ -49,6 +49,12 @@ public class JsUtil {
 		o[pname]=val;
 		return o; 
 	}-*/;
+	public static native JavaScriptObject putObject(JavaScriptObject o, String pname, JavaScriptObject val)/*-{
+		o[pname]=val;
+		return o; 
+	}-*/;
+	
+	
 	public static native JsArrayString props(JavaScriptObject o)/*-{
 		var props = [];
 		for(var i in o) {
@@ -305,5 +311,5 @@ public class JsUtil {
 	public static final native <T> Collection<T> toJavaCollection(JavaScriptObject array)/*-{
 		return @org.sgx.raphael4gwt.raphael.jsutil.JsArrayCollection::create(Lcom/google/gwt/core/client/JavaScriptObject;)(array); 
 	}-*/;
-	
+
 }

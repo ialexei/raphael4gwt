@@ -19,5 +19,9 @@ public static Document newDocument(VEditor veditor, Paper p, String string,
 	veditor.setCurrentDocument(d);	
 	return d;
 }
-
+public static Document newDocument(VEditor veditor, Paper p, String string) {
+	Document d = new Document1(veditor, p, "unamed1");
+	veditor.setCurrentDocument(d);	
+	return d;
+}
 }

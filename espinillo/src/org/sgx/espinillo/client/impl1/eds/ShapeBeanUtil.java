@@ -16,14 +16,7 @@ import com.google.gwt.user.client.Window;
  */
 public class ShapeBeanUtil {
 
-	public static void copyShapeBean(ShapeBean dest, Set shape) {
-		Shape s = null;
-		if(shape!=null && shape.size()==1) {
-			s=ShapeUtil.getInstance().getFirst(shape);
-		}
-		else if(shape!=null && shape.size()>1){
-			s=shape;
-		}
+	public static void copyShapeBean(ShapeBean dest, Shape s) {
 		if(s!=null) {
 			String val = s.getAttribute("fill");
 			if(Util.notNull(val)) {

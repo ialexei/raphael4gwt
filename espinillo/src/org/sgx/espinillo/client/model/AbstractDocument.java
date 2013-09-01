@@ -101,8 +101,9 @@ public abstract class AbstractDocument implements Document {
 	public void execute(Command cmd) {	
 		List<CommandListener> listeners = commandListeners.get(cmd.getClass());
 		if(listeners!=null) for(CommandListener l : listeners) {
-			if(!l.beforeCommandExec(cmd))
-				return;
+//			if(!l.beforeCommandExec(cmd))
+//				return;
+			l.beforeCommandExec(cmd); 
 		}
 		if(cmd.doIt()) {
 			getCommandStack().push(cmd);

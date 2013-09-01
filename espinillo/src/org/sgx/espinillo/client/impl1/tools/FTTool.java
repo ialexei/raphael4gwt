@@ -66,7 +66,7 @@ public class FTTool extends AbstractTool {
 			@Override
 			public boolean call(Shape shape, int index) {
 				boolean result = !ShapeUtil.isShape(shape);
-				logger.log(Level.INFO, "AAAA: "+result);
+//				logger.log(Level.INFO, "AAAA: "+result);
 				return result;
 			}
 		});
@@ -137,8 +137,8 @@ public class FTTool extends AbstractTool {
 		 * so we demodify it and execute a ChangeShapeAttrsCmd
 		 */							
 		Attrs newAttrs = feedback.attr();
-		VEditorWidget.getInstance().getStatus().setText("hello: "+s.getRotate()); 
-		Window.alert(JsUtil.dump(s, false));
+		VEditorWidget.getInstance().getStatus().setText("transformation: rotation="+s.getRotate()+", translateX="+s.getTranslateX()); 
+//		Window.alert(JsUtil.dump(s, false));
 //		Window.alert(JsUtil.get(s, "subject")+"");
 //		fs.attr(originalAttrs);
 //		fs.show();

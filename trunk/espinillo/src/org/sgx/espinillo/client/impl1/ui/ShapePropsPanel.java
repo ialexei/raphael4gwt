@@ -3,6 +3,10 @@ package org.sgx.espinillo.client.impl1.ui;
 import org.sgx.espinillo.client.impl1.commands.ChangeShapeAttrsCmd;
 import org.sgx.espinillo.client.impl1.eds.ShapeBeanUtil;
 import org.sgx.espinillo.client.impl1.eds.ShapeBean;
+import org.sgx.espinillo.client.impl1.model.VEditor1;
+import org.sgx.espinillo.client.impl1.util.ShapeUtil;
+import org.sgx.espinillo.client.model.Command;
+import org.sgx.espinillo.client.model.CommandListener;
 import org.sgx.espinillo.client.model.Document;
 import org.sgx.gwteditors.client.editor.Editor;
 import org.sgx.gwteditors.client.editor.event.EditorValueChangeEvent;
@@ -48,10 +52,46 @@ public class ShapePropsPanel extends VerticalPanel {
 				curDoc.execute(cmd);
 			}
 		});
+//		Document d = VEditorWidget.getInstance().getCurrentDocument(); 
+//		VEditorWidget.getInstance().getCurrentDocument().addCommandListener(ChangeShapeAttrsCmd.class, new CommandListener() {
+//			
+//			@Override
+//			public void onCommandExec(Command c) {
+//				ChangeShapeAttrsCmd cc = (ChangeShapeAttrsCmd) c;
+//				Set selection = VEditorWidget.getInstance().getCurrentDocument().getSelection();
+//				
+//				if(selection.contains(cc.getShape())) {
+//					Shape s = null;
+//					if(selection!=null && selection.size()==1) {
+//						s=ShapeUtil.getInstance().getFirst(selection);
+//					}
+//					
+//					ShapeBeanUtil.copyShapeBean(currentSelectionShapeBean, s);
+////					Window.alert(currentSelectionShapeBean.getFill()); 
+//					getSelectedShapeEditor().load(currentSelectionShapeBean);
+//				}
+//				
+//			}
+//			
+//			@Override
+//			public boolean beforeCommandExec(Command c) {
+//				// TODO Auto-generated method stub
+//				return true;
+//			}
+//		}); 
 	}
 
 	public void notifyEspinilloSelectionChange(Set selection) {
-		ShapeBeanUtil.copyShapeBean(currentSelectionShapeBean, selection);
+
+		Shape s = null;
+		if(selection!=null && selection.size()==1) {
+			s=ShapeUtil.getInstance().getFirst(selection);
+		}
+//		currentSelection=s;
+//		else if(selection!=null && selection.size()>1){
+//			s=selection;
+//		}
+		ShapeBeanUtil.copyShapeBean(currentSelectionShapeBean, s);
 //		Window.alert(currentSelectionShapeBean.getFill()); 
 		getSelectedShapeEditor().load(currentSelectionShapeBean);
 	}
@@ -59,5 +99,34 @@ public class ShapePropsPanel extends VerticalPanel {
 
 	public Editor<ShapeBean> getSelectedShapeEditor() {
 		return shapeEditor;
+	}
+//	ChangeShapeAttrsCmd cc = (ChangeShapeAttrsCmd) c;
+//	Set selection = VEditorWidget.getInstance().getCurrentDocument().getSelection();
+//	
+//	if(selection.contains(cc.getShape())) {
+//		Shape s = null;
+//		if(selection!=null && selection.size()==1) {
+//			s=ShapeUtil.getInstance().getFirst(selection);
+//		}
+//		
+//		ShapeBeanUtil.copyShapeBean(currentSelectionShapeBean, s);
+////		Window.alert(currentSelectionShapeBean.getFill()); 
+//		getSelectedShapeEditor().load(currentSelectionShapeBean);
+//	}
+	
+	public void doShapeChange(Command c) {
+		ChangeShapeAttrsCmd cc = (ChangeShapeAttrsCmd) c;
+		Set selection = VEditorWidget.getInstance().getCurrentDocument().getSelection();
+		
+		if(selection.contains(cc.getShape())) {
+			Shape s = null;
+			if(selection!=null && selection.size()==1) {
+				s=ShapeUtil.getInstance().getFirst(selection);
+			}
+			
+			ShapeBeanUtil.copyShapeBean(currentSelectionShapeBean, s);
+//			Window.alert(currentSelectionShapeBean.getFill()); 
+			getSelectedShapeEditor().load(currentSelectionShapeBean);
+		}
 	}
 }

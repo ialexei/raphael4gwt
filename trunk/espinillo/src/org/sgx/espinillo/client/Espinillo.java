@@ -1,7 +1,6 @@
 package org.sgx.espinillo.client;
 
 import org.sgx.espinillo.client.impl1.ui.VEditorWidget;
-import org.sgx.gwteditors.client.test.slidertest.TestPanel1;
 
 
 import com.google.gwt.core.client.EntryPoint;

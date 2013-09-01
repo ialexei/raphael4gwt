@@ -3,8 +3,8 @@ package org.sgx.espinillo.client.impl1.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.sgx.raphael4gwt.raphael.PaperWidget;
 import org.sgx.raphael4gwt.raphael.event.PaperListener;
+import org.sgx.raphael4gwt.raphael.widget.PaperWidget;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
@@ -16,8 +16,8 @@ import com.google.gwt.user.client.Event;
  */
 public class RCPaperWidget extends PaperWidget {
 
-	public RCPaperWidget(int paperWidth, int paperHeight, PaperListener onload) {
-		super(paperWidth, paperHeight, onload);
+	public RCPaperWidget(int paperWidth, int paperHeight) {
+		super(paperWidth, paperHeight);
 		sinkEvents(Event.ONCONTEXTMENU);
 	}
 	

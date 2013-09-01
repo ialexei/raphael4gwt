@@ -56,43 +56,43 @@ public class PaperOverlay extends HTML {
 
 	private void onRightClickBroker(HTML aThis, Event event) {
 
-		final PopupPanel popupPanel = new PopupPanel();
-		popupPanel.setPixelSize(85, 100);
-
-		Command showPlayerCommand = new Command() {
-			public void execute() {
-
-				popupPanel.hide();
-				VEditorWidget.getInstance().paperWidget.remove(popupPanel);
-
-			}
-		};
-
-		VEditorWidget.getInstance().rightClickFired = true;
-		// Window.alert("audio icon right clicked");
-		MenuBar popupMenuBar = new MenuBar(true);
-		MenuItem playerItem = new MenuItem("Play", true, showPlayerCommand);
-
-		popupMenuBar.addItem(playerItem);
-		popupMenuBar.setVisible(true);
-		popupPanel.add(popupMenuBar);
-
-		DOM.setStyleAttribute(popupPanel.getElement(), "background-color",
-				"gray");
-		DOM.setStyleAttribute(popupPanel.getElement(), "border-color",
-				"gray gray gray gray");
-		DOM.setStyleAttribute(popupPanel.getElement(), "border-width",
-				"1px 3px 3px 1px");
-		DOM.setStyleAttribute(popupPanel.getElement(), "border-style",
-				"solid solid solid solid");
-		DOM.setStyleAttribute(playerItem.getElement(), "font-weight", "normal");
-		DOM.setStyleAttribute(playerItem.getElement(), "font-size", "80%");
-
-		popupPanel.setVisible(true);
-		popupPanel.getElement().setId("popuppanel1");
-//		popupPanel.set
-//		, event.getClientX(),	event.getClientY()
-		VEditorWidget.getInstance().paperWidget.add(popupPanel);
+//		final PopupPanel popupPanel = new PopupPanel();
+//		popupPanel.setPixelSize(85, 100);
+//
+//		Command showPlayerCommand = new Command() {
+//			public void execute() {
+//
+//				popupPanel.hide();
+//				VEditorWidget.getInstance().paperWidget.remove(popupPanel);
+//
+//			}
+//		};
+//
+//		VEditorWidget.getInstance().rightClickFired = true;
+//		// Window.alert("audio icon right clicked");
+//		MenuBar popupMenuBar = new MenuBar(true);
+//		MenuItem playerItem = new MenuItem("Play", true, showPlayerCommand);
+//
+//		popupMenuBar.addItem(playerItem);
+//		popupMenuBar.setVisible(true);
+//		popupPanel.add(popupMenuBar);
+//
+//		DOM.setStyleAttribute(popupPanel.getElement(), "background-color",
+//				"gray");
+//		DOM.setStyleAttribute(popupPanel.getElement(), "border-color",
+//				"gray gray gray gray");
+//		DOM.setStyleAttribute(popupPanel.getElement(), "border-width",
+//				"1px 3px 3px 1px");
+//		DOM.setStyleAttribute(popupPanel.getElement(), "border-style",
+//				"solid solid solid solid");
+//		DOM.setStyleAttribute(playerItem.getElement(), "font-weight", "normal");
+//		DOM.setStyleAttribute(playerItem.getElement(), "font-size", "80%");
+//
+//		popupPanel.setVisible(true);
+//		popupPanel.getElement().setId("popuppanel1");
+////		popupPanel.set
+////		, event.getClientX(),	event.getClientY()
+//		VEditorWidget.getInstance().paperWidget.add(popupPanel);
 
 	}
 }

@@ -1,17 +1,15 @@
 package org.sgx.raphael4gwt.gtest.gallery.tests;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.sgx.raphael4gwt.graphael.GPaper;
 import org.sgx.raphael4gwt.graphael.bar.BarChart;
-import org.sgx.raphael4gwt.graphael.bar.BarOpts;
+import org.sgx.raphael4gwt.gtest.gallery.Test;
 import org.sgx.raphael4gwt.raphael.Paper;
+import org.sgx.raphael4gwt.raphael.Path;
+import org.sgx.raphael4gwt.raphael.PathCmd;
 import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.event.MouseEventListener;
-import org.sgx.raphael4gwt.raphael.jsutil.JsUtil;
-import org.sgx.raphael4gwt.gtest.gallery.Test;
 
 import com.google.gwt.dom.client.NativeEvent;
 /**
@@ -59,6 +57,21 @@ public class BarChartTest1 extends Test {
 		});
 		barchart.label(new String[][]{{"c++", "java", "python", "smalltalk", "lisp", 
 			"javascript", "perl", "shall"}}, true);
+		
+		//trying to reproduce a (non)bug: 
+		Shape lp1;
+		PathCmd pc3 = new PathCmd(400, 400), aux = pc3;
+		int x = 400;
+		for (int i = 0; i < 24; i++) {
+			aux = aux.lineto(x = x - 20, 300);
+		}
+		aux.close();
+		lp1 = getPaper().path(pc3.toPathString()).attr(Attrs.create().strokeWidth(5));
+		Path test = (Path) lp1;// Casting --> no problem here
+		String shortPath = test.getSubpath(0, 1); // <--- error occurs
+		System.out.println("shortPath: "+shortPath);
+
+
 	}
 
 	//test class stuff

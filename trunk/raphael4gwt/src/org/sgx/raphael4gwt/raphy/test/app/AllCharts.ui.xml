@@ -10,7 +10,7 @@
 
 	<g:HTMLPanel>
 
-		<p class="{style.title1}">All Charts types supported by raphaelgwt</p>
+		<p class="{style.title1}">All Chart types supported by raphaelgwt</p>
 		<p>
 			This document shows all the charts types supported by
 			<a href="http://code.google.com/p/raphael4gwt/">raphael4gwt</a>

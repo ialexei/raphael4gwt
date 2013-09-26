@@ -3,18 +3,17 @@ package org.sgx.raphael4gwt.test;
 import org.sgx.raphael4gwt.raphael.Paper;
 import org.sgx.raphael4gwt.raphael.Path;
 import org.sgx.raphael4gwt.raphael.PathCmd;
+import org.sgx.raphael4gwt.raphael.Shape;
 import org.sgx.raphael4gwt.raphael.base.Attrs;
 import org.sgx.raphael4gwt.raphael.util.Util;
 import org.sgx.raphael4gwt.test.gallery.GalleryUtil;
 /**
  * show different types of using the artificial type PathCmd for 
- * programatically create a path in java (using pbjects not string based api)
+ * programatically create a path in java (using objects not string based api)
  * @author sg
- *
  */
 public class PathCmdsTest1 extends Test {
-
-
+	
 	@Override
 	public void test() {
 		Attrs attrs = Attrs.create().fill("#33ff11").
@@ -28,7 +27,9 @@ public class PathCmdsTest1 extends Test {
 		PathCmd pc2 = new PathCmd(0,0);
 		pc2.smoothQuadBezierCurveTo(new double[][]{{10,20}, {40,40}, {40,50}, {60,20}}).close();
 		getPaper().text(450,20, "smoothQuadBezierCurveTo(new \ndouble[][]{{10,20}, {40,40}, {40,50}, {60,20}}).close()");		
-		getPaper().path(pc2.toPathString()).attr("transform", "t450,20s2").attr(attrs);
+		Path path2 = getPaper().path(pc2.toPathString()).attr("transform", "t450,20s2").attr(attrs).cast();
+		String subpath2 = path2.getSubpath(0, 1); 
+		System.out.println(subpath2);
 		
 		
 		//and now a random path

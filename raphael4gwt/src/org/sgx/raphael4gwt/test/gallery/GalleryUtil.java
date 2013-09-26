@@ -12,6 +12,7 @@ import org.sgx.raphael4gwt.test.AllMouseEvents;
 import org.sgx.raphael4gwt.test.AllPathIcons;
 import org.sgx.raphael4gwt.test.AnimKeyframesTest1;
 import org.sgx.raphael4gwt.test.AnimTransformAndPathTest1;
+import org.sgx.raphael4gwt.test.AnimationPerformanceTest;
 import org.sgx.raphael4gwt.test.AttributesTest1;
 import org.sgx.raphael4gwt.test.CSSTest1;
 import org.sgx.raphael4gwt.test.ComponentTransferLinearTest1;
@@ -40,6 +41,7 @@ import org.sgx.raphael4gwt.test.MouseRelativeCoordsTest;
 import org.sgx.raphael4gwt.test.PaperLoadAndSave;
 import org.sgx.raphael4gwt.test.PaperLoadAndSaveUnit1;
 import org.sgx.raphael4gwt.test.PaperViewBoxTest1;
+import org.sgx.raphael4gwt.test.PathCmdsTest1;
 import org.sgx.raphael4gwt.test.SetGlowing1;
 import org.sgx.raphael4gwt.test.SvgFiltersColorMatrix;
 import org.sgx.raphael4gwt.test.SvgFiltersComponentTransfer;
@@ -275,8 +277,8 @@ public class GalleryUtil {
 		t = new ShapeUnitTest1(paper, w, h);
 		tests.put(t.getName(), t);
 
-//		t = new PathCmdsTest1(paper, w, h);
-//		tests.put(t.getName(), t);
+		t = new PathCmdsTest1(paper, w, h);
+		tests.put(t.getName(), t);
 		
 		t = new LivePathTest(paper, w, h);
 		tests.put(t.getName(), t);
@@ -357,6 +359,10 @@ public class GalleryUtil {
 		
 		t = new SvgFiltersLighting1(paper, w, h);
 		tests.put(t.getName(), t);
+		
+		t = new AnimationPerformanceTest(paper, w, h);
+		tests.put(t.getName(), t);
+		
 	}
 
 	Map<String, List<Test>> getTestsByTag() {
